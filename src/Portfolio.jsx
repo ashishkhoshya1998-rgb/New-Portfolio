@@ -39,6 +39,7 @@ function MC({ metric, label, color }) { const { t } = useTheme(); return <div st
 
 function Img({ label, aspect = "16/9", color = AMBER, caption }) { const { t } = useTheme(); return (<FadeIn><div style={{ margin: "32px 0" }}><div style={{ aspectRatio: aspect, background: `linear-gradient(135deg, ${color}08 0%, ${color}03 100%)`, border: `1px dashed ${color}30`, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 12, position: "relative", overflow: "hidden" }}><div style={{ position: "absolute", inset: 0, backgroundImage: `linear-gradient(${color}06 1px, transparent 1px), linear-gradient(90deg, ${color}06 1px, transparent 1px)`, backgroundSize: "20px 20px", pointerEvents: "none" }} /><div style={{ width: 48, height: 48, borderRadius: "50%", border: `2px solid ${color}40`, display: "flex", alignItems: "center", justifyContent: "center", position: "relative", zIndex: 1 }}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="m21 15-5-5L5 21" /></svg></div><div style={{ fontFamily: FB, fontSize: 11, color: `${color}`, letterSpacing: "1.5px", textTransform: "uppercase", fontWeight: 600, textAlign: "center", padding: "0 20px", position: "relative", zIndex: 1 }}>{label}</div></div>{caption && <div style={{ fontFamily: FB, fontSize: 12, color: t.muted, marginTop: 10, fontStyle: "italic", textAlign: "center" }}>{caption}</div>}</div></FadeIn>); }
 function CsImg({ src, alt, caption }) { const { t } = useTheme(); return (<FadeIn><div style={{ margin: "32px 0" }}><img src={src} alt={alt} style={{ width: "100%", display: "block", borderRadius: 4, border: `1px solid ${t.border}` }} loading="lazy" />{caption && <div style={{ fontFamily: FB, fontSize: 12, color: t.muted, marginTop: 10, fontStyle: "italic", textAlign: "center" }}>{caption}</div>}</div></FadeIn>); }
+function CsVid({ src, caption }) { const { t } = useTheme(); return (<FadeIn><div style={{ margin: "32px 0" }}><video src={src} autoPlay loop muted playsInline style={{ width: "100%", display: "block", borderRadius: 4, border: `1px solid ${t.border}` }} />{caption && <div style={{ fontFamily: FB, fontSize: 12, color: t.muted, marginTop: 10, fontStyle: "italic", textAlign: "center" }}>{caption}</div>}</div></FadeIn>); }
 function BA({ beforeLabel, afterLabel }) { const m = useIsMobile(); return (<FadeIn><div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "1fr 1fr", gap: 16, margin: "32px 0" }}>{[{ l: beforeLabel, tag: "BEFORE", c: "#F55050" }, { l: afterLabel, tag: "AFTER", c: GREEN }].map((x, i) => (<div key={i} style={{ aspectRatio: "4/3", background: `linear-gradient(135deg, ${x.c}06 0%, transparent 100%)`, border: `1px dashed ${x.c}30`, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 10, position: "relative" }}><div style={{ position: "absolute", top: 12, left: 12, fontFamily: FB, fontSize: 10, fontWeight: 700, letterSpacing: "2px", color: x.c, background: `${x.c}15`, padding: "4px 10px" }}>{x.tag}</div><div style={{ fontFamily: FB, fontSize: 11, color: "#8A8578", textAlign: "center", padding: "0 16px" }}>{x.l}</div></div>))}</div></FadeIn>); }
 function Vid({ label, color = AMBER }) { return (<FadeIn><div style={{ margin: "32px 0", aspectRatio: "16/9", background: `linear-gradient(135deg, ${color}06 0%, ${color}02 100%)`, border: `1px dashed ${color}25`, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 14 }}><div style={{ width: 56, height: 56, borderRadius: "50%", background: `${color}12`, display: "flex", alignItems: "center", justifyContent: "center" }}><svg width="24" height="24" viewBox="0 0 24 24" fill={color}><polygon points="9.5,7.5 16.5,12 9.5,16.5" /></svg></div><div style={{ fontFamily: FB, fontSize: 12, color, letterSpacing: "1.5px", textTransform: "uppercase", fontWeight: 600 }}>{label}</div></div></FadeIn>); }
 
@@ -99,7 +100,7 @@ function ThemeToggle() {
 
 /* ═══ NAV ═══ */
 function Nav({ activeSection, currentPage, goBack, goHome, goTo }) {
-  const { t } = useTheme(); const links = ["About", "Work", "Experience", "Skills", "Contact"]; const m = useIsMobile();
+  const { t } = useTheme(); const links = ["About", "Work", "Experience", "Skills", "Resume", "Contact"]; const m = useIsMobile();
   const [drawer, setDrawer] = useState(false);
   const jump = (id) => { scrollTo(id); setDrawer(false); };
   const caseStudies = [
@@ -234,6 +235,226 @@ function SkillsSection() { const { t } = useTheme(); const m = useIsMobile();
     </div>
     <div style={{ marginTop: 40 }}><FadeIn><SL>Tools</SL><div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 14 }}>{["Figma", "Framer", "Miro / FigJam", "Storybook", "Notion", "Jira / Linear", "Principle"].map((x, i) => <span key={i} style={{ fontFamily: FB, fontSize: 13, color: t.muted, background: t.card, padding: "8px 16px", border: `1px solid ${t.border}`, borderRadius: 4 }}>{x}</span>)}</div></FadeIn></div>
     </Wrap></section>);
+}
+
+/* ═══ RESUME ═══ */
+function ResumeSection() {
+  const { t } = useTheme();
+  const m = useIsMobile();
+  const RESUME_URL = "https://drive.google.com/file/d/1DEdqvDBGJCDk0lDyIx1ENO_LssvrCy_s/view";
+
+  const workHistory = [
+    {
+      company: "ZZAZZ Terminal",
+      location: "Remote",
+      roles: [
+        { title: "Designer · UX Architect · Product Architect", period: "2024 · ~6 Months", bullets: [
+          "Architected 7 interconnected verticals for a new content economy ecosystem",
+          "Collaborated with Founder, Product Lead & AI team for scoping and feasibility",
+          "Redesigned Exchange from table-first to query-led AI-native interaction",
+          "Created Moments vertical — defined IA, wireframes, delegated execution",
+          "Designed TimePay's three-path access model for India's market",
+        ]}
+      ]
+    },
+    {
+      company: "Clear (ClearTax)",
+      location: "Bengaluru",
+      roles: [
+        { title: "Senior Product Designer", period: "Jan 2024 – Present", bullets: [
+          "Leading design for GST products serving 1.4Cr+ businesses across India",
+          "Driving design system evolution (Mint V8) and cross-team design ops",
+          "Mentoring junior designers on research methods and system thinking",
+        ]},
+        { title: "Product Designer", period: "Jun 2022 – Dec 2023", bullets: [
+          "Redesigned GSTR-3B filing — reduced filing time from 1 hr to 8 min (87% reduction)",
+          "Built Mint V8 design system with PCS Logic — 80% variant reduction (760 → 32 buttons)",
+          "Led 50+ user interviews with MSMEs and enterprises across India",
+          "Improved filing adoption by 53% and accuracy to 94%",
+        ]},
+        { title: "Associate Product Designer", period: "Jun 2021 – May 2022", bullets: [
+          "Contributed to GST product UI improvements and compliance workflows",
+          "Built component library foundations in collaboration with engineering",
+        ]},
+      ]
+    },
+    {
+      company: "Visit Health",
+      location: "Internship",
+      roles: [
+        { title: "Product Design Intern", period: "Jan 2021 – May 2021", bullets: [
+          "Designed health-tech interfaces for patient and doctor workflows",
+          "Contributed to mobile app UX improvements and design system foundations",
+        ]}
+      ]
+    },
+  ];
+
+  const education = [
+    { institution: "IIT Guwahati", degree: "B.Tech", score: "7.08 CGPA", period: "2017 – 2021" },
+    { institution: "RPS Public School", degree: "Class XII (CBSE)", score: "90.2%", period: "2017" },
+  ];
+
+  const coreSkills = [
+    { category: "Design", items: ["Product Design", "Design Systems", "Interaction Design", "Information Architecture", "Visual Design"] },
+    { category: "Research", items: ["User Research", "Field Studies", "Usability Testing", "Journey Mapping", "Stakeholder Interviews"] },
+    { category: "Strategy", items: ["Product Architecture", "Ecosystem Design", "Design Ops", "Cross-functional Leadership"] },
+  ];
+
+  const tools = ["Figma", "Framer", "Storybook", "Principle", "Miro / FigJam", "Notion", "Jira / Linear", "After Effects"];
+
+  const certifications = [
+    "Google UX Design Professional Certificate",
+    "Interaction Design Foundation — UX Management",
+  ];
+
+  const achievements = [
+    "IIT Guwahati — Bachelor of Technology (top engineering institute in India)",
+    "Led design system adopted across entire organisation within 6 weeks",
+    "Published design thinking articles on Medium",
+    "Conducted 50+ user interviews with MSMEs and enterprise clients",
+  ];
+
+  return (
+    <section id="resume" aria-label="Resume" style={{ paddingTop: m ? 60 : 100, paddingBottom: m ? 60 : 100 }}>
+      <Wrap>
+        <FadeIn>
+          <SL>Resume</SL>
+          <div style={{ display: "flex", flexDirection: m ? "column" : "row", justifyContent: "space-between", alignItems: m ? "flex-start" : "center", gap: 16, marginBottom: 12 }}>
+            <h2 style={{ fontFamily: FD, fontSize: m ? 28 : 42, color: t.text, margin: 0, fontWeight: 400, lineHeight: 1.15 }}>Ashish <span style={{ fontStyle: "italic" }}>Khoshya</span></h2>
+            <a href={RESUME_URL} target="_blank" rel="noopener noreferrer" style={{
+              display: "inline-flex", alignItems: "center", gap: 8, padding: m ? "10px 18px" : "11px 24px",
+              background: t.accent, color: "#0A0A0A", fontFamily: FB, fontSize: 13, fontWeight: 600,
+              border: "none", cursor: "pointer", borderRadius: 4, textDecoration: "none", flexShrink: 0
+            }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF
+            </a>
+          </div>
+          <p style={{ fontFamily: FB, fontSize: 15, lineHeight: 1.7, color: t.subtle, maxWidth: 640, marginBottom: 8 }}>
+            Senior Product Designer with 4+ years of experience in enterprise UX, design systems, and product architecture. Passionate about turning complex systems into intuitive experiences at scale.
+          </p>
+          <div style={{ display: "flex", gap: m ? 12 : 20, flexWrap: "wrap", marginBottom: 36 }}>
+            {[
+              { icon: "📍", text: "Bengaluru, India" },
+              { icon: "📧", text: "ashish.khoshya1998@gmail.com" },
+              { icon: "📱", text: "+91 7988721132" },
+            ].map((c, i) => (
+              <span key={i} style={{ fontFamily: FB, fontSize: 12, color: t.muted, display: "flex", alignItems: "center", gap: 6 }}>
+                <span>{c.icon}</span>{c.text}
+              </span>
+            ))}
+          </div>
+        </FadeIn>
+
+        {/* Work Experience */}
+        <FadeIn>
+          <div style={{ marginBottom: 48 }}>
+            <div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 600, color: t.accent, marginBottom: 24, paddingBottom: 10, borderBottom: `2px solid ${t.accent}` }}>Work Experience</div>
+            {workHistory.map((w, wi) => (
+              <div key={wi} style={{ marginBottom: 32, position: "relative" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
+                  <h3 style={{ fontFamily: FD, fontSize: m ? 20 : 24, color: t.text, margin: 0, fontWeight: 400 }}>{w.company}</h3>
+                  <span style={{ fontFamily: FB, fontSize: 12, color: t.muted, fontStyle: "italic" }}>{w.location}</span>
+                </div>
+                {w.roles.map((r, ri) => (
+                  <div key={ri} style={{ marginTop: ri === 0 ? 12 : 20, paddingLeft: m ? 12 : 20, borderLeft: `2px solid ${t.border}` }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: 8 }}>
+                      <div style={{ fontFamily: FB, fontSize: 14, color: t.text, fontWeight: 600 }}>{r.title}</div>
+                      <div style={{ fontFamily: FB, fontSize: 12, color: t.muted }}>{r.period}</div>
+                    </div>
+                    <ul style={{ margin: "8px 0 0 0", padding: "0 0 0 16px", listStyle: "none" }}>
+                      {r.bullets.map((b, bi) => (
+                        <li key={bi} style={{ fontFamily: FB, fontSize: 13, lineHeight: 1.7, color: t.subtle, marginBottom: 4, position: "relative", paddingLeft: 12 }}>
+                          <span style={{ position: "absolute", left: 0, top: "0.55em", width: 4, height: 4, borderRadius: "50%", background: t.accent, opacity: 0.6 }} />
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </FadeIn>
+
+        {/* Education */}
+        <FadeIn>
+          <div style={{ marginBottom: 48 }}>
+            <div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 600, color: t.accent, marginBottom: 24, paddingBottom: 10, borderBottom: `2px solid ${t.accent}` }}>Education</div>
+            <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "1fr 1fr", gap: 14 }}>
+              {education.map((e, i) => (
+                <div key={i} style={{ padding: m ? 20 : 24, background: t.card, border: `1px solid ${t.border}`, borderRadius: 4 }}>
+                  <h4 style={{ fontFamily: FD, fontSize: 20, color: t.text, margin: "0 0 4px 0", fontWeight: 400 }}>{e.institution}</h4>
+                  <div style={{ fontFamily: FB, fontSize: 13, color: t.subtle }}>{e.degree}</div>
+                  <div style={{ display: "flex", justifyContent: "space-between", marginTop: 10 }}>
+                    <span style={{ fontFamily: FB, fontSize: 13, color: t.accent, fontWeight: 600 }}>{e.score}</span>
+                    <span style={{ fontFamily: FB, fontSize: 12, color: t.muted }}>{e.period}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </FadeIn>
+
+        {/* Skills Grid */}
+        <FadeIn>
+          <div style={{ marginBottom: 48 }}>
+            <div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 600, color: t.accent, marginBottom: 24, paddingBottom: 10, borderBottom: `2px solid ${t.accent}` }}>Core Competencies</div>
+            <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "repeat(3, 1fr)", gap: 14 }}>
+              {coreSkills.map((cat, ci) => (
+                <div key={ci} style={{ padding: m ? 20 : 24, background: t.card, border: `1px solid ${t.border}`, borderRadius: 4 }}>
+                  <div style={{ fontFamily: FB, fontSize: 12, fontWeight: 600, color: t.accent, letterSpacing: "1.5px", textTransform: "uppercase", marginBottom: 12 }}>{cat.category}</div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                    {cat.items.map((item, ii) => (
+                      <span key={ii} style={{ fontFamily: FB, fontSize: 12, color: t.subtle, background: `${t.accent}10`, padding: "4px 10px", borderRadius: 3 }}>{item}</span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </FadeIn>
+
+        {/* Tools */}
+        <FadeIn>
+          <div style={{ marginBottom: 48 }}>
+            <div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 600, color: t.accent, marginBottom: 24, paddingBottom: 10, borderBottom: `2px solid ${t.accent}` }}>Tools & Software</div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+              {tools.map((tool, i) => (
+                <span key={i} style={{ fontFamily: FB, fontSize: 13, color: t.muted, background: t.card, padding: "8px 16px", border: `1px solid ${t.border}`, borderRadius: 4 }}>{tool}</span>
+              ))}
+            </div>
+          </div>
+        </FadeIn>
+
+        {/* Certifications & Achievements side by side */}
+        <FadeIn>
+          <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "1fr 1fr", gap: 20 }}>
+            <div>
+              <div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 600, color: t.accent, marginBottom: 24, paddingBottom: 10, borderBottom: `2px solid ${t.accent}` }}>Certifications</div>
+              {certifications.map((c, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 12 }}>
+                  <span style={{ color: t.accent, fontSize: 14, marginTop: 2, flexShrink: 0 }}>✦</span>
+                  <span style={{ fontFamily: FB, fontSize: 13, color: t.subtle, lineHeight: 1.6 }}>{c}</span>
+                </div>
+              ))}
+            </div>
+            <div>
+              <div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 600, color: t.accent, marginBottom: 24, paddingBottom: 10, borderBottom: `2px solid ${t.accent}` }}>Achievements</div>
+              {achievements.map((a, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 12 }}>
+                  <span style={{ color: t.accent, fontSize: 14, marginTop: 2, flexShrink: 0 }}>✦</span>
+                  <span style={{ fontFamily: FB, fontSize: 13, color: t.subtle, lineHeight: 1.6 }}>{a}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </FadeIn>
+
+      </Wrap>
+    </section>
+  );
 }
 
 /* ═══ CONTACT ═══ */
@@ -436,6 +657,7 @@ function MintV8Detail({ goBack }) { const { t } = useTheme(); const C = BLUE, m 
       ["On Primary", "mint.cfc.sys.color.on-primary", "mint.cfc.ref.color.base-white", "#FFFFFF"],
       ["Primary Container", "mint.cfc.sys.color.primary-container", "mint.cfc.ref.color.blue-50", "#EFF8FF"],
     ]} />
+    <CsVid src="/cs/mint-token-arch.webm" caption="Token architecture in action — typography, spacing, colour, radius and elevation tokens driving the entire system" />
     <CsImg src="/cs/mint-color-tokens.png" alt="Color token system — functional naming over appearance naming" caption="Color tokens: functional names (primary, on-primary) map to different values per theme" />
   </CS>
   <Divider />
@@ -519,7 +741,7 @@ function MintV8Detail({ goBack }) { const { t } = useTheme(); const C = BLUE, m 
 </Wrap>); }
 
 /* ═══ HOME ═══ */
-function HomePage({ onOpen }) { const { t } = useTheme(); const [as, setAs] = useState("about"); const m = useIsMobile(); useEffect(() => { const h = () => { for (const id of ["contact", "skills", "experience", "work", "about"]) { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top < 300) { setAs(id); break; } } }; window.addEventListener("scroll", h); return () => window.removeEventListener("scroll", h); }, []); return (<><Nav activeSection={as} currentPage="home" goHome={() => window.scrollTo({ top: 0, behavior: "smooth" })} goTo={onOpen} /><main id="main-content"><Hero /><section id="work" aria-label="Selected Work" style={{ paddingTop: m ? 60 : 100, paddingBottom: m ? 60 : 100 }}><Wrap><FadeIn><SL>Selected Work</SL><h2 style={{ fontFamily: FD, fontSize: m ? 28 : 42, color: t.text, margin: "0 0 44px 0", fontWeight: 400, lineHeight: 1.15 }}>Featured <span style={{ fontStyle: "italic" }}>Case Studies</span></h2></FadeIn><div style={{ display: "flex", flexDirection: "column", gap: 28 }}>{projects.map(p => <ProjectCard key={p.id} project={p} onOpen={onOpen} />)}</div></Wrap></section><ExperienceTimeline /><SkillsSection /><ContactSection /></main></>); }
+function HomePage({ onOpen }) { const { t } = useTheme(); const [as, setAs] = useState("about"); const m = useIsMobile(); useEffect(() => { const h = () => { for (const id of ["contact", "resume", "skills", "experience", "work", "about"]) { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top < 300) { setAs(id); break; } } }; window.addEventListener("scroll", h); return () => window.removeEventListener("scroll", h); }, []); return (<><Nav activeSection={as} currentPage="home" goHome={() => window.scrollTo({ top: 0, behavior: "smooth" })} goTo={onOpen} /><main id="main-content"><Hero /><section id="work" aria-label="Selected Work" style={{ paddingTop: m ? 60 : 100, paddingBottom: m ? 60 : 100 }}><Wrap><FadeIn><SL>Selected Work</SL><h2 style={{ fontFamily: FD, fontSize: m ? 28 : 42, color: t.text, margin: "0 0 44px 0", fontWeight: 400, lineHeight: 1.15 }}>Featured <span style={{ fontStyle: "italic" }}>Case Studies</span></h2></FadeIn><div style={{ display: "flex", flexDirection: "column", gap: 28 }}>{projects.map(p => <ProjectCard key={p.id} project={p} onOpen={onOpen} />)}</div></Wrap></section><ExperienceTimeline /><SkillsSection /><ResumeSection /><ContactSection /></main></>); }
 
 /* ═══ ROOT ═══ */
 export default function Portfolio() {

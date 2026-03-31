@@ -5,7 +5,16 @@
       "name": "Portfolio Dev Server",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
-      "port": 5173
+      "port": 5173,
+      "autoPort": true,
+      "cwd": "/Users/ashishkhoshya/Downloads/portfolio-deploy"
+    },
+    {
+      "name": "Memoir Dev Server",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--port", "5174"],
+      "port": 5174,
+      "cwd": "/Users/ashishkhoshya/Downloads/portfolio-deploy/.claude/worktrees/busy-roentgen"
     },
     {
       "name": "Portfolio Preview",
