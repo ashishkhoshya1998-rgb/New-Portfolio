@@ -100,7 +100,7 @@ function ThemeToggle() {
 
 /* ═══ NAV ═══ */
 function Nav({ activeSection, currentPage, goBack, goHome, goTo }) {
-  const { t } = useTheme(); const links = ["About", "Work", "Experience", "Skills", "Resume", "Contact"]; const m = useIsMobile();
+  const { t } = useTheme(); const links = ["About", "Work", "Resume", "Contact"]; const m = useIsMobile();
   const [drawer, setDrawer] = useState(false);
   const jump = (id) => { scrollTo(id); setDrawer(false); };
   const caseStudies = [
@@ -212,45 +212,12 @@ function Hero() {
 function ProjectCard({ project, onOpen }) { const { t } = useTheme(); const [h, setH] = useState(false); const m = useIsMobile(); return (<FadeIn><div onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)} onClick={() => onOpen(project.id)} role="button" tabIndex="0" aria-label={`Open ${project.title} case study`} onKeyDown={e => (e.key === "Enter" || e.key === " ") && onOpen(project.id)} style={{ background: t.card, border: `1px solid ${t.border}`, padding: m ? 24 : 44, position: "relative", overflow: "hidden", cursor: "pointer", transition: "all 0.4s", transform: h ? "translateY(-4px)" : "none", borderRadius: 4 }}><div style={{ position: "absolute", top: 0, left: 0, width: h ? "100%" : "0%", height: 2, background: project.color, transition: "width 0.6s cubic-bezier(0.22,1,0.36,1)" }} /><div style={{ display: "flex", flexDirection: m ? "column" : "row", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 18, gap: m ? 4 : 0 }}><div><div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 600, color: project.color, marginBottom: 10 }}>{project.category}</div><h3 style={{ fontFamily: FD, fontSize: m ? 24 : 28, color: t.text, margin: 0, fontWeight: 400, lineHeight: 1.2 }}>{project.title}</h3><p style={{ fontFamily: FB, fontSize: m ? 13 : 14, color: t.muted, marginTop: 6, fontStyle: "italic" }}>{project.subtitle}</p></div><div style={{ fontFamily: FB, fontSize: 12, color: t.muted }}>{project.date}</div></div><div style={{ display: "flex", gap: 8, marginBottom: 18, flexWrap: "wrap" }}>{[project.role, project.team].map((x, i) => <span key={i} style={{ fontFamily: FB, fontSize: 11, color: t.muted, background: t.card, padding: "4px 12px", border: `1px solid ${t.border}` }}>{x}</span>)}</div><p style={{ fontFamily: FB, fontSize: m ? 14 : 15, lineHeight: 1.7, color: t.subtle, marginBottom: 24 }}>{project.overview}</p><div style={{ display: "grid", gridTemplateColumns: m ? "repeat(2,1fr)" : "repeat(4,1fr)", gap: 1, background: t.border, borderRadius: 4, overflow: "hidden" }}>{project.results.map((r, i) => <div key={i} style={{ background: t.bg, padding: m ? "16px 10px" : "18px 12px", textAlign: "center" }}><div style={{ fontFamily: FD, fontSize: m ? 22 : 26, color: project.color, fontWeight: 700 }}>{r.m}</div><div style={{ fontFamily: FB, fontSize: m ? 10 : 11, color: t.muted, marginTop: 5 }}>{r.l}</div></div>)}</div><div style={{ marginTop: 22, fontFamily: FB, fontSize: 13, color: project.color, fontWeight: 600, display: "flex", alignItems: "center", gap: h ? 14 : 8, transition: "gap 0.3s" }}>Read Case Study <span style={{ transition: "transform 0.3s", transform: h ? "translateX(4px)" : "none" }}>→</span></div></div></FadeIn>); }
 
 /* ═══ EXPERIENCE ═══ */
-function ExperienceTimeline() { const { t } = useTheme(); const m = useIsMobile(); return (<section id="experience" aria-label="Experience and Education" style={{ paddingTop: m ? 60 : 100, paddingBottom: m ? 60 : 100 }}><Wrap><FadeIn><SL>Career</SL><h2 style={{ fontFamily: FD, fontSize: m ? 28 : 42, color: t.text, margin: "0 0 44px 0", fontWeight: 400, lineHeight: 1.15 }}>Experience & <span style={{ fontStyle: "italic" }}>Education</span></h2></FadeIn><div style={{ maxWidth: 720, width: "100%", position: "relative" }}><div style={{ position: "absolute", left: 7, top: 8, bottom: 8, width: 1, background: t.border }} />{experience.map((exp, i) => (<FadeIn key={i}><div style={{ marginBottom: 44 }}><div style={{ display: "flex", alignItems: "center", gap: 18, marginBottom: 18 }}><div style={{ width: 15, height: 15, borderRadius: "50%", background: t.accent, flexShrink: 0, boxShadow: `0 0 12px ${t.accent}40` }} /><div><h3 style={{ fontFamily: FD, fontSize: 24, color: t.text, margin: 0, fontWeight: 400 }}>{exp.company}</h3><span style={{ fontFamily: FB, fontSize: 13, color: t.muted, fontStyle: "italic" }}>{exp.subtitle}</span></div></div>{exp.roles.map((r, j) => <div key={j} style={{ marginLeft: 33, marginBottom: 24, paddingLeft: 18, borderLeft: `1px solid ${t.border}` }}><div style={{ fontFamily: FB, fontSize: 15, color: t.text, fontWeight: 600 }}>{r.title}</div><div style={{ fontFamily: FB, fontSize: 12, color: t.muted, marginTop: 3, marginBottom: 10 }}>{r.period}</div>{r.highlights.map((h, k) => <p key={k} style={{ fontFamily: FB, fontSize: 14, lineHeight: 1.7, color: t.subtle, marginBottom: 6 }}>{h}</p>)}</div>)}</div></FadeIn>))}<FadeIn delay={0.3}><div style={{ display: "flex", alignItems: "center", gap: 18 }}><div style={{ width: 15, height: 15, borderRadius: "50%", border: `2px solid ${t.accent}`, background: t.bg, flexShrink: 0 }} /><div><h3 style={{ fontFamily: FD, fontSize: 24, color: t.text, margin: 0, fontWeight: 400 }}>IIT Guwahati</h3><div style={{ fontFamily: FB, fontSize: 13, color: t.muted, marginTop: 3 }}>B.Tech · 7.08 CGPA · 2017–2021</div></div></div></FadeIn></div></Wrap></section>); }
-
-/* ═══ SKILLS — proof-based ═══ */
-function SkillsSection() { const { t } = useTheme(); const m = useIsMobile();
-  const proofs = [
-    { skill: "Design Systems", proof: "Built Mint V8 from scratch — 80% variant reduction via PCS Logic, 2 themes, 100% adoption in 6 weeks.", color: BLUE },
-    { skill: "Product Architecture", proof: "Architected 7-vertical ecosystem at Zzazz.ai, scoping with Founder and AI team.", color: AMBER },
-    { skill: "UX Research", proof: "50+ interviews for GSTR-3B. Discovered 'adoption ≠ proficiency' flaw through field shadowing.", color: GREEN },
-    { skill: "Interaction Design", proof: "GSTR-3B: 1hr → 8min. Exchange: table-first → query-led AI interaction.", color: GREEN },
-    { skill: "Information Architecture", proof: "Full IA for Moments and GSTR-3B's 6-step filing workflow.", color: AMBER },
-    { skill: "Accessibility", proof: "GSTR-3B: keyboard nav, WCAG AA contrast, screen-reader forms, multi-cue error states for India's diverse MSME population.", color: "#F55050" },
-  ];
-  return (<section id="skills" aria-label="Skills" style={{ paddingTop: m ? 60 : 100, paddingBottom: m ? 60 : 100 }}>
-    <Wrap>
-    <FadeIn><SL>What I Bring</SL><h2 style={{ fontFamily: FD, fontSize: m ? 28 : 42, color: t.text, margin: "0 0 12px 0", fontWeight: 400 }}>Skills, <span style={{ fontStyle: "italic" }}>Proven</span></h2><p style={{ fontFamily: FB, fontSize: 15, lineHeight: 1.7, color: t.subtle, maxWidth: 600, marginBottom: 36 }}>I don't self-rate skills in percentages. Here's what I bring and the shipped work behind each.</p></FadeIn>
-    <div style={{ display: "flex", flexDirection: "column", gap: 14, maxWidth: 800 }}>
-      {proofs.map((p, i) => <FadeIn key={i} delay={i * 0.06}><div style={{ padding: m ? 20 : 26, background: t.card, border: `1px solid ${t.border}`, borderRadius: 4 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}><div style={{ width: 8, height: 8, borderRadius: "50%", background: p.color, flexShrink: 0 }} /><div style={{ fontFamily: FB, fontSize: 14, color: t.text, fontWeight: 600 }}>{p.skill}</div></div>
-        <p style={{ fontFamily: FB, fontSize: 14, lineHeight: 1.7, color: t.subtle, margin: 0 }}>{p.proof}</p>
-      </div></FadeIn>)}
-    </div>
-    <div style={{ marginTop: 40 }}><FadeIn><SL>Tools</SL><div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 14 }}>{["Figma", "Framer", "Miro / FigJam", "Storybook", "Notion", "Jira / Linear", "Principle"].map((x, i) => <span key={i} style={{ fontFamily: FB, fontSize: 13, color: t.muted, background: t.card, padding: "8px 16px", border: `1px solid ${t.border}`, borderRadius: 4 }}>{x}</span>)}</div></FadeIn></div>
-    </Wrap></section>);
-}
-
 /* ═══ RESUME ═══ */
 function ResumeSection({ goBack }) {
   const { t } = useTheme();
   const m = useIsMobile();
   const RESUME_URL = "https://drive.google.com/file/d/1DEdqvDBGJCDk0lDyIx1ENO_LssvrCy_s/view";
   const [dlHover, setDlHover] = useState(false);
-
-  /* ── Impact highlights (recruiter scannable in <6 seconds) ── */
-  const highlights = [
-    { metric: "60%", label: "Filing time reduced", sub: "GSTR-3B · 10+ GSTINs at scale" },
-    { metric: "700+→32", label: "Button variants cut", sub: "Mint V8 · PCS Logic" },
-    { metric: "65%", label: "Support queries down", sub: "Table-4 ITC automation" },
-    { metric: "53%", label: "Adoption increase", sub: "GST filing · 18% → 53%" },
-  ];
 
   const workHistory = [
     {
@@ -369,43 +336,6 @@ function ResumeSection({ goBack }) {
             </a>
           </div>
 
-          {/* ── Contact strip ── */}
-          <div style={{ display: "flex", gap: m ? 8 : 0, flexWrap: "wrap", marginBottom: 32, borderRadius: 6, overflow: "hidden", border: `1px solid ${t.border}` }}>
-            {[
-              { label: "Location", value: "Bengaluru, India", href: null },
-              { label: "Email", value: "ashish.khoshya1998@gmail.com", href: "mailto:ashish.khoshya1998@gmail.com" },
-              { label: "LinkedIn", value: "ashish-khoshya", href: "https://linkedin.com/in/ashish-khoshya" },
-              { label: "Medium", value: "@ashish.khoshya1998", href: "https://medium.com/@ashish.khoshya1998" },
-            ].map((c, i) => (
-              <div key={i} style={{ flex: m ? "1 1 100%" : "1 1 0", padding: m ? "10px 16px" : "14px 20px", borderRight: (!m && i < 3) ? `1px solid ${t.border}` : "none", borderBottom: (m && i < 3) ? `1px solid ${t.border}` : "none", background: t.card }}>
-                <div style={{ fontFamily: FB, fontSize: 9, letterSpacing: "2px", textTransform: "uppercase", color: t.muted, marginBottom: 4, fontWeight: 600 }}>{c.label}</div>
-                {c.href ? (
-                  <a href={c.href} target="_blank" rel="noopener noreferrer" style={{ fontFamily: FB, fontSize: m ? 12 : 13, color: t.text, textDecoration: "none", borderBottom: `1px solid transparent`, transition: "border-color 0.2s" }}
-                    onMouseEnter={e => e.currentTarget.style.borderColor = t.accent} onMouseLeave={e => e.currentTarget.style.borderColor = "transparent"}>{c.value}</a>
-                ) : (
-                  <div style={{ fontFamily: FB, fontSize: m ? 12 : 13, color: t.text }}>{c.value}</div>
-                )}
-              </div>
-            ))}
-          </div>
-        </FadeIn>
-
-        {/* ── Impact Metrics Bar — the "6-second scan" ── */}
-        <FadeIn>
-          <div style={{ marginBottom: 48 }}>
-            <div style={{ fontFamily: FB, fontSize: 10, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 700, color: t.accent, marginBottom: 16 }}>Career Impact</div>
-            <div style={{ display: "grid", gridTemplateColumns: m ? "repeat(2, 1fr)" : "repeat(4, 1fr)", gap: 1, background: t.border, borderRadius: 8, overflow: "hidden" }}>
-              {highlights.map((h, i) => (
-                <FadeIn key={i} delay={i * 0.08}>
-                  <div style={{ background: t.card, padding: m ? "20px 16px" : "28px 24px", textAlign: "center", position: "relative" }}>
-                    <div style={{ fontFamily: FD, fontSize: m ? 32 : 40, color: t.accent, fontWeight: 700, lineHeight: 1 }}>{h.metric}</div>
-                    <div style={{ fontFamily: FB, fontSize: 12, color: t.text, fontWeight: 600, marginTop: 8, letterSpacing: "0.3px" }}>{h.label}</div>
-                    <div style={{ fontFamily: FB, fontSize: 10, color: t.muted, marginTop: 4, fontStyle: "italic" }}>{h.sub}</div>
-                  </div>
-                </FadeIn>
-              ))}
-            </div>
-          </div>
         </FadeIn>
 
         {/* ── Professional Summary ── */}
@@ -561,31 +491,6 @@ function ResumeSection({ goBack }) {
                   </div>
                 </div>
               ))}
-            </div>
-          </div>
-        </FadeIn>
-
-        {/* ── Bottom CTA ── */}
-        <FadeIn>
-          <div style={{ padding: m ? 24 : 36, background: t.card, border: `1px solid ${t.border}`, borderRadius: 8, textAlign: "center" }}>
-            <div style={{ fontFamily: FD, fontSize: m ? 20 : 26, color: t.text, fontWeight: 400, marginBottom: 8 }}>Interested in working together?</div>
-            <p style={{ fontFamily: FB, fontSize: 14, color: t.muted, marginBottom: 20 }}>Download my full resume or get in touch directly.</p>
-            <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-              <a href={RESUME_URL} target="_blank" rel="noopener noreferrer" style={{
-                display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 24px",
-                background: t.accent, color: "#0A0A0A", fontFamily: FB, fontSize: 13, fontWeight: 700,
-                border: "none", borderRadius: 6, textDecoration: "none"
-              }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Download PDF
-              </a>
-              <a href="mailto:ashish.khoshya1998@gmail.com" style={{
-                display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 24px",
-                background: "transparent", color: t.text, fontFamily: FB, fontSize: 13, fontWeight: 500,
-                border: `1px solid ${t.border}`, borderRadius: 6, textDecoration: "none"
-              }}>
-                Say Hello
-              </a>
             </div>
           </div>
         </FadeIn>
@@ -936,7 +841,7 @@ function ResumePage({ goBack }) {
   return <ResumeSection goBack={goBack} />;
 }
 
-function HomePage({ onOpen }) { const { t } = useTheme(); const [as, setAs] = useState("about"); const m = useIsMobile(); useEffect(() => { const h = () => { for (const id of ["contact", "resume", "skills", "experience", "work", "about"]) { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top < 300) { setAs(id); break; } } }; window.addEventListener("scroll", h); return () => window.removeEventListener("scroll", h); }, []); return (<><Nav activeSection={as} currentPage="home" goHome={() => window.scrollTo({ top: 0, behavior: "smooth" })} goTo={onOpen} /><main id="main-content"><Hero /><section id="work" aria-label="Selected Work" style={{ paddingTop: m ? 60 : 100, paddingBottom: m ? 60 : 100 }}><Wrap><FadeIn><SL>Selected Work</SL><h2 style={{ fontFamily: FD, fontSize: m ? 28 : 42, color: t.text, margin: "0 0 44px 0", fontWeight: 400, lineHeight: 1.15 }}>Featured <span style={{ fontStyle: "italic" }}>Case Studies</span></h2></FadeIn><div style={{ display: "flex", flexDirection: "column", gap: 28 }}>{projects.map(p => <ProjectCard key={p.id} project={p} onOpen={onOpen} />)}</div></Wrap></section><ExperienceTimeline /><SkillsSection /><ResumeCard onOpen={onOpen} /><ContactSection /></main></>); }
+function HomePage({ onOpen }) { const { t } = useTheme(); const [as, setAs] = useState("about"); const m = useIsMobile(); useEffect(() => { const h = () => { for (const id of ["contact", "resume", "work", "about"]) { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top < 300) { setAs(id); break; } } }; window.addEventListener("scroll", h); return () => window.removeEventListener("scroll", h); }, []); return (<><Nav activeSection={as} currentPage="home" goHome={() => window.scrollTo({ top: 0, behavior: "smooth" })} goTo={onOpen} /><main id="main-content"><Hero /><section id="work" aria-label="Selected Work" style={{ paddingTop: m ? 60 : 100, paddingBottom: m ? 60 : 100 }}><Wrap><FadeIn><SL>Selected Work</SL><h2 style={{ fontFamily: FD, fontSize: m ? 28 : 42, color: t.text, margin: "0 0 44px 0", fontWeight: 400, lineHeight: 1.15 }}>Featured <span style={{ fontStyle: "italic" }}>Case Studies</span></h2></FadeIn><div style={{ display: "flex", flexDirection: "column", gap: 28 }}>{projects.map(p => <ProjectCard key={p.id} project={p} onOpen={onOpen} />)}</div></Wrap></section><ResumeCard onOpen={onOpen} /><ContactSection /></main></>); }
 
 /* ═══ ROOT ═══ */
 export default function Portfolio() {
