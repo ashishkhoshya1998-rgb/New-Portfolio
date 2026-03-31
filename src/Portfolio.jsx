@@ -19,10 +19,10 @@ function useIsMobile(bp = 768) { const [m, setM] = useState(typeof window !== "u
 const BLUE = "#156CEF", GREEN = "#22C55E", AMBER = "#F59E0B";
 const FD = "'Playfair Display', serif", FB = "'DM Sans', sans-serif";
 
-const experience = [{ company: "ZZAZZ Terminal", subtitle: "Content pricing & ecosystem startup", roles: [{ title: "Designer · UX Architect · Product Architect", period: "2024 · ~6 Months", highlights: ["Architected 7 interconnected verticals for a new content economy.", "Collaborated with Founder, Product Lead & AI team for scoping.", "Redesigned Exchange from table-first to query-led AI-native interaction.", "Created Moments vertical — defined IA, wireframes, delegated execution.", "Designed TimePay's three-path access model for India's market."] }] }, { company: "Clear (ClearTax)", subtitle: "India's largest tax & compliance platform", roles: [{ title: "Senior Product Designer", period: "Oct 2023 – Jul 2025", highlights: ["Led design for Accounts Payable suite and Table-4 ITC automation.", "Reduced support queries by 65% with smart ITC reconciliation engine.", "Standardised usability testing and research methods across pods."] }, { title: "Product Designer", period: "Jul 2021 – Sep 2023", highlights: ["Built Mint V8 design system — 700+ to 32 button variants via PCS Logic.", "Redesigned GSTR-3B filing — 60% time reduction, 53% adoption increase.", "Led Max ITC redesign — 18% accuracy improvement.", "Built Ingestion Module — 45% import success rate increase."] }] }];
+const experience = [{ company: "Zzazz.ai", subtitle: "Content pricing & ecosystem startup", roles: [{ title: "Designer · UX Architect · Product Architect", period: "2024 · ~6 Months", highlights: ["Architected 7 interconnected verticals for a new content economy.", "Collaborated with Founder, Product Lead & AI team for scoping.", "Redesigned Exchange from table-first to query-led AI-native interaction.", "Created Moments vertical — defined IA, wireframes, delegated execution.", "Designed TimePay's three-path access model for India's market."] }] }, { company: "Clear (ClearTax)", subtitle: "India's largest tax & compliance platform", roles: [{ title: "Senior Product Designer", period: "Oct 2023 – Jul 2025", highlights: ["Led design for Accounts Payable suite and Table-4 ITC automation.", "Reduced support queries by 65% with smart ITC reconciliation engine.", "Standardised usability testing and research methods across pods."] }, { title: "Product Designer", period: "Jul 2021 – Sep 2023", highlights: ["Built Mint V8 design system — 700+ to 32 button variants via PCS Logic.", "Redesigned GSTR-3B filing — 60% time reduction, 53% adoption increase.", "Led Max ITC redesign — 18% accuracy improvement.", "Built Ingestion Module — 45% import success rate increase."] }] }];
 
 const projects = [
-  { id: "zzazz", title: "ZZAZZ Terminal", subtitle: "Architecting a New Content Economy", category: "Product Architecture", date: "~6 Mo", role: "Designer · UX/Product Architect", team: "Founder · Product Lead · AI · 2 Designers", overview: "Reframed disconnected POCs into a coherent 7-vertical ecosystem that makes priced content believable.", results: [{ m: "7", l: "Verticals" }, { m: "1", l: "Ecosystem" }, { m: "∞", l: "Content priced" }, { m: "3", l: "Access paths" }], color: AMBER },
+  { id: "zzazz", title: "Zzazz.ai", subtitle: "Architecting a New Content Economy", category: "Product Architecture", date: "~6 Mo", role: "Designer · UX/Product Architect", team: "Founder · Product Lead · AI · 2 Designers", overview: "Reframed disconnected POCs into a coherent 7-vertical ecosystem that makes priced content believable.", results: [{ m: "7", l: "Verticals" }, { m: "1", l: "Ecosystem" }, { m: "∞", l: "Content priced" }, { m: "3", l: "Access paths" }], color: AMBER },
   { id: "gstr-3b", title: "GSTR-3B Filing Redesign", subtitle: "Simplifying GST Filing at Scale", category: "B2B · Enterprise UX", date: "2022–24", role: "UX Design · Research", team: "4 Designers · 1 PM · 3 Devs", overview: "Redesigned filing for 1.4Cr+ businesses — 1hr to 8min per GSTIN, tripling adoption.", results: [{ m: "87%", l: "Time cut" }, { m: "53%", l: "Adoption ↑" }, { m: "94%", l: "Accuracy" }, { m: "73%", l: "Escalation ↓" }], color: GREEN },
   { id: "mint-v8", title: "Mint V8 Design System", subtitle: "Token-Based System with PCS Logic", category: "Design System", date: "2023", role: "Design System Lead", team: "1 Dev · 4 Designers · Manager", overview: "Created Clear's design system — invented PCS Logic reducing 760 button variants to 32.", results: [{ m: "80%", l: "Variant ↓" }, { m: "70%", l: "Dev effort ↓" }, { m: "2", l: "Themes" }, { m: "32", l: "Buttons" }], color: BLUE },
 ];
@@ -104,7 +104,7 @@ function Nav({ activeSection, currentPage, goBack, goHome, goTo }) {
   const [drawer, setDrawer] = useState(false);
   const jump = (id) => { scrollTo(id); setDrawer(false); };
   const caseStudies = [
-    { id: "zzazz", label: "ZZAZZ Terminal", color: AMBER },
+    { id: "zzazz", label: "Zzazz.ai", color: AMBER },
     { id: "gstr-3b", label: "GSTR-3B Filing", color: GREEN },
     { id: "mint-v8", label: "Mint V8 Design System", color: BLUE },
   ];
@@ -218,7 +218,7 @@ function ExperienceTimeline() { const { t } = useTheme(); const m = useIsMobile(
 function SkillsSection() { const { t } = useTheme(); const m = useIsMobile();
   const proofs = [
     { skill: "Design Systems", proof: "Built Mint V8 from scratch — 80% variant reduction via PCS Logic, 2 themes, 100% adoption in 6 weeks.", color: BLUE },
-    { skill: "Product Architecture", proof: "Architected 7-vertical ecosystem at ZZAZZ, scoping with Founder and AI team.", color: AMBER },
+    { skill: "Product Architecture", proof: "Architected 7-vertical ecosystem at Zzazz.ai, scoping with Founder and AI team.", color: AMBER },
     { skill: "UX Research", proof: "50+ interviews for GSTR-3B. Discovered 'adoption ≠ proficiency' flaw through field shadowing.", color: GREEN },
     { skill: "Interaction Design", proof: "GSTR-3B: 1hr → 8min. Exchange: table-first → query-led AI interaction.", color: GREEN },
     { skill: "Information Architecture", proof: "Full IA for Moments and GSTR-3B's 6-step filing workflow.", color: AMBER },
@@ -254,14 +254,20 @@ function ResumeSection() {
 
   const workHistory = [
     {
-      company: "ZZAZZ Terminal", location: "Remote", color: AMBER,
+      company: "Zzazz.ai", location: "Remote", color: AMBER,
       roles: [{ title: "Designer · UX Architect · Product Architect", period: "2024 · ~6 Months",
-        impact: "Architected 7-vertical content economy ecosystem from disconnected POCs",
+        impact: "Reframed disconnected POCs into a coherent 7-vertical content economy ecosystem",
         bullets: [
-          "Collaborated with Founder, Product Lead & AI team — scoped feasibility across all verticals",
-          "Redesigned Exchange from table-first to query-led AI-native interaction model",
-          "Created Moments vertical end-to-end — IA, wireframes, and delegated execution to team",
-          "Designed TimePay's three-path access model (cash, credits, sponsored) for India's market",
+          "Closely collaborated with Founder, Product Lead & AI team — scoped what could and couldn't be solved across all verticals",
+          "Redesigned Exchange from table-first to query-led AI-native interaction — users ask questions, get curated results",
+          "Created Moments vertical from scratch — defined full IA, wireframes, and delegated detailed UI execution to team",
+          "Designed TimePay's three-path access model (cash, credits, sponsored attention) to capture 80–98% who'd never subscribe",
+          "Introduced DOTS Protocol for cryptographic content lineage — derivatives link to originals with revenue splits",
+          "Designed Ad Exchange for content-intent contextual ads — projected 50% higher CTR vs cookie-based targeting",
+        ],
+        impactMetrics: [
+          { value: "7", label: "Verticals architected" },
+          { value: "3", label: "Access paths designed" },
         ]
       }]
     },
@@ -496,7 +502,7 @@ function ResumeSection() {
             <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "1fr 1fr", gap: 12 }}>
               {[
                 { skill: "Design Systems", proof: "Built Mint V8 from scratch — 700+ to 32 button variants via PCS Logic, 2 themes, 100% adoption in 6 weeks.", color: BLUE, icon: "DS" },
-                { skill: "Product Architecture", proof: "Architected 7-vertical ecosystem at ZZAZZ, scoping with Founder and AI team.", color: AMBER, icon: "PA" },
+                { skill: "Product Architecture", proof: "Architected 7-vertical ecosystem at Zzazz.ai, scoping with Founder and AI team.", color: AMBER, icon: "PA" },
                 { skill: "UX Research", proof: "50+ field interviews for GSTR-3B. Discovered 'adoption ≠ proficiency' flaw through shadowing MSMEs.", color: GREEN, icon: "UR" },
                 { skill: "Interaction Design", proof: "GSTR-3B: 60% filing time cut. Exchange: table-first → query-led AI interaction.", color: GREEN, icon: "IX" },
                 { skill: "Information Architecture", proof: "Full IA for Moments vertical and GSTR-3B's multi-step filing workflow.", color: AMBER, icon: "IA" },
@@ -594,7 +600,7 @@ function ContactSection() { const { t } = useTheme(); const m = useIsMobile(); r
 
 /* ═══ ZZAZZ MAIN ═══ */
 function ZZAZZDetail({ goBack, goTo }) { const { t } = useTheme(); const C = AMBER, m = useIsMobile(); useEffect(() => { window.scrollTo(0, 0); }, []); return (<Wrap>
-  <Hero2 title="ZZAZZ Terminal" subtitle="Architecting a New Content Economy" category="Product Architecture · Ecosystem Design" date="~6 Months" role="Designer · UX Architect · Product Architect" team="Founder · Product Lead · AI Team · 2 Designers" color={C} overview="I joined a company with a working Large Pricing Model but no path to market. I reframed disconnected POCs into one coherent ecosystem." myRole="I closely collaborated with the Founder, Product Lead, and AI team for scoping — understanding what could be solved and what couldn't. I designed the end-to-end journey, architected each vertical, conducted user research, and designed interaction models, working alongside 2 fellow designers." />
+  <Hero2 title="Zzazz.ai" subtitle="Architecting a New Content Economy" category="Product Architecture · Ecosystem Design" date="~6 Months" role="Designer · UX Architect · Product Architect" team="Founder · Product Lead · AI Team · 2 Designers" color={C} overview="I joined a company with a working Large Pricing Model but no path to market. I reframed disconnected POCs into one coherent ecosystem." myRole="I closely collaborated with the Founder, Product Lead, and AI team for scoping — understanding what could be solved and what couldn't. I designed the end-to-end journey, architected each vertical, conducted user research, and designed interaction models, working alongside 2 fellow designers." />
   <CS label="Turning Point" labelColor={C} title="From POCs to Ecosystem"><p style={{ fontFamily: FB, fontSize: 16, lineHeight: 1.8, color: t.subtle }}>The AI team had a working LPM. Exchange existed as tables. Publish existed for publishers. TimePay was a concept. Nothing connected. I realized: <strong style={{ color: t.text }}>pricing alone would never work.</strong></p><QB text="I moved the conversation from 'Which POC do we show?' to 'What ecosystem will make any one POC believable?'" color={C} /></CS>
   <Divider />
   <CS label="Scoping" labelColor={C} title="Working with Founder, Product Lead & AI Team"><p style={{ fontFamily: FB, fontSize: 16, lineHeight: 1.8, color: t.subtle }}>Before designing anything, I needed to understand technical constraints. I worked with the Founder on thesis, the Product Lead on capabilities, and the AI team on LPM limits.</p><div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "repeat(3,1fr)", gap: 14, marginTop: 24 }}>{[{ e: "🎯", title: "Can the LPM support this?", d: "AI team helped me understand which content types could be priced reliably." }, { e: "📈", title: "Does this move the thesis?", d: "Founder helped prioritize by investor credibility." }, { e: "🔧", title: "Can we build in time?", d: "Product Lead scoped to achievable timelines." }].map((p, i) => <FadeIn key={i} delay={i * 0.1}><div style={{ padding: 22, background: t.card, border: `1px solid ${t.border}`, borderRadius: 4 }}><div style={{ fontSize: 20, marginBottom: 8 }}>{p.e}</div><div style={{ fontFamily: FB, fontSize: 14, color: t.text, fontWeight: 600, marginBottom: 4 }}>{p.title}</div><p style={{ fontFamily: FB, fontSize: 13, lineHeight: 1.7, color: t.subtle, margin: 0 }}>{p.d}</p></div></FadeIn>)}</div></CS>
@@ -618,7 +624,7 @@ function ZZAZZDetail({ goBack, goTo }) { const { t } = useTheme(); const C = AMB
   <CS label="Reflection" labelColor={C}><PS number={1} title="Ecosystem coherence is the product" description="The moat was how pieces reinforced each other." color={C} /><PS number={2} title="Psychology before technology" description="Adoption required solving fear of paying, not proving pricing." color={C} /><PS number={3} title="Meet users where they are" description="Plugin strategy from accepting users won't adopt new platforms." color={C} /></CS>
   <Bk onClick={goBack} />
 </Wrap>); }
-function ZSub({ goBack, title, subtitle, color, children }) { const { t } = useTheme(); const m = useIsMobile(); useEffect(() => { window.scrollTo(0, 0); }, []); return (<Wrap><div style={{ paddingTop: m ? 100 : 120, paddingBottom: m ? 36 : 52 }}><button onClick={goBack} style={{ background: "none", border: "none", color: AMBER, fontFamily: FB, fontSize: 12, cursor: "pointer", letterSpacing: "1.5px", textTransform: "uppercase", fontWeight: 600, display: "flex", alignItems: "center", gap: 8, padding: 0, marginBottom: 20 }} onMouseEnter={e => e.currentTarget.style.opacity = "0.7"} onMouseLeave={e => e.currentTarget.style.opacity = "1"}>← Back to ZZAZZ</button><div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 600, color, marginBottom: 12 }}>ZZAZZ · Deep Dive</div><h1 style={{ fontFamily: FD, fontSize: m ? 28 : "clamp(36px,5vw,52px)", lineHeight: 1.1, color: t.text, margin: 0, fontWeight: 400 }}>{title}</h1><p style={{ fontFamily: FB, fontSize: m ? 14 : 16, color: t.muted, fontStyle: "italic", marginTop: 8 }}>{subtitle}</p></div>{children}<Bk onClick={goBack} label="← Back to ZZAZZ" /></Wrap>); }
+function ZSub({ goBack, title, subtitle, color, children }) { const { t } = useTheme(); const m = useIsMobile(); useEffect(() => { window.scrollTo(0, 0); }, []); return (<Wrap><div style={{ paddingTop: m ? 100 : 120, paddingBottom: m ? 36 : 52 }}><button onClick={goBack} style={{ background: "none", border: "none", color: AMBER, fontFamily: FB, fontSize: 12, cursor: "pointer", letterSpacing: "1.5px", textTransform: "uppercase", fontWeight: 600, display: "flex", alignItems: "center", gap: 8, padding: 0, marginBottom: 20 }} onMouseEnter={e => e.currentTarget.style.opacity = "0.7"} onMouseLeave={e => e.currentTarget.style.opacity = "1"}>← Back to Zzazz.ai</button><div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 600, color, marginBottom: 12 }}>Zzazz.ai · Deep Dive</div><h1 style={{ fontFamily: FD, fontSize: m ? 28 : "clamp(36px,5vw,52px)", lineHeight: 1.1, color: t.text, margin: 0, fontWeight: 400 }}>{title}</h1><p style={{ fontFamily: FB, fontSize: m ? 14 : 16, color: t.muted, fontStyle: "italic", marginTop: 8 }}>{subtitle}</p></div>{children}<Bk onClick={goBack} label="← Back to Zzazz.ai" /></Wrap>); }
 
 function ZExchange({ goBack }) { const { t } = useTheme(); const C = AMBER; return (<ZSub goBack={goBack} title="Exchange" subtitle="Table-Heavy → Query-Led Discovery" color={C}><CS label="What Existed" labelColor={C}><p style={{ fontFamily: FB, fontSize: 16, lineHeight: 1.8, color: t.subtle }}>Tables, price movement, trust factors. Users had to learn the data model first.</p><Img label="Old Exchange" color={C} /></CS><Divider /><CS label="Insight" labelColor={C} title="Users Think in Questions"><QB text="I want to know what's trending — without drowning in rows." author="Priya, Content Researcher" color={C} /></CS><Divider /><CS label="Redesign" labelColor={C} title="Query-Led, AI-Native"><DC color={C} title="Module vs Hybrid vs Chat" context="How should Exchange work?" options={[{ text: "Better filters", chosen: false }, { text: "Hybrid — chat + structured views on demand", chosen: true }, { text: "Full chat only", chosen: false }]} reasoning="Hybrid lets users ask questions and call structured views when needed." /><BA beforeLabel="Old: Table-first" afterLabel="New: Query-led" /><Vid label="Exchange prototype" color={C} /></CS></ZSub>); }
 function ZPublish({ goBack }) { const { t } = useTheme(); const C = AMBER; return (<ZSub goBack={goBack} title="Publish" subtitle="Building Publisher Confidence" color={C}><CS label="Existed" labelColor={C}><p style={{ fontFamily: FB, fontSize: 16, lineHeight: 1.8, color: t.subtle }}>Basic metrics. No pricing intelligence.</p></CS><Divider /><CS label="Redesign" labelColor={C}><DC color={C} title="Universal vs Modular" context="One dashboard or adaptive?" options={[{ text: "Universal", chosen: false }, { text: "Modular per workflow", chosen: true }]} reasoning="Publishers operate differently. Modular components + consistent pricing logic." /><Img label="Publish — modular workspace" color={C} /></CS></ZSub>); }
@@ -892,7 +898,7 @@ function PortfolioInner({ page, goTo, goHome, goZzazz }) {
   const { t } = useTheme();
   const liveRef = useRef(null);
   useEffect(() => {
-    const titles = { home: "Home — Ashish Khoshya portfolio", zzazz: "ZZAZZ Terminal case study", "gstr-3b": "GSTR-3B Filing Redesign case study", "mint-v8": "Mint V8 Design System case study" };
+    const titles = { home: "Home — Ashish Khoshya portfolio", zzazz: "Zzazz.ai case study", "gstr-3b": "GSTR-3B Filing Redesign case study", "mint-v8": "Mint V8 Design System case study" };
     if (liveRef.current) liveRef.current.textContent = titles[page] || "Case study";
   }, [page]);
   return (<>
