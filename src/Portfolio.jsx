@@ -234,7 +234,8 @@ function ResumeSection({ goBack }) {
         ],
         impactMetrics: [
           { value: "7", label: "Verticals architected" },
-          { value: "3", label: "Access paths designed" },
+          { value: "50%", label: "Higher CTR projected" },
+          { value: "80–98%", label: "Users reached (non-subscribers)" },
         ]
       }]
     },
