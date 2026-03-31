@@ -19,7 +19,7 @@ function useIsMobile(bp = 768) { const [m, setM] = useState(typeof window !== "u
 const BLUE = "#156CEF", GREEN = "#22C55E", AMBER = "#F59E0B";
 const FD = "'Playfair Display', serif", FB = "'DM Sans', sans-serif";
 
-const experience = [{ company: "Zzazz.ai", subtitle: "Content pricing & ecosystem startup", roles: [{ title: "Designer · UX Architect · Product Architect", period: "2024 · ~6 Months", highlights: ["Architected 7 interconnected verticals for a new content economy.", "Collaborated with Founder, Product Lead & AI team for scoping.", "Redesigned Exchange from table-first to query-led AI-native interaction.", "Created Moments vertical — defined IA, wireframes, delegated execution.", "Designed TimePay's three-path access model for India's market."] }] }, { company: "Clear (ClearTax)", subtitle: "India's largest tax & compliance platform", roles: [{ title: "Senior Product Designer", period: "Oct 2023 – Jul 2025", highlights: ["Led design for Accounts Payable suite and Table-4 ITC automation.", "Reduced support queries by 65% with smart ITC reconciliation engine.", "Standardised usability testing and research methods across pods."] }, { title: "Product Designer", period: "Jul 2021 – Sep 2023", highlights: ["Built Mint V8 design system — 700+ to 32 button variants via PCS Logic.", "Redesigned GSTR-3B filing — 60% time reduction, 53% adoption increase.", "Led Max ITC redesign — 18% accuracy improvement.", "Built Ingestion Module — 45% import success rate increase."] }] }];
+const experience = [{ company: "Zzazz.ai", subtitle: "Content pricing & ecosystem startup", roles: [{ title: "Designer · UX Architect · Product Architect", period: "Jul 2025 – Present", highlights: ["Architected 7 interconnected verticals for a new content economy.", "Collaborated with Founder, Product Lead & AI team for scoping.", "Redesigned Exchange from table-first to query-led AI-native interaction.", "Created Moments vertical — defined IA, wireframes, delegated execution.", "Designed TimePay's three-path access model for India's market."] }] }, { company: "Clear (ClearTax)", subtitle: "India's largest tax & compliance platform", roles: [{ title: "Senior Product Designer", period: "Oct 2023 – Jul 2025", highlights: ["Led design for Accounts Payable suite and Table-4 ITC automation.", "Reduced support queries by 65% with smart ITC reconciliation engine.", "Standardised usability testing and research methods across pods."] }, { title: "Product Designer", period: "Jul 2021 – Sep 2023", highlights: ["Built Mint V8 design system — 700+ to 32 button variants via PCS Logic.", "Redesigned GSTR-3B filing — 60% time reduction, 53% adoption increase.", "Led Max ITC redesign — 18% accuracy improvement.", "Built Ingestion Module — 45% import success rate increase."] }] }];
 
 const projects = [
   { id: "zzazz", title: "Zzazz.ai", subtitle: "Architecting a New Content Economy", category: "Product Architecture", date: "~6 Mo", role: "Designer · UX/Product Architect", team: "Founder · Product Lead · AI · 2 Designers", overview: "Reframed disconnected POCs into a coherent 7-vertical ecosystem that makes priced content believable.", results: [{ m: "7", l: "Verticals" }, { m: "1", l: "Ecosystem" }, { m: "∞", l: "Content priced" }, { m: "3", l: "Access paths" }], color: AMBER },
@@ -222,7 +222,7 @@ function ResumeSection({ goBack }) {
   const workHistory = [
     {
       company: "Zzazz.ai", location: "Bengaluru", color: AMBER,
-      roles: [{ title: "Designer · UX Architect · Product Architect", period: "2024 · ~6 Months",
+      roles: [{ title: "Designer · UX Architect · Product Architect", period: "Jul 2025 – Present",
         impact: "Reframed disconnected POCs into a coherent 7-vertical content economy ecosystem",
         bullets: [
           "Closely collaborated with Founder, Product Lead & AI team — scoped what could and couldn't be solved across all verticals",
@@ -354,7 +354,7 @@ function ResumeSection({ goBack }) {
           <div style={{ marginBottom: 48 }}>
             <div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 700, color: t.accent, marginBottom: 28, paddingBottom: 12, borderBottom: `2px solid ${t.accent}`, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span>Experience</span>
-              <span style={{ fontFamily: FB, fontSize: 11, color: t.muted, fontWeight: 400, letterSpacing: "0", textTransform: "none" }}>May 2019 – Jul 2025</span>
+              <span style={{ fontFamily: FB, fontSize: 11, color: t.muted, fontWeight: 400, letterSpacing: "0", textTransform: "none" }}>May 2019 – Present</span>
             </div>
             {workHistory.map((w, wi) => (
               <FadeIn key={wi} delay={wi * 0.1}>
