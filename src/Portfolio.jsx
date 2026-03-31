@@ -454,11 +454,9 @@ function MintV8Detail({ goBack }) { const { t } = useTheme(); const C = BLUE, m 
 
   <CS label="Breakthrough" labelColor={C} title="Discovering PCS Logic">
     <p style={{ fontFamily: FB, fontSize: 16, lineHeight: 1.8, color: t.subtle, marginBottom: 20 }}>As we built molecules, we hit a wall — component bloat. 760+ button variants. Engineers still hardcoding. Then a whiteboard session revealed a powerful pattern: <strong style={{ color: C }}>nearly every component = Prefix + Content + Suffix.</strong></p>
-    <CsImg src="/cs/mint-button.gif" alt="PCS-based button component — prefix, content, suffix slots" caption="PCS Logic in action: button variants reduced from 760 to 32 using the universal shell" />
     <DC color={C} title="PCS Slot Granularity" context="How constrained should each P, C, S slot be? Open means anything goes, fixed means no flexibility." options={[{ text: "Fully open slots", chosen: false }, { text: "Constrained per component type", chosen: true }, { text: "Fixed — locked to one pattern", chosen: false }]} reasoning="Constrained slots = flexibility within guardrails. Buttons: prefix=icons only, content=text, suffix=icons/counters. This prevented misuse while enabling every real-world variant." />
     <p style={{ fontFamily: FB, fontSize: 15, lineHeight: 1.7, color: t.subtle, margin: "20px 0 12px" }}>The impact was immediate — we rebuilt components using PCS logic and slashed variant counts:</p>
     <FadeIn><div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "repeat(3,1fr)", gap: 14, marginBottom: 24 }}>{[{ c: "Buttons", b: "760", a: "32" }, { c: "Badges", b: "624", a: "25" }, { c: "Inputs", b: "113", a: "40" }].map((v, i) => <div key={i} style={{ padding: 22, background: t.card, border: `1px solid ${t.border}`, textAlign: "center", borderRadius: 4 }}><div style={{ fontFamily: FB, fontSize: 14, color: t.text, fontWeight: 600, marginBottom: 14 }}>{v.c}</div><div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}><span style={{ fontFamily: FD, fontSize: 22, color: t.muted, textDecoration: "line-through" }}>{v.b}</span><span style={{ color: C, fontWeight: 700 }}>→</span><span style={{ fontFamily: FD, fontSize: 30, color: C, fontWeight: 700 }}>{v.a}</span></div></div>)}</div></FadeIn>
-    <BA beforeLabel="760 button variants — maintenance nightmare" afterLabel="32 via PCS — every variant covered" />
     <CsImg src="/cs/mint-organisms.jpg" alt="Organisms built from PCS components — filter bars, forms, tables" caption="Organisms assembled from PCS molecules: filter bars, form builders, data tables" />
     <QB text="The PCS logic literally saved us weeks in component rebuilding." author="Product Designer, Mint V8 team" color={C} />
   </CS>
@@ -490,6 +488,8 @@ function MintV8Detail({ goBack }) { const { t } = useTheme(); const C = BLUE, m 
     <div style={{ display: "grid", gridTemplateColumns: m ? "repeat(2,1fr)" : "repeat(4,1fr)", gap: 14, marginBottom: 32 }}>
       <MC metric="80%" label="Variant ↓" color={C} /><MC metric="70%" label="Dev effort ↓" color={C} /><MC metric="100%" label="Adoption in 6 wks" color={C} /><MC metric="2" label="Themes, 0 duplication" color={C} />
     </div>
+    <CsImg src="/cs/mint-button.gif" alt="PCS-based button component — prefix, content, suffix slots" caption="PCS Logic in action: button variants reduced from 760 to 32 using the universal shell" />
+    <BA beforeLabel="760 button variants — maintenance nightmare" afterLabel="32 via PCS — every variant covered" />
     <CT headers={["Challenge", "Solution", "Outcome"]} rows={[
       ["Fragmented design language", "Mint V8 with token-based atomic architecture", "Unified experience across all product suites"],
       ["Hardcoded UI components", "Design tokens (typography, spacing, colour, elevation)", "Consistent patterns + seamless Figma-to-code mapping"],
