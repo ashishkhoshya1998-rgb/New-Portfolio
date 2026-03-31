@@ -216,7 +216,7 @@ function ProjectCard({ project, onOpen }) { const { t } = useTheme(); const [h, 
 function ResumeSection({ goBack }) {
   const { t } = useTheme();
   const m = useIsMobile();
-  const RESUME_URL = "https://drive.google.com/file/d/1DEdqvDBGJCDk0lDyIx1ENO_LssvrCy_s/view";
+  const RESUME_URL = "/resume.html";
   const [dlHover, setDlHover] = useState(false);
 
   const workHistory = [

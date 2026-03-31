@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ashish Khoshya — Resume</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FAFAF8;
+    --text: #1A1A1A;
+    --muted: #64605A;
+    --subtle: rgba(26,26,26,0.72);
+    --border: rgba(0,0,0,0.08);
+    --accent: #1A1A1A;
+    --blue: #156CEF;
+    --green: #22C55E;
+    --amber: #E6A817;
+    --fd: 'Playfair Display', serif;
+    --fb: 'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--fb);
+    background: #fff;
+    color: var(--text);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 24px 36px 20px;
+    background: #fff;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--text);
+    margin-bottom: 14px;
+  }
+  .header h1 {
+    font-family: var(--fd);
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--text);
+  }
+  .header h1 em {
+    font-style: italic;
+    font-weight: 400;
+  }
+  .header .subtitle {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 5px;
+    letter-spacing: 0.3px;
+  }
+  .contact-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
+  .contact-item {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+    line-height: 1.5;
+  }
+  .contact-item a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 12px; }
+  .section-title {
+    font-family: var(--fb);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--text);
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+
+  /* ── SUMMARY ── */
+  .summary {
+    font-size: 11px;
+    line-height: 1.6;
+    color: var(--subtle);
+  }
+  .summary strong { color: var(--text); font-weight: 600; }
+
+  /* ── EXPERIENCE ── */
+  .exp-block { margin-bottom: 10px; }
+  .exp-block:last-child { margin-bottom: 0; }
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2px;
+  }
+  .exp-company {
+    font-family: var(--fd);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .exp-location {
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .role-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+  .role-title {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .role-period {
+    font-size: 10px;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+  .role-impact {
+    font-size: 10.5px;
+    color: var(--subtle);
+    font-style: italic;
+    margin-bottom: 2px;
+  }
+  .bullets {
+    list-style: none;
+    padding: 0;
+  }
+  .bullets li {
+    font-size: 10.5px;
+    line-height: 1.5;
+    color: var(--subtle);
+    padding-left: 12px;
+    position: relative;
+    margin-bottom: 1px;
+  }
+  .bullets li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+  .bullets li strong { color: var(--text); font-weight: 600; }
+
+  /* ── METRICS INLINE ── */
+  .metrics-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+  }
+  .metric-badge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 9px;
+  }
+  .metric-badge .val {
+    font-weight: 700;
+    font-size: 10px;
+  }
+  .metric-badge .lbl {
+    color: var(--muted);
+  }
+  .metric-badge.amber { background: #FEF3C7; }
+  .metric-badge.amber .val { color: #92400E; }
+  .metric-badge.green { background: #DCFCE7; }
+  .metric-badge.green .val { color: #166534; }
+  .metric-badge.blue { background: #DBEAFE; }
+  .metric-badge.blue .val { color: #1E40AF; }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .skill-group h4 {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid;
+  }
+  .skill-group.craft h4 { color: var(--blue); border-color: var(--blue); }
+  .skill-group.research h4 { color: var(--green); border-color: var(--green); }
+  .skill-group.strategy h4 { color: var(--amber); border-color: var(--amber); }
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .skill-tag {
+    font-size: 9.5px;
+    color: var(--subtle);
+    background: #F5F5F3;
+    padding: 3px 8px;
+    border-radius: 3px;
+  }
+
+  /* ── TOOLS ── */
+  .tools-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 4px;
+  }
+  .tool {
+    font-size: 9.5px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    background: #F5F5F3;
+    color: var(--subtle);
+  }
+  .tool.primary { font-weight: 600; color: var(--text); background: #EDEDEB; }
+
+  /* ── EDUCATION ── */
+  .edu-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .edu-inst {
+    font-family: var(--fd);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .edu-degree {
+    font-size: 10.5px;
+    color: var(--subtle);
+    margin-top: 2px;
+  }
+  .edu-period {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* ── CERTIFICATIONS ── */
+  .cert-list { list-style: none; }
+  .cert-list li {
+    font-size: 10px;
+    color: var(--subtle);
+    padding: 3px 0;
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+  .cert-list li .check {
+    color: var(--green);
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .cert-org {
+    color: var(--muted);
+    font-size: 10.5px;
+  }
+
+  /* ── TWO COL BOTTOM ── */
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--muted);
+  }
+  .footer a { color: var(--text); text-decoration: none; font-weight: 500; }
+
+  /* ── SCREEN ONLY ── */
+  @media screen {
+    body { background: #E8E6E1; padding: 32px 0; }
+    .page { box-shadow: 0 4px 24px rgba(0,0,0,0.12); border-radius: 2px; }
+    .save-hint {
+      text-align: center;
+      font-family: var(--fb);
+      font-size: 13px;
+      color: #888;
+      margin: 20px auto;
+      cursor: pointer;
+      padding: 10px 24px;
+      background: var(--text);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      display: inline-block;
+    }
+    .save-bar {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { width: 100%; padding: 20px 32px 16px; box-shadow: none; min-height: auto; }
+    .save-bar { display: none; }
+    @page { size: A4; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="save-bar">
+  <button class="save-hint" onclick="window.print()">Save as PDF (Ctrl/Cmd + P)</button>
+</div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <h1>Ashish <em>Khoshya</em></h1>
+      <div class="subtitle">Senior Product Designer &middot; 4+ Years &middot; IIT Guwahati</div>
+    </div>
+    <div class="contact-row">
+      <div class="contact-item">
+        <a href="mailto:ashish.khoshya1998@gmail.com">ashish.khoshya1998@gmail.com</a><br />
+        <a href="tel:+917988721132">+91 7988721132</a>
+      </div>
+      <div class="contact-item">
+        <a href="https://ashishkhoshya.com">ashishkhoshya.com</a><br />
+        <a href="https://linkedin.com/in/ashish-khoshya">LinkedIn</a> &middot; Bengaluru, India
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="section">
+    <div class="section-title">Professional Summary</div>
+    <p class="summary">
+      Senior Product Designer with <strong>4+ years</strong> building <strong>design systems</strong>, improving <strong>enterprise workflows</strong>, and leading <strong>UX initiatives</strong> across cross-functional teams. From reducing 700+ button variants to 32 with PCS Logic, to cutting GST filing time by 60% for 10+ GSTIN businesses. Data-driven, user-centric, and impact-focused.
+    </p>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="section">
+    <div class="section-title">Experience</div>
+
+    <!-- Zzazz.ai -->
+    <div class="exp-block">
+      <div class="exp-header">
+        <span class="exp-company">Zzazz.ai</span>
+        <span class="exp-location">Bengaluru</span>
+      </div>
+      <div class="role-row">
+        <span class="role-title">Designer &middot; UX Architect &middot; Product Architect</span>
+        <span class="role-period">Jul 2025 &ndash; Present</span>
+      </div>
+      <div class="role-impact">Reframed disconnected POCs into a coherent 7-vertical content economy ecosystem</div>
+      <ul class="bullets">
+        <li>Closely collaborated with <strong>Founder, Product Lead & AI team</strong> &mdash; scoped what could and couldn't be solved across all verticals</li>
+        <li>Redesigned Exchange from table-first to <strong>query-led AI-native interaction</strong> &mdash; users ask questions, get curated results</li>
+        <li>Created <strong>Moments vertical</strong> from scratch &mdash; defined full IA, wireframes, and delegated detailed UI execution to team</li>
+        <li>Designed TimePay's <strong>three-path access model</strong> (cash, credits, sponsored attention) to capture 80&ndash;98% who'd never subscribe</li>
+        <li>Introduced <strong>DOTS Protocol</strong> for cryptographic content lineage and designed <strong>Ad Exchange</strong> for content-intent contextual ads</li>
+      </ul>
+      <div class="metrics-row">
+        <span class="metric-badge amber"><span class="val">7</span> <span class="lbl">Verticals architected</span></span>
+        <span class="metric-badge amber"><span class="val">3</span> <span class="lbl">Access paths designed</span></span>
+      </div>
+    </div>
+
+    <!-- Clear -->
+    <div class="exp-block">
+      <div class="exp-header">
+        <span class="exp-company">Clear (ClearTax)</span>
+        <span class="exp-location">Bengaluru</span>
+      </div>
+
+      <!-- Senior PD -->
+      <div class="role-row">
+        <span class="role-title">Senior Product Designer</span>
+        <span class="role-period">Oct 2023 &ndash; Jul 2025</span>
+      </div>
+      <div class="role-impact">Led design for Accounts Payable suite and automated Table-4 ITC reconciliation</div>
+      <ul class="bullets">
+        <li>Conducted <strong>UX audit</strong> of AP module post-rollout &mdash; gathered insights from accountants and finance teams</li>
+        <li>Standardised <strong>usability testing and research methods</strong> across multiple pods</li>
+        <li>Built smart engine to automate <strong>Table-4 ITC reconciliation</strong>, matching GSTR-2B with purchase registers</li>
+        <li>Integrated <strong>partial invoice matching</strong>, live tax impact preview &mdash; grew Table-4 into <strong>roadmap-level initiative</strong> in the AOP</li>
+      </ul>
+      <div class="metrics-row">
+        <span class="metric-badge green"><span class="val">65%</span> <span class="lbl">Support queries reduced</span></span>
+        <span class="metric-badge green"><span class="val">AP Suite</span> <span class="lbl">Design quality improved</span></span>
+      </div>
+
+      <!-- PD -->
+      <div class="role-row" style="margin-top: 6px;">
+        <span class="role-title">Product Designer</span>
+        <span class="role-period">Jul 2021 &ndash; Sep 2023</span>
+      </div>
+      <div class="role-impact">Built Mint V8 design system &middot; Redesigned GSTR-3B filing &middot; Led Max ITC and Ingestion Module</div>
+      <ul class="bullets">
+        <li>Spearheaded <strong>Mint V8 design system</strong> &mdash; token-based architecture with PCS Logic (Prefix-Content-Suffix)</li>
+        <li>Reduced button variants from <strong>700+ to 32</strong>, halved design-to-development time, enabled multi-region theming</li>
+        <li>Designed streamlined <strong>GSTR-3B workflow</strong> for businesses managing 10+ GSTINs with bulk upload and filing</li>
+        <li>Built filing dashboard to track status, liabilities, and input tax credit across entities</li>
+        <li>Conducted in-depth <strong>field research</strong> with tax professionals for Max ITC &mdash; designed guided interface for eligible credits</li>
+        <li>Built schema-based <strong>Ingestion Module</strong> for data import across all Clear business units</li>
+      </ul>
+      <div class="metrics-row">
+        <span class="metric-badge blue"><span class="val">700+&rarr;32</span> <span class="lbl">Button variants</span></span>
+        <span class="metric-badge blue"><span class="val">60%</span> <span class="lbl">Filing time cut</span></span>
+        <span class="metric-badge blue"><span class="val">53%</span> <span class="lbl">Adoption (from 18%)</span></span>
+        <span class="metric-badge blue"><span class="val">45%</span> <span class="lbl">Import success up</span></span>
+      </div>
+    </div>
+
+    <!-- Visit Health -->
+    <div class="exp-block">
+      <div class="exp-header">
+        <span class="exp-company">Visit Health</span>
+        <span class="exp-location">Internship</span>
+      </div>
+      <div class="role-row">
+        <span class="role-title">UI/UX Design Intern</span>
+        <span class="role-period">May 2019 &ndash; Jul 2019</span>
+      </div>
+      <ul class="bullets">
+        <li>Redesigned marketing website and improved Android app onboarding experience</li>
+        <li>Participated in branding refresh exercises and collaborated with founders for UI consistency</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SKILLS + TOOLS -->
+  <div class="section">
+    <div class="section-title">Skills</div>
+    <div class="skills-grid">
+      <div class="skill-group craft">
+        <h4>Craft</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Design Systems</span>
+          <span class="skill-tag">Interaction Design</span>
+          <span class="skill-tag">Visual Design</span>
+          <span class="skill-tag">Information Architecture</span>
+          <span class="skill-tag">Wireframing</span>
+          <span class="skill-tag">Prototyping</span>
+        </div>
+      </div>
+      <div class="skill-group research">
+        <h4>Research</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">User Research</span>
+          <span class="skill-tag">Usability Testing</span>
+          <span class="skill-tag">Field Studies</span>
+          <span class="skill-tag">Journey Mapping</span>
+          <span class="skill-tag">Stakeholder Interviews</span>
+          <span class="skill-tag">Data-Driven Design</span>
+        </div>
+      </div>
+      <div class="skill-group strategy">
+        <h4>Strategy</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Product Architecture</span>
+          <span class="skill-tag">Ecosystem Design</span>
+          <span class="skill-tag">Project Management</span>
+          <span class="skill-tag">Cross-functional Leadership</span>
+          <span class="skill-tag">Communication</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOOLS -->
+  <div class="section">
+    <div class="section-title">Tools</div>
+    <div class="tools-row">
+      <span class="tool primary">Figma</span>
+      <span class="tool primary">FigJam</span>
+      <span class="tool primary">Sketch</span>
+      <span class="tool primary">Storybook</span>
+      <span class="tool">Adobe Creative Suite</span>
+      <span class="tool">Framer</span>
+      <span class="tool">Principle</span>
+      <span class="tool">Notion</span>
+      <span class="tool">Jira / Linear</span>
+      <span class="tool">Miro</span>
+    </div>
+  </div>
+
+  <!-- BOTTOM: EDUCATION + CERTIFICATIONS -->
+  <div class="bottom-grid">
+    <div class="section">
+      <div class="section-title">Education</div>
+      <div class="edu-row">
+        <div>
+          <div class="edu-inst">IIT Guwahati</div>
+          <div class="edu-degree">Bachelor of Technology &middot; 2017 &ndash; 2021</div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title">Certifications</div>
+      <ul class="cert-list">
+        <li><span class="check">&check;</span> User Experience (UX): Ultimate Guide to Usability and UX <span class="cert-org">&mdash; Udemy</span></li>
+        <li><span class="check">&check;</span> Visual Elements of User Interface Design <span class="cert-org">&mdash; Coursera</span></li>
+        <li><span class="check">&check;</span> IxDF Membership Certificate <span class="cert-org">&mdash; Interaction Design Foundation</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span>&copy; 2025 Ashish Khoshya</span>
+    <span>Portfolio: <a href="https://ashishkhoshya.com">ashishkhoshya.com</a></span>
+  </div>
+
+</div>
+
+</body>
+</html>
