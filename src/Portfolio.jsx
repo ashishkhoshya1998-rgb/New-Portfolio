@@ -118,7 +118,7 @@ function Nav({ activeSection, currentPage, goBack, goHome, goTo }) {
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: m ? 12 : 24 }}>
           {currentPage === "home" && !m && links.map(l => (
-            <button key={l} onClick={() => scrollTo(l.toLowerCase())} style={{ background: "none", border: "none", cursor: "pointer", color: activeSection === l.toLowerCase() ? t.accent : t.muted, fontSize: 12, fontFamily: FB, letterSpacing: "1.5px", textTransform: "uppercase", fontWeight: 500, transition: "color 0.3s", padding: "0 0 2px 0", borderBottom: activeSection === l.toLowerCase() ? `1px solid ${t.accent}` : "1px solid transparent" }}>{l}</button>
+            <button key={l} onClick={() => l === "Resume" && goTo ? goTo("resume") : scrollTo(l.toLowerCase())} style={{ background: "none", border: "none", cursor: "pointer", color: activeSection === l.toLowerCase() ? t.accent : t.muted, fontSize: 12, fontFamily: FB, letterSpacing: "1.5px", textTransform: "uppercase", fontWeight: 500, transition: "color 0.3s", padding: "0 0 2px 0", borderBottom: activeSection === l.toLowerCase() ? `1px solid ${t.accent}` : "1px solid transparent" }}>{l}</button>
           ))}
           <ThemeToggle />
           {currentPage === "home" && (
@@ -143,7 +143,7 @@ function Nav({ activeSection, currentPage, goBack, goHome, goTo }) {
       <div style={{ display: "flex", flexDirection: "column", gap: 0, marginTop: 8 }}>
         {links.map(l => (
           <React.Fragment key={l}>
-            <button onClick={() => jump(l.toLowerCase())} style={{ background: "none", border: "none", cursor: "pointer", textAlign: "left", padding: "16px 0", minHeight: 44, borderBottom: l === "Work" ? "none" : `1px solid ${t.border}`, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <button onClick={() => { if (l === "Resume" && goTo) { goTo("resume"); setDrawer(false); } else { jump(l.toLowerCase()); } }} style={{ background: "none", border: "none", cursor: "pointer", textAlign: "left", padding: "16px 0", minHeight: 44, borderBottom: l === "Work" ? "none" : `1px solid ${t.border}`, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <span style={{ fontFamily: FB, fontSize: 15, color: activeSection === l.toLowerCase() ? t.accent : t.text, fontWeight: activeSection === l.toLowerCase() ? 600 : 400, letterSpacing: "0.5px", transition: "color 0.2s" }}>{l}</span>
               {activeSection === l.toLowerCase() && <div style={{ width: 6, height: 6, borderRadius: "50%", background: t.accent }} aria-hidden="true" />}
             </button>
@@ -238,7 +238,7 @@ function SkillsSection() { const { t } = useTheme(); const m = useIsMobile();
 }
 
 /* ═══ RESUME ═══ */
-function ResumeSection() {
+function ResumeSection({ goBack }) {
   const { t } = useTheme();
   const m = useIsMobile();
   const RESUME_URL = "https://drive.google.com/file/d/1DEdqvDBGJCDk0lDyIx1ENO_LssvrCy_s/view";
@@ -344,7 +344,7 @@ function ResumeSection() {
   ];
 
   return (
-    <section id="resume" aria-label="Resume" style={{ paddingTop: m ? 60 : 100, paddingBottom: m ? 60 : 100 }}>
+    <section id="resume-page" aria-label="Resume" style={{ paddingTop: m ? 100 : 120, paddingBottom: m ? 60 : 100 }}>
       <Wrap>
         {/* ── Header with Download CTA ── */}
         <FadeIn>
@@ -590,6 +590,7 @@ function ResumeSection() {
           </div>
         </FadeIn>
 
+        {goBack && <Bk onClick={goBack} />}
       </Wrap>
     </section>
   );
@@ -879,7 +880,63 @@ function MintV8Detail({ goBack }) { const { t } = useTheme(); const C = BLUE, m 
 </Wrap>); }
 
 /* ═══ HOME ═══ */
-function HomePage({ onOpen }) { const { t } = useTheme(); const [as, setAs] = useState("about"); const m = useIsMobile(); useEffect(() => { const h = () => { for (const id of ["contact", "resume", "skills", "experience", "work", "about"]) { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top < 300) { setAs(id); break; } } }; window.addEventListener("scroll", h); return () => window.removeEventListener("scroll", h); }, []); return (<><Nav activeSection={as} currentPage="home" goHome={() => window.scrollTo({ top: 0, behavior: "smooth" })} goTo={onOpen} /><main id="main-content"><Hero /><section id="work" aria-label="Selected Work" style={{ paddingTop: m ? 60 : 100, paddingBottom: m ? 60 : 100 }}><Wrap><FadeIn><SL>Selected Work</SL><h2 style={{ fontFamily: FD, fontSize: m ? 28 : 42, color: t.text, margin: "0 0 44px 0", fontWeight: 400, lineHeight: 1.15 }}>Featured <span style={{ fontStyle: "italic" }}>Case Studies</span></h2></FadeIn><div style={{ display: "flex", flexDirection: "column", gap: 28 }}>{projects.map(p => <ProjectCard key={p.id} project={p} onOpen={onOpen} />)}</div></Wrap></section><ExperienceTimeline /><SkillsSection /><ResumeSection /><ContactSection /></main></>); }
+function ResumeCard({ onOpen }) {
+  const { t } = useTheme();
+  const m = useIsMobile();
+  const [h, setH] = useState(false);
+  const stats = [
+    { metric: "4+", label: "Years" },
+    { metric: "60%", label: "Filing time cut" },
+    { metric: "700+→32", label: "Variants reduced" },
+    { metric: "53%", label: "Adoption ↑" },
+  ];
+  return (
+    <section id="resume" aria-label="Resume" style={{ paddingTop: m ? 40 : 60, paddingBottom: m ? 60 : 100 }}>
+      <Wrap>
+        <FadeIn>
+          <div
+            onClick={() => onOpen("resume")}
+            onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
+            role="button" tabIndex="0" aria-label="View full resume"
+            onKeyDown={e => (e.key === "Enter" || e.key === " ") && onOpen("resume")}
+            style={{
+              background: t.card, border: `1px solid ${t.border}`, borderRadius: 8,
+              padding: m ? 24 : 40, cursor: "pointer", position: "relative", overflow: "hidden",
+              transition: "all 0.4s", transform: h ? "translateY(-4px)" : "none",
+            }}
+          >
+            <div style={{ position: "absolute", top: 0, left: 0, width: h ? "100%" : "0%", height: 2, background: t.accent, transition: "width 0.6s cubic-bezier(0.22,1,0.36,1)" }} />
+            <div style={{ display: "flex", flexDirection: m ? "column" : "row", justifyContent: "space-between", alignItems: m ? "flex-start" : "center", gap: m ? 16 : 24 }}>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 600, color: t.accent, marginBottom: 10 }}>Resume</div>
+                <h3 style={{ fontFamily: FD, fontSize: m ? 24 : 32, color: t.text, margin: 0, fontWeight: 400, lineHeight: 1.2 }}>Ashish <span style={{ fontStyle: "italic" }}>Khoshya</span></h3>
+                <p style={{ fontFamily: FB, fontSize: m ? 13 : 15, color: t.muted, marginTop: 6, lineHeight: 1.6 }}>Senior Product Designer · IIT Guwahati · Design systems, enterprise UX, and product architecture.</p>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 1, background: t.border, borderRadius: 6, overflow: "hidden", marginTop: 20, maxWidth: m ? "100%" : 480 }}>
+                  {stats.map((s, i) => (
+                    <div key={i} style={{ background: t.bg, padding: m ? "12px 8px" : "14px 12px", textAlign: "center" }}>
+                      <div style={{ fontFamily: FD, fontSize: m ? 16 : 20, color: t.accent, fontWeight: 700, lineHeight: 1 }}>{s.metric}</div>
+                      <div style={{ fontFamily: FB, fontSize: m ? 9 : 10, color: t.muted, marginTop: 4 }}>{s.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", fontFamily: FB, fontSize: 14, color: t.accent, fontWeight: 600, flexShrink: 0, transition: "gap 0.3s", gap: h ? 14 : 8 }}>
+                View Resume <span style={{ transition: "transform 0.3s", transform: h ? "translateX(4px)" : "none", fontSize: 18 }}>→</span>
+              </div>
+            </div>
+          </div>
+        </FadeIn>
+      </Wrap>
+    </section>
+  );
+}
+
+function ResumePage({ goBack }) {
+  useEffect(() => { window.scrollTo(0, 0); }, []);
+  return <ResumeSection goBack={goBack} />;
+}
+
+function HomePage({ onOpen }) { const { t } = useTheme(); const [as, setAs] = useState("about"); const m = useIsMobile(); useEffect(() => { const h = () => { for (const id of ["contact", "resume", "skills", "experience", "work", "about"]) { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top < 300) { setAs(id); break; } } }; window.addEventListener("scroll", h); return () => window.removeEventListener("scroll", h); }, []); return (<><Nav activeSection={as} currentPage="home" goHome={() => window.scrollTo({ top: 0, behavior: "smooth" })} goTo={onOpen} /><main id="main-content"><Hero /><section id="work" aria-label="Selected Work" style={{ paddingTop: m ? 60 : 100, paddingBottom: m ? 60 : 100 }}><Wrap><FadeIn><SL>Selected Work</SL><h2 style={{ fontFamily: FD, fontSize: m ? 28 : 42, color: t.text, margin: "0 0 44px 0", fontWeight: 400, lineHeight: 1.15 }}>Featured <span style={{ fontStyle: "italic" }}>Case Studies</span></h2></FadeIn><div style={{ display: "flex", flexDirection: "column", gap: 28 }}>{projects.map(p => <ProjectCard key={p.id} project={p} onOpen={onOpen} />)}</div></Wrap></section><ExperienceTimeline /><SkillsSection /><ResumeCard onOpen={onOpen} /><ContactSection /></main></>); }
 
 /* ═══ ROOT ═══ */
 export default function Portfolio() {
@@ -898,7 +955,7 @@ function PortfolioInner({ page, goTo, goHome, goZzazz }) {
   const { t } = useTheme();
   const liveRef = useRef(null);
   useEffect(() => {
-    const titles = { home: "Home — Ashish Khoshya portfolio", zzazz: "Zzazz.ai case study", "gstr-3b": "GSTR-3B Filing Redesign case study", "mint-v8": "Mint V8 Design System case study" };
+    const titles = { home: "Home — Ashish Khoshya portfolio", resume: "Resume — Ashish Khoshya", zzazz: "Zzazz.ai case study", "gstr-3b": "GSTR-3B Filing Redesign case study", "mint-v8": "Mint V8 Design System case study" };
     if (liveRef.current) liveRef.current.textContent = titles[page] || "Case study";
   }, [page]);
   return (<>
@@ -906,6 +963,7 @@ function PortfolioInner({ page, goTo, goHome, goZzazz }) {
     <a href="#main-content" className="skip-link">Skip to main content</a>
     <div ref={liveRef} role="status" aria-live="polite" aria-atomic="true" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0, padding: 0, margin: "-1px" }} />
     {page === "home" && <HomePage onOpen={goTo} />}
+    {page === "resume" && <><Nav currentPage="detail" goBack={goHome} goHome={goHome} goTo={goTo} /><main id="main-content"><ResumePage goBack={goHome} /></main></>}
     {page === "zzazz" && <><Nav currentPage="detail" goBack={goHome} goHome={goHome} goTo={goTo} /><main id="main-content"><ZZAZZDetail goBack={goHome} goTo={goTo} /></main></>}
     {page === "zzazz-exchange" && <><Nav currentPage="detail" goBack={goZzazz} goHome={goHome} goTo={goTo} /><main id="main-content"><ZExchange goBack={goZzazz} /></main></>}
     {page === "zzazz-publish" && <><Nav currentPage="detail" goBack={goZzazz} goHome={goHome} goTo={goTo} /><main id="main-content"><ZPublish goBack={goZzazz} /></main></>}
