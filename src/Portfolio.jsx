@@ -587,7 +587,6 @@ function GSTR3BDetail({ goBack }) { const { t } = useTheme(); const C = GREEN, m
   <Divider />
 
   <CS label="Design Solutions" labelColor={C} title="What I Built">
-    <CsImg src="/cs/gstr-wireframe-d.png" alt="Table-4 generation from reconciliation actions" caption="Wireframe: Table-4 auto-populated from reconciliation decisions — real-time audit trail" />
     <h4 style={{ fontFamily: FB, fontSize: 17, color: t.text, fontWeight: 600, marginBottom: 8 }}>A. Data Source Selection Interface</h4>
     <p style={{ fontFamily: FB, fontSize: 14, lineHeight: 1.7, color: t.subtle, marginBottom: 16 }}>Table-specific mapping with dropdown menus (e.g., "Table-4: GSTR-2B + PR"), smart auto-suggested defaults for SMEs, and a preview mode to validate auto-filled values before proceeding.</p>
     <CsImg src="/cs/gstr-wireframe-a.png" alt="Data Source Selection interface — table-wise mapping with smart defaults" caption="Wireframe: Data Source Selection — table-wise mapping with smart defaults" />
@@ -600,11 +599,15 @@ function GSTR3BDetail({ goBack }) { const { t } = useTheme(); const C = GREEN, m
     <h4 style={{ fontFamily: FB, fontSize: 17, color: t.text, fontWeight: 600, marginBottom: 8, marginTop: 28 }}>C. Pre-Filing Reconciliation Engine</h4>
     <p style={{ fontFamily: FB, fontSize: 14, lineHeight: 1.7, color: t.subtle, marginBottom: 16 }}>Split-view comparison of GSTR-2B vs Purchase Register with mismatches highlighted. Bulk approve/reject for 100+ invoices in one click. Vendor grouping and partial invoice matching added post-launch.</p>
     <CsImg src="/cs/gstr-wireframe-c.png" alt="Pre-Filing Reconciliation Engine — split-view comparison" caption="Wireframe: Reconciliation Engine — GSTR-2B vs PR split-view with bulk actions" />
-    <CsImg src="/cs/gstr-data-prep.gif" alt="Data preparation workflow in action" caption="Live: Data preparation — import, validate, and reconcile" />
+    <CsImg src="/cs/gstr-data-prep.gif" alt="Data preparation workflow in action" caption="Live: Data preparation — import, validate, and reconcile in one flow" />
     <Divider />
     <h4 style={{ fontFamily: FB, fontSize: 17, color: t.text, fontWeight: 600, marginBottom: 8, marginTop: 28 }}>D. Table-4 Live Preview</h4>
     <DC color={C} title="How to Surface Table-4 Impact" context="Users didn't trust auto-generated values and couldn't see how reconciliation decisions affected their ITC computations." options={[{ text: "Tooltip per cell", chosen: false }, { text: "Side panel with live preview as decisions are made", chosen: true }, { text: "Post-fill summary only", chosen: false }]} reasoning="Live side panel shows cause-and-effect in real time. Each reconciliation action immediately updates Table-4 — turning a black box into a transparent, trustworthy system." />
-    <CsImg src="/cs/gstr-tax-calc.gif" alt="Tax calculation review and offset step" caption="Live: Tax calculation review — government vs Clear GST logic comparison" />
+    <CsImg src="/cs/gstr-wireframe-d.png" alt="Table-4 generation from reconciliation actions" caption="Wireframe: Table-4 auto-populated from reconciliation decisions — real-time audit trail" />
+    <CsImg src="/cs/gstr-tax-calc.gif" alt="Tax calculation review and offset step" caption="Live: Tax calculation review — government vs Clear GST logic, live liability comparison" />
+    <Divider />
+    <h4 style={{ fontFamily: FB, fontSize: 17, color: t.text, fontWeight: 600, marginBottom: 8, marginTop: 28 }}>E. Upload & Filing Flow</h4>
+    <p style={{ fontFamily: FB, fontSize: 14, lineHeight: 1.7, color: t.subtle, marginBottom: 16 }}>Streamlined the final two steps — GSTN upload with automated OTP capture and a unified filing status dashboard covering all GSTINs in one view. Filing time dropped from 30 min to under 2 min per batch.</p>
     <CsImg src="/cs/gstr-upload.gif" alt="Upload to GSTN with multi-challan creation" caption="Live: Upload to GSTN — OTP authentication and real-time ledger sync" />
     <CsImg src="/cs/gstr-filing.gif" alt="Filing and status review across all GSTINs" caption="Live: Filing & status dashboard — one-click filing, EVC/DSC integration" />
   </CS>

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Ashish Khoshya — Resume</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
   :root {
     --bg: #FAFAF8;
@@ -34,7 +35,7 @@
     width: 210mm;
     min-height: 297mm;
     margin: 0 auto;
-    padding: 24px 36px 20px;
+    padding: 20px 36px 16px;
     background: #fff;
   }
 
@@ -43,13 +44,13 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    padding-bottom: 12px;
+    padding-bottom: 10px;
     border-bottom: 2px solid var(--text);
-    margin-bottom: 14px;
+    margin-bottom: 11px;
   }
   .header h1 {
     font-family: var(--fd);
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 400;
     line-height: 1;
     color: var(--text);
@@ -59,9 +60,9 @@
     font-weight: 400;
   }
   .header .subtitle {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--muted);
-    margin-top: 5px;
+    margin-top: 4px;
     letter-spacing: 0.3px;
   }
   .contact-row {
@@ -84,7 +85,7 @@
   }
 
   /* ── SECTION ── */
-  .section { margin-bottom: 12px; }
+  .section { margin-bottom: 9px; }
   .section-title {
     font-family: var(--fb);
     font-size: 9px;
@@ -92,31 +93,31 @@
     letter-spacing: 2.5px;
     text-transform: uppercase;
     color: var(--text);
-    padding-bottom: 4px;
+    padding-bottom: 3px;
     border-bottom: 1px solid var(--border);
-    margin-bottom: 8px;
+    margin-bottom: 7px;
   }
 
   /* ── SUMMARY ── */
   .summary {
     font-size: 11px;
-    line-height: 1.6;
+    line-height: 1.55;
     color: var(--subtle);
   }
   .summary strong { color: var(--text); font-weight: 600; }
 
   /* ── EXPERIENCE ── */
-  .exp-block { margin-bottom: 10px; }
+  .exp-block { margin-bottom: 8px; }
   .exp-block:last-child { margin-bottom: 0; }
   .exp-header {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
   }
   .exp-company {
     font-family: var(--fd);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     color: var(--text);
   }
@@ -128,11 +129,11 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-top: 4px;
-    margin-bottom: 4px;
+    margin-top: 3px;
+    margin-bottom: 3px;
   }
   .role-title {
-    font-size: 11.5px;
+    font-size: 11px;
     font-weight: 600;
     color: var(--text);
   }
@@ -142,7 +143,7 @@
     flex-shrink: 0;
   }
   .role-impact {
-    font-size: 10.5px;
+    font-size: 10px;
     color: var(--subtle);
     font-style: italic;
     margin-bottom: 2px;
@@ -152,10 +153,10 @@
     padding: 0;
   }
   .bullets li {
-    font-size: 10.5px;
-    line-height: 1.5;
+    font-size: 10px;
+    line-height: 1.45;
     color: var(--subtle);
-    padding-left: 12px;
+    padding-left: 11px;
     position: relative;
     margin-bottom: 1px;
   }
@@ -163,7 +164,7 @@
     content: "";
     position: absolute;
     left: 0;
-    top: 6px;
+    top: 5px;
     width: 4px;
     height: 4px;
     border-radius: 50%;
@@ -174,7 +175,7 @@
   /* ── METRICS INLINE ── */
   .metrics-row {
     display: flex;
-    gap: 8px;
+    gap: 6px;
     margin-top: 4px;
     flex-wrap: wrap;
   }
@@ -182,13 +183,13 @@
     display: flex;
     align-items: center;
     gap: 4px;
-    padding: 2px 8px;
+    padding: 2px 7px;
     border-radius: 3px;
     font-size: 9px;
   }
   .metric-badge .val {
     font-weight: 700;
-    font-size: 10px;
+    font-size: 9.5px;
   }
   .metric-badge .lbl {
     color: var(--muted);
@@ -211,8 +212,8 @@
     font-weight: 700;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    margin-bottom: 6px;
-    padding-bottom: 4px;
+    margin-bottom: 5px;
+    padding-bottom: 3px;
     border-bottom: 2px solid;
   }
   .skill-group.craft h4 { color: var(--blue); border-color: var(--blue); }
@@ -221,13 +222,13 @@
   .skill-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 4px;
+    gap: 3px;
   }
   .skill-tag {
-    font-size: 9.5px;
+    font-size: 9px;
     color: var(--subtle);
     background: #F5F5F3;
-    padding: 3px 8px;
+    padding: 2px 7px;
     border-radius: 3px;
   }
 
@@ -235,12 +236,12 @@
   .tools-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
-    margin-top: 4px;
+    gap: 4px;
+    margin-top: 2px;
   }
   .tool {
-    font-size: 9.5px;
-    padding: 3px 10px;
+    font-size: 9px;
+    padding: 2px 9px;
     border-radius: 3px;
     background: #F5F5F3;
     color: var(--subtle);
@@ -260,34 +261,34 @@
     color: var(--text);
   }
   .edu-degree {
-    font-size: 10.5px;
+    font-size: 10px;
     color: var(--subtle);
     margin-top: 2px;
   }
   .edu-period {
-    font-size: 11px;
+    font-size: 10px;
     color: var(--muted);
   }
 
   /* ── CERTIFICATIONS ── */
   .cert-list { list-style: none; }
   .cert-list li {
-    font-size: 10px;
+    font-size: 9.5px;
     color: var(--subtle);
-    padding: 3px 0;
+    padding: 2px 0;
     display: flex;
-    gap: 8px;
+    gap: 7px;
     align-items: baseline;
   }
   .cert-list li .check {
     color: var(--green);
     font-weight: 700;
-    font-size: 11px;
+    font-size: 10px;
     flex-shrink: 0;
   }
   .cert-org {
     color: var(--muted);
-    font-size: 10.5px;
+    font-size: 9.5px;
   }
 
   /* ── TWO COL BOTTOM ── */
@@ -299,44 +300,52 @@
 
   /* ── FOOTER ── */
   .footer {
-    margin-top: 10px;
-    padding-top: 8px;
+    margin-top: 8px;
+    padding-top: 7px;
     border-top: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
-    font-size: 10px;
+    font-size: 9.5px;
     color: var(--muted);
   }
   .footer a { color: var(--text); text-decoration: none; font-weight: 500; }
 
   /* ── SCREEN ONLY ── */
   @media screen {
-    body { background: #E8E6E1; padding: 32px 0; }
+    body { background: #E8E6E1; padding: 28px 0; }
     .page { box-shadow: 0 4px 24px rgba(0,0,0,0.12); border-radius: 2px; }
-    .save-hint {
+    .save-bar {
       text-align: center;
+      margin-bottom: 16px;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+    }
+    .btn-download {
       font-family: var(--fb);
       font-size: 13px;
-      color: #888;
-      margin: 20px auto;
+      font-weight: 600;
       cursor: pointer;
-      padding: 10px 24px;
-      background: var(--text);
+      padding: 10px 22px;
+      background: #1A1A1A;
       color: #fff;
       border: none;
       border-radius: 6px;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.18s, transform 0.12s;
     }
-    .save-bar {
-      text-align: center;
-      margin-bottom: 20px;
-    }
+    .btn-download:hover { background: #333; transform: translateY(-1px); }
+    .btn-download svg { flex-shrink: 0; }
+    .btn-download:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
   }
 
   /* ── PRINT ── */
   @media print {
     body { background: #fff; padding: 0; }
-    .page { width: 100%; padding: 20px 32px 16px; box-shadow: none; min-height: auto; }
+    .page { width: 100%; padding: 18px 32px 14px; box-shadow: none; min-height: auto; }
     .save-bar { display: none; }
     @page { size: A4; margin: 0; }
   }
@@ -345,8 +354,38 @@
 <body>
 
 <div class="save-bar">
-  <button class="save-hint" onclick="window.print()">Save as PDF (Ctrl/Cmd + P)</button>
+  <button class="btn-download" id="downloadBtn" onclick="downloadResume()">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+    <span id="downloadLabel">Download PDF</span>
+  </button>
 </div>
+
+<script>
+function downloadResume() {
+  const btn = document.getElementById('downloadBtn');
+  const label = document.getElementById('downloadLabel');
+  btn.disabled = true;
+  label.textContent = 'Generating…';
+
+  const el = document.querySelector('.page');
+  const opt = {
+    margin: 0,
+    filename: 'Ashish_Khoshya_Resume.pdf',
+    image: { type: 'jpeg', quality: 0.99 },
+    html2canvas: { scale: 2, useCORS: true, logging: false },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf().set(opt).from(el).save().then(() => {
+    btn.disabled = false;
+    label.textContent = 'Download PDF';
+  });
+}
+</script>
 
 <div class="page">
 
@@ -372,7 +411,7 @@
   <div class="section">
     <div class="section-title">Professional Summary</div>
     <p class="summary">
-      Senior Product Designer with <strong>4+ years</strong> building <strong>design systems</strong>, improving <strong>enterprise workflows</strong>, and leading <strong>UX initiatives</strong> across cross-functional teams. From reducing 700+ button variants to 32 with PCS Logic, to cutting GST filing time by 60% for 10+ GSTIN businesses. Data-driven, user-centric, and impact-focused.
+      Senior Product Designer with <strong>4+ years</strong> building <strong>design systems</strong>, improving <strong>enterprise workflows</strong>, and leading <strong>UX initiatives</strong> across cross-functional teams. From reducing 700+ button variants to 32 with PCS Logic, to cutting GST filing time by 60% for 1.4Cr+ businesses. Data-driven, user-centric, and impact-focused.
     </p>
   </div>
 
@@ -395,8 +434,7 @@
         <li>Closely collaborated with <strong>Founder, Product Lead & AI team</strong> &mdash; scoped what could and couldn't be solved across all verticals</li>
         <li>Redesigned Exchange from table-first to <strong>query-led AI-native interaction</strong> &mdash; users ask questions, get curated results</li>
         <li>Created <strong>Moments vertical</strong> from scratch &mdash; defined full IA, wireframes, and delegated detailed UI execution to team</li>
-        <li>Designed TimePay's <strong>three-path access model</strong> (cash, credits, sponsored attention) to capture 80&ndash;98% who'd never subscribe</li>
-        <li>Introduced <strong>DOTS Protocol</strong> for cryptographic content lineage and designed <strong>Ad Exchange</strong> for content-intent contextual ads</li>
+        <li>Designed TimePay's <strong>three-path access model</strong> to capture 80&ndash;98% who'd never subscribe; introduced <strong>DOTS Protocol</strong> for content lineage</li>
       </ul>
       <div class="metrics-row">
         <span class="metric-badge amber"><span class="val">7</span> <span class="lbl">Verticals architected</span></span>
@@ -419,10 +457,8 @@
       </div>
       <div class="role-impact">Led design for Accounts Payable suite and automated Table-4 ITC reconciliation</div>
       <ul class="bullets">
-        <li>Conducted <strong>UX audit</strong> of AP module post-rollout &mdash; gathered insights from accountants and finance teams</li>
-        <li>Standardised <strong>usability testing and research methods</strong> across multiple pods</li>
-        <li>Built smart engine to automate <strong>Table-4 ITC reconciliation</strong>, matching GSTR-2B with purchase registers</li>
-        <li>Integrated <strong>partial invoice matching</strong>, live tax impact preview &mdash; grew Table-4 into <strong>roadmap-level initiative</strong> in the AOP</li>
+        <li>Built smart engine to automate <strong>Table-4 ITC reconciliation</strong>, matching GSTR-2B with purchase registers; grew into <strong>roadmap-level initiative</strong></li>
+        <li>Conducted <strong>UX audit</strong> of AP module &mdash; standardised usability testing and research methods across multiple pods</li>
       </ul>
       <div class="metrics-row">
         <span class="metric-badge green"><span class="val">65%</span> <span class="lbl">Support queries reduced</span></span>
@@ -430,18 +466,15 @@
       </div>
 
       <!-- PD -->
-      <div class="role-row" style="margin-top: 6px;">
+      <div class="role-row" style="margin-top: 5px;">
         <span class="role-title">Product Designer</span>
         <span class="role-period">Jul 2021 &ndash; Sep 2023</span>
       </div>
       <div class="role-impact">Built Mint V8 design system &middot; Redesigned GSTR-3B filing &middot; Led Max ITC and Ingestion Module</div>
       <ul class="bullets">
-        <li>Spearheaded <strong>Mint V8 design system</strong> &mdash; token-based architecture with PCS Logic (Prefix-Content-Suffix)</li>
-        <li>Reduced button variants from <strong>700+ to 32</strong>, halved design-to-development time, enabled multi-region theming</li>
-        <li>Designed streamlined <strong>GSTR-3B workflow</strong> for businesses managing 10+ GSTINs with bulk upload and filing</li>
-        <li>Built filing dashboard to track status, liabilities, and input tax credit across entities</li>
-        <li>Conducted in-depth <strong>field research</strong> with tax professionals for Max ITC &mdash; designed guided interface for eligible credits</li>
-        <li>Built schema-based <strong>Ingestion Module</strong> for data import across all Clear business units</li>
+        <li>Spearheaded <strong>Mint V8 design system</strong> &mdash; token-based architecture with PCS Logic reduced <strong>700+ button variants to 32</strong>, halved dev time</li>
+        <li>Redesigned <strong>GSTR-3B workflow</strong> for 1.4Cr+ businesses &mdash; bulk upload, multi-GSTIN filing, and reconciliation engine in one platform</li>
+        <li>Led <strong>Max ITC redesign</strong> (field research with tax professionals) and <strong>Ingestion Module</strong> (schema-based data import across all Clear BUs)</li>
       </ul>
       <div class="metrics-row">
         <span class="metric-badge blue"><span class="val">700+&rarr;32</span> <span class="lbl">Button variants</span></span>
@@ -462,8 +495,7 @@
         <span class="role-period">May 2019 &ndash; Jul 2019</span>
       </div>
       <ul class="bullets">
-        <li>Redesigned marketing website and improved Android app onboarding experience</li>
-        <li>Participated in branding refresh exercises and collaborated with founders for UI consistency</li>
+        <li>Redesigned marketing website and improved Android app onboarding; collaborated with founders on branding refresh</li>
       </ul>
     </div>
   </div>
@@ -538,7 +570,7 @@
     <div class="section">
       <div class="section-title">Certifications</div>
       <ul class="cert-list">
-        <li><span class="check">&check;</span> User Experience (UX): Ultimate Guide to Usability and UX <span class="cert-org">&mdash; Udemy</span></li>
+        <li><span class="check">&check;</span> UX: Ultimate Guide to Usability and UX <span class="cert-org">&mdash; Udemy</span></li>
         <li><span class="check">&check;</span> Visual Elements of User Interface Design <span class="cert-org">&mdash; Coursera</span></li>
         <li><span class="check">&check;</span> IxDF Membership Certificate <span class="cert-org">&mdash; Interaction Design Foundation</span></li>
       </ul>
