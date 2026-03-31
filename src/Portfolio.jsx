@@ -254,7 +254,7 @@ function ResumeSection() {
 
   const workHistory = [
     {
-      company: "Zzazz.ai", location: "Remote", color: AMBER,
+      company: "Zzazz.ai", location: "Bengaluru", color: AMBER,
       roles: [{ title: "Designer · UX Architect · Product Architect", period: "2024 · ~6 Months",
         impact: "Reframed disconnected POCs into a coherent 7-vertical content economy ecosystem",
         bullets: [
