@@ -19,7 +19,7 @@ function useIsMobile(bp = 768) { const [m, setM] = useState(typeof window !== "u
 const BLUE = "#156CEF", GREEN = "#22C55E", AMBER = "#F59E0B";
 const FD = "'Playfair Display', serif", FB = "'DM Sans', sans-serif";
 
-const experience = [{ company: "ZZAZZ Terminal", subtitle: "Content pricing & ecosystem startup", roles: [{ title: "Designer · UX Architect · Product Architect", period: "~6 Months", highlights: ["Architected 7 interconnected verticals for a new content economy.", "Collaborated with Founder, Product Lead & AI team for scoping.", "Redesigned Exchange from table-first to query-led AI-native interaction.", "Created Moments vertical — defined IA, wireframes, delegated execution.", "Designed TimePay's three-path access model for India's market."] }] }, { company: "Clear (ClearTax)", subtitle: "India's largest tax & compliance platform", roles: [{ title: "Senior Product Designer", period: "Jan 2024 – Present", highlights: ["Leading design for GST products serving 1.4Cr+ businesses.", "Driving design system evolution and cross-team design ops."] }, { title: "Product Designer", period: "Jun 2022 – Dec 2023", highlights: ["Redesigned GSTR-3B filing — 87% time reduction.", "Built Mint V8 design system with PCS logic — 80% variant reduction.", "Led 50+ user interviews with MSMEs and enterprises."] }, { title: "Associate Product Designer", period: "Jun 2021 – May 2022", highlights: ["Contributed to GST product UI improvements.", "Component library foundations with engineering."] }] }];
+const experience = [{ company: "ZZAZZ Terminal", subtitle: "Content pricing & ecosystem startup", roles: [{ title: "Designer · UX Architect · Product Architect", period: "2024 · ~6 Months", highlights: ["Architected 7 interconnected verticals for a new content economy.", "Collaborated with Founder, Product Lead & AI team for scoping.", "Redesigned Exchange from table-first to query-led AI-native interaction.", "Created Moments vertical — defined IA, wireframes, delegated execution.", "Designed TimePay's three-path access model for India's market."] }] }, { company: "Clear (ClearTax)", subtitle: "India's largest tax & compliance platform", roles: [{ title: "Senior Product Designer", period: "Oct 2023 – Jul 2025", highlights: ["Led design for Accounts Payable suite and Table-4 ITC automation.", "Reduced support queries by 65% with smart ITC reconciliation engine.", "Standardised usability testing and research methods across pods."] }, { title: "Product Designer", period: "Jul 2021 – Sep 2023", highlights: ["Built Mint V8 design system — 700+ to 32 button variants via PCS Logic.", "Redesigned GSTR-3B filing — 60% time reduction, 53% adoption increase.", "Led Max ITC redesign — 18% accuracy improvement.", "Built Ingestion Module — 45% import success rate increase."] }] }];
 
 const projects = [
   { id: "zzazz", title: "ZZAZZ Terminal", subtitle: "Architecting a New Content Economy", category: "Product Architecture", date: "~6 Mo", role: "Designer · UX/Product Architect", team: "Founder · Product Lead · AI · 2 Designers", overview: "Reframed disconnected POCs into a coherent 7-vertical ecosystem that makes priced content believable.", results: [{ m: "7", l: "Verticals" }, { m: "1", l: "Ecosystem" }, { m: "∞", l: "Content priced" }, { m: "3", l: "Access paths" }], color: AMBER },
@@ -242,212 +242,336 @@ function ResumeSection() {
   const { t } = useTheme();
   const m = useIsMobile();
   const RESUME_URL = "https://drive.google.com/file/d/1DEdqvDBGJCDk0lDyIx1ENO_LssvrCy_s/view";
+  const [dlHover, setDlHover] = useState(false);
+
+  /* ── Impact highlights (recruiter scannable in <6 seconds) ── */
+  const highlights = [
+    { metric: "60%", label: "Filing time reduced", sub: "GSTR-3B · 10+ GSTINs at scale" },
+    { metric: "700+→32", label: "Button variants cut", sub: "Mint V8 · PCS Logic" },
+    { metric: "65%", label: "Support queries down", sub: "Table-4 ITC automation" },
+    { metric: "53%", label: "Adoption increase", sub: "GST filing · 18% → 53%" },
+  ];
 
   const workHistory = [
     {
-      company: "ZZAZZ Terminal",
-      location: "Remote",
+      company: "ZZAZZ Terminal", location: "Remote", color: AMBER,
+      roles: [{ title: "Designer · UX Architect · Product Architect", period: "2024 · ~6 Months",
+        impact: "Architected 7-vertical content economy ecosystem from disconnected POCs",
+        bullets: [
+          "Collaborated with Founder, Product Lead & AI team — scoped feasibility across all verticals",
+          "Redesigned Exchange from table-first to query-led AI-native interaction model",
+          "Created Moments vertical end-to-end — IA, wireframes, and delegated execution to team",
+          "Designed TimePay's three-path access model (cash, credits, sponsored) for India's market",
+        ]
+      }]
+    },
+    {
+      company: "Clear (ClearTax)", location: "Bengaluru", color: GREEN,
       roles: [
-        { title: "Designer · UX Architect · Product Architect", period: "2024 · ~6 Months", bullets: [
-          "Architected 7 interconnected verticals for a new content economy ecosystem",
-          "Collaborated with Founder, Product Lead & AI team for scoping and feasibility",
-          "Redesigned Exchange from table-first to query-led AI-native interaction",
-          "Created Moments vertical — defined IA, wireframes, delegated execution",
-          "Designed TimePay's three-path access model for India's market",
-        ]}
+        { title: "Senior Product Designer", period: "Oct 2023 – Jul 2025",
+          impact: "Led design for Accounts Payable suite and automated Table-4 ITC reconciliation",
+          bullets: [
+            "Conducted UX audit of AP module post-rollout — gathered insights from accountants and finance teams",
+            "Standardised usability testing and research methods across multiple pods",
+            "Built smart engine to automate Table-4 ITC reconciliation, matching GSTR-2B with purchase registers",
+            "Integrated partial invoice matching, live tax impact preview, and CA-friendly tooltips",
+            "Grew Table-4 from side project into roadmap-level initiative in the Annual Operating Plan",
+          ],
+          impactMetrics: [
+            { value: "65%", label: "Support queries reduced" },
+            { value: "AP Suite", label: "Design quality improved" },
+          ]
+        },
+        { title: "Product Designer", period: "Jul 2021 – Sep 2023",
+          impact: "Built Mint V8 design system · Redesigned GSTR-3B filing · Led Max ITC and Ingestion Module",
+          bullets: [
+            "Spearheaded Mint V8 design system — token-based architecture with PCS Logic (Prefix-Content-Suffix)",
+            "Reduced button variants from 700+ to 32, halved design-to-development time, enabled multi-region theming",
+            "Designed streamlined GSTR-3B workflow for businesses managing 10+ GSTINs with bulk upload and filing",
+            "Built filing dashboard to track status, liabilities, and input tax credit across entities",
+            "Conducted in-depth field research with tax professionals for Max ITC — designed guided interface for eligible credits",
+            "Built schema-based Ingestion Module for data import across all Clear business units",
+          ],
+          impactMetrics: [
+            { value: "700+→32", label: "Button variants" },
+            { value: "60%", label: "Filing time cut" },
+            { value: "53%", label: "Adoption (from 18%)" },
+            { value: "45%", label: "Import success up" },
+          ]
+        },
       ]
     },
     {
-      company: "Clear (ClearTax)",
-      location: "Bengaluru",
-      roles: [
-        { title: "Senior Product Designer", period: "Jan 2024 – Present", bullets: [
-          "Leading design for GST products serving 1.4Cr+ businesses across India",
-          "Driving design system evolution (Mint V8) and cross-team design ops",
-          "Mentoring junior designers on research methods and system thinking",
-        ]},
-        { title: "Product Designer", period: "Jun 2022 – Dec 2023", bullets: [
-          "Redesigned GSTR-3B filing — reduced filing time from 1 hr to 8 min (87% reduction)",
-          "Built Mint V8 design system with PCS Logic — 80% variant reduction (760 → 32 buttons)",
-          "Led 50+ user interviews with MSMEs and enterprises across India",
-          "Improved filing adoption by 53% and accuracy to 94%",
-        ]},
-        { title: "Associate Product Designer", period: "Jun 2021 – May 2022", bullets: [
-          "Contributed to GST product UI improvements and compliance workflows",
-          "Built component library foundations in collaboration with engineering",
-        ]},
-      ]
-    },
-    {
-      company: "Visit Health",
-      location: "Internship",
-      roles: [
-        { title: "Product Design Intern", period: "Jan 2021 – May 2021", bullets: [
-          "Designed health-tech interfaces for patient and doctor workflows",
-          "Contributed to mobile app UX improvements and design system foundations",
-        ]}
-      ]
+      company: "Visit Health", location: "Internship", color: BLUE,
+      roles: [{ title: "UI/UX Design Intern", period: "May 2019 – Jul 2019",
+        impact: "Marketing website redesign and Android app onboarding improvement",
+        bullets: [
+          "Redesigned marketing website and improved Android app onboarding experience",
+          "Participated in branding refresh exercises and collaborated with founders for UI consistency",
+        ]
+      }]
     },
   ];
 
   const education = [
-    { institution: "IIT Guwahati", degree: "B.Tech", score: "7.08 CGPA", period: "2017 – 2021" },
-    { institution: "RPS Public School", degree: "Class XII (CBSE)", score: "90.2%", period: "2017" },
+    { institution: "IIT Guwahati", degree: "Bachelor of Technology", score: "2017 – 2021", period: "July 2017 – July 2021", detail: "Top engineering institute in India" },
   ];
 
   const coreSkills = [
-    { category: "Design", items: ["Product Design", "Design Systems", "Interaction Design", "Information Architecture", "Visual Design"] },
-    { category: "Research", items: ["User Research", "Field Studies", "Usability Testing", "Journey Mapping", "Stakeholder Interviews"] },
-    { category: "Strategy", items: ["Product Architecture", "Ecosystem Design", "Design Ops", "Cross-functional Leadership"] },
+    { category: "Craft", color: BLUE, items: ["Design Systems", "Interaction Design", "Visual Design", "Information Architecture", "Wireframing", "Prototyping"] },
+    { category: "Research", color: GREEN, items: ["User Research", "Usability Testing", "Field Studies", "Journey Mapping", "Stakeholder Interviews", "Data-Driven Design"] },
+    { category: "Strategy", color: AMBER, items: ["Product Architecture", "Ecosystem Design", "Project Management", "Cross-functional Leadership", "Communication & Collaboration"] },
   ];
 
-  const tools = ["Figma", "Framer", "Storybook", "Principle", "Miro / FigJam", "Notion", "Jira / Linear", "After Effects"];
+  const tools = [
+    { name: "Figma", type: "primary" }, { name: "FigJam", type: "primary" },
+    { name: "Sketch", type: "primary" }, { name: "Storybook", type: "primary" },
+    { name: "Adobe Creative Suite", type: "secondary" }, { name: "Framer", type: "secondary" },
+    { name: "Principle", type: "secondary" }, { name: "Notion", type: "secondary" },
+    { name: "Jira / Linear", type: "secondary" }, { name: "Miro", type: "secondary" },
+  ];
 
   const certifications = [
-    "Google UX Design Professional Certificate",
-    "Interaction Design Foundation — UX Management",
-  ];
-
-  const achievements = [
-    "IIT Guwahati — Bachelor of Technology (top engineering institute in India)",
-    "Led design system adopted across entire organisation within 6 weeks",
-    "Published design thinking articles on Medium",
-    "Conducted 50+ user interviews with MSMEs and enterprise clients",
+    { name: "User Experience (UX): Ultimate Guide to Usability and UX", org: "Udemy" },
+    { name: "Visual Elements of User Interface Design", org: "Coursera" },
+    { name: "IxDF Membership Certificate", org: "Interaction Design Foundation" },
   ];
 
   return (
     <section id="resume" aria-label="Resume" style={{ paddingTop: m ? 60 : 100, paddingBottom: m ? 60 : 100 }}>
       <Wrap>
+        {/* ── Header with Download CTA ── */}
         <FadeIn>
           <SL>Resume</SL>
-          <div style={{ display: "flex", flexDirection: m ? "column" : "row", justifyContent: "space-between", alignItems: m ? "flex-start" : "center", gap: 16, marginBottom: 12 }}>
-            <h2 style={{ fontFamily: FD, fontSize: m ? 28 : 42, color: t.text, margin: 0, fontWeight: 400, lineHeight: 1.15 }}>Ashish <span style={{ fontStyle: "italic" }}>Khoshya</span></h2>
-            <a href={RESUME_URL} target="_blank" rel="noopener noreferrer" style={{
-              display: "inline-flex", alignItems: "center", gap: 8, padding: m ? "10px 18px" : "11px 24px",
-              background: t.accent, color: "#0A0A0A", fontFamily: FB, fontSize: 13, fontWeight: 600,
-              border: "none", cursor: "pointer", borderRadius: 4, textDecoration: "none", flexShrink: 0
-            }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download PDF
+          <div style={{ display: "flex", flexDirection: m ? "column" : "row", justifyContent: "space-between", alignItems: m ? "flex-start" : "flex-end", gap: m ? 20 : 16, marginBottom: 20 }}>
+            <div>
+              <h2 style={{ fontFamily: FD, fontSize: m ? 32 : 48, color: t.text, margin: 0, fontWeight: 400, lineHeight: 1.1 }}>Ashish <span style={{ fontStyle: "italic", color: t.accent }}>Khoshya</span></h2>
+              <p style={{ fontFamily: FB, fontSize: m ? 14 : 16, color: t.muted, marginTop: 6 }}>Senior Product Designer · 4+ Years · IIT Guwahati</p>
+            </div>
+            <a href={RESUME_URL} target="_blank" rel="noopener noreferrer"
+              onMouseEnter={() => setDlHover(true)} onMouseLeave={() => setDlHover(false)}
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 10, padding: m ? "14px 24px" : "14px 28px",
+                background: dlHover ? t.text : t.accent, color: "#0A0A0A", fontFamily: FB, fontSize: 14, fontWeight: 700,
+                border: "none", cursor: "pointer", borderRadius: 6, textDecoration: "none", flexShrink: 0,
+                transition: "all 0.3s", transform: dlHover ? "translateY(-2px)" : "none",
+                boxShadow: dlHover ? `0 8px 24px ${t.accent}40` : "none",
+                letterSpacing: "0.5px"
+              }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download Resume
             </a>
           </div>
-          <p style={{ fontFamily: FB, fontSize: 15, lineHeight: 1.7, color: t.subtle, maxWidth: 640, marginBottom: 8 }}>
-            Senior Product Designer with 4+ years of experience in enterprise UX, design systems, and product architecture. Passionate about turning complex systems into intuitive experiences at scale.
-          </p>
-          <div style={{ display: "flex", gap: m ? 12 : 20, flexWrap: "wrap", marginBottom: 36 }}>
-            {[
-              { icon: "📍", text: "Bengaluru, India" },
-              { icon: "📧", text: "ashish.khoshya1998@gmail.com" },
-              { icon: "📱", text: "+91 7988721132" },
-            ].map((c, i) => (
-              <span key={i} style={{ fontFamily: FB, fontSize: 12, color: t.muted, display: "flex", alignItems: "center", gap: 6 }}>
-                <span>{c.icon}</span>{c.text}
-              </span>
-            ))}
-          </div>
-        </FadeIn>
 
-        {/* Work Experience */}
-        <FadeIn>
-          <div style={{ marginBottom: 48 }}>
-            <div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 600, color: t.accent, marginBottom: 24, paddingBottom: 10, borderBottom: `2px solid ${t.accent}` }}>Work Experience</div>
-            {workHistory.map((w, wi) => (
-              <div key={wi} style={{ marginBottom: 32, position: "relative" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
-                  <h3 style={{ fontFamily: FD, fontSize: m ? 20 : 24, color: t.text, margin: 0, fontWeight: 400 }}>{w.company}</h3>
-                  <span style={{ fontFamily: FB, fontSize: 12, color: t.muted, fontStyle: "italic" }}>{w.location}</span>
-                </div>
-                {w.roles.map((r, ri) => (
-                  <div key={ri} style={{ marginTop: ri === 0 ? 12 : 20, paddingLeft: m ? 12 : 20, borderLeft: `2px solid ${t.border}` }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: 8 }}>
-                      <div style={{ fontFamily: FB, fontSize: 14, color: t.text, fontWeight: 600 }}>{r.title}</div>
-                      <div style={{ fontFamily: FB, fontSize: 12, color: t.muted }}>{r.period}</div>
-                    </div>
-                    <ul style={{ margin: "8px 0 0 0", padding: "0 0 0 16px", listStyle: "none" }}>
-                      {r.bullets.map((b, bi) => (
-                        <li key={bi} style={{ fontFamily: FB, fontSize: 13, lineHeight: 1.7, color: t.subtle, marginBottom: 4, position: "relative", paddingLeft: 12 }}>
-                          <span style={{ position: "absolute", left: 0, top: "0.55em", width: 4, height: 4, borderRadius: "50%", background: t.accent, opacity: 0.6 }} />
-                          {b}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+          {/* ── Contact strip ── */}
+          <div style={{ display: "flex", gap: m ? 8 : 0, flexWrap: "wrap", marginBottom: 32, borderRadius: 6, overflow: "hidden", border: `1px solid ${t.border}` }}>
+            {[
+              { label: "Location", value: "Bengaluru, India", href: null },
+              { label: "Email", value: "ashish.khoshya1998@gmail.com", href: "mailto:ashish.khoshya1998@gmail.com" },
+              { label: "LinkedIn", value: "ashish-khoshya", href: "https://linkedin.com/in/ashish-khoshya" },
+              { label: "Medium", value: "@ashish.khoshya1998", href: "https://medium.com/@ashish.khoshya1998" },
+            ].map((c, i) => (
+              <div key={i} style={{ flex: m ? "1 1 100%" : "1 1 0", padding: m ? "10px 16px" : "14px 20px", borderRight: (!m && i < 3) ? `1px solid ${t.border}` : "none", borderBottom: (m && i < 3) ? `1px solid ${t.border}` : "none", background: t.card }}>
+                <div style={{ fontFamily: FB, fontSize: 9, letterSpacing: "2px", textTransform: "uppercase", color: t.muted, marginBottom: 4, fontWeight: 600 }}>{c.label}</div>
+                {c.href ? (
+                  <a href={c.href} target="_blank" rel="noopener noreferrer" style={{ fontFamily: FB, fontSize: m ? 12 : 13, color: t.text, textDecoration: "none", borderBottom: `1px solid transparent`, transition: "border-color 0.2s" }}
+                    onMouseEnter={e => e.currentTarget.style.borderColor = t.accent} onMouseLeave={e => e.currentTarget.style.borderColor = "transparent"}>{c.value}</a>
+                ) : (
+                  <div style={{ fontFamily: FB, fontSize: m ? 12 : 13, color: t.text }}>{c.value}</div>
+                )}
               </div>
             ))}
           </div>
         </FadeIn>
 
-        {/* Education */}
+        {/* ── Impact Metrics Bar — the "6-second scan" ── */}
         <FadeIn>
           <div style={{ marginBottom: 48 }}>
-            <div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 600, color: t.accent, marginBottom: 24, paddingBottom: 10, borderBottom: `2px solid ${t.accent}` }}>Education</div>
-            <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "1fr 1fr", gap: 14 }}>
+            <div style={{ fontFamily: FB, fontSize: 10, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 700, color: t.accent, marginBottom: 16 }}>Career Impact</div>
+            <div style={{ display: "grid", gridTemplateColumns: m ? "repeat(2, 1fr)" : "repeat(4, 1fr)", gap: 1, background: t.border, borderRadius: 8, overflow: "hidden" }}>
+              {highlights.map((h, i) => (
+                <FadeIn key={i} delay={i * 0.08}>
+                  <div style={{ background: t.card, padding: m ? "20px 16px" : "28px 24px", textAlign: "center", position: "relative" }}>
+                    <div style={{ fontFamily: FD, fontSize: m ? 32 : 40, color: t.accent, fontWeight: 700, lineHeight: 1 }}>{h.metric}</div>
+                    <div style={{ fontFamily: FB, fontSize: 12, color: t.text, fontWeight: 600, marginTop: 8, letterSpacing: "0.3px" }}>{h.label}</div>
+                    <div style={{ fontFamily: FB, fontSize: 10, color: t.muted, marginTop: 4, fontStyle: "italic" }}>{h.sub}</div>
+                  </div>
+                </FadeIn>
+              ))}
+            </div>
+          </div>
+        </FadeIn>
+
+        {/* ── Professional Summary ── */}
+        <FadeIn>
+          <div style={{ marginBottom: 48, padding: m ? 24 : 32, background: `${t.accent}06`, border: `1px solid ${t.accent}15`, borderRadius: 8, position: "relative", overflow: "hidden" }}>
+            <div style={{ position: "absolute", top: 0, left: 0, width: 4, height: "100%", background: t.accent }} />
+            <div style={{ fontFamily: FB, fontSize: 10, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 700, color: t.accent, marginBottom: 12 }}>Professional Summary</div>
+            <p style={{ fontFamily: FB, fontSize: m ? 14 : 16, lineHeight: 1.8, color: t.text, margin: 0, fontWeight: 400 }}>
+              Senior Product Designer with 4+ years delivering impactful digital experiences. Proven track record in building <strong>design systems</strong>, improving <strong>enterprise workflows</strong>, and leading <strong>UX initiatives</strong> across cross-functional teams. Expert in streamlining user experiences and building scalable, modular design components — from reducing 700+ button variants to 32 with a novel PCS Logic, to cutting GST filing time by 60% for businesses managing 10+ GSTINs. Passionate about solving real-world problems with data-driven and user-centric design.
+            </p>
+          </div>
+        </FadeIn>
+
+        {/* ── Work Experience ── */}
+        <FadeIn>
+          <div style={{ marginBottom: 48 }}>
+            <div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 700, color: t.accent, marginBottom: 28, paddingBottom: 12, borderBottom: `2px solid ${t.accent}`, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span>Experience</span>
+              <span style={{ fontFamily: FB, fontSize: 11, color: t.muted, fontWeight: 400, letterSpacing: "0", textTransform: "none" }}>May 2019 – Jul 2025</span>
+            </div>
+            {workHistory.map((w, wi) => (
+              <FadeIn key={wi} delay={wi * 0.1}>
+                <div style={{ marginBottom: 36, padding: m ? 20 : 28, background: t.card, border: `1px solid ${t.border}`, borderRadius: 8, position: "relative", overflow: "hidden" }}>
+                  <div style={{ position: "absolute", top: 0, left: 0, width: 4, height: "100%", background: w.color }} />
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
+                    <div>
+                      <h3 style={{ fontFamily: FD, fontSize: m ? 22 : 26, color: t.text, margin: 0, fontWeight: 400 }}>{w.company}</h3>
+                      <span style={{ fontFamily: FB, fontSize: 12, color: t.muted }}>{w.location}</span>
+                    </div>
+                  </div>
+                  {w.roles.map((r, ri) => (
+                    <div key={ri} style={{ marginTop: ri === 0 ? 0 : 24, paddingTop: ri === 0 ? 0 : 20, borderTop: ri === 0 ? "none" : `1px solid ${t.border}` }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
+                        <div style={{ fontFamily: FB, fontSize: m ? 14 : 15, color: t.text, fontWeight: 600 }}>{r.title}</div>
+                        <div style={{ fontFamily: FB, fontSize: 12, color: w.color, fontWeight: 500, background: `${w.color}12`, padding: "2px 10px", borderRadius: 3 }}>{r.period}</div>
+                      </div>
+                      {/* Impact line — the one thing a recruiter reads */}
+                      <div style={{ fontFamily: FB, fontSize: 13, color: w.color, fontWeight: 500, marginBottom: 10, fontStyle: "italic", lineHeight: 1.5 }}>{r.impact}</div>
+                      <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
+                        {r.bullets.map((b, bi) => (
+                          <li key={bi} style={{ fontFamily: FB, fontSize: 13, lineHeight: 1.7, color: t.subtle, marginBottom: 5, paddingLeft: 16, position: "relative" }}>
+                            <span style={{ position: "absolute", left: 0, top: "0.6em", width: 5, height: 5, borderRadius: "50%", background: `${w.color}50` }} />
+                            {b}
+                          </li>
+                        ))}
+                      </ul>
+                      {/* Inline impact metrics for roles that have them */}
+                      {r.impactMetrics && (
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 14 }}>
+                          {r.impactMetrics.map((im, imi) => (
+                            <div key={imi} style={{ display: "flex", alignItems: "center", gap: 6, padding: "4px 12px", background: `${w.color}10`, border: `1px solid ${w.color}20`, borderRadius: 4 }}>
+                              <span style={{ fontFamily: FD, fontSize: 15, color: w.color, fontWeight: 700 }}>{im.value}</span>
+                              <span style={{ fontFamily: FB, fontSize: 11, color: t.muted }}>{im.label}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </FadeIn>
+
+        {/* ── Education ── */}
+        <FadeIn>
+          <div style={{ marginBottom: 48 }}>
+            <div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 700, color: t.accent, marginBottom: 28, paddingBottom: 12, borderBottom: `2px solid ${t.accent}` }}>Education</div>
+            <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "1fr 1fr", gap: 16 }}>
               {education.map((e, i) => (
-                <div key={i} style={{ padding: m ? 20 : 24, background: t.card, border: `1px solid ${t.border}`, borderRadius: 4 }}>
-                  <h4 style={{ fontFamily: FD, fontSize: 20, color: t.text, margin: "0 0 4px 0", fontWeight: 400 }}>{e.institution}</h4>
-                  <div style={{ fontFamily: FB, fontSize: 13, color: t.subtle }}>{e.degree}</div>
-                  <div style={{ display: "flex", justifyContent: "space-between", marginTop: 10 }}>
-                    <span style={{ fontFamily: FB, fontSize: 13, color: t.accent, fontWeight: 600 }}>{e.score}</span>
-                    <span style={{ fontFamily: FB, fontSize: 12, color: t.muted }}>{e.period}</span>
+                <FadeIn key={i} delay={i * 0.1}>
+                  <div style={{ padding: m ? 20 : 24, background: t.card, border: `1px solid ${t.border}`, borderRadius: 8, position: "relative", overflow: "hidden" }}>
+                    <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${t.accent}, ${t.accent}40)` }} />
+                    <h4 style={{ fontFamily: FD, fontSize: m ? 20 : 22, color: t.text, margin: "4px 0 6px 0", fontWeight: 400 }}>{e.institution}</h4>
+                    <div style={{ fontFamily: FB, fontSize: 13, color: t.subtle }}>{e.degree}</div>
+                    <div style={{ fontFamily: FB, fontSize: 11, color: t.muted, marginTop: 2 }}>{e.detail}</div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 14, paddingTop: 12, borderTop: `1px solid ${t.border}` }}>
+                      <span style={{ fontFamily: FD, fontSize: 20, color: t.accent, fontWeight: 700 }}>{e.score}</span>
+                      <span style={{ fontFamily: FB, fontSize: 12, color: t.muted }}>{e.period}</span>
+                    </div>
                   </div>
-                </div>
+                </FadeIn>
               ))}
             </div>
           </div>
         </FadeIn>
 
-        {/* Skills Grid */}
+        {/* ── Core Competencies ── */}
         <FadeIn>
           <div style={{ marginBottom: 48 }}>
-            <div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 600, color: t.accent, marginBottom: 24, paddingBottom: 10, borderBottom: `2px solid ${t.accent}` }}>Core Competencies</div>
-            <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "repeat(3, 1fr)", gap: 14 }}>
+            <div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 700, color: t.accent, marginBottom: 28, paddingBottom: 12, borderBottom: `2px solid ${t.accent}` }}>Core Competencies</div>
+            <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "repeat(3, 1fr)", gap: 16 }}>
               {coreSkills.map((cat, ci) => (
-                <div key={ci} style={{ padding: m ? 20 : 24, background: t.card, border: `1px solid ${t.border}`, borderRadius: 4 }}>
-                  <div style={{ fontFamily: FB, fontSize: 12, fontWeight: 600, color: t.accent, letterSpacing: "1.5px", textTransform: "uppercase", marginBottom: 12 }}>{cat.category}</div>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                    {cat.items.map((item, ii) => (
-                      <span key={ii} style={{ fontFamily: FB, fontSize: 12, color: t.subtle, background: `${t.accent}10`, padding: "4px 10px", borderRadius: 3 }}>{item}</span>
-                    ))}
+                <FadeIn key={ci} delay={ci * 0.1}>
+                  <div style={{ padding: m ? 20 : 24, background: t.card, border: `1px solid ${t.border}`, borderRadius: 8, position: "relative", overflow: "hidden" }}>
+                    <div style={{ position: "absolute", top: 0, left: 0, width: 4, height: "100%", background: cat.color }} />
+                    <div style={{ fontFamily: FB, fontSize: 12, fontWeight: 700, color: cat.color, letterSpacing: "1.5px", textTransform: "uppercase", marginBottom: 14 }}>{cat.category}</div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                      {cat.items.map((item, ii) => (
+                        <div key={ii} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                          <div style={{ width: 5, height: 5, borderRadius: "50%", background: cat.color, flexShrink: 0, opacity: 0.7 }} />
+                          <span style={{ fontFamily: FB, fontSize: 13, color: t.subtle }}>{item}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                </FadeIn>
               ))}
             </div>
           </div>
         </FadeIn>
 
-        {/* Tools */}
+        {/* ── Tools — with primary/secondary distinction ── */}
         <FadeIn>
           <div style={{ marginBottom: 48 }}>
-            <div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 600, color: t.accent, marginBottom: 24, paddingBottom: 10, borderBottom: `2px solid ${t.accent}` }}>Tools & Software</div>
+            <div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 700, color: t.accent, marginBottom: 28, paddingBottom: 12, borderBottom: `2px solid ${t.accent}` }}>Tools & Software</div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
               {tools.map((tool, i) => (
-                <span key={i} style={{ fontFamily: FB, fontSize: 13, color: t.muted, background: t.card, padding: "8px 16px", border: `1px solid ${t.border}`, borderRadius: 4 }}>{tool}</span>
+                <span key={i} style={{
+                  fontFamily: FB, fontSize: 13, borderRadius: 6, padding: "8px 18px",
+                  color: tool.type === "primary" ? t.text : t.muted,
+                  background: tool.type === "primary" ? `${t.accent}12` : t.card,
+                  border: `1px solid ${tool.type === "primary" ? `${t.accent}30` : t.border}`,
+                  fontWeight: tool.type === "primary" ? 500 : 400,
+                }}>{tool.name}</span>
               ))}
             </div>
           </div>
         </FadeIn>
 
-        {/* Certifications & Achievements side by side */}
+        {/* ── Certifications ── */}
         <FadeIn>
-          <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "1fr 1fr", gap: 20 }}>
-            <div>
-              <div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 600, color: t.accent, marginBottom: 24, paddingBottom: 10, borderBottom: `2px solid ${t.accent}` }}>Certifications</div>
+          <div style={{ marginBottom: 48 }}>
+            <div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 700, color: t.accent, marginBottom: 28, paddingBottom: 12, borderBottom: `2px solid ${t.accent}` }}>Certifications</div>
+            <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "1fr 1fr", gap: 14 }}>
               {certifications.map((c, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 12 }}>
-                  <span style={{ color: t.accent, fontSize: 14, marginTop: 2, flexShrink: 0 }}>✦</span>
-                  <span style={{ fontFamily: FB, fontSize: 13, color: t.subtle, lineHeight: 1.6 }}>{c}</span>
+                <div key={i} style={{ padding: m ? 16 : 20, background: t.card, border: `1px solid ${t.border}`, borderRadius: 8, display: "flex", alignItems: "center", gap: 14 }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 8, background: `${t.accent}10`, border: `1px solid ${t.accent}20`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={t.accent} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  </div>
+                  <div>
+                    <div style={{ fontFamily: FB, fontSize: 13, color: t.text, fontWeight: 500, lineHeight: 1.4 }}>{c.name}</div>
+                    <div style={{ fontFamily: FB, fontSize: 11, color: t.muted, marginTop: 2 }}>{c.org}</div>
+                  </div>
                 </div>
               ))}
             </div>
-            <div>
-              <div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 600, color: t.accent, marginBottom: 24, paddingBottom: 10, borderBottom: `2px solid ${t.accent}` }}>Achievements</div>
-              {achievements.map((a, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 12 }}>
-                  <span style={{ color: t.accent, fontSize: 14, marginTop: 2, flexShrink: 0 }}>✦</span>
-                  <span style={{ fontFamily: FB, fontSize: 13, color: t.subtle, lineHeight: 1.6 }}>{a}</span>
-                </div>
-              ))}
+          </div>
+        </FadeIn>
+
+        {/* ── Bottom CTA ── */}
+        <FadeIn>
+          <div style={{ padding: m ? 24 : 36, background: t.card, border: `1px solid ${t.border}`, borderRadius: 8, textAlign: "center" }}>
+            <div style={{ fontFamily: FD, fontSize: m ? 20 : 26, color: t.text, fontWeight: 400, marginBottom: 8 }}>Interested in working together?</div>
+            <p style={{ fontFamily: FB, fontSize: 14, color: t.muted, marginBottom: 20 }}>Download my full resume or get in touch directly.</p>
+            <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+              <a href={RESUME_URL} target="_blank" rel="noopener noreferrer" style={{
+                display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 24px",
+                background: t.accent, color: "#0A0A0A", fontFamily: FB, fontSize: 13, fontWeight: 700,
+                border: "none", borderRadius: 6, textDecoration: "none"
+              }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download PDF
+              </a>
+              <a href="mailto:ashish.khoshya1998@gmail.com" style={{
+                display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 24px",
+                background: "transparent", color: t.text, fontFamily: FB, fontSize: 13, fontWeight: 500,
+                border: `1px solid ${t.border}`, borderRadius: 6, textDecoration: "none"
+              }}>
+                Say Hello
+              </a>
             </div>
           </div>
         </FadeIn>
