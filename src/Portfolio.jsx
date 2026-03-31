@@ -488,24 +488,32 @@ function ResumeSection() {
           </div>
         </FadeIn>
 
-        {/* ── Core Competencies ── */}
+        {/* ── Verified Skills — proof-backed ── */}
         <FadeIn>
           <div style={{ marginBottom: 48 }}>
-            <div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 700, color: t.accent, marginBottom: 28, paddingBottom: 12, borderBottom: `2px solid ${t.accent}` }}>Core Competencies</div>
-            <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "repeat(3, 1fr)", gap: 16 }}>
-              {coreSkills.map((cat, ci) => (
-                <FadeIn key={ci} delay={ci * 0.1}>
-                  <div style={{ padding: m ? 20 : 24, background: t.card, border: `1px solid ${t.border}`, borderRadius: 8, position: "relative", overflow: "hidden" }}>
-                    <div style={{ position: "absolute", top: 0, left: 0, width: 4, height: "100%", background: cat.color }} />
-                    <div style={{ fontFamily: FB, fontSize: 12, fontWeight: 700, color: cat.color, letterSpacing: "1.5px", textTransform: "uppercase", marginBottom: 14 }}>{cat.category}</div>
-                    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                      {cat.items.map((item, ii) => (
-                        <div key={ii} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                          <div style={{ width: 5, height: 5, borderRadius: "50%", background: cat.color, flexShrink: 0, opacity: 0.7 }} />
-                          <span style={{ fontFamily: FB, fontSize: 13, color: t.subtle }}>{item}</span>
-                        </div>
-                      ))}
+            <div style={{ fontFamily: FB, fontSize: 11, letterSpacing: "2.5px", textTransform: "uppercase", fontWeight: 700, color: t.accent, marginBottom: 8, paddingBottom: 12, borderBottom: `2px solid ${t.accent}` }}>Skills, Verified</div>
+            <p style={{ fontFamily: FB, fontSize: 13, lineHeight: 1.6, color: t.muted, marginBottom: 20 }}>Every skill backed by shipped work — not self-rated percentages.</p>
+            <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "1fr 1fr", gap: 12 }}>
+              {[
+                { skill: "Design Systems", proof: "Built Mint V8 from scratch — 700+ to 32 button variants via PCS Logic, 2 themes, 100% adoption in 6 weeks.", color: BLUE, icon: "DS" },
+                { skill: "Product Architecture", proof: "Architected 7-vertical ecosystem at ZZAZZ, scoping with Founder and AI team.", color: AMBER, icon: "PA" },
+                { skill: "UX Research", proof: "50+ field interviews for GSTR-3B. Discovered 'adoption ≠ proficiency' flaw through shadowing MSMEs.", color: GREEN, icon: "UR" },
+                { skill: "Interaction Design", proof: "GSTR-3B: 60% filing time cut. Exchange: table-first → query-led AI interaction.", color: GREEN, icon: "IX" },
+                { skill: "Information Architecture", proof: "Full IA for Moments vertical and GSTR-3B's multi-step filing workflow.", color: AMBER, icon: "IA" },
+                { skill: "Accessibility", proof: "WCAG AA contrast, keyboard nav, screen-reader forms, multi-cue error states for India's diverse MSME population.", color: "#F55050", icon: "A11Y" },
+                { skill: "Data-Driven Design", proof: "Table-4 ITC automation — 65% support query reduction. Max ITC — 18% accuracy improvement.", color: BLUE, icon: "DD" },
+                { skill: "Cross-functional Leadership", proof: "Led workshops for design-engineering alignment. Trained product and dev teams on Mint V8 adoption.", color: AMBER, icon: "CL" },
+              ].map((p, i) => (
+                <FadeIn key={i} delay={i * 0.05}>
+                  <div style={{ padding: m ? 18 : 22, background: t.card, border: `1px solid ${t.border}`, borderRadius: 8, position: "relative", overflow: "hidden", height: "100%" }}>
+                    <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${p.color}, transparent)` }} />
+                    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+                      <div style={{ width: 32, height: 32, borderRadius: 6, background: `${p.color}15`, border: `1px solid ${p.color}25`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                        <span style={{ fontFamily: FB, fontSize: 9, fontWeight: 800, color: p.color, letterSpacing: "0.5px" }}>{p.icon}</span>
+                      </div>
+                      <div style={{ fontFamily: FB, fontSize: 14, color: t.text, fontWeight: 600 }}>{p.skill}</div>
                     </div>
+                    <p style={{ fontFamily: FB, fontSize: 12.5, lineHeight: 1.65, color: t.subtle, margin: 0 }}>{p.proof}</p>
                   </div>
                 </FadeIn>
               ))}
