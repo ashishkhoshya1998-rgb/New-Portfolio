@@ -231,7 +231,7 @@ function Hero() {
         {/* Stats + hobbies */}
         <div style={{ marginTop: m ? 36 : 52, borderTop: `1px solid ${t.border}`, paddingTop: m ? 20 : 24, opacity: ld ? 1 : 0, transition: "opacity 1s ease 0.9s" }}>
           <div style={{ display: "flex", gap: m ? 28 : 56, flexWrap: "wrap" }}>
-            {[{ n: "4+", l: "Years Experience" }, { n: "IIT", l: "Guwahati" }, { n: "7", l: "Verticals Built" }].map((s, i) => (
+            {[{ n: "4+", l: "Years Experience" }, { n: "IIT", l: "Guwahati" }].map((s, i) => (
               <div key={i}>
                 <div style={{ fontFamily: FD, fontSize: m ? 24 : 30, color: t.text, fontWeight: 700, lineHeight: 1 }}>{s.n}</div>
                 <div style={{ fontFamily: FB, fontSize: m ? 10 : 11, color: t.muted, letterSpacing: "1px", textTransform: "uppercase", marginTop: 5 }}>{s.l}</div>
@@ -242,6 +242,31 @@ function Hero() {
             🏐 <span style={{ color: t.text }}>Volleyball</span> on weekends &nbsp;·&nbsp; 🤖 <span style={{ color: t.text }}>Playing with AI tools</span> daily
           </p>
         </div>
+      </Wrap>
+    </section>
+  );
+}
+
+/* ═══ I BELIEVE IN ═══ */
+function BelieveIn() {
+  const { t } = useTheme();
+  const m = useIsMobile();
+  const isDark = t.bg === "#0A0A0A" || t.bg === "#0a0a0a";
+  const bgColor = isDark ? "#111111" : "#FAF8F5";
+  const textColor = isDark ? t.text : "#1A1A1A";
+  const mutedColor = isDark ? t.muted : "#6B6B6B";
+
+  return (
+    <section style={{ background: bgColor, padding: m ? "60px 0" : "100px 0" }}>
+      <Wrap>
+        <FadeIn>
+          <h2 style={{ fontFamily: FD, fontSize: m ? 36 : 56, fontWeight: 400, color: textColor, margin: 0, lineHeight: 1.1 }}>
+            I Believe In
+          </h2>
+          <p style={{ fontFamily: FB, fontSize: m ? 15 : 18, lineHeight: 1.75, color: mutedColor, maxWidth: 640, marginTop: m ? 16 : 24, marginBottom: 0 }}>
+            Thoughtful design is about empathy, clarity, and storytelling. The goal isn't just to build functional products — it's to create experiences that people understand, trust, and enjoy using.
+          </p>
+        </FadeIn>
       </Wrap>
     </section>
   );
@@ -884,7 +909,7 @@ function ResumePage({ goBack }) {
   return <ResumeSection goBack={goBack} />;
 }
 
-function HomePage({ onOpen }) { const { t } = useTheme(); const [as, setAs] = useState("about"); const m = useIsMobile(); useEffect(() => { const h = () => { for (const id of ["contact", "resume", "work", "about"]) { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top < 300) { setAs(id); break; } } }; window.addEventListener("scroll", h); return () => window.removeEventListener("scroll", h); }, []); return (<><Nav activeSection={as} currentPage="home" goHome={() => window.scrollTo({ top: 0, behavior: "smooth" })} goTo={onOpen} /><main id="main-content"><Hero /><section id="work" aria-label="Selected Work" style={{ paddingTop: m ? 60 : 100, paddingBottom: m ? 60 : 100 }}><Wrap><FadeIn><SL>Selected Work</SL><h2 style={{ fontFamily: FD, fontSize: m ? 28 : 42, color: t.text, margin: "0 0 44px 0", fontWeight: 400, lineHeight: 1.15 }}>Featured <span style={{ fontStyle: "italic" }}>Case Studies</span></h2></FadeIn><div style={{ display: "flex", flexDirection: "column", gap: 28 }}>{projects.map(p => <ProjectCard key={p.id} project={p} onOpen={onOpen} />)}</div></Wrap></section><ResumeCard onOpen={onOpen} /><ContactSection /></main></>); }
+function HomePage({ onOpen }) { const { t } = useTheme(); const [as, setAs] = useState("about"); const m = useIsMobile(); useEffect(() => { const h = () => { for (const id of ["contact", "resume", "work", "about"]) { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top < 300) { setAs(id); break; } } }; window.addEventListener("scroll", h); return () => window.removeEventListener("scroll", h); }, []); return (<><Nav activeSection={as} currentPage="home" goHome={() => window.scrollTo({ top: 0, behavior: "smooth" })} goTo={onOpen} /><main id="main-content"><Hero /><BelieveIn /><section id="work" aria-label="Selected Work" style={{ paddingTop: m ? 60 : 100, paddingBottom: m ? 60 : 100 }}><Wrap><FadeIn><SL>Selected Work</SL><h2 style={{ fontFamily: FD, fontSize: m ? 28 : 42, color: t.text, margin: "0 0 44px 0", fontWeight: 400, lineHeight: 1.15 }}>Featured <span style={{ fontStyle: "italic" }}>Case Studies</span></h2></FadeIn><div style={{ display: "flex", flexDirection: "column", gap: 28 }}>{projects.map(p => <ProjectCard key={p.id} project={p} onOpen={onOpen} />)}</div></Wrap></section><ResumeCard onOpen={onOpen} /><ContactSection /></main></>); }
 
 /* ═══ ROOT ═══ */
 export default function Portfolio() {
