@@ -185,30 +185,66 @@ function Avatar({ size = 88 }) {
 function Hero() {
   const { t } = useTheme(); const [ld, setLd] = useState(false); const m = useIsMobile();
   useEffect(() => { setTimeout(() => setLd(true), 100); }, []);
-  return (<section id="about" aria-label="About Ashish Khoshya" style={{ minHeight: m ? "auto" : "100vh", display: "flex", flexDirection: "column", justifyContent: "center", paddingTop: m ? 100 : 140, paddingBottom: m ? 48 : 80, position: "relative", overflow: "hidden" }}>
-    <div style={{ position: "absolute", inset: 0, backgroundImage: `linear-gradient(${t.accent}04 1px, transparent 1px), linear-gradient(90deg, ${t.accent}04 1px, transparent 1px)`, backgroundSize: "80px 80px", pointerEvents: "none" }} />
-    <div style={{ position: "absolute", top: "10%", right: "5%", width: m ? 200 : 400, height: m ? 200 : 400, borderRadius: "50%", background: `radial-gradient(circle, ${t.accent}10 0%, transparent 70%)`, filter: "blur(60px)", pointerEvents: "none" }} />
-    <Wrap style={{ position: "relative", zIndex: 1 }}>
-      <div style={{ opacity: ld ? 1 : 0, transition: "all 0.8s ease 0.1s", marginBottom: 24 }}><Avatar size={m ? 72 : 88} /></div>
-      <div style={{ opacity: ld ? 1 : 0, transform: ld ? "translateY(0)" : "translateY(20px)", transition: "all 0.8s ease 0.2s" }}>
-        <div style={{ fontFamily: FB, fontSize: m ? 11 : 13, letterSpacing: "3px", textTransform: "uppercase", color: t.accent, marginBottom: 14, fontWeight: 500 }}>Senior Product Designer</div>
-      </div>
-      <h1 style={{ fontFamily: FD, fontSize: m ? "clamp(36px,10vw,48px)" : "clamp(48px,7vw,84px)", lineHeight: 1.05, color: t.text, margin: 0, fontWeight: 400, opacity: ld ? 1 : 0, transform: ld ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s ease 0.35s" }}>Ashish<br /><span style={{ fontStyle: "italic", color: t.accent }}>Khoshya</span></h1>
-      <p style={{ fontFamily: FB, fontSize: m ? 15 : 17, lineHeight: 1.75, color: t.muted, maxWidth: 560, marginTop: m ? 20 : 28, opacity: ld ? 1 : 0, transform: ld ? "translateY(0)" : "translateY(20px)", transition: "all 0.8s ease 0.5s" }}>4+ years making enterprise software approachable — design systems, complex UX, and 0-to-1 products. Now also exploring <span style={{ color: t.text, fontWeight: 500 }}>vibe coding</span> with AI tools like Claude Code &amp; Figma Make.</p>
-      <div style={{ opacity: ld ? 1 : 0, transform: ld ? "translateY(0)" : "translateY(20px)", transition: "all 0.8s ease 0.6s", marginTop: 20, padding: "14px 0 14px 20px", borderLeft: `3px solid ${t.accent}` }}>
-        <p style={{ fontFamily: FD, fontSize: m ? 15 : 18, color: t.text, fontStyle: "italic", lineHeight: 1.5, margin: 0 }}>Structure enables creativity. Tokens before components. Patterns before pixels. Systems before screens.</p>
-      </div>
-      <p style={{ fontFamily: FB, fontSize: m ? 13 : 14, lineHeight: 1.6, color: t.muted, maxWidth: 540, marginTop: 14, opacity: ld ? 1 : 0, transition: "all 0.8s ease 0.7s" }}>Open to roles in design systems, ecosystem architecture, or 0-to-1 products at scale.</p>
-      <div style={{ display: "flex", gap: m ? 10 : 16, marginTop: m ? 24 : 32, flexWrap: "wrap", opacity: ld ? 1 : 0, transition: "all 0.8s ease 0.8s" }}>
-        <button onClick={() => scrollTo("work")} style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: m ? "12px 20px" : "13px 28px", background: t.accent, color: "#0A0A0A", fontFamily: FB, fontSize: m ? 13 : 14, fontWeight: 600, border: "none", cursor: "pointer", borderRadius: 4 }}>View Case Studies ↓</button>
-        <button onClick={() => scrollTo("contact")} style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: m ? "12px 20px" : "13px 28px", background: "transparent", color: t.text, fontFamily: FB, fontSize: m ? 13 : 14, fontWeight: 500, border: `1px solid ${t.border}`, cursor: "pointer", borderRadius: 4 }}>Get in Touch</button>
-      </div>
-      <div style={{ marginTop: m ? 36 : 56, borderTop: `1px solid ${t.border}`, paddingTop: m ? 20 : 24, opacity: ld ? 1 : 0, transition: "opacity 1s ease 1s" }}>
-        <div style={{ display: "flex", gap: m ? 24 : 48, flexWrap: "wrap" }}>{[{ n: "4+", l: "Years Experience" }, { n: "IIT", l: "Guwahati Alumnus" }].map((s, i) => <div key={i}><div style={{ fontFamily: FD, fontSize: m ? 22 : 28, color: t.text, fontWeight: 700 }}>{s.n}</div><div style={{ fontFamily: FB, fontSize: m ? 10 : 12, color: t.muted, letterSpacing: "1px", textTransform: "uppercase", marginTop: 4 }}>{s.l}</div></div>)}</div>
-        <p style={{ fontFamily: FB, fontSize: m ? 11 : 12, color: t.muted, marginTop: 16, lineHeight: 1.6 }}>🏐 <span style={{ color: t.text }}>Volleyball</span> on weekends &nbsp;·&nbsp; 🤖 <span style={{ color: t.text }}>Playing with AI tools</span> daily — learning with the new world</p>
-      </div>
-    </Wrap>
-  </section>);
+  const tags = [
+    { label: "Design Systems", color: BLUE },
+    { label: "0→1 Products", color: GREEN },
+    { label: "UX Architecture", color: AMBER },
+    { label: "Vibe Coding", color: BLUE },
+    { label: "IIT Guwahati", color: t.muted },
+  ];
+  return (
+    <section id="about" aria-label="About Ashish Khoshya" style={{ minHeight: m ? "auto" : "100vh", display: "flex", flexDirection: "column", justifyContent: "center", paddingTop: m ? 100 : 140, paddingBottom: m ? 48 : 80, position: "relative", overflow: "hidden" }}>
+      <div style={{ position: "absolute", inset: 0, backgroundImage: `linear-gradient(${t.accent}04 1px, transparent 1px), linear-gradient(90deg, ${t.accent}04 1px, transparent 1px)`, backgroundSize: "80px 80px", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", top: "10%", right: "5%", width: m ? 200 : 400, height: m ? 200 : 400, borderRadius: "50%", background: `radial-gradient(circle, ${t.accent}10 0%, transparent 70%)`, filter: "blur(60px)", pointerEvents: "none" }} />
+      <Wrap style={{ position: "relative", zIndex: 1 }}>
+        {/* Avatar + role label */}
+        <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: m ? 20 : 28, opacity: ld ? 1 : 0, transition: "all 0.7s ease 0.1s" }}>
+          <Avatar size={m ? 56 : 68} />
+          <div style={{ fontFamily: FB, fontSize: m ? 11 : 12, letterSpacing: "2.5px", textTransform: "uppercase", color: t.accent, fontWeight: 600 }}>Senior Product Designer</div>
+        </div>
+
+        {/* Name */}
+        <h1 style={{ fontFamily: FD, fontSize: m ? "clamp(40px,11vw,54px)" : "clamp(56px,7vw,92px)", lineHeight: 1.0, color: t.text, margin: 0, fontWeight: 400, opacity: ld ? 1 : 0, transform: ld ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s ease 0.25s" }}>
+          Ashish<br /><span style={{ fontStyle: "italic", color: t.accent }}>Khoshya</span>
+        </h1>
+
+        {/* One-line tagline */}
+        <p style={{ fontFamily: FB, fontSize: m ? 15 : 17, lineHeight: 1.6, color: t.muted, maxWidth: 520, marginTop: m ? 16 : 22, marginBottom: 0, opacity: ld ? 1 : 0, transform: ld ? "translateY(0)" : "translateY(16px)", transition: "all 0.8s ease 0.4s" }}>
+          4+ years turning complex enterprise software into systems people love — and now stitching it all together with AI.
+        </p>
+
+        {/* Specialty tags */}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: m ? 8 : 10, marginTop: m ? 20 : 28, opacity: ld ? 1 : 0, transition: "all 0.8s ease 0.55s" }}>
+          {tags.map((tag, i) => (
+            <span key={i} style={{ fontFamily: FB, fontSize: m ? 11 : 12, fontWeight: 600, letterSpacing: "0.5px", color: tag.color === t.muted ? t.muted : tag.color, background: tag.color === t.muted ? `${t.border}` : `${tag.color}15`, border: `1px solid ${tag.color === t.muted ? t.border : tag.color + "40"}`, padding: m ? "5px 12px" : "6px 14px", borderRadius: 20 }}>
+              {tag.label}
+            </span>
+          ))}
+        </div>
+
+        {/* CTAs */}
+        <div style={{ display: "flex", gap: m ? 10 : 14, marginTop: m ? 28 : 36, flexWrap: "wrap", opacity: ld ? 1 : 0, transition: "all 0.8s ease 0.7s" }}>
+          <button onClick={() => scrollTo("work")} style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: m ? "12px 20px" : "13px 28px", background: t.accent, color: "#0A0A0A", fontFamily: FB, fontSize: m ? 13 : 14, fontWeight: 600, border: "none", cursor: "pointer", borderRadius: 4 }}>View Case Studies ↓</button>
+          <button onClick={() => scrollTo("contact")} style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: m ? "12px 20px" : "13px 28px", background: "transparent", color: t.text, fontFamily: FB, fontSize: m ? 13 : 14, fontWeight: 500, border: `1px solid ${t.border}`, cursor: "pointer", borderRadius: 4 }}>Get in Touch</button>
+        </div>
+
+        {/* Stats + hobbies */}
+        <div style={{ marginTop: m ? 36 : 52, borderTop: `1px solid ${t.border}`, paddingTop: m ? 20 : 24, opacity: ld ? 1 : 0, transition: "opacity 1s ease 0.9s" }}>
+          <div style={{ display: "flex", gap: m ? 28 : 56, flexWrap: "wrap" }}>
+            {[{ n: "4+", l: "Years Experience" }, { n: "IIT", l: "Guwahati" }, { n: "7", l: "Verticals Built" }].map((s, i) => (
+              <div key={i}>
+                <div style={{ fontFamily: FD, fontSize: m ? 24 : 30, color: t.text, fontWeight: 700, lineHeight: 1 }}>{s.n}</div>
+                <div style={{ fontFamily: FB, fontSize: m ? 10 : 11, color: t.muted, letterSpacing: "1px", textTransform: "uppercase", marginTop: 5 }}>{s.l}</div>
+              </div>
+            ))}
+          </div>
+          <p style={{ fontFamily: FB, fontSize: m ? 11 : 12, color: t.muted, marginTop: 14, lineHeight: 1.5 }}>
+            🏐 <span style={{ color: t.text }}>Volleyball</span> on weekends &nbsp;·&nbsp; 🤖 <span style={{ color: t.text }}>Playing with AI tools</span> daily
+          </p>
+        </div>
+      </Wrap>
+    </section>
+  );
 }
 
 /* ═══ PROJECT CARD ═══ */
