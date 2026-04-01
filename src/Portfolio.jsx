@@ -208,10 +208,13 @@ function Hero() {
           Ashish<br /><span style={{ fontStyle: "italic", color: t.accent }}>Khoshya</span>
         </h1>
 
-        {/* One-line tagline */}
-        <p style={{ fontFamily: FB, fontSize: m ? 15 : 17, lineHeight: 1.6, color: t.muted, maxWidth: 520, marginTop: m ? 16 : 22, marginBottom: 0, opacity: ld ? 1 : 0, transform: ld ? "translateY(0)" : "translateY(16px)", transition: "all 0.8s ease 0.4s" }}>
-          4+ years turning complex enterprise software into systems people love — and now stitching it all together with AI.
-        </p>
+        {/* I Believe In + tagline */}
+        <div style={{ marginTop: m ? 20 : 28, opacity: ld ? 1 : 0, transform: ld ? "translateY(0)" : "translateY(16px)", transition: "all 0.8s ease 0.4s", maxWidth: 580 }}>
+          <div style={{ fontFamily: FD, fontSize: m ? 20 : 26, color: t.text, fontWeight: 400, lineHeight: 1.2, marginBottom: m ? 8 : 10 }}>I believe in</div>
+          <p style={{ fontFamily: FB, fontSize: m ? 14 : 16, lineHeight: 1.7, color: t.muted, margin: 0 }}>
+            turning complex enterprise software into experiences people understand, trust, and enjoy — through empathy, clarity, and systems thinking. 4+ years of it, and now stitching it all together with AI.
+          </p>
+        </div>
 
         {/* Specialty tags */}
         <div style={{ display: "flex", flexWrap: "wrap", gap: m ? 8 : 10, marginTop: m ? 20 : 28, opacity: ld ? 1 : 0, transition: "all 0.8s ease 0.55s" }}>
@@ -242,31 +245,6 @@ function Hero() {
             🏐 <span style={{ color: t.text }}>Volleyball</span> on weekends &nbsp;·&nbsp; 🤖 <span style={{ color: t.text }}>Playing with AI tools</span> daily
           </p>
         </div>
-      </Wrap>
-    </section>
-  );
-}
-
-/* ═══ I BELIEVE IN ═══ */
-function BelieveIn() {
-  const { t } = useTheme();
-  const m = useIsMobile();
-  const isDark = t.bg === "#0A0A0A" || t.bg === "#0a0a0a";
-  const bgColor = isDark ? "#111111" : "#FAF8F5";
-  const textColor = isDark ? t.text : "#1A1A1A";
-  const mutedColor = isDark ? t.muted : "#6B6B6B";
-
-  return (
-    <section style={{ background: bgColor, padding: m ? "60px 0" : "100px 0" }}>
-      <Wrap>
-        <FadeIn>
-          <h2 style={{ fontFamily: FD, fontSize: m ? 36 : 56, fontWeight: 400, color: textColor, margin: 0, lineHeight: 1.1 }}>
-            I Believe In
-          </h2>
-          <p style={{ fontFamily: FB, fontSize: m ? 15 : 18, lineHeight: 1.75, color: mutedColor, maxWidth: 640, marginTop: m ? 16 : 24, marginBottom: 0 }}>
-            Thoughtful design is about empathy, clarity, and storytelling. The goal isn't just to build functional products — it's to create experiences that people understand, trust, and enjoy using.
-          </p>
-        </FadeIn>
       </Wrap>
     </section>
   );
@@ -909,7 +887,7 @@ function ResumePage({ goBack }) {
   return <ResumeSection goBack={goBack} />;
 }
 
-function HomePage({ onOpen }) { const { t } = useTheme(); const [as, setAs] = useState("about"); const m = useIsMobile(); useEffect(() => { const h = () => { for (const id of ["contact", "resume", "work", "about"]) { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top < 300) { setAs(id); break; } } }; window.addEventListener("scroll", h); return () => window.removeEventListener("scroll", h); }, []); return (<><Nav activeSection={as} currentPage="home" goHome={() => window.scrollTo({ top: 0, behavior: "smooth" })} goTo={onOpen} /><main id="main-content"><Hero /><BelieveIn /><section id="work" aria-label="Selected Work" style={{ paddingTop: m ? 60 : 100, paddingBottom: m ? 60 : 100 }}><Wrap><FadeIn><SL>Selected Work</SL><h2 style={{ fontFamily: FD, fontSize: m ? 28 : 42, color: t.text, margin: "0 0 44px 0", fontWeight: 400, lineHeight: 1.15 }}>Featured <span style={{ fontStyle: "italic" }}>Case Studies</span></h2></FadeIn><div style={{ display: "flex", flexDirection: "column", gap: 28 }}>{projects.map(p => <ProjectCard key={p.id} project={p} onOpen={onOpen} />)}</div></Wrap></section><ResumeCard onOpen={onOpen} /><ContactSection /></main></>); }
+function HomePage({ onOpen }) { const { t } = useTheme(); const [as, setAs] = useState("about"); const m = useIsMobile(); useEffect(() => { const h = () => { for (const id of ["contact", "resume", "work", "about"]) { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top < 300) { setAs(id); break; } } }; window.addEventListener("scroll", h); return () => window.removeEventListener("scroll", h); }, []); return (<><Nav activeSection={as} currentPage="home" goHome={() => window.scrollTo({ top: 0, behavior: "smooth" })} goTo={onOpen} /><main id="main-content"><Hero /><section id="work" aria-label="Selected Work" style={{ paddingTop: m ? 60 : 100, paddingBottom: m ? 60 : 100 }}><Wrap><FadeIn><SL>Selected Work</SL><h2 style={{ fontFamily: FD, fontSize: m ? 28 : 42, color: t.text, margin: "0 0 44px 0", fontWeight: 400, lineHeight: 1.15 }}>Featured <span style={{ fontStyle: "italic" }}>Case Studies</span></h2></FadeIn><div style={{ display: "flex", flexDirection: "column", gap: 28 }}>{projects.map(p => <ProjectCard key={p.id} project={p} onOpen={onOpen} />)}</div></Wrap></section><ResumeCard onOpen={onOpen} /><ContactSection /></main></>); }
 
 /* ═══ ROOT ═══ */
 export default function Portfolio() {
