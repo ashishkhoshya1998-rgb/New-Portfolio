@@ -231,19 +231,19 @@ function Hero() {
           <button onClick={() => scrollTo("contact")} style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: m ? "12px 20px" : "13px 28px", background: "transparent", color: t.text, fontFamily: FB, fontSize: m ? 13 : 14, fontWeight: 500, border: `1px solid ${t.border}`, cursor: "pointer", borderRadius: 4 }}>Get in Touch</button>
         </div>
 
-        {/* Stats + hobbies */}
-        <div style={{ marginTop: m ? 36 : 52, borderTop: `1px solid ${t.border}`, paddingTop: m ? 20 : 24, opacity: ld ? 1 : 0, transition: "opacity 1s ease 0.9s" }}>
-          <div style={{ display: "flex", gap: m ? 28 : 56, flexWrap: "wrap" }}>
-            {[{ n: "4+", l: "Years Experience" }, { n: "IIT", l: "Guwahati" }].map((s, i) => (
-              <div key={i}>
-                <div style={{ fontFamily: FD, fontSize: m ? 24 : 30, color: t.text, fontWeight: 700, lineHeight: 1 }}>{s.n}</div>
-                <div style={{ fontFamily: FB, fontSize: m ? 10 : 11, color: t.muted, letterSpacing: "1px", textTransform: "uppercase", marginTop: 5 }}>{s.l}</div>
-              </div>
-            ))}
-          </div>
-          <p style={{ fontFamily: FB, fontSize: m ? 11 : 12, color: t.muted, marginTop: 14, lineHeight: 1.5 }}>
-            🏐 <span style={{ color: t.text }}>Volleyball</span> on weekends &nbsp;·&nbsp; 🤖 <span style={{ color: t.text }}>Playing with AI tools</span> daily
-          </p>
+        {/* Stats + hobbies — pill strip */}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: m ? 8 : 10, marginTop: m ? 32 : 48, opacity: ld ? 1 : 0, transition: "opacity 1s ease 0.9s" }}>
+          {[
+            { icon: "💼", text: "4+ Years in Product Design", color: BLUE },
+            { icon: "🎓", text: "IIT Guwahati", color: GREEN },
+            { icon: "🏐", text: "Volleyball on weekends", color: AMBER },
+            { icon: "🤖", text: "AI tools daily", color: BLUE },
+          ].map((item, i) => (
+            <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: 7, fontFamily: FB, fontSize: m ? 11 : 13, color: t.text, background: `${item.color}0A`, border: `1px solid ${item.color}25`, padding: m ? "7px 14px" : "8px 16px", borderRadius: 8 }}>
+              <span style={{ fontSize: m ? 13 : 15 }}>{item.icon}</span>
+              {item.text}
+            </span>
+          ))}
         </div>
       </Wrap>
     </section>
