@@ -37,7 +37,7 @@ export default function Hero() {
         {/* Layer 3: massive typography */}
         <div className="hero__text">
           <span className="hero__greeting">Hi there, I'm Ashish</span>
-          <div className="hero__line1">DESIGN</div>
+          <div className="hero__line1">I DESIGN</div>
           <div className="hero__line2">
             FOR{' '}
             <span className="hero__cycling-wrap">
