@@ -1,18 +1,30 @@
 ---
-const clients = ['Visit Health', 'ClearTax', 'Zzazz.ai'];
+const clients = [
+  { name: 'Visit Health', logo: '/images/logos/visit-health.svg', role: 'UI/UX Design Intern', period: '2021' },
+  { name: 'ClearTax', logo: '/images/logos/cleartax.svg', role: 'Product Designer → Senior', period: '2021–2025' },
+  { name: 'Zzazz.ai', logo: '/images/logos/zzazz.svg', role: 'Designer · UX Architect', period: '2025–Present' },
+];
 ---
 
 <section class="logo-section">
   <div class="content-wrap">
     <p class="logo-section__label">Industry leaders I worked for</p>
-    <div class="logo-section__row" data-logo-row>
-      {clients.map((name, i) => (
-        <>
-          <span class="logo-section__name">{name}</span>
-          {i < clients.length - 1 && <span class="logo-section__dot" aria-hidden="true">·</span>}
-        </>
+    <div class="logo-section__grid" data-logo-row>
+      {clients.map((client) => (
+        <div class="logo-section__card">
+          <div class="logo-section__logo-wrap">
+            <img src={client.logo} alt={client.name} class="logo-section__logo" loading="lazy" />
+          </div>
+          <div class="logo-section__info">
+            <span class="logo-section__role">{client.role}</span>
+            <span class="logo-section__period">{client.period}</span>
+          </div>
+        </div>
       ))}
-      <a href="mailto:ashish.khoshya1998@gmail.com" class="logo-section__cta">Your company →</a>
+      <a href="mailto:ashish.khoshya1998@gmail.com" class="logo-section__card logo-section__card--cta">
+        <span class="logo-section__cta-text">Let's build something together</span>
+        <span class="logo-section__cta-arrow">↗</span>
+      </a>
     </div>
   </div>
 </section>
@@ -29,48 +41,118 @@ const clients = ['Visit Health', 'ClearTax', 'Zzazz.ai'];
     text-transform: uppercase;
     letter-spacing: 2.5px;
     color: var(--text-muted);
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
 
-  .logo-section__row {
+  .logo-section__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .logo-section__card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px 24px;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 20px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .logo-section__card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 8px 32px rgba(232, 255, 71, 0.06);
+  }
+
+  .logo-section__logo-wrap {
+    height: 32px;
+    display: flex;
     align-items: center;
-    gap: 12px 24px;
   }
 
-  .logo-section__name {
-    font-family: var(--font-display);
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--text);
-    letter-spacing: -0.3px;
-  }
-
-  .logo-section__dot {
-    font-size: 24px;
-    color: var(--text-muted);
-    opacity: 0.4;
-    user-select: none;
-  }
-
-  .logo-section__cta {
-    font-family: var(--font-body);
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--accent);
-    text-decoration: none;
-    margin-left: 8px;
+  .logo-section__logo {
+    height: 24px;
+    width: auto;
+    max-width: 140px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.85;
     transition: opacity 0.2s;
   }
 
-  .logo-section__cta:hover {
-    opacity: 0.7;
+  .logo-section__logo[src*="zzazz"] {
+    height: 48px;
+    filter: none;
+  }
+
+  .logo-section__card:hover .logo-section__logo {
+    opacity: 1;
+  }
+
+  .logo-section__info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .logo-section__role {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .logo-section__period {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* CTA card */
+  .logo-section__card--cta {
+    text-decoration: none;
+    border-style: dashed;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+  }
+
+  .logo-section__card--cta:hover {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 5%, var(--card-bg));
+  }
+
+  .logo-section__cta-text {
+    font-family: var(--font-display);
+    font-size: 16px;
+    color: var(--text-muted);
+    transition: color 0.2s;
+  }
+
+  .logo-section__card--cta:hover .logo-section__cta-text {
+    color: var(--accent);
+  }
+
+  .logo-section__cta-arrow {
+    font-size: 18px;
+    color: var(--accent);
+    transition: transform 0.3s;
+  }
+
+  .logo-section__card--cta:hover .logo-section__cta-arrow {
+    transform: translateX(4px);
   }
 
   @media (max-width: 1024px) {
     .logo-section {
       padding: 40px 0;
+    }
+
+    .logo-section__grid {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 
@@ -79,12 +161,26 @@ const clients = ['Visit Health', 'ClearTax', 'Zzazz.ai'];
       padding: 32px 0;
     }
 
-    .logo-section__name {
-      font-size: 18px;
+    .logo-section__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
     }
 
-    .logo-section__row {
-      gap: 8px 16px;
+    .logo-section__card {
+      padding: 20px 16px;
+      gap: 16px;
+    }
+
+    .logo-section__logo {
+      height: 20px;
+    }
+
+    .logo-section__role {
+      font-size: 12px;
+    }
+
+    .logo-section__period {
+      font-size: 11px;
     }
   }
 </style>
@@ -103,16 +199,19 @@ const clients = ['Visit Health', 'ClearTax', 'Zzazz.ai'];
   }
 
   function initLogoRow() {
-    const row = document.querySelector('[data-logo-row]');
-    if (!row) return;
+    const cards = document.querySelectorAll('.logo-section__card');
+    if (!cards.length) return;
 
-    gsap.fromTo(row,
-      { opacity: 0, y: 16 },
-      {
-        opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
-        scrollTrigger: { trigger: row, start: 'top 80%', once: true },
-      }
-    );
+    cards.forEach((card, i) => {
+      gsap.fromTo(card,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1, y: 0, duration: 0.5, ease: 'power3.out',
+          delay: i * 0.1,
+          scrollTrigger: { trigger: card, start: 'top 85%', once: true },
+        }
+      );
+    });
   }
 
   initLogoRow();
