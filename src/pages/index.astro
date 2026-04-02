@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TopNav from '../components/TopNav';
+import RightInfoPanel from '../components/RightInfoPanel';
+import Hero from '../components/Hero';
+import ClientLogoGrid from '../components/ClientLogoGrid.astro';
+import IntroSection from '../components/IntroSection.astro';
+import DiagonalStrips from '../components/DiagonalStrips.astro';
+import ProjectCarousel from '../components/ProjectCarousel';
+import FooterCTA from '../components/FooterCTA.astro';
+
+const title = 'Ashish Khoshya — Senior Product Designer';
+const description = 'Senior Product Designer with 5+ years building design systems, product architecture, and enterprise UX. IIT Guwahati.';
+---
+
+<Layout title={title} description={description}>
+  <TopNav currentPath="/" client:load />
+  <RightInfoPanel client:load />
+  <main id="main-content">
+    <div id="hero">
+      <Hero client:load />
+    </div>
+    <ClientLogoGrid />
+    <div id="about">
+      <IntroSection />
+    </div>
+    <DiagonalStrips />
+    <div id="work">
+      <ProjectCarousel client:load />
+    </div>
+    <div id="contact">
+      <FooterCTA />
+    </div>
+  </main>
+</Layout>
+
+<script>
+  import '../scripts/hero-animations';
+</script>

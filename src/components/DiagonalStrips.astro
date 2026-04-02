@@ -1,0 +1,97 @@
+---
+const strip1Text = 'PRODUCT DESIGN ✱ DESIGN SYSTEMS ✱ ENTERPRISE UX ✱ PRODUCT ARCHITECTURE ✱ DATA-DRIVEN ✱ RESEARCH ✱ ';
+const strip2Text = '5+ YEARS EXPERIENCE ✱ SENIOR DESIGNER ✱ IIT GUWAHATI ✱ 700→32 PCS LOGIC ✱ 60% FILING TIME CUT ✱ 7 VERTICALS ✱ ';
+---
+
+<section class="strips" aria-hidden="true">
+  <div class="strips__track strips__track--1">
+    <div class="strips__scroll strips__scroll--left">
+      <span>{strip1Text}</span>
+      <span>{strip1Text}</span>
+      <span>{strip1Text}</span>
+    </div>
+  </div>
+  <div class="strips__track strips__track--2">
+    <div class="strips__scroll strips__scroll--right">
+      <span>{strip2Text}</span>
+      <span>{strip2Text}</span>
+      <span>{strip2Text}</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .strips {
+    display: none;
+    position: relative;
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+  }
+
+  .strips__track {
+    position: absolute;
+    left: -50vw;
+    width: 200vw;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  .strips__track--1 {
+    top: 25%;
+    background: var(--accent);
+    transform: rotate(12deg);
+  }
+
+  .strips__track--2 {
+    top: 55%;
+    background: var(--accent);
+    opacity: 0.85;
+    transform: rotate(-12deg);
+  }
+
+  .strips__scroll {
+    display: flex;
+    width: max-content;
+  }
+
+  .strips__scroll span {
+    font-family: var(--font-heading-condensed);
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--bg);
+    padding: 0 8px;
+    flex-shrink: 0;
+  }
+
+  .strips__scroll--left {
+    animation: scroll-left 30s linear infinite;
+  }
+
+  .strips__scroll--right {
+    animation: scroll-right 35s linear infinite;
+  }
+
+  .strips:hover .strips__scroll {
+    animation-play-state: paused;
+  }
+
+  @keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-33.333%); }
+  }
+
+  @keyframes scroll-right {
+    0% { transform: translateX(-33.333%); }
+    100% { transform: translateX(0); }
+  }
+
+  @media (max-width: 768px) {
+    .strips {
+      display: none;
+    }
+  }
+</style>

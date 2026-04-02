@@ -1,0 +1,91 @@
+---
+interface Props {
+  number: string;
+  title: string;
+  description: string;
+  href: string;
+}
+
+const { number, title, description, href } = Astro.props;
+---
+
+<a href={href} class="vcard" data-cs-section>
+  <span class="vcard__num">{number}</span>
+  <div class="vcard__body">
+    <span class="vcard__title">{title}</span>
+    <span class="vcard__desc">{description}</span>
+  </div>
+  <span class="vcard__arrow">→</span>
+</a>
+
+<style>
+  .vcard {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    text-decoration: none;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    transition: padding-left 0.2s;
+  }
+
+  .vcard:first-of-type {
+    border-top: 1px solid var(--border);
+  }
+
+  .vcard:hover {
+    padding-left: 8px;
+  }
+
+  .vcard__num {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    opacity: 0.4;
+    letter-spacing: 1px;
+    padding-top: 3px;
+    flex-shrink: 0;
+    width: 24px;
+  }
+
+  .vcard__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .vcard__title {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    transition: color 0.2s;
+  }
+
+  .vcard:hover .vcard__title {
+    color: var(--accent);
+  }
+
+  .vcard__desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    opacity: 0.7;
+  }
+
+  .vcard__arrow {
+    font-size: 14px;
+    color: var(--text-muted);
+    opacity: 0;
+    padding-top: 2px;
+    transition: opacity 0.2s, transform 0.2s;
+    flex-shrink: 0;
+  }
+
+  .vcard:hover .vcard__arrow {
+    opacity: 1;
+    transform: translateX(4px);
+    color: var(--accent);
+  }
+</style>

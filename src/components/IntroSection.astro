@@ -1,0 +1,167 @@
+---
+---
+
+<section class="intro-section">
+  <div class="content-wrap intro-section__grid">
+    <div class="intro-section__text" data-intro-text>
+      <div class="intro-section__labels">
+        <span class="section-label-devanagari">(परिचय)</span>
+        <span class="section-label">Intro</span>
+      </div>
+      <div class="intro-section__body">
+        <p>
+          I love making complex things feel obvious. Not simpler — just clearer.
+          I think in systems first. Tokens before components, patterns before
+          pixels, structure before style.
+        </p>
+        <p>
+          I believe the best design work is the kind you don't notice — it just
+          works, and everything around it works better because of it.
+        </p>
+        <p>
+          Right now, I'm building that at Zzazz.ai. Scroll down to see how I think.
+        </p>
+      </div>
+    </div>
+    <div class="intro-section__image" data-intro-image>
+      <img
+        src="/images/about-portrait.png"
+        alt="Ashish Khoshya"
+        width="400"
+        height="500"
+        loading="lazy"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .intro-section {
+    padding: 96px 0;
+  }
+
+  .intro-section__grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  /* Labels */
+  .intro-section__labels {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  /* Body text */
+  .intro-section__body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 640px;
+  }
+
+  .intro-section__body p {
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--text-subtle);
+  }
+
+  /* Image */
+  .intro-section__image img {
+    max-width: 360px;
+    max-height: 420px;
+    width: 100%;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 12px;
+  }
+
+  @media (max-width: 1024px) {
+    .intro-section {
+      padding: 48px 0;
+    }
+
+    .intro-section__body p {
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .intro-section__body {
+      gap: 16px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .intro-section {
+      padding: 32px 0;
+    }
+
+    .intro-section__grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .intro-section__body {
+      gap: 14px;
+    }
+
+    .intro-section__body p {
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .intro-section__labels {
+      margin-bottom: 16px;
+    }
+
+    .intro-section__image img {
+      max-width: 280px;
+      max-height: 350px;
+    }
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.ticker.lagSmoothing(0);
+  if (document.hidden) {
+    const interval = setInterval(() => gsap.ticker.tick(), 16);
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) clearInterval(interval);
+    }, { once: true });
+  }
+
+  function initIntro() {
+    const text = document.querySelector('[data-intro-text]');
+    const image = document.querySelector('[data-intro-image]');
+    if (!text) return;
+
+    gsap.fromTo(text,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1, y: 0, duration: 0.65, ease: 'power3.out',
+        scrollTrigger: { trigger: text, start: 'top 80%', once: true },
+      }
+    );
+
+    if (image) {
+      gsap.fromTo(image,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1, y: 0, duration: 0.65, delay: 0.2, ease: 'power3.out',
+          scrollTrigger: { trigger: text, start: 'top 80%', once: true },
+        }
+      );
+    }
+  }
+
+  initIntro();
+  document.addEventListener('astro:after-swap', initIntro);
+</script>

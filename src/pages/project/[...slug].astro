@@ -1,0 +1,960 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TopNav from '../../components/TopNav';
+import FooterCTA from '../../components/FooterCTA.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const { title, subtitle, description, role, services, year, accentColor, coverImage, nextProject, parentProject } = project.data;
+---
+
+<Layout title={`${title} — Ashish Khoshya`} description={description}>
+  <TopNav currentPath="/projects" client:load />
+
+  <main id="main-content" class="cs">
+    {parentProject && (
+      <div class="cs__back-bar">
+        <div class="content-wrap">
+          <a href={`/project/${parentProject.slug}`} class="cs__back-link">
+            ← Back to {parentProject.title}
+          </a>
+        </div>
+      </div>
+    )}
+
+    <!-- Hero — full viewport with morphing cover image -->
+    <section class="cs__hero" data-cs-hero>
+      {coverImage && (
+        <>
+          <img
+            src={coverImage}
+            alt=""
+            class="cs__hero-cover"
+            aria-hidden="true"
+          />
+          <div class="cs__hero-cover-gradient" />
+        </>
+      )}
+      <div class="cs__hero-overlay">
+        <div class="cs__hero-left">
+          <h1 class="cs__hero-title">{title}</h1>
+          <p class="cs__hero-subtitle">{subtitle}</p>
+        </div>
+        <div class="cs__hero-right">
+          <div class="cs__hero-meta-item">
+            <span class="cs__hero-meta-label">Role</span>
+            <span class="cs__hero-meta-value">{role}</span>
+          </div>
+          <div class="cs__hero-meta-divider" />
+          <div class="cs__hero-meta-item">
+            <span class="cs__hero-meta-label">Services</span>
+            <span class="cs__hero-meta-value">{services.join(' · ')}</span>
+          </div>
+          <div class="cs__hero-meta-divider" />
+          <div class="cs__hero-meta-item">
+            <span class="cs__hero-meta-label">Year</span>
+            <span class="cs__hero-meta-value">{year}</span>
+          </div>
+        </div>
+      </div>
+      <div class="cs__hero-scroll-hint">Scroll down</div>
+    </section>
+
+    <!-- MDX Body with section nav + share sidebar -->
+    <div class="cs__content-layout">
+      <nav class="cs__section-nav" aria-label="Case study sections" id="cs-section-nav">
+        <span class="cs__section-nav-title">Summary</span>
+        <!-- Populated by JS from h2 headings -->
+      </nav>
+      <article class="content-wrap cs__body">
+        <Content />
+      </article>
+      <aside class="cs__share" aria-label="Share this project" id="cs-share">
+        <a href={`https://www.linkedin.com/sharing/share-offsite/?url=https://ashishkhoshya.com/project/${project.id}`} target="_blank" rel="noopener" class="cs__share-btn" aria-label="Share on LinkedIn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href={`https://twitter.com/intent/tweet?url=https://ashishkhoshya.com/project/${project.id}&text=${title}`} target="_blank" rel="noopener" class="cs__share-btn" aria-label="Share on X">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <button class="cs__share-btn cs__share-copy" aria-label="Copy link" data-url={`https://ashishkhoshya.com/project/${project.id}`}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        </button>
+      </aside>
+    </div>
+
+    <!-- Next Project / All Projects -->
+    <section class="cs__next">
+      <div class="content-wrap cs__next-inner">
+        {nextProject && (
+          <>
+            <span class="cs__next-label">Next Project</span>
+            <a href={`/project/${nextProject.slug}`} class="cs__next-link">
+              {nextProject.title}
+              <span class="cs__next-arrow">→</span>
+            </a>
+          </>
+        )}
+        <a href="/projects" class="cs__all-projects">View all projects →</a>
+      </div>
+    </section>
+
+    <div id="contact">
+      <FooterCTA />
+    </div>
+  </main>
+</Layout>
+
+<style define:vars={{ csAccent: accentColor }}>
+  /* ── Back bar ── */
+  .cs__back-bar {
+    position: relative;
+    z-index: 1;
+    padding: 16px 0;
+    margin-top: 72px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cs__back-link {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--csAccent);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .cs__back-link:hover {
+    opacity: 0.7;
+  }
+
+  /* ── Content layout with section nav ── */
+  .cs__content-layout {
+    position: relative;
+  }
+
+  .cs__section-nav {
+    position: fixed;
+    left: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 200px;
+  }
+
+  .cs__section-nav-title {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    padding-left: 18px;
+    opacity: 0.5;
+  }
+
+  .cs__section-nav :global(.cs__section-nav-item) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .cs__section-nav :global(.cs__section-nav-item:hover) {
+    opacity: 1 !important;
+  }
+
+  .cs__section-nav :global(.cs__section-nav-dot) {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    flex-shrink: 0;
+    transition: background 0.3s, transform 0.3s;
+    opacity: 0.3;
+  }
+
+  .cs__section-nav :global(.cs__section-nav-item--active .cs__section-nav-dot) {
+    background: var(--csAccent);
+    transform: scale(1.4);
+    opacity: 1;
+  }
+
+  .cs__section-nav :global(.cs__section-nav-label) {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.2s, font-weight 0.2s;
+    opacity: 0.5;
+  }
+
+  .cs__section-nav :global(.cs__section-nav-item--active .cs__section-nav-label) {
+    opacity: 1;
+    color: var(--text);
+  }
+
+  .cs__section-nav :global(.cs__section-nav-item--active .cs__section-nav-label) {
+    color: var(--csAccent);
+    font-weight: 600;
+  }
+
+  @media (max-width: 1200px) {
+    .cs__section-nav {
+      display: none;
+    }
+  }
+
+  /* ── Hero — full viewport ── */
+  .cs__hero {
+    position: relative;
+    height: 80vh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+
+  .cs__hero-cover {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  .cs__hero-cover-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, var(--bg) 0%, rgba(0,0,0,0.75) 40%, rgba(0,0,0,0.3) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .cs__hero-overlay {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 48px 48px;
+    gap: 48px;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: csReveal 0.6s var(--ease-out-expo) 0.3s forwards;
+  }
+
+  .cs__hero-left {
+    max-width: 600px;
+  }
+
+  .cs__hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .cs__hero-subtitle {
+    font-size: 16px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+  }
+
+  .cs__hero-right {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+
+  .cs__hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .cs__hero-meta-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--csAccent);
+  }
+
+  .cs__hero-meta-value {
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    max-width: 200px;
+  }
+
+  .cs__hero-meta-divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(255,255,255,0.12);
+  }
+
+  .cs__hero-scroll-hint {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    opacity: 0;
+    animation: csRevealHint 0.5s var(--ease-out-expo) 0.8s forwards;
+  }
+
+  @keyframes csReveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes csRevealHint {
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* ── Share sidebar ── */
+  .cs__share {
+    position: fixed;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    opacity: 0;
+  }
+
+  .cs__share-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, transform 0.2s;
+  }
+
+  .cs__share-btn:hover {
+    border-color: var(--csAccent);
+    color: var(--csAccent);
+    transform: scale(1.1);
+  }
+
+  @media (max-width: 1200px) {
+    .cs__share {
+      display: none;
+    }
+  }
+
+  /* ── MDX Body ── */
+  .cs__body {
+    max-width: var(--content-narrow);
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  /* h2 */
+  .cs__body :global(h2) {
+    font-family: var(--font-display);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+    margin-top: 64px;
+    margin-bottom: 24px;
+  }
+
+  .cs__body :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  /* h3 */
+  .cs__body :global(h3) {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 48px;
+    margin-bottom: 16px;
+  }
+
+  /* p */
+  .cs__body :global(p) {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  /* blockquote */
+  .cs__body :global(blockquote) {
+    position: relative;
+    background: color-mix(in srgb, var(--csAccent) 5%, var(--card-bg));
+    border-left: 3px solid var(--csAccent);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: 24px 28px;
+    margin: 40px 0;
+  }
+
+  .cs__body :global(blockquote p) {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 0;
+  }
+
+  /* img — full-bleed breakout */
+  .cs__body :global(img) {
+    width: calc(100% + 200px);
+    max-width: none;
+    margin-left: -100px;
+    border-radius: 12px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    display: block;
+  }
+
+  /* strong */
+  .cs__body :global(strong) {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* ul/ol */
+  .cs__body :global(ul),
+  .cs__body :global(ol) {
+    padding-left: 24px;
+    margin-bottom: 24px;
+  }
+
+  .cs__body :global(li) {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 8px;
+  }
+
+  /* table — comparison cards */
+  .cs__body :global(table) {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 40px 0;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+  }
+
+  .cs__body :global(thead) {
+    background: color-mix(in srgb, var(--csAccent) 8%, var(--bg));
+  }
+
+  .cs__body :global(th) {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text);
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cs__body :global(th:first-child) {
+    color: var(--text-muted);
+  }
+
+  .cs__body :global(td) {
+    font-size: 14px;
+    color: var(--text-muted);
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  .cs__body :global(tr:last-child td) {
+    border-bottom: none;
+  }
+
+  .cs__body :global(td:first-child) {
+    font-weight: 500;
+    color: var(--text-subtle);
+    white-space: normal;
+  }
+
+  .cs__body :global(td:last-child) {
+    color: var(--csAccent);
+    font-weight: 600;
+  }
+
+  .cs__body :global(tr:hover td) {
+    background: color-mix(in srgb, var(--csAccent) 3%, transparent);
+  }
+
+  /* ── Next Project ── */
+  .cs__next {
+    padding: 96px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .cs__next-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .cs__next-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+  }
+
+  .cs__next-link {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    line-height: 1.2;
+    transition: color 0.2s;
+  }
+
+  .cs__next-link:hover {
+    color: var(--accent);
+  }
+
+  .cs__next-link:hover .cs__next-arrow {
+    transform: translateX(8px);
+  }
+
+  .cs__next-arrow {
+    display: inline-block;
+    margin-left: 12px;
+    transition: transform 0.3s var(--ease-out-expo);
+  }
+
+  .cs__all-projects {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-top: 24px;
+    transition: color 0.2s;
+  }
+
+  .cs__all-projects:hover {
+    color: var(--accent);
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .cs__hero {
+      height: 60vh;
+    }
+
+    .cs__hero-overlay {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 0 20px 24px;
+      gap: 20px;
+    }
+
+    .cs__hero-title {
+      font-size: 32px;
+    }
+
+    .cs__hero-right {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .cs__hero-meta-divider {
+      display: none;
+    }
+
+    .cs__hero-scroll-hint {
+      display: none;
+    }
+
+    .cs__body {
+      padding-top: 48px;
+      padding-bottom: 48px;
+    }
+
+    .cs__body :global(h2) {
+      font-size: 26px;
+      margin-top: 48px;
+      margin-bottom: 16px;
+    }
+
+    .cs__body :global(h3) {
+      font-size: 20px;
+      margin-top: 36px;
+    }
+
+    .cs__body :global(p) {
+      font-size: 15px;
+      line-height: 1.75;
+      margin-bottom: 18px;
+    }
+
+    .cs__body :global(img) {
+      width: 100%;
+      margin-left: 0;
+      border-radius: 8px;
+    }
+
+    .cs__body :global(table) {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 24px -20px;
+      width: calc(100% + 40px);
+      border-radius: var(--radius-md);
+    }
+
+    .cs__body :global(th),
+    .cs__body :global(td) {
+      padding: 10px 14px;
+      font-size: 13px;
+    }
+
+    .cs__body :global(th) {
+      font-size: 10px;
+    }
+
+    .cs__next {
+      padding: 64px 0;
+    }
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.ticker.lagSmoothing(0);
+  if (document.hidden) {
+    const interval = setInterval(() => gsap.ticker.tick(), 16);
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) clearInterval(interval);
+    }, { once: true });
+  }
+
+  // Cleanup on navigation
+  document.addEventListener('astro:before-swap', () => {
+    ScrollTrigger.getAll().forEach(t => t.kill());
+  });
+
+  function initSectionNav() {
+    const nav = document.getElementById('cs-section-nav');
+    if (!nav) return;
+
+    const headings = document.querySelectorAll('.cs__body h2');
+    if (!headings.length) return;
+
+    // Keep the title, clear the rest
+    const title = nav.querySelector('.cs__section-nav-title');
+    nav.innerHTML = '';
+    if (title) nav.appendChild(title);
+
+    headings.forEach((h2, i) => {
+      if (!h2.id) h2.id = `section-${i}`;
+
+      const item = document.createElement('a');
+      item.className = 'cs__section-nav-item';
+      item.href = `#${h2.id}`;
+      item.innerHTML = `
+        <span class="cs__section-nav-dot"></span>
+        <span class="cs__section-nav-label">${h2.textContent}</span>
+      `;
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        h2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      nav.appendChild(item);
+    });
+
+    const navItems = nav.querySelectorAll('.cs__section-nav-item');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const idx = Array.from(headings).indexOf(entry.target as Element);
+            if (idx !== -1) {
+              navItems.forEach((item, i) => {
+                item.classList.toggle('cs__section-nav-item--active', i === idx);
+              });
+            }
+          }
+        });
+      },
+      { rootMargin: '-20% 0px -60% 0px' }
+    );
+
+    headings.forEach((h2) => observer.observe(h2));
+
+    // Show/hide nav + share sidebar based on body scroll position
+    const body = document.querySelector('.cs__body');
+    const share = document.getElementById('cs-share');
+    if (body) {
+      ScrollTrigger.create({
+        trigger: body,
+        start: 'top 20%',
+        end: 'bottom 80%',
+        onEnter: () => {
+          gsap.to(nav, { opacity: 1, duration: 0.3 });
+          if (share) gsap.to(share, { opacity: 1, duration: 0.3 });
+        },
+        onLeave: () => {
+          gsap.to(nav, { opacity: 0, duration: 0.3 });
+          if (share) gsap.to(share, { opacity: 0, duration: 0.3 });
+        },
+        onEnterBack: () => {
+          gsap.to(nav, { opacity: 1, duration: 0.3 });
+          if (share) gsap.to(share, { opacity: 1, duration: 0.3 });
+        },
+        onLeaveBack: () => {
+          gsap.to(nav, { opacity: 0, duration: 0.3 });
+          if (share) gsap.to(share, { opacity: 0, duration: 0.3 });
+        },
+      });
+      nav.style.opacity = '0';
+    }
+  }
+
+  function initCopyLink() {
+    document.querySelectorAll('.cs__share-copy').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const url = (btn as HTMLElement).dataset.url || window.location.href;
+        await navigator.clipboard.writeText(url);
+        const orig = btn.innerHTML;
+        btn.innerHTML = '<span style="font-size:10px;color:var(--csAccent)">Copied!</span>';
+        setTimeout(() => { btn.innerHTML = orig; }, 1500);
+      });
+    });
+  }
+
+  function initHeroTransition() {
+    const raw = sessionStorage.getItem('ak-project-rect');
+    sessionStorage.removeItem('ak-project-rect');
+
+    const heroCover = document.querySelector('.cs__hero-cover') as HTMLImageElement;
+    const heroOverlay = document.querySelector('.cs__hero-overlay') as HTMLElement;
+    const heroHint = document.querySelector('.cs__hero-scroll-hint') as HTMLElement;
+    const heroGradient = document.querySelector('.cs__hero-cover-gradient') as HTMLElement;
+    const hero = document.querySelector('.cs__hero') as HTMLElement;
+
+    if (!heroCover || !hero) return;
+
+    if (raw) {
+      const rect = JSON.parse(raw);
+
+      // Hide everything initially
+      if (heroOverlay) {
+        heroOverlay.style.opacity = '0';
+        heroOverlay.style.transform = 'translateY(24px)';
+        heroOverlay.style.animation = 'none';
+      }
+      if (heroHint) {
+        heroHint.style.opacity = '0';
+        heroHint.style.animation = 'none';
+      }
+      if (heroGradient) {
+        heroGradient.style.opacity = '0';
+      }
+
+      function runAnimation() {
+        // Position image at the stored card rect (fixed, above everything)
+        gsap.set(heroCover, {
+          position: 'fixed',
+          top: rect.top,
+          left: rect.left,
+          width: rect.width,
+          height: rect.height,
+          objectFit: 'cover',
+          zIndex: 100,
+          borderRadius: 12,
+          inset: 'auto',
+        });
+
+        // Animate image expanding to fill hero
+        gsap.to(heroCover, {
+          top: 0,
+          left: 0,
+          width: window.innerWidth,
+          height: hero.offsetHeight,
+          borderRadius: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          onComplete: () => {
+            gsap.set(heroCover, {
+              clearProps: 'all',
+            });
+          },
+        });
+
+        // Fade in gradient
+        if (heroGradient) {
+          gsap.to(heroGradient, {
+            opacity: 1,
+            duration: 0.6,
+            delay: 0.3,
+          });
+        }
+
+        // Fade in overlay content
+        if (heroOverlay) {
+          gsap.to(heroOverlay, {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: 'power3.out',
+            delay: 0.5,
+          });
+        }
+        if (heroHint) {
+          gsap.to(heroHint, {
+            opacity: 1,
+            duration: 0.4,
+            delay: 0.8,
+          });
+        }
+      }
+
+      // Wait for image to load if needed
+      if (heroCover.complete) {
+        runAnimation();
+      } else {
+        heroCover.addEventListener('load', runAnimation, { once: true });
+      }
+    }
+
+    // Parallax (always, after a small delay to not conflict with entrance)
+    setTimeout(() => {
+      const cover = document.querySelector('.cs__hero-cover') as HTMLElement;
+      if (cover) {
+        gsap.to(cover, {
+          yPercent: 15,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: hero,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+          },
+        });
+      }
+    }, raw ? 1000 : 0);
+  }
+
+  function initCaseStudy() {
+    initHeroTransition();
+    initSectionNav();
+    initCopyLink();
+
+    // Animate h2 headings
+    document.querySelectorAll('.cs__body h2').forEach((h2) => {
+      gsap.fromTo(h2,
+        { opacity: 0, y: 24 },
+        {
+          opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
+          scrollTrigger: { trigger: h2, start: 'top 80%', once: true },
+        }
+      );
+    });
+
+    // Animate images
+    document.querySelectorAll('.cs__body img').forEach((img) => {
+      gsap.fromTo(img,
+        { opacity: 0, y: 32, scale: 0.98 },
+        {
+          opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'power3.out',
+          scrollTrigger: { trigger: img, start: 'top 80%', once: true },
+        }
+      );
+    });
+
+    // Animate data-cs-section elements (MetricGrid, ProcessStep)
+    document.querySelectorAll('[data-cs-section]').forEach((el) => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 24 },
+        {
+          opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 80%', once: true },
+        }
+      );
+    });
+
+    // Animate blockquotes
+    document.querySelectorAll('.cs__body blockquote').forEach((bq) => {
+      gsap.fromTo(bq,
+        { opacity: 0, x: -16 },
+        {
+          opacity: 1, x: 0, duration: 0.6, ease: 'power3.out',
+          scrollTrigger: { trigger: bq, start: 'top 80%', once: true },
+        }
+      );
+    });
+
+    // Next project card
+    const nextSection = document.querySelector('.cs__next');
+    if (nextSection) {
+      gsap.fromTo(nextSection,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1, y: 0, duration: 0.65, ease: 'power3.out',
+          scrollTrigger: { trigger: nextSection, start: 'top 80%', once: true },
+        }
+      );
+    }
+  }
+
+  initCaseStudy();
+  document.addEventListener('astro:after-swap', initCaseStudy);
+</script>

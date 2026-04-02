@@ -1,54 +1,43 @@
-# Ashish Khoshya — Portfolio
+# Astro Starter Kit: Minimal
 
-## Quick Start (Local)
-
-```bash
-npm install
-npm run dev
+```sh
+npm create astro@latest -- --template minimal
 ```
 
-Opens at `http://localhost:5173`
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-## Deploy to Vercel (Recommended)
+## 🚀 Project Structure
 
-1. **Push to GitHub**
-   ```bash
-   git init
-   git add .
-   git commit -m "Portfolio v1"
-   ```
-   Create a repo on github.com, then:
-   ```bash
-   git remote add origin https://github.com/YOUR_USERNAME/portfolio.git
-   git push -u origin main
-   ```
+Inside of your Astro project, you'll see the following folders and files:
 
-2. **Connect to Vercel**
-   - Go to [vercel.com](https://vercel.com) → Sign up with GitHub
-   - Click "New Project" → Import your repo
-   - Framework: Vite (auto-detected)
-   - Click Deploy — done in ~60 seconds
-
-3. **Add Custom Domain**
-   - Vercel Dashboard → Your Project → Settings → Domains
-   - Add `yourdomain.com`
-   - Update your domain DNS:
-     - **A Record**: `76.76.21.21`
-     - **CNAME** (for www): `cname.vercel-dns.com`
-   - SSL is automatic
-
-## Deploy to Netlify (Alternative)
-
-1. Push to GitHub (same as above)
-2. Go to [netlify.com](https://netlify.com) → New site from Git
-3. Build command: `npm run build`
-4. Publish directory: `dist`
-5. Add custom domain in Site settings → Domain management
-
-## Build for Any Host
-
-```bash
-npm run build
+```text
+/
+├── public/
+├── src/
+│   └── pages/
+│       └── index.astro
+└── package.json
 ```
 
-This creates a `dist/` folder with static files. Upload that folder to any hosting provider (AWS S3, Firebase, Cloudflare Pages, etc).
+Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+
+There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+
+Any static assets, like images, can be placed in the `public/` directory.
+
+## 🧞 Commands
+
+All commands are run from the root of the project, from a terminal:
+
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
+
+## 👀 Want to learn more?
+
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

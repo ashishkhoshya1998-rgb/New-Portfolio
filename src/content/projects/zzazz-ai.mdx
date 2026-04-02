@@ -1,0 +1,112 @@
+---
+title: "Zzazz.ai"
+subtitle: "Architecting a New Content Economy"
+description: "Reframed disconnected POCs into a coherent 7-vertical content economy ecosystem"
+role: "Designer · UX Architect · Product Architect"
+services: ["Product Architecture", "Ecosystem Design", "UX Research"]
+year: "2025"
+accentColor: "#F59E0B"
+coverImage: "/images/projects/zzazz-cover.png"
+nextProject:
+  title: "GSTR-3B Filing Redesign"
+  slug: "gstr-3b"
+---
+
+import MetricGrid from '../../components/cs/MetricGrid.astro';
+import ProcessStep from '../../components/cs/ProcessStep.astro';
+import VerticalCard from '../../components/cs/VerticalCard.astro';
+
+## The Thesis
+
+Most content platforms treat pricing as a gate — a wall between users and value. ZZAZZ Terminal started with a fundamentally different premise: **what if content could be priced like an asset, not locked behind a subscription?**
+
+When I joined, ZZAZZ had a collection of disconnected proof-of-concepts — a content marketplace here, a publishing tool there, a half-formed idea for time-based payments somewhere else. Each vertical had been prototyped independently, with no shared architecture, no unified mental model, and no coherent story for why a user should pay for content that the internet had conditioned them to expect for free.
+
+The strategic shift was to stop thinking about individual products and start thinking about an **ecosystem** — seven verticals connected by a single belief: that content creators deserve to be compensated, and that users will pay when the value exchange is transparent and fair.
+
+## What is ZZAZZ Terminal?
+
+ZZAZZ Terminal is a content economy platform that treats content as a tradeable, priceable asset rather than a commodity. It connects creators and consumers across seven interconnected verticals — from publishing and exchange to micro-payments and advertising — all unified by a single pricing philosophy.
+
+The core innovation is making priced content *believable*. Not through artificial scarcity or aggressive paywalls, but through architecture that makes pricing feel natural — like the content was always meant to have a price, and you're getting a fair deal by paying it.
+
+## Where We Started
+
+The landscape when I began was fragmented:
+
+- **LPM (Live Price Market)** existed as a functional prototype — content with real-time pricing based on demand signals. It worked, but felt like a stock ticker, not a content platform.
+- **Exchange** was table-heavy and data-dense. It showed market data for content assets but buried the actual content under spreadsheet-like interfaces that only power users could navigate.
+- **TimePay** was a concept on paper — the idea that users could pay per minute of content consumption, unlocking micro-transactions for content that didn't justify a full purchase.
+- **Publish, Moments, DOTS, Ad Exchange, Signal** — these existed as names on a roadmap, with scattered wireframes and no cohesive product vision tying them together.
+
+> "Pricing alone doesn't create adoption. Users don't pay because something has a price — they pay because they understand why it has that price. The architecture has to make the *why* obvious."
+
+## My Responsibilities
+
+As the Product Architect and UX Architect for ZZAZZ Terminal, my work spanned the full breadth of the ecosystem:
+
+- **Product architecture for the 7-vertical ecosystem** — defining how Exchange, Publish, Moments, TimePay, Ad Exchange, DOTS, and Signal connect, share data, and create compounding value for users
+- **User psychology and pricing perception research** — studying behavioral economics frameworks to understand why users resist paying for digital content and designing interfaces that overcome those resistance patterns
+- **Interaction redesign for Exchange and LPM** — transforming table-heavy data views into content-first experiences where pricing feels contextual rather than clinical
+- **Market entry strategy for Publish and Moments** — defining the launch sequence, user onboarding flows, and content seeding strategies for new verticals
+- **Moments vertical design** — creating a short-form, time-sensitive content format that creates urgency without artificial scarcity
+- **TimePay micro-transaction system** — designing the end-to-end payment flow for per-minute content consumption, including the three-path behavioral model
+- **DOTS reputation and trust system** — architecting a creator credibility framework that makes pricing decisions transparent to consumers
+- **Direct collaboration with the founder** — translating product vision into architecture decisions, challenging assumptions, and shaping the roadmap based on user research and market analysis
+
+## The Seven Verticals
+
+The ecosystem is built on seven interconnected verticals, each serving a distinct purpose in the content economy:
+
+<VerticalCard number="01" title="Exchange" description="The marketplace — where content assets are discovered, priced, and traded. Redesigned from a data-table interface into a content-first browsing experience." href="/project/zzazz-exchange" />
+
+<VerticalCard number="02" title="Publish" description="The creator studio — tools for publishing priced content with built-in distribution. Pricing as natural as writing." href="/project/zzazz-publish" />
+
+<VerticalCard number="03" title="Moments" description="Time-sensitive, short-form content with dynamic pricing. Genuine urgency through temporal scarcity — content priced by its freshness." href="/project/zzazz-moments" />
+
+<VerticalCard number="04" title="TimePay" description="Per-minute content access — the micro-transaction layer. Users pay only for what they consume, removing the commitment barrier." href="/project/zzazz-timepay" />
+
+<VerticalCard number="05" title="Ad Exchange" description="The advertising layer — connecting brands with priced content environments. Content-intent contextual ads." href="/project/zzazz-ad-exchange" />
+
+<VerticalCard number="06" title="DOTS Protocol" description="The trust and reputation system — cryptographic lineage with automatic revenue splits. Creators participate in downstream value." href="/project/zzazz-dots" />
+
+<VerticalCard number="07" title="Signal" description="The intelligence layer — aggregated signals from user behavior, pricing trends, and content performance optimizing the ecosystem." href="/project/zzazz-signal" />
+
+## The Key Insight: TimePay
+
+TimePay became the linchpin of the entire ecosystem. The behavioral economics research revealed a critical insight: **users don't resist paying — they resist committing to an uncertain outcome.**
+
+A $5 article feels risky. What if it's not worth it? But $0.02 per minute feels like nothing — and after 10 minutes of reading, you've paid $0.20 and received clear value. The willingness to continue is dramatically higher than the willingness to start at full price.
+
+We designed a **three-path model** for every piece of content:
+
+<ProcessStep number="01" title="Full Access">
+  One-time purchase at the creator's set price. For users who know what they want and trust the creator. Highest margin, lowest volume.
+</ProcessStep>
+
+<ProcessStep number="02" title="TimePay">
+  Per-minute micro-payments. For discovery and sampling. Lowest barrier, highest conversion to engagement. Google Offerwall data validated that micro-transaction friction decreases by 73% when users can see real-time cost accumulation.
+</ProcessStep>
+
+<ProcessStep number="03" title="Exchange Credit">
+  Users earn credits through engagement, sharing, and contributing — then spend credits on content. Creates a circular economy where participation generates purchasing power.
+</ProcessStep>
+
+The Google Offerwall integration data showed that users exposed to the three-path model had **50% higher click-through rates** compared to single-price content, and **80–98% of users** engaged with at least one pricing path — confirming that choice architecture, not lower prices, drives adoption.
+
+## Outcomes
+
+<MetricGrid metrics={[
+  { value: "7", label: "Verticals Designed" },
+  { value: "50%", label: "CTR Increase" },
+  { value: "80–98%", label: "Users Reached" },
+  { value: "0→1", label: "Ecosystem Built" }
+]} />
+
+## What This Proved
+
+The ZZAZZ Terminal project validated something I'd hypothesized but never had the chance to prove at scale: **architecture is the product.** Not features, not interfaces, not individual screens — the way verticals connect, the way pricing flows through the system, the way trust compounds across touchpoints.
+
+Publishers who tested the ecosystem reported that their content felt "more valuable" in the ZZAZZ context — not because the content changed, but because the architecture made the value *visible*. That's the difference between designing a product and designing a system.
+
+This was an architect-level contribution — not executing someone else's vision, but shaping the product thesis itself. From the three-path pricing model to the seven-vertical ecosystem map, the architecture decisions I made defined what ZZAZZ Terminal became.

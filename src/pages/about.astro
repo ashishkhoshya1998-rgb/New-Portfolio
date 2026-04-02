@@ -1,0 +1,1086 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TopNav from '../components/TopNav';
+import FooterCTA from '../components/FooterCTA.astro';
+
+const experience = [
+  {
+    company: 'Zzazz.ai',
+    location: 'Bengaluru',
+    color: 'var(--color-zzazz)',
+    roles: [
+      {
+        title: 'Designer · UX Architect · Product Architect',
+        period: 'Jul 2025 – Present',
+        impact: 'Reframed disconnected POCs into a coherent 7-vertical content economy ecosystem',
+        bullets: [
+          'Closely collaborated with Founder, Product Lead & AI team — scoped and architected 7 interconnected verticals from scratch',
+          'Redesigned Exchange to query-led AI-native interaction; created Moments vertical IA & wireframes; designed TimePay\'s three-path access model',
+          'Built everything with AI-first tools — Claude Code for prototyping & logic, Figma Make for rapid UI generation',
+        ],
+        metrics: [
+          { value: '7', label: 'Verticals', colorClass: 'amber' },
+          { value: '50%', label: 'CTR ↑', colorClass: 'amber' },
+          { value: '80–98%', label: 'Users reached', colorClass: 'amber' },
+        ],
+      },
+    ],
+  },
+  {
+    company: 'Clear (ClearTax)',
+    location: 'Bengaluru',
+    color: 'var(--color-gstr3b)',
+    roles: [
+      {
+        title: 'Senior Product Designer',
+        period: 'Oct 2023 – Jul 2025',
+        impact: 'Led design for Accounts Payable suite and automated Table-4 ITC reconciliation',
+        bullets: [
+          'Built smart engine to automate Table-4 ITC reconciliation, matching GSTR-2B with purchase registers; grew into roadmap-level initiative',
+          'Conducted UX audit of AP module — standardised usability testing and research methods across multiple pods',
+        ],
+        metrics: [
+          { value: '65%', label: 'Support queries reduced', colorClass: 'green' },
+          { value: 'AP Suite', label: 'Design quality improved', colorClass: 'green' },
+        ],
+      },
+      {
+        title: 'Product Designer',
+        period: 'Jul 2021 – Sep 2023',
+        impact: 'Built Mint V8 design system · Redesigned GSTR-3B filing · Led Max ITC and Ingestion Module',
+        bullets: [
+          'Spearheaded Mint V8 design system — token-based architecture with PCS Logic reduced 700+ button variants to 32, halved dev time',
+          'Redesigned GSTR-3B workflow for 1.4Cr+ businesses — bulk upload, multi-GSTIN filing, and reconciliation engine in one platform',
+          'Led Max ITC redesign (field research with tax professionals) and Ingestion Module (schema-based data import across all Clear BUs)',
+        ],
+        metrics: [
+          { value: '700+→32', label: 'Button variants', colorClass: 'blue' },
+          { value: '60%', label: 'Filing time cut', colorClass: 'blue' },
+          { value: '53%', label: 'Adoption (18%→)', colorClass: 'blue' },
+        ],
+      },
+    ],
+  },
+  {
+    company: 'Visit Health',
+    location: 'New Delhi · Internship',
+    color: 'var(--text-muted)',
+    roles: [
+      {
+        title: 'UI/UX Design Intern',
+        period: 'May 2019 – Jul 2019',
+        bullets: [
+          'Redesigned marketing website and improved Android app onboarding; collaborated with founders on branding refresh',
+        ],
+      },
+    ],
+  },
+];
+
+const certifications = [
+  { name: 'UX: Ultimate Guide to Usability & UX', org: 'Udemy' },
+  { name: 'Visual Elements of UI Design', org: 'Coursera' },
+  { name: 'IxDF Membership', org: 'Interaction Design Foundation' },
+];
+
+const services = [
+  { num: '01', title: 'Design Systems & Architecture', desc: 'Token-based systems, component libraries, PCS logic, multi-theme architectures, and adoption strategies that stick.' },
+  { num: '02', title: 'Product Design & UX', desc: 'End-to-end design for enterprise products — from discovery and IA to interaction design and handoff.' },
+  { num: '03', title: 'Research & Strategy', desc: 'Field studies, usability testing, journey mapping, and data-driven design that connects user needs to business goals.' },
+];
+
+const skills = {
+  craft: ['Design Systems', 'Interaction Design', 'Visual Design', 'Information Architecture', 'Wireframing', 'Prototyping'],
+  research: ['User Research', 'Usability Testing', 'Field Studies', 'Journey Mapping', 'Stakeholder Interviews', 'Data-Driven Design'],
+  strategy: ['Product Architecture', 'Ecosystem Design', 'Project Management', 'Cross-functional Leadership', 'Communication & Collaboration'],
+};
+
+const tools = ['Figma', 'FigJam', 'Sketch', 'Storybook', 'Adobe Creative Suite', 'Framer', 'Notion', 'Jira/Linear', 'Claude Code', 'Figma Make'];
+---
+
+<Layout title="About — Ashish Khoshya" description="About Ashish Khoshya — Senior Product Designer with 5+ years in design systems, enterprise UX, and product architecture.">
+  <TopNav currentPath="/about" client:load />
+
+  <main id="main-content" class="about">
+    <!-- Top zone: sticky image alongside header → bio → vision → services -->
+    <div class="about__top content-wrap">
+      <div class="about__top-left">
+        <!-- 1. Header -->
+        <section class="about__header" data-about-section>
+          <h1 class="about__title">
+            Ashish Khoshya <span class="about__title-sup">® 98 25</span>
+          </h1>
+          <p class="about__subtitle">
+            I am a Senior Product Designer who solves complex product problems
+          </p>
+        </section>
+
+        <!-- 2. Bio -->
+        <section class="about__bio" data-about-section>
+          <div class="about__bio-body">
+            <p>
+              With 5+ years across <strong>ClearTax</strong> and <strong>Zzazz.ai</strong>,
+              I've reduced 700+ button variants to 32, cut GST filing time by 60% for
+              businesses managing 10+ GSTINs, and architected a 7-vertical content economy
+              from scratch. <strong>IIT Guwahati</strong> gave me the systems thinking;
+              the work gave me the craft.
+            </p>
+            <p>
+              I care about the kind of design that shows up in metrics, not just in mockups —
+              where every token, pattern, and decision makes the next one easier. The case
+              studies below tell the rest.
+            </p>
+          </div>
+        </section>
+
+        <!-- 3. Vision -->
+        <section class="about__vision" data-about-section>
+          <div class="about__vision-labels">
+            <span class="section-label-devanagari">(दृष्टि)</span>
+            <span class="section-label">Vision</span>
+          </div>
+          <blockquote class="about__quote">
+            I believe structure enables creativity. Tokens before components. Patterns before
+            pixels. Systems before screens. Design is about serving user needs — finding the
+            right balance between user psychology and business goals.
+          </blockquote>
+        </section>
+
+      </div>
+
+      <!-- Sticky image column -->
+      <div class="about__top-right">
+        <div class="about__sticky-image">
+          <img src="/images/about-portrait.png" alt="Ashish Khoshya" width="350" height="440" loading="eager" />
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Services (full width, below sticky zone) -->
+    <section class="about__services content-wrap" data-about-section>
+      <div class="about__services-labels">
+        <span class="section-label-devanagari">(सेवाएं)</span>
+        <span class="section-label">Services</span>
+      </div>
+      <div class="about__services-grid">
+        {services.map((s) => (
+          <div class="about__service-card">
+            <span class="about__service-num">{s.num}</span>
+            <h3 class="about__service-title">{s.title}</h3>
+            <p class="about__service-desc">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- 5. Experience -->
+    <section class="about__experience content-wrap" data-about-section>
+      <div class="about__exp-labels">
+        <span class="section-label-devanagari">(अनुभव)</span>
+        <span class="section-label">Experience</span>
+      </div>
+      <div class="about__timeline">
+        {experience.map((exp) => (
+          <div class="about__exp-block">
+            <div class="about__exp-header">
+              <div class="about__exp-company-row">
+                <div class="about__timeline-dot" style={`background: ${exp.color};`}></div>
+                <h3 class="about__timeline-company">{exp.company}</h3>
+              </div>
+              <span class="about__timeline-location">{exp.location}</span>
+            </div>
+            {exp.roles.map((role) => (
+              <div class="about__role">
+                <div class="about__role-top">
+                  <span class="about__role-title">{role.title}</span>
+                  <span class="about__role-period">{role.period}</span>
+                </div>
+                {role.impact && <p class="about__role-impact">{role.impact}</p>}
+                {role.bullets && (
+                  <ul class="about__role-bullets">
+                    {role.bullets.map((b) => <li>{b}</li>)}
+                  </ul>
+                )}
+                {role.metrics && (
+                  <div class="about__role-metrics">
+                    {role.metrics.map((m) => (
+                      <span class={`about__metric-badge about__metric-badge--${m.colorClass}`}>
+                        <span class="about__metric-val">{m.value}</span>
+                        <span class="about__metric-lbl">{m.label}</span>
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+      <a href="/resume.html" class="about__resume-cta" target="_blank" rel="noopener">
+        View full resume
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
+        </svg>
+      </a>
+    </section>
+
+    <!-- 6. Skills -->
+    <section class="about__skills content-wrap" data-about-section>
+      <div class="about__skills-labels">
+        <span class="section-label-devanagari">(कौशल)</span>
+        <span class="section-label">Skills</span>
+      </div>
+      <div class="about__skills-grid">
+        <div class="about__skills-col">
+          <h4 class="about__skills-heading">Craft</h4>
+          {skills.craft.map((s) => <span class="about__skill-tag">{s}</span>)}
+        </div>
+        <div class="about__skills-col">
+          <h4 class="about__skills-heading">Research</h4>
+          {skills.research.map((s) => <span class="about__skill-tag">{s}</span>)}
+        </div>
+        <div class="about__skills-col">
+          <h4 class="about__skills-heading">Strategy</h4>
+          {skills.strategy.map((s) => <span class="about__skill-tag">{s}</span>)}
+        </div>
+      </div>
+      <div class="about__tools">
+        <h4 class="about__skills-heading">Tools</h4>
+        <div class="about__tools-row">
+          {tools.map((t) => <span class="about__skill-tag">{t}</span>)}
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Education & Certifications -->
+    <section class="about__education content-wrap" data-about-section>
+      <div class="about__edu-certs-grid">
+        <div>
+          <div class="about__edu-labels">
+            <span class="section-label-devanagari">(शिक्षा)</span>
+            <span class="section-label">Education</span>
+          </div>
+          <div class="about__edu-card">
+            <h3 class="about__edu-school">IIT Guwahati</h3>
+            <p class="about__edu-degree">Bachelor of Technology</p>
+            <span class="about__edu-period">July 2017 – July 2021</span>
+          </div>
+        </div>
+        <div>
+          <div class="about__edu-labels">
+            <span class="section-label-devanagari">(प्रमाण)</span>
+            <span class="section-label">Certifications</span>
+          </div>
+          <div class="about__certs-list">
+            {certifications.map((c) => (
+              <div class="about__cert-item">
+                <span class="about__cert-check">&#10003;</span>
+                <span class="about__cert-name">{c.name}</span>
+                <span class="about__cert-org">— {c.org}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Resume Download -->
+    <section class="about__resume content-wrap" data-about-section>
+      <div class="about__resume-card">
+        <div class="about__resume-text">
+          <h3 class="about__resume-title">Download Resume</h3>
+          <p class="about__resume-desc">Get a detailed PDF of my experience, skills, and impact metrics.</p>
+        </div>
+        <a href="/resume.html" class="about__resume-download" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          Download PDF
+        </a>
+      </div>
+    </section>
+
+    <!-- 9. Footer -->
+    <FooterCTA />
+  </main>
+</Layout>
+
+<style>
+  .about {
+    padding-top: 100px;
+  }
+
+  /* Top zone: two-column with sticky image */
+  .about__top {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 64px;
+    padding-top: 48px;
+  }
+
+  .about__top-left {
+    min-width: 0;
+  }
+
+  .about__top-right {
+    position: relative;
+  }
+
+  .about__sticky-image {
+    position: sticky;
+    top: 120px;
+  }
+
+  .about__sticky-image img {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  /* 1. Header */
+  .about__header {
+    padding: 0 0 48px;
+  }
+
+  .about__title {
+    font-family: var(--font-display);
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .about__title-sup {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-muted);
+    vertical-align: super;
+    letter-spacing: 2px;
+  }
+
+  .about__subtitle {
+    font-family: var(--font-display);
+    font-size: 24px;
+    color: var(--text-subtle);
+    line-height: 1.4;
+    max-width: 500px;
+  }
+
+  /* 2. Bio */
+  .about__bio {
+    padding: 0 0 48px;
+  }
+
+  .about__bio-body {
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .about__bio-body p {
+    font-size: 17px;
+    color: var(--text-subtle);
+    line-height: 1.8;
+  }
+
+  .about__bio-body strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* 3. Vision */
+  .about__vision {
+    padding: 0 0 48px;
+  }
+
+  .about__vision-labels {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .about__quote {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-style: italic;
+    color: var(--text-subtle);
+    line-height: 1.6;
+    max-width: 650px;
+    padding-left: 24px;
+    border-left: 3px solid var(--accent);
+  }
+
+  /* 4. Services */
+  .about__services {
+    padding-top: 64px;
+    padding-bottom: 80px;
+  }
+
+  .about__services-labels {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .about__services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .about__service-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 32px 24px;
+    transition: border-color 0.3s;
+  }
+
+  .about__service-card:hover {
+    border-color: var(--accent);
+  }
+
+  .about__service-num {
+    font-family: var(--font-heading-condensed);
+    font-size: 36px;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .about__service-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .about__service-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* 5. Experience */
+  .about__experience {
+    padding-bottom: 80px;
+  }
+
+  .about__exp-labels {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .about__timeline {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .about__exp-block {
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .about__exp-block:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  .about__exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .about__exp-company-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .about__timeline-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .about__timeline-company {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--text);
+  }
+
+  .about__timeline-location {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .about__role {
+    padding-left: 22px;
+    margin-bottom: 20px;
+  }
+
+  .about__role:last-child {
+    margin-bottom: 0;
+  }
+
+  .about__role-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 4px;
+  }
+
+  .about__role-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .about__role-period {
+    font-size: 12px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+    margin-left: 16px;
+  }
+
+  .about__role-impact {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--text-subtle);
+    margin-bottom: 8px;
+  }
+
+  .about__role-bullets {
+    list-style: none;
+    padding: 0;
+  }
+
+  .about__role-bullets li {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    padding-left: 14px;
+    position: relative;
+    margin-bottom: 4px;
+  }
+
+  .about__role-bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 7px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+
+  .about__role-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .about__metric-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+
+  .about__metric-val {
+    font-weight: 700;
+  }
+
+  .about__metric-lbl {
+    color: var(--text-muted);
+  }
+
+  .about__metric-badge--amber {
+    background: rgba(245, 158, 11, 0.1);
+  }
+  .about__metric-badge--amber .about__metric-val {
+    color: var(--color-zzazz);
+  }
+
+  .about__metric-badge--green {
+    background: rgba(34, 197, 94, 0.1);
+  }
+  .about__metric-badge--green .about__metric-val {
+    color: var(--color-gstr3b);
+  }
+
+  .about__metric-badge--blue {
+    background: rgba(21, 108, 239, 0.1);
+  }
+  .about__metric-badge--blue .about__metric-val {
+    color: var(--color-mintv8);
+  }
+
+  .about__resume-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 32px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .about__resume-cta:hover {
+    opacity: 0.7;
+  }
+
+  /* 6. Skills */
+  .about__skills {
+    padding-bottom: 80px;
+  }
+
+  .about__skills-labels {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .about__skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-bottom: 32px;
+  }
+
+  .about__skills-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .about__skills-heading {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .about__skill-tag {
+    font-size: 14px;
+    color: var(--text-muted);
+    padding: 6px 12px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    display: inline-block;
+    margin: 0 6px 6px 0;
+    transition: border-color 0.2s;
+  }
+
+  .about__skill-tag:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+
+  .about__tools {
+    padding-top: 16px;
+  }
+
+  .about__tools-row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  /* 7. Education & Certifications */
+  .about__education {
+    padding-bottom: 80px;
+  }
+
+  .about__edu-certs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+
+  .about__edu-labels {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .about__edu-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+  }
+
+  .about__edu-school {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .about__edu-degree {
+    font-size: 14px;
+    color: var(--text-subtle);
+    margin-bottom: 6px;
+  }
+
+  .about__edu-period {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .about__certs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .about__cert-item {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .about__cert-check {
+    color: var(--color-gstr3b);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .about__cert-name {
+    color: var(--text-subtle);
+  }
+
+  .about__cert-org {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* 8. Resume Download */
+  .about__resume {
+    padding-bottom: 80px;
+  }
+
+  .about__resume-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    transition: border-color 0.3s;
+  }
+
+  .about__resume-card:hover {
+    border-color: var(--accent);
+  }
+
+  .about__resume-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .about__resume-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .about__resume-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 24px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+
+  .about__resume-download:hover {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .about {
+      padding-top: 72px;
+    }
+
+    /* Top zone — stack on mobile */
+    .about__top {
+      grid-template-columns: 1fr;
+      gap: 0;
+      padding-top: 24px;
+    }
+
+    .about__top-right {
+      order: -1;
+      margin-bottom: 24px;
+    }
+
+    .about__sticky-image {
+      position: static;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .about__sticky-image img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      object-fit: cover;
+      object-position: top;
+    }
+
+    /* Header */
+    .about__header {
+      padding-bottom: 32px;
+    }
+
+    .about__title {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .about__title-sup {
+      font-size: 11px;
+    }
+
+    .about__subtitle {
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    /* Bio */
+    .about__bio {
+      padding-bottom: 48px;
+    }
+
+    .about__bio-body {
+      gap: 14px;
+    }
+
+    .about__bio-body p {
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* Vision */
+    .about__vision {
+      padding-bottom: 48px;
+    }
+
+    .about__vision-labels {
+      margin-bottom: 16px;
+    }
+
+    .about__quote {
+      font-size: 17px;
+      padding-left: 16px;
+      line-height: 1.6;
+    }
+
+    /* Services */
+    .about__services {
+      padding-bottom: 48px;
+    }
+
+    .about__services-labels {
+      margin-bottom: 20px;
+    }
+
+    .about__services-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .about__service-card {
+      padding: 20px;
+    }
+
+    .about__service-num {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .about__service-title {
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+
+    .about__service-desc {
+      font-size: 13px;
+    }
+
+    /* Experience */
+    .about__experience {
+      padding-bottom: 48px;
+    }
+
+    .about__exp-labels {
+      margin-bottom: 20px;
+    }
+
+    .about__exp-block {
+      padding: 20px 0;
+    }
+
+    .about__exp-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+
+    .about__timeline-company {
+      font-size: 17px;
+    }
+
+    .about__role {
+      padding-left: 0;
+    }
+
+    .about__role-top {
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .about__role-period {
+      margin-left: 0;
+    }
+
+    .about__role-impact {
+      font-size: 12px;
+    }
+
+    .about__role-bullets li {
+      font-size: 12px;
+    }
+
+    .about__role-metrics {
+      gap: 4px;
+    }
+
+    .about__metric-badge {
+      font-size: 11px;
+      padding: 2px 8px;
+    }
+
+    /* Skills */
+    .about__skills {
+      padding-bottom: 48px;
+    }
+
+    .about__skills-labels {
+      margin-bottom: 20px;
+    }
+
+    .about__skills-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .about__skill-tag {
+      font-size: 13px;
+      padding: 5px 10px;
+    }
+
+    /* Education & Certs */
+    .about__education {
+      padding-bottom: 48px;
+    }
+
+    .about__edu-certs-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .about__edu-card {
+      padding: 20px;
+    }
+
+    .about__edu-school {
+      font-size: 18px;
+    }
+
+    .about__cert-item {
+      font-size: 13px;
+    }
+
+    /* Resume */
+    .about__resume {
+      padding-bottom: 48px;
+    }
+
+    .about__resume-card {
+      flex-direction: column;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px;
+    }
+
+    .about__resume-title {
+      font-size: 18px;
+    }
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.ticker.lagSmoothing(0);
+  if (document.hidden) {
+    const interval = setInterval(() => gsap.ticker.tick(), 16);
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) clearInterval(interval);
+    }, { once: true });
+  }
+
+  function initAbout() {
+    const sections = document.querySelectorAll('[data-about-section]');
+    sections.forEach((section, i) => {
+      gsap.fromTo(section,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1, y: 0, duration: 0.65, ease: 'power3.out',
+          scrollTrigger: { trigger: section, start: 'top 80%', once: true },
+        }
+      );
+    });
+  }
+
+  initAbout();
+  document.addEventListener('astro:after-swap', initAbout);
+</script>

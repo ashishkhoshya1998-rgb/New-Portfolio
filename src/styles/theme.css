@@ -1,0 +1,64 @@
+/* ── Design Tokens ── */
+
+:root {
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --font-heading-condensed: 'Anton', Impact, sans-serif;
+
+  /* Spacing — 8px base */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 16px;
+  --s4: 24px;
+  --s5: 32px;
+  --s6: 48px;
+  --s7: 64px;
+  --s8: 96px;
+  --s9: 128px;
+
+  /* Layout */
+  --content-max: 1400px;
+  --content-narrow: 700px;
+
+  /* Easing */
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-expo: cubic-bezier(0.76, 0, 0.24, 1);
+
+  /* Durations */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 800ms;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Case study colors */
+  --color-zzazz: #F59E0B;
+  --color-gstr3b: #22C55E;
+  --color-mintv8: #156CEF;
+}
+
+/* ── Dark Theme ── */
+[data-theme='dark'] {
+  --bg: #0A0A0A;
+  --bg-elevated: #111111;
+  --text: #F5F0E8;
+  --text-muted: #A8A39A;
+  --text-subtle: rgba(245, 240, 232, 0.78);
+  --text-massive: rgba(245, 240, 232, 0.08);
+  --card-bg: rgba(245, 240, 232, 0.025);
+  --border: rgba(245, 240, 232, 0.06);
+  --nav-bg: rgba(10, 10, 10, 0.85);
+  --accent: #E8FF47;
+  --accent-hover: #FF6B35;
+  --accent-red: #E53E3E;
+  --selection-bg: #E8FF47;
+  --selection-text: #0A0A0A;
+}
+

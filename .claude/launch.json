@@ -2,25 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "Portfolio Dev Server",
+      "name": "portfolio-dev",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
-      "port": 5173,
-      "autoPort": true,
-      "cwd": "/Users/ashishkhoshya/Downloads/portfolio-deploy"
-    },
-    {
-      "name": "Memoir Dev Server",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--", "--port", "5174"],
-      "port": 5174,
-      "cwd": "/Users/ashishkhoshya/Downloads/portfolio-deploy/.claude/worktrees/busy-roentgen"
-    },
-    {
-      "name": "Portfolio Preview",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "preview"],
-      "port": 4173
+      "port": 4321
     }
   ]
 }

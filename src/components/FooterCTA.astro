@@ -1,0 +1,280 @@
+---
+const emailText = 'ashish.khoshya1998@gmail.com ✦ ashish.khoshya1998@gmail.com ✦ ashish.khoshya1998@gmail.com ✦ ';
+---
+
+<footer class="footer">
+  <!-- 1. Philosophy -->
+  <div class="content-wrap footer__philosophy" data-footer-section>
+    <span class="footer__eyebrow">Got a challenge worth solving?</span>
+    <h2 class="footer__heading">Let's make something happen together</h2>
+    <p class="footer__text">
+      As a designer from IIT Guwahati, I believe design is about serving user needs — finding
+      the right balance between user psychology and business goals.
+    </p>
+  </div>
+
+  <!-- 2. Photo + Email marquee -->
+  <div class="content-wrap footer__marquee-section" data-footer-section>
+    <div class="footer__portrait-wrap">
+      <img
+        src="/images/footer-portrait.png"
+        alt="Ashish Khoshya"
+        class="footer__portrait"
+        loading="lazy"
+        width="300"
+        height="400"
+      />
+      <div class="footer__portrait-fade" aria-hidden="true"></div>
+    </div>
+    <div class="footer__marquee-wrap">
+      <a href="mailto:ashish.khoshya1998@gmail.com" class="footer__marquee-link">
+        <div class="footer__marquee-scroll">
+          <span>{emailText}</span>
+          <span>{emailText}</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 3. Links -->
+  <div class="content-wrap footer__links" data-footer-section>
+    <div class="footer__links-grid">
+      <div class="footer__links-col">
+        <span class="footer__links-label">Socials</span>
+        <a href="https://linkedin.com/in/ashish-khoshya" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://twitter.com/ashishkhoshya" target="_blank" rel="noopener noreferrer">Twitter</a>
+        <a href="https://behance.net/ashishkhoshya" target="_blank" rel="noopener noreferrer">Behance</a>
+      </div>
+      <div class="footer__links-col">
+        <span class="footer__links-label">Contact</span>
+        <a href="mailto:ashish.khoshya1998@gmail.com">Email</a>
+        <a href="tel:+917988721132">Phone +91 7988721132</a>
+      </div>
+    </div>
+    <p class="footer__copyright">© 2025 Ashish Khoshya</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding: 96px 0 48px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* 1. Philosophy */
+  .footer__philosophy {
+    margin-bottom: 80px;
+  }
+
+  .footer__eyebrow {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .footer__heading {
+    font-family: var(--font-display);
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.15;
+    margin-bottom: 20px;
+    max-width: 700px;
+  }
+
+  .footer__text {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 600px;
+  }
+
+  /* 2. Photo + Marquee */
+  .footer__marquee-section {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    margin-bottom: 80px;
+    overflow: hidden;
+  }
+
+  .footer__portrait-wrap {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .footer__portrait {
+    max-width: 300px;
+    max-height: 380px;
+    width: 100%;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 12px;
+    display: block;
+  }
+
+  .footer__portrait-fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to bottom, transparent, var(--bg));
+    pointer-events: none;
+  }
+
+  .footer__marquee-wrap {
+    flex: 1;
+    overflow: hidden;
+    min-width: 0;
+  }
+
+  .footer__marquee-link {
+    display: block;
+    text-decoration: none;
+    overflow: hidden;
+  }
+
+  .footer__marquee-link:hover .footer__marquee-scroll span {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+  }
+
+  .footer__marquee-scroll {
+    display: flex;
+    width: max-content;
+    animation: footer-scroll 20s linear infinite;
+  }
+
+  .footer__marquee-scroll span {
+    font-family: var(--font-display);
+    font-size: 48px;
+    color: var(--accent);
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding-right: 16px;
+  }
+
+  @keyframes footer-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* 3. Links */
+  .footer__links {
+    padding-top: 48px;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer__links-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    max-width: 500px;
+    margin-bottom: 48px;
+  }
+
+  .footer__links-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer__links-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .footer__links-col a {
+    font-size: 14px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer__links-col a:hover {
+    color: var(--accent);
+  }
+
+  .footer__copyright {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .footer {
+      padding: 64px 0 32px;
+    }
+
+    .footer__philosophy {
+      margin-bottom: 48px;
+    }
+
+    .footer__heading {
+      font-size: 28px;
+    }
+
+    .footer__marquee-section {
+      flex-direction: column;
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+
+    .footer__portrait {
+      max-width: 200px;
+      max-height: 260px;
+    }
+
+    .footer__marquee-scroll span {
+      font-size: 28px;
+    }
+
+    .footer__links-grid {
+      gap: 32px;
+    }
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.ticker.lagSmoothing(0);
+  if (document.hidden) {
+    const interval = setInterval(() => gsap.ticker.tick(), 16);
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) clearInterval(interval);
+    }, { once: true });
+  }
+
+  function initFooter() {
+    const sections = document.querySelectorAll('[data-footer-section]');
+    sections.forEach((section) => {
+      gsap.fromTo(section,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1, y: 0, duration: 0.65, ease: 'power3.out',
+          scrollTrigger: { trigger: section, start: 'top 80%', once: true },
+        }
+      );
+    });
+  }
+
+  initFooter();
+  document.addEventListener('astro:after-swap', initFooter);
+</script>

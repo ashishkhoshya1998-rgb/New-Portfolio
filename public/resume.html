@@ -340,6 +340,23 @@
     .btn-download:hover { background: #333; transform: translateY(-1px); }
     .btn-download svg { flex-shrink: 0; }
     .btn-download:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+    .btn-back {
+      font-family: var(--fb);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 10px 22px;
+      background: transparent;
+      color: #1A1A1A;
+      border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: background 0.18s, transform 0.12s;
+    }
+    .btn-back:hover { background: rgba(0,0,0,0.05); transform: translateY(-1px); }
   }
 
   /* ── PRINT ── */
@@ -354,6 +371,12 @@
 <body>
 
 <div class="save-bar">
+  <a class="btn-back" href="/about">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+    </svg>
+    Back to About
+  </a>
   <button class="btn-download" id="downloadBtn" onclick="downloadResume()">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -393,7 +416,7 @@ function downloadResume() {
   <div class="header">
     <div>
       <h1>Ashish <em>Khoshya</em></h1>
-      <div class="subtitle">Senior Product Designer &middot; 4+ Years &middot; IIT Guwahati</div>
+      <div class="subtitle">Senior Product Designer &middot; 5+ Years &middot; IIT Guwahati</div>
     </div>
     <div class="contact-row">
       <div class="contact-item">
@@ -411,7 +434,7 @@ function downloadResume() {
   <div class="section">
     <div class="section-title">Professional Summary</div>
     <p class="summary">
-      Senior Product Designer with <strong>4+ years</strong> building <strong>design systems</strong>, improving <strong>enterprise workflows</strong>, and leading <strong>UX initiatives</strong> across cross-functional teams. From reducing 700+ button variants to 32 with PCS Logic, to cutting GST filing time by 60% for 1.4Cr+ businesses. Increasingly working with <strong>AI-first tools</strong> (Claude Code, Figma Make) to prototype and ship faster. Data-driven, user-centric, and impact-focused.
+      Product Designer who builds <strong>systems that scale</strong> and <strong>experiences that simplify</strong>. Over <strong>5+ years</strong>, I've reduced 700+ component variants to 32 through a novel token architecture, cut enterprise filing time by 60% for 1.4Cr+ businesses, and architected a <strong>7-vertical content economy</strong> from zero. I think in structures — tokens before components, patterns before pixels — and ship with <strong>AI-native tools</strong> like Claude Code and Figma Make. Every decision I make is measured by what it removes, not what it adds.
     </p>
   </div>
 
@@ -577,9 +600,9 @@ function downloadResume() {
     <div class="section">
       <div class="section-title">Interests</div>
       <ul class="cert-list">
-        <li><span class="check" style="color:var(--amber)">&#x2665;</span> Volleyball &mdash; weekend sport</li>
-        <li><span class="check" style="color:var(--blue)">&#x2665;</span> Vibe coding &mdash; stitching frontend &amp; backend with AI tools</li>
-        <li><span class="check" style="color:var(--green)">&#x2665;</span> Daily AI tool exploration &mdash; learning with the new world</li>
+        <li><span class="check">&check;</span> Volleyball &mdash; weekend sport</li>
+        <li><span class="check">&check;</span> Vibe coding &mdash; stitching frontend &amp; backend with AI tools</li>
+        <li><span class="check">&check;</span> Daily AI tool exploration &mdash; learning with the new world</li>
       </ul>
     </div>
   </div>

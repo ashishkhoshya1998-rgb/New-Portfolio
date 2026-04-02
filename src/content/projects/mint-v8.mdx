@@ -1,0 +1,187 @@
+---
+title: "Mint V8 Design System"
+subtitle: "Token-Based, Theme-Ready System with PCS Logic"
+description: "Created Clear's design system — invented PCS Logic reducing 760 button variants to 32 while supporting multi-theme architecture."
+role: "Design System Lead"
+services: ["Design Systems", "Token Architecture", "Component Design"]
+year: "2023"
+accentColor: "#156CEF"
+coverImage: "/images/projects/mintv8-cover.png"
+nextProject:
+  title: "Zzazz.ai"
+  slug: "zzazz-ai"
+---
+
+import MetricGrid from '../../components/cs/MetricGrid.astro';
+import ProcessStep from '../../components/cs/ProcessStep.astro';
+
+## Overview
+
+At Clear, we faced a growing design crisis: fragmented systems across Finance Cloud and Supply Chain Cloud, engineers hardcoding UI because they couldn't trust Figma, and 700+ button variants with zero docs. I led Mint V8 from scratch — inventing PCS Logic that reduced component variants by over 80% and achieved 100% team adoption in 6 weeks.
+
+I led the entire initiative from ideation to implementation. Conducted research on token systems and atomic design, created the foundational token structure, designed core components, authored PCS logic, collaborated with developers to align system in Figma and code, and trained cross-functional teams.
+
+![Mint V8 Design System](/cs/mint-hero.jpg)
+
+<MetricGrid metrics={[
+  { value: "80%", label: "Variant Reduction" },
+  { value: "70%", label: "Dev Effort Saved" },
+  { value: "100%", label: "Adoption" },
+  { value: "2", label: "Themes Supported" }
+]} />
+
+## The Challenge — Five Reasons We Needed to Start Over
+
+<ProcessStep number="01" title="Fragmented Systems">
+  Products under Clear Finance Cloud and Supply Chain Cloud lacked a consistent UI — some used outdated Basil, others a barebones Mint library with no shared logic.
+</ProcessStep>
+
+<ProcessStep number="02" title="Engineers Hardcoding UI">
+  Without a reliable system, engineers frequently hardcoded visual decisions — diverging further from design intent with every sprint.
+</ProcessStep>
+
+<ProcessStep number="03" title="Impossible Theming">
+  Regional theming for global expansion was impossible without duplicating components entirely. Each new theme meant multiplying the maintenance burden.
+</ProcessStep>
+
+<ProcessStep number="04" title="Component Variant Explosion">
+  Buttons alone had 760+ variants. Badges: 624+. Inputs: 113+. Maintenance was a nightmare and no designer could keep up.
+</ProcessStep>
+
+<ProcessStep number="05" title="Zero Documentation">
+  5 designers, 5 different answers to the same question. There was no single source of truth — design decisions were tribal knowledge.
+</ProcessStep>
+
+> "I don't trust the Figma components. I just hardcode CSS." — Amit, Frontend Engineer
+
+## Phase 1 — Foundation: Tokens Before Everything
+
+I had never led a full design system build. I started by studying Material Design, Carbon, and atomic design principles. One insight stood out: **everything scalable starts with a token system.** Tokens abstract the complexity of visual attributes into manageable, code-friendly constants.
+
+The team wanted quick wins — ship some components now. But without tokens, we'd be painting over the same cracks. "Paint the walls now, or fix the plumbing first." A 3-week token foundation was approved. Every component built after would be theme-ready by default.
+
+### Four Token Categories
+
+**Typography Tokens** — Type scale, font weights, line heights, letter spacing — semantically named by usage context (Display L, Body M, Label S, etc.)
+
+**Spacing Tokens** — Base-4 scale: 4px, 8px, 16px, 24px... Tokenised as S0–S10. Kept spacing consistent across all surfaces.
+
+**Colour Tokens** — Functional names (primary, on-primary, container) not appearance names (blue, grey). Tokens mapped to different values per theme.
+
+**Radius, Elevation & Shadows** — Standardised corner radii (radius/sm, radius/md) and elevation levels — unifying UI depth and shape across products.
+
+### Token Architecture
+
+| Role | System Token | Reference Token | Raw Value |
+|---|---|---|---|
+| Primary | mint.cfc.sys.color.primary | mint.cfc.ref.color.blue-600 | #156CEF |
+| On Primary | mint.cfc.sys.color.on-primary | mint.cfc.ref.color.base-white | #FFFFFF |
+| Primary Container | mint.cfc.sys.color.primary-container | mint.cfc.ref.color.blue-50 | #EFF8FF |
+
+<video src="/cs/mint-token-arch.webm" autoplay loop muted playsinline style="width: calc(100% + 200px); max-width: none; margin-left: -100px; border-radius: 12px; margin-top: 40px; margin-bottom: 40px;" />
+
+![Color tokens: functional names map to different values per theme](/cs/mint-color-tokens.png)
+
+## Phase 2 — Components: Atomic Design
+
+We followed an atomic design approach to structure the system into three logical layers. This ensured we never rebuilt the wheel — every molecule and organism used the same atomic base.
+
+- **Atoms** — Tokens, Icons, Typography, Colors — the foundational pieces
+- **Molecules** — Buttons, Input fields, Dropdowns — interactive components made of atoms
+- **Organisms** — Forms, Modals, Toolbars, Tables — complex structures composed of molecules
+
+We also noticed a visual imbalance when icons appeared too bold or light compared to text. We created **dynamic icon sets** — each icon in multiple visual weights (body, label) — so designers could switch based on component prominence. This brought significant improvement to visual rhythm and hierarchy.
+
+![Dynamic icons — multiple weights per icon, switched by context and prominence](/cs/mint-icons.gif)
+
+## The Breakthrough — Discovering PCS Logic
+
+As we built molecules, we hit a wall — component bloat. 760+ button variants. Engineers still hardcoding. Then a whiteboard session revealed a powerful pattern: **nearly every component = Prefix + Content + Suffix.**
+
+How constrained should each P, C, S slot be? Open means anything goes, fixed means no flexibility. I chose **constrained per component type** — flexibility within guardrails. Buttons: prefix=icons only, content=text, suffix=icons/counters. This prevented misuse while enabling every real-world variant.
+
+<MetricGrid metrics={[
+  { value: "760→32", label: "Buttons" },
+  { value: "624→25", label: "Badges" },
+  { value: "113→40", label: "Inputs" },
+  { value: "80%", label: "Total Reduction" }
+]} />
+
+> "The PCS logic literally saved us weeks in component rebuilding." — Product Designer, Mint V8 team
+
+![Organisms assembled from PCS molecules: filter bars, form builders, data tables](/cs/mint-organisms.jpg)
+
+## Theming — Two Themes, Zero Component Duplication
+
+We created two core themes — one for Clear Finance Cloud (CFC) and one for Clear Supply Chain (CSC). They differed only in primary colour shades. Thanks to token-first architecture, this required no component changes — just token value swaps.
+
+- **Clear Finance Cloud:** Blue 600 — `mint.cfc.sys.color.primary` → #156CEF
+- **Clear Supply Chain:** Purple 600 — `mint.csc.sys.color.primary` → #9333EA
+
+![Live theming: CFC (blue) to CSC (purple) — zero component changes, only token value swaps](/cs/mint-theming.gif)
+
+## Adoption — Bridging Designers and Engineers
+
+We didn't have a dedicated design systems engineering team. So I built adoption as a design problem, not a mandate.
+
+<ProcessStep number="01" title="Weekly PCS Workshops">
+  45-min sessions every Thursday. After 4 weeks, all designers were self-sufficient. Engineers attended too — they started contributing to the system.
+</ProcessStep>
+
+<ProcessStep number="02" title="Figma Playground">
+  A shared experimentation space with interactive PCS components. Designers could explore variants inline with live feedback.
+</ProcessStep>
+
+<ProcessStep number="03" title="Token Sync Pipeline">
+  Tokens documented in Figma, exported to JSON, implemented by devs as CSS variables. Planned: Style Dictionary → automated Storybook integration.
+</ProcessStep>
+
+<ProcessStep number="04" title="Gradual Deprecation">
+  2–3 screens per sprint migrated to Mint V8. By week 4, teams were voluntarily migrating their own screens without being asked.
+</ProcessStep>
+
+The Design Manager wanted immediate system-wide deprecation of old components. I pushed back — mandates create resistance. Each sprint that proved PCS logic's value converted skeptics into advocates. By week 6, adoption was 100% — because the team **chose** it.
+
+> "I was skeptical. Once I built with PCS, I couldn't go back." — Vikram, Sr. Product Designer
+
+> "Naming conventions and spacing rules made it so much easier to code with confidence." — Frontend Engineer, Clear
+
+## Impact — Results That Spoke for Themselves
+
+<MetricGrid metrics={[
+  { value: "80%", label: "Variant Reduction" },
+  { value: "70%", label: "Dev Effort Down" },
+  { value: "100%", label: "Adoption in 6 Weeks" },
+  { value: "0", label: "Component Duplication" }
+]} />
+
+| Challenge | Solution | Outcome |
+|---|---|---|
+| Fragmented design language | Token-based atomic architecture | Unified experience across all suites |
+| Hardcoded UI components | Design tokens (typography, spacing, colour, elevation) | Consistent Figma-to-code mapping |
+| Impossible theming | Token values mapped per theme (CFC, CSC) | Brand customisation without touching components |
+| 700+ component variants | PCS Logic (Prefix, Content, Suffix) | 80% variant reduction |
+| Poor design-eng collaboration | Workshops + playground + documentation | Engineers contributing; 70% less dev effort |
+| Inconsistent icon weight | Dynamic icons in multiple contextual weights | Improved visual rhythm and readability |
+
+![PCS Logic in action: button variants reduced from 760 to 32 using the universal shell](/cs/mint-button.gif)
+
+## Looking Ahead
+
+**Pattern Standardisation Across UX** — Auditing and standardising all recurring interaction patterns — error handling, feedback messages, file imports, confirmation flows, and empty states — with consistent UX behaviours and micro-interactions.
+
+**Developer Documentation Portal** — Building a robust Storybook documentation portal as a single source of truth for developers, PMs, and designers.
+
+**Motion & Interaction Tokens** — Adding tokens for micro-interactions, animations, and transition timings to ensure consistency in motion design throughout the platform.
+
+**Automated Token Pipeline** — Style Dictionary for token export to JSON, CSS, SCSS, and JS. Figma plugins for PCS toggling. GitHub automation for token updates.
+
+## Reflection
+
+> "Design systems aren't about one perfect UI kit. They're about building a foundation that scales, adapts, and empowers everyone involved."
+
+**Tokens First, Always.** Everything scalable flows from a token system. Components built without tokens are houses built without foundations.
+
+**Structure > Style.** PCS abstracts structure, not just visuals. It's a thinking model as much as a design pattern — and that's what made it transferable to engineers.
+
+**Adoption Is a Design Problem.** Workshops and playgrounds beat mandates every time. Make the new system easier to use than the old one — and the team will choose it themselves.
