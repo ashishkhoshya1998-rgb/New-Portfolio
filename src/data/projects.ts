@@ -17,6 +17,28 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: 'memoir',
+    title: 'Memoir',
+    subtitle: 'Designing & Building an Emotion-Led D2C Brand from Zero',
+    category: 'Full-Stack Product Design · AI-Native',
+    timeline: '3 Weeks (2026)',
+    year: '2026',
+    role: 'Experience Architect · Product Designer (Co-founder)',
+    initial: 'M',
+    accentColor: '#C9A96E',
+    coverImage: '/images/projects/memoir-cover.png',
+    team: '1 Designer · 2 Co-founders (review)',
+    overview:
+      'Designed and shipped a complete D2C jewellery e-commerce experience — 4,000+ lines of React, Shopify headless, Firebase Auth — built end-to-end with Claude Code, Gemini, and Sora.',
+    metrics: [
+      { label: 'Lines of Code', value: '4,060+' },
+      { label: 'Weeks', value: '3' },
+      { label: 'AI Tools', value: '3' },
+      { label: 'Handoffs', value: '0' },
+    ],
+    color: 'var(--gold)',
+  },
+  {
     slug: 'zzazz-ai',
     title: 'Zzazz.ai',
     subtitle: 'Architecting a New Content Economy',

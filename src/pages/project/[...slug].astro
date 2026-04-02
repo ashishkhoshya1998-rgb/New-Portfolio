@@ -439,8 +439,8 @@ const { title, subtitle, description, role, services, year, accentColor, coverIm
     margin-bottom: 0;
   }
 
-  /* img — full-bleed breakout */
-  .cs__body :global(img) {
+  /* img — full-bleed breakout (skip ImageRow images) */
+  .cs__body :global(img:not(.image-row__img)) {
     width: calc(100% + 200px);
     max-width: none;
     margin-left: -100px;
@@ -448,6 +448,17 @@ const { title, subtitle, description, role, services, year, accentColor, coverIm
     margin-top: 40px;
     margin-bottom: 40px;
     display: block;
+    cursor: zoom-in;
+  }
+
+  /* Portrait / mobile screenshots — 0.6x scale on desktop */
+  .cs__body :global(img.cs-portrait) {
+    width: 200px;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
   }
 
   /* video — full-bleed breakout (same as img) */
@@ -652,12 +663,18 @@ const { title, subtitle, description, role, services, year, accentColor, coverIm
       margin-bottom: 18px;
     }
 
-    .cs__body :global(img),
+    .cs__body :global(img:not(.image-row__img)),
     .cs__body :global(video) {
       width: 100%;
       margin-left: 0;
       border-radius: 8px;
       cursor: zoom-in;
+    }
+
+    .cs__body :global(img.cs-portrait) {
+      width: 160px;
+      max-width: 60%;
+      border-radius: 12px;
     }
 
     .cs__body :global(table) {
@@ -689,7 +706,9 @@ const { title, subtitle, description, role, services, year, accentColor, coverIm
     position: fixed;
     inset: 0;
     z-index: 9999;
-    background: #000;
+    background: rgba(0, 0, 0, 0.96);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -703,16 +722,19 @@ const { title, subtitle, description, role, services, year, accentColor, coverIm
   }
 
   :global(.cs-lightbox--visible) {
-    opacity: 1;
+    opacity: 1 !important;
   }
 
   :global(.cs-lightbox img) {
-    width: 100%;
+    max-width: 90vw;
+    max-height: 90vh;
+    width: auto;
     height: auto;
-    max-height: none;
     object-fit: contain;
-    border-radius: 4px;
+    border-radius: 8px;
     pointer-events: auto;
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   :global(.cs-lightbox video) {
@@ -977,10 +999,22 @@ const { title, subtitle, description, role, services, year, accentColor, coverIm
   }
 
   function initLightbox() {
-    const isMobile = window.innerWidth <= 768;
-    if (!isMobile) return;
-
     const mediaElements = document.querySelectorAll('.cs__body img, .cs__body video');
+
+    // Auto-detect portrait images and add .cs-portrait class (skip ImageRow images)
+    mediaElements.forEach((el) => {
+      if (el.tagName === 'IMG') {
+        const img = el as HTMLImageElement;
+        if (img.closest('.image-row')) return;
+        const classify = () => {
+          if (img.naturalHeight > img.naturalWidth) {
+            img.classList.add('cs-portrait');
+          }
+        };
+        if (img.complete) classify();
+        else img.addEventListener('load', classify);
+      }
+    });
 
     mediaElements.forEach((el) => {
       el.addEventListener('click', (e) => {
@@ -998,9 +1032,10 @@ const { title, subtitle, description, role, services, year, accentColor, coverIm
         closeBtn.setAttribute('aria-label', 'Close');
         overlay.appendChild(closeBtn);
 
+        const isMobile = window.innerWidth <= 768;
         const hint = document.createElement('span');
         hint.className = 'cs-lightbox__hint';
-        hint.textContent = 'Rotate for best view · Pinch to zoom';
+        hint.textContent = isMobile ? 'Pinch to zoom · Tap to close' : 'Click anywhere to close';
         overlay.appendChild(hint);
 
         let clone: HTMLElement;
@@ -1029,6 +1064,9 @@ const { title, subtitle, description, role, services, year, accentColor, coverIm
         overlay.addEventListener('click', (e) => {
           if (e.target === overlay) close();
         });
+        // Close on Escape key
+        const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { close(); window.removeEventListener('keydown', onKey); } };
+        window.addEventListener('keydown', onKey);
 
         document.body.appendChild(overlay);
         requestAnimationFrame(() => overlay.classList.add('cs-lightbox--visible'));
@@ -1053,8 +1091,8 @@ const { title, subtitle, description, role, services, year, accentColor, coverIm
       );
     });
 
-    // Animate images
-    document.querySelectorAll('.cs__body img').forEach((img) => {
+    // Animate images (skip ImageRow — those animate as a group via data-cs-section)
+    document.querySelectorAll('.cs__body img:not(.image-row__img)').forEach((img) => {
       gsap.fromTo(img,
         { opacity: 0, y: 32, scale: 0.98 },
         {

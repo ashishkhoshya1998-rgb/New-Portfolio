@@ -1,0 +1,50 @@
+---
+interface Props {
+  images: { src: string; alt: string }[];
+}
+
+const { images } = Astro.props;
+---
+
+<div class="image-row" data-cs-section>
+  {images.map((img) => (
+    <img src={img.src} alt={img.alt} class="image-row__img" loading="lazy" />
+  ))}
+</div>
+
+<style>
+  .image-row {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 40px 0;
+    flex-wrap: nowrap;
+  }
+
+  .image-row__img {
+    width: 200px;
+    flex-shrink: 0;
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
+    cursor: zoom-in;
+  }
+
+  @media (max-width: 768px) {
+    .image-row {
+      gap: 12px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      padding: 0 20px;
+      margin-left: -20px;
+      margin-right: -20px;
+      justify-content: flex-start;
+    }
+
+    .image-row__img {
+      width: 160px;
+      scroll-snap-align: center;
+      border-radius: 12px;
+    }
+  }
+</style>

@@ -1,0 +1,419 @@
+---
+title: "Memoir"
+subtitle: "Designing & Building an Emotion-Led D2C Brand from Zero"
+description: "Designed and shipped the entire digital experience for a D2C 925 sterling silver jewellery brand — a 4,000+ line React application built end-to-end with AI tools as a force multiplier."
+role: "Experience Architect · Product Designer (Co-founder)"
+services: ["Brand Strategy", "Experience Architecture", "Frontend Engineering", "AI-Native Workflow"]
+year: "2026"
+accentColor: "#C9A96E"
+coverImage: "/images/projects/memoir-cover.png"
+nextProject:
+  title: "Zzazz.ai"
+  slug: "zzazz-ai"
+---
+
+import MetricGrid from '../../components/cs/MetricGrid.astro';
+import ProcessStep from '../../components/cs/ProcessStep.astro';
+import ImageRow from '../../components/cs/ImageRow.astro';
+
+## The Result, Up Front
+
+I designed and shipped the entire digital experience for a D2C 925 sterling silver jewellery brand — a **4,000+ line React application** connected to a Shopify headless backend via the Storefront GraphQL API. Not a mockup. Not a Figma prototype. A functioning, mobile-first e-commerce site with real products, real checkout, and real emotional copy.
+
+Every visual asset, every line of code, every strategic document, and every product interaction was created by me using AI tools. No design agency. No engineering team. No photographer. One designer with a thesis about where the role is heading.
+
+<MetricGrid metrics={[
+  { value: "4,060+", label: "Lines of Code" },
+  { value: "3", label: "Weeks to Ship" },
+  { value: "30K+", label: "Words of Strategy" },
+  { value: "6", label: "Hero Products" }
+]} />
+
+![Memoir — Mobile-first homepage with dual CTAs for gifters and self-purchasers](/cs/memoir-mobile-hero.png)
+
+## Context: The Problem Space
+
+### The Market Gap
+
+India's online silver jewellery market is dominated by well-funded incumbents — Giva (₹200Cr+ in funding), CaratLane (Titan-backed), Mia (a Tanishq sub-brand). They all compete on the same axis: trend-led designs, discount-driven acquisition, product-category navigation. Rings. Necklaces. Bracelets. Sale banners.
+
+None of them own gifting as an emotional category. None of them design for the anxious boyfriend searching "what to gift her for her birthday." None of them acknowledge that a woman buying silver for herself might feel guilty about it.
+
+### The Insight That Became the Architecture
+
+> "People don't buy jewellery. They buy emotional resolution."
+
+Two distinct buyers arrive at the same website — on their phones, during a commute or at 11pm — with two fundamentally different anxieties:
+
+**The Gifter** carries taste anxiety — "What if she doesn't like it? What if it says the wrong thing about us?" He doesn't speak jewellery language. He doesn't want 50 options. He wants someone to tell him "this is the one."
+
+**The Self-Purchaser** carries guilt — "Should I really spend this on myself?" She's culturally conditioned (especially in India) to spend on family, not herself. She needs permission, not persuasion.
+
+This insight became the literal architectural foundation of every component I designed and coded — from the dual homepage CTAs to the copy system to the checkout flow's conditional UI. And because both buyers are overwhelmingly on mobile, every component was designed thumb-first, swipe-native, and optimised for a single-hand hold.
+
+## Why Mobile-First Isn't a Responsive Strategy — It's the Product
+
+For D2C in India, mobile isn't a viewport — it's the entire commerce context. Over 85% of Indian e-commerce traffic is mobile. The anxious gifter isn't browsing on a 27" monitor — he's on his phone at 11:47pm, three days before her birthday. The self-purchaser sees an Instagram ad and taps through. The entire purchase journey happens in a 390px viewport, often in a single session.
+
+This shaped every design decision:
+
+- **Full-bleed product imagery** fills the viewport — no wasted margin, no sidebar, no grid. One product, one emotion, one screen.
+- **Touch-first interactions** — swipe to browse products, swipe through the unboxing ritual, tap to toggle the gift card. No hover states as primary interactions.
+- **Stacked information hierarchy** — on mobile, you can't place price next to image next to CTA. Every element earns its vertical space or gets cut.
+- **Bottom-anchored CTAs** — "ADD TO CART" lives where the thumb naturally rests. The mobile cart bar shows item count and total without scrolling.
+- **The gift guide modal** fills the screen as a full-sheet, not a centred popup. Each step is a full-screen decision, not a cramped overlay.
+
+Desktop wasn't ignored — it was derived. The mobile experience scales up to desktop, not the other way around.
+
+## The Stack Evolution: Why We Moved to an AI-Native Workflow
+
+### The Original Plan (Weeks 1-2)
+
+The initial architecture was conventional for a D2C startup:
+
+<ProcessStep number="01" title="Figma Make">
+  Design-to-code with a Figma plugin — generating frontend from design files.
+</ProcessStep>
+
+<ProcessStep number="02" title="Supabase">
+  Database, auth, and backend logic — the serverless Postgres layer.
+</ProcessStep>
+
+<ProcessStep number="03" title="Razorpay">
+  Payment gateway — server-side HMAC verification, webhook handling.
+</ProcessStep>
+
+<ProcessStep number="04" title="Shiprocket">
+  Shipping integration — credential management, order tracking.
+</ProcessStep>
+
+### What Broke — and What We Learned
+
+**1. Figma Make couldn't hold the experience complexity.** Memoir isn't a standard product grid with filters. It has dual-audience journeys, conditional UI based on gifter/self-purchaser state, a multi-step guided flow, a gift message system, and emotional copy variants per product. The interactive logic — state management, conditional rendering, API stitching — had to be written by hand anyway.
+
+**2. Supabase + Razorpay + Shiprocket = three integrations to build and maintain.** For a two-person team trying to launch in 90 days, maintaining three separate backend integrations was consuming time that should have gone into the experience layer — where Memoir's actual differentiation lives.
+
+**3. Claude Code changed the economics of building.** I could describe the experience I wanted — the psychology, the interaction, the emotional intent — and get working React code that I could iterate on in real-time.
+
+### The Decision: Collapse the Stack
+
+**OUT:** Figma Make, Supabase, Razorpay, Shiprocket (4 tools, 3 backend integrations)
+
+**IN:** Claude Code + Shopify (headless) + Vercel + GitHub + Firebase (1 AI engineering tool, 1 commerce platform, 1 hosting platform, 1 auth service)
+
+> "In 2026, the cost of complexity isn't the tools themselves — it's the integration surface area. Every additional service is another set of credentials, webhooks, error states, and documentation to maintain."
+
+## The AI Tool Ecosystem
+
+<ProcessStep number="01" title="Claude Code — The Engineering Partner">
+  Every React component, every Shopify GraphQL query, every Firebase auth flow, every CSS animation. I described intent; Claude Code wrote syntax. I iterated on the output until the emotional experience matched my specification. Over 4,000 lines of production code, built through conversation.
+</ProcessStep>
+
+<ProcessStep number="02" title="Gemini — Product Image Generation">
+  Without a photography budget in the early build phase, Gemini generated hero shots, on-skin lifestyle images, and gifting context images. These allowed me to build and test the full experience without waiting for a photoshoot.
+</ProcessStep>
+
+<ProcessStep number="03" title="Sora — Video Content Generation">
+  The unboxing ritual sequences, hero carousel content, and product-in-motion clips were generated with Sora. Stand-ins for real video content that let me validate the full experience flow months before production shoots.
+</ProcessStep>
+
+**The compound effect:** When you combine AI-generated images + AI-generated video + AI-built code + a headless commerce platform, a single designer can create a complete, testable, emotionally coherent mobile commerce experience. Not a mockup. A working site with real images, real interactions, real checkout, and real emotional copy — that you can put in front of users and learn from.
+
+## My Role: What I Actually Owned
+
+### Owned end-to-end (strategy through shipping code):
+
+- **Brand & market strategy** — competitive analysis, positioning, unit economics modelling, 90-day launch plan, co-founder alignment document, channel strategy
+- **Experience architecture** — complete psychological journey maps for both audiences, screen-by-screen UX specifications with emotional intent annotations
+- **Brand language system** — product naming convention, three-layer copy framework, dual-audience copy variants, language rules
+- **Visual design system** — colour palette, typography pairing, spatial rules, zero-border-radius principle
+- **AI-generated visual assets** — product imagery (Gemini), video content (Sora), hero slides, lifestyle shots
+- **Frontend engineering via Claude Code** — the entire React application, every component, every interaction, every animation
+- **Shopify headless integration** — GraphQL queries, custom metafield namespace, cart operations, checkout URL construction
+- **Authentication system** — Firebase integration with email, Google sign-in, and phone OTP
+- **Data architecture** — every tracking point the business needs for Day 90 analysis
+- **Deployment** — Vercel + GitHub CI/CD pipeline
+
+### What co-founders owned:
+
+- **Alka** — jewellery design, future product photography, social media content, packaging design (visual collaboration partner)
+- **Nishu** — code review, security audit, infrastructure review (technical review partner)
+
+## The Design Process
+
+### Phase 1: Strategy Before Screens (Weeks 1-3)
+
+Before opening any design or code tool, I wrote six strategic documents totalling **30,000+ words**:
+
+<ProcessStep number="01" title="Co-Founder Alignment Document">
+  Market analysis, competitive landscape, honest risk assessment (including "we have no structural moat"), channel strategy with rationale, 90-day launch plan with week-by-week dependency map, budget breakdown (₹3-5.5L), success metrics (80-150 orders at Day 90 = minimum validation), and eight explicit decisions requiring co-founder agreement before a single rupee was spent.
+</ProcessStep>
+
+<ProcessStep number="02" title="Master Roadmap & Strategic Playbook">
+  8,000+ words specifying the complete psychological architecture of every screen. Not wireframes — written specifications of what each UI element does psychologically, which anxiety it dissolves, and what data point it captures.
+</ProcessStep>
+
+<ProcessStep number="03" title="Brand Language System">
+  A three-layer copy framework: Layer 1 — Emotional hook. Layer 2 — Material specs. Layer 3 — Moment story. Plus naming rules: every piece gets an evocative name tied to its moment. "The First Chapter," not "Silver Ring R-01."
+</ProcessStep>
+
+<ProcessStep number="04" title="Unit Economics Model">
+  Margin analysis at current silver prices, identifying profitability emerging around 200 orders/month.
+</ProcessStep>
+
+<ProcessStep number="05" title="Moment Strategy Playbook">
+  How the same 6 SKUs get emotionally reframed across different occasions, mapped to a 12-month Indian cultural calendar.
+</ProcessStep>
+
+<ProcessStep number="06" title="Data Architecture Specification">
+  Every data point mapped to the specific business question it answers.
+</ProcessStep>
+
+> "These documents became my prompts. When I opened Claude Code, I pasted sections of the experience specification and the AI had full context on what to build and why. Documentation isn't overhead — it's the design system for AI-assisted building."
+
+### Phase 2: Experience Architecture — Two Psychologies, One Mobile-First Codebase
+
+#### Journey A: The Gifter
+
+His emotional arc, mapped to actual mobile UI components I built:
+
+**Homepage → Dual CTA** — "SHOP NOW" (filled) and "FIND A GIFT" (outlined) stacked side by side at the bottom of the hero viewport. The first segmentation signal — captured before they've seen a single product, reachable with one thumb.
+
+**"Find a Gift" → GiftGuideModal** — A full-screen, 3-step guided flow designed for one-handed mobile use:
+- Step 1: "Who is this gift for?" — Partner / Sister / Friend / Colleague / Daughter / Someone Special. Each option is a full-width tap target with an icon and sub-label.
+- Step 2: "What's the occasion?" — Her Birthday / A New Beginning / Just Because / She Achieved Something / I Miss Her / I Want to Say Sorry
+- Step 3: "Our picks for your partner" — 3 product recommendations sorted by moment-match, showing gifterHook copy, tagged "BEST MATCH"
+
+He didn't choose from 50 products. He was guided to 3. The site made the decision easy.
+
+<ImageRow images={[
+  { src: "/cs/memoir-mobile-gift-step1.png", alt: "Gift guide — Step 1: Who is this gift for?" },
+  { src: "/cs/memoir-mobile-gift-step2.png", alt: "Gift guide — Step 2: What's the occasion?" },
+  { src: "/cs/memoir-mobile-gift-step3.png", alt: "Gift guide — Step 3: Curated picks with BEST MATCH tag" }
+]} />
+
+**Product page → Gift toggle** — When activated, a handwritten note card appears: parchment background with deckled edges (50+ clipPath polygon coordinates), paper grain SVG texture at 4% opacity, Caveat handwriting font at 18px, a "Memoir" watermark. Below: three pre-written message options in Cormorant Garabond italic for gifters who freeze. On mobile, the entire card sits inline — no popover, no modal. It's part of the scroll flow, right above "ADD TO CART."
+
+![Product page with gift toggle activated — parchment note card with pre-written messages](/cs/memoir-mobile-gift-card.png)
+
+**Product page → The Ritual (unboxing experience)** — A section called "How She'll Receive It" shows the gift recipient's experience in three swipeable steps on mobile. The gifter's anxiety about "what will she actually get?" is resolved not by describing the unboxing, but by letting them experience it through touch interaction — swipe to open, swipe to read the card, swipe to see the piece. Touch interaction as emotional simulation.
+
+<ImageRow images={[
+  { src: "/cs/memoir-mobile-unbox1.png", alt: "The Opening — ink-pressed linen box sealed with care" },
+  { src: "/cs/memoir-mobile-unbox2.png", alt: "The Narrative — hand-lettered story card inside the box" },
+  { src: "/cs/memoir-mobile-unbox3.png", alt: "The Reveal — sterling silver nestled in silk velvet" }
+]} />
+
+**Cart → Gift confirmation** — The cart drawer slides up from the bottom on mobile with a "GIFT WRAPPED" badge on gifted items. The checkout button anchors to the bottom of the viewport with the total always visible.
+
+<ImageRow images={[
+  { src: "/cs/memoir-mobile-cart-drawer.png", alt: "Cart drawer with gift-wrapped item" },
+  { src: "/cs/memoir-mobile-cart.png", alt: "Full cart view with bottom-anchored checkout" }
+]} />
+
+#### Journey B: The Self-Purchaser
+
+**Homepage → "SHOP NOW"** → Moment collection pages with self-purchase copy. "New Beginnings" becomes *"For every first step you've taken alone — and survived."*
+
+**Moment navigation over category navigation** — "First Light" / "In Her Honour" / "Just Yours" instead of "Rings" / "Necklaces" / "Bracelets." The trust strip above communicates "925 STERLING SILVER · BIS HALLMARKED · PREMIUM GIFT PACKAGING · FREE SHIPPING ABOVE ₹1,999 · HANDCRAFTED IN INDIA" so the rational brain still knows what it's shopping for.
+
+![Trust strip and moment navigation — emotion over category](/cs/memoir-mobile-moments.png)
+
+**Product page → Full-bleed mobile product imagery** — The product image fills the entire viewport width. No margins, no grid, no thumbnails competing for attention. Swipe for more images. The emotional hook appears in italic directly below the product name — the first text the self-purchaser reads.
+
+**Product page → The Story Behind This Piece** — Each product has a dedicated story section with a lifestyle image. The copy and image are product-specific, not generic.
+
+<ImageRow images={[
+  { src: "/cs/memoir-mobile-product.png", alt: "Product page — full-bleed imagery, emotional hook" },
+  { src: "/cs/memoir-mobile-story.png", alt: "The Story Behind This Piece — product narrative" }
+]} />
+
+**Language architecture enforced in code:**
+- Never "Treat yourself" (triggers guilt)
+- Never "You deserve it" without context (sounds like marketing)
+- Instead: "Choose yourself" — positions self-purchase as acknowledgment, not indulgence
+
+### Phase 3: Visual Design System
+
+**Colour palette** implemented as CSS custom properties:
+- `--ivory: #FAF7F2` — not white (clinical), not cream (dated)
+- `--charcoal: #2C2C2C` — not black (harsh), not grey (weak)
+- `--gold: #C9A96E` — CTAs, hover states, moment labels, progress bars
+- `--gold-text: #8B7340` — darker gold for text accessibility
+
+**Typography system:**
+- **Cormorant Garamond** — editorial headings, product names. Literary, warm.
+- **DM Sans** — body copy, UI. Clean, doesn't compete.
+- **Caveat** — gift message card. Handwritten feeling.
+
+**border-radius: 0 everywhere.** Sharp edges on every component. Memoir is jewellery, not a productivity app.
+
+### Phase 4: Building with Claude Code — The 4,060-Line React Application
+
+The application has 20+ components in a single App.tsx:
+
+**Pages:** HomePage, ProductPage, CheckoutPage, MomentsPage, AboutPage, CareGuidePage, ShippingPolicyPage, ProfilePage
+
+**Overlays:** GiftGuideModal, AuthModal, SearchOverlay, CartDrawer
+
+**Components:** Header, Footer, TrustStrip, ProductCard, BackToTop, MobileCartBar, Icon
+
+**Separate files:**
+- `shopify.ts` (778 lines) — Storefront API client with GraphQL, metafield extraction, product enrichment fallback
+- `useShopify.ts` — React hooks: useProducts, useShopifyCart, useCollections
+- `firebase.ts` — Firebase auth config
+- `gift-questionnaire.tsx` — 4-step gift matching flow
+
+<MetricGrid metrics={[
+  { value: "20+", label: "Components" },
+  { value: "778", label: "Shopify API Lines" },
+  { value: "3", label: "Auth Methods" },
+  { value: "48x4", label: "Rotation Frames" }
+]} />
+
+## The Shopify Integration
+
+Custom `memoir` metafield namespace — each product carries `hook`, `gifter_hook`, `story`, `moment`, `moment_label`, `specs`, and `gift_tags` as separate Shopify metafields. The `mapShopifyProduct()` function checks metafields first → falls back to a `PRODUCT_ENRICHMENT` map → falls back to raw descriptions. The site works at full emotional depth even when Shopify is partially configured.
+
+Cart management via Storefront API mutations. Gift messages stored as cart line attributes (`_gift_message`), persisting through Shopify checkout. Checkout handoff constructs a URL with shipping address params encoded as query parameters, redirecting to Shopify's hosted payment page.
+
+## Mobile Touch & Swipe System
+
+Every image surface in the application is swipeable — designed for thumb-driven browsing:
+
+**Product cards on the homepage** — Custom touch gesture handling with `onTouchStart`, `onTouchMove`, and `onTouchEnd`. A `touchDeltaX` ref tracks horizontal displacement. A 10px threshold distinguishes intentional swipes from accidental touches. A 40px threshold triggers the image transition. CSS `transform: translateX()` with `transition: transform 0.3s ease-out` for momentum-like movement.
+
+**Product page gallery** — Full-width swipeable carousel with dx/dy threshold detection (horizontal swipes only — vertical scroll passes through). Dot indicators expand from 6px to 18px on active state, and a "Swipe for more" hint fades in after 1.5 seconds.
+
+**The unboxing ritual section** — The three-step "How She'll Receive It" experience uses the same swipe pattern. Each step functions as a full-viewport swipeable card on mobile. On desktop, the three steps display in a grid — but the mobile experience is the primary design.
+
+**Bottom-anchored mobile cart bar** — When items are in the cart, a persistent bar anchors to the bottom of the viewport showing item count, total, and a "VIEW CART" CTA. It never obscures the "ADD TO CART" button — the two occupy separate viewport regions.
+
+## The Six Products: Dual Emotional Architecture in Code
+
+Each product carries parallel emotional framing — `hook` and `gifterHook` properties surfaced contextually based on whether the user arrived via "SHOP NOW" or "FIND A GIFT":
+
+| Product | Type | Self-Purchase Hook | Gifter Hook |
+|---|---|---|---|
+| **The First Chapter** | Ring | "For the woman who just turned the page." | "She just started something brave. This ring tells her you noticed." |
+| **Chosen** | Pendant | "She didn't wait for someone to choose her — she chose herself." | "For the woman who gives everything to everyone else. This one's just for her." |
+| **Still Here** | Bracelet | "For the friend who stayed. Through the late-night calls, the miles between." | "She's been there through everything. This bracelet says what you can't always text back." |
+| **Unwritten** | Earrings | "For the girl on the edge of something new." | "She's graduating, moving, starting fresh. Your way of saying 'go get it.'" |
+| **Brave & Bright** | Ring | "For the woman who walked into the room and didn't shrink." | "She's been brave lately. This ring says you see her." |
+| **The Quiet Promise** | Pendant | "Some promises don't need words." | "For the relationship that doesn't need grand gestures." |
+
+## The AI-Assisted Build Process
+
+Here's how a typical build session worked with Claude Code:
+
+<ProcessStep number="01" title="Paste the Experience Specification">
+  I pasted sections from my strategic documents. For example: "The product page needs a gift toggle. When activated, it should reveal a handwritten note card that feels like real parchment — torn edges, paper grain, cursive font. Below it, three pre-written message options for gifters who freeze. It needs to sit inline in the mobile scroll flow, not in a modal."
+</ProcessStep>
+
+<ProcessStep number="02" title="Claude Code Generates the Component">
+  The initial output gave me a working React component with the textarea, the toggle state, and basic styling — already mobile-first because the spec described mobile behaviour.
+</ProcessStep>
+
+<ProcessStep number="03" title="Iterate on the Output in Real-Time">
+  "The edges are too clean — make them look torn." This became the 50+ coordinate clipPath polygon. "Add paper texture." This became the SVG noise overlay. "The font should feel handwritten, not typed." This became the Caveat font at 18px with exaggerated line-height.
+</ProcessStep>
+
+<ProcessStep number="04" title="Test the Emotional Impact on Mobile">
+  Does this feel like writing a note, or filling out a form? On a phone screen, is the tap target big enough? Does the parchment card feel precious at 390px wide? If it feels like a form, iterate. If it feels like a note, move on.
+</ProcessStep>
+
+<ProcessStep number="05" title="Connect to the Data Layer">
+  The gift message needs to persist through cart and checkout. This means Shopify cart line attributes. Claude Code writes the mutation, I test the round-trip.
+</ProcessStep>
+
+This cycle — specify intent → generate → iterate on feeling → test on mobile → connect to backend — repeated hundreds of times across 3 weeks. Each cycle took minutes, not days. That's the leverage.
+
+> "My strategic documents weren't just alignment tools. They were the best possible prompts. When I wrote 'the gifter's anxiety should decrease at this step' in the Master Roadmap, that sentence became a literal instruction to Claude Code months later. Strategy documentation and AI prompting are the same skill."
+
+## Key Design Decisions & Trade-offs
+
+<ProcessStep number="01" title="Collapse the Stack — From 4 Backend Tools to 1 API">
+  Figma Make + Supabase + Razorpay + Shiprocket → Claude Code + Shopify headless. The integration surface area was consuming time that should have gone into the emotional experience layer. Shopify headless gave us payments + inventory + orders in one Storefront API.
+</ProcessStep>
+
+<ProcessStep number="02" title="'Send as Gift' Ships at Launch, Not Post-Launch">
+  If Memoir's entire positioning is gifting-first, launching without the gift flow is launching a different brand. The gift toggle, message card, and unboxing ritual ARE the brand — and they had to work flawlessly on mobile from Day 1.
+</ProcessStep>
+
+<ProcessStep number="03" title="AI-Generated Assets as a Design Tool, Not a Shortcut">
+  Gemini and Sora produced visuals that let me build and validate the complete mobile experience — including visual storytelling — months before the photoshoot. When real photography arrives, it drops into a proven experience architecture.
+</ProcessStep>
+
+<ProcessStep number="04" title="Moment Navigation Over Category Navigation">
+  "First Light" / "In Her Honour" / "Just Yours" instead of "Rings" / "Necklaces" / "Bracelets." On mobile, moment cards are horizontally scrollable — a man looking for "something for her birthday" finds this intuitive. The trust strip communicates material quality so the rational brain still knows what it's shopping for.
+</ProcessStep>
+
+<ProcessStep number="05" title="Product Enrichment Fallback — Graceful Degradation">
+  A PRODUCT_ENRICHMENT map provides full emotional copy per product handle. The mapper checks Shopify metafields → enrichment map → raw descriptions. Infrastructure thinking applied to emotional design.
+</ProcessStep>
+
+## What This Project Demonstrates
+
+### 1. End-to-end product creation with AI tools
+
+One person created: strategy, experience architecture, visual identity, visual assets, 4,000+ lines of production code, backend integration, and deployment. No design agency. No photography studio. No engineering team. The entire product — strategy to live, mobile-first site — was created by one designer using AI as leverage across every dimension.
+
+### 2. Mobile-first as a design philosophy, not a responsive afterthought
+
+Every component was designed at 390px first. The gift guide is a full-screen sheet, not a centred modal. The product gallery is swipeable, not clickable. The cart is a bottom drawer, not a sidebar. Desktop adapts upward from mobile truth — not the other way around.
+
+### 3. Psychological depth as a technical requirement
+
+The dual copy system is implemented as parallel metafields in Shopify and conditional rendering throughout the component tree. The gift message card is a CSS artwork with 50+ polygon coordinates. The guided gifting flow narrows choice from full catalogue to 3 recommendations via relationship x moment scoring. Every design decision maps to a specific emotional mechanism, and every mechanism is implemented in working code.
+
+### 4. Strategic documents as AI prompts
+
+The 30,000+ words of strategy documentation became the highest-quality prompts for Claude Code. "The gifter's anxiety should decrease at this step" is simultaneously a UX specification and an engineering instruction. This is the compound return on document-first discipline: strategy documentation and AI prompting are the same skill.
+
+### 5. The stack pivot as a design decision
+
+Choosing to collapse from 4 tools to Claude Code + Shopify wasn't a technical decision. It was a design decision. Where does the team's limited time create the most user value? Not in payment integration. Not in shipping webhooks. In the emotional experience layer. The stack should serve the design ambition, not constrain it.
+
+## Reflections & What I'd Do Differently
+
+**I should have committed to the simplified stack earlier.** The weeks spent building toward Figma Make + Supabase + Razorpay could have gone straight into the experience layer with Claude Code + Shopify. The evaluation was valuable — but the answer was predictable in hindsight.
+
+**The monolithic App.tsx should split before production.** It was the right call for build velocity with Claude Code (cross-component iteration is faster in one file), but needs proper file structure and code splitting before launch.
+
+**Copy needs real user data.** Every emotional hook is currently my best hypothesis. The Day 90 copy will be better — informed by which framings correlate with actual purchases vs abandoned carts.
+
+**The 48-frame product rotation should have shipped.** Infrastructure is built for 4 product types (ring, bracelet, earring, necklace — 48 frames each). Even with AI-generated placeholder images, the scroll-triggered interaction is worth testing for mobile engagement.
+
+**AI-generated imagery is good enough to test, not good enough to launch.** Gemini and Sora produced visuals that let me build and validate the complete experience. But for launch, real product photography will replace every generated image. AI assets are prototyping tools for the visual layer, the same way Claude Code is a prototyping tool for the engineering layer.
+
+## The Bigger Argument: What the Design Role Becomes
+
+This project is my proof point.
+
+The traditional product design workflow has clear handoff boundaries. Designer → Figma file → PRD → Engineer → QA → Ship. Each handoff introduces interpretation gaps, waiting time, and lost intent. Most design portfolios end at the Figma file.
+
+In 2026, AI tools collapse every one of those boundaries:
+
+- **Strategy → Documentation → AI prompts** are the same activity
+- **Visual design → Asset generation** (Gemini, Sora) happens in the same session as layout decisions
+- **UX specification → Working code** (Claude Code) happens in the same conversation
+- **Frontend → Backend stitching** (Shopify Storefront API via Claude Code) happens in the same afternoon
+
+The designer who can hold the full arc — from "why does this market gap exist" to "here's a live, mobile-first product that fills it" — doesn't replace engineers, photographers, or strategists. They collapse the feedback loop. The product gets better, faster, because there's no telephone game between intent and implementation.
+
+The skills that matter in this model aren't pixel precision or code syntax. They're:
+
+- **Problem framing** — identifying the right emotional problem to solve
+- **Taste** — knowing when the parchment card feels like a note vs a form, at 390px wide
+- **Systems thinking** — designing the dual-journey architecture, the data model, the fallback system
+- **AI orchestration** — using the right AI tool for each dimension of the product
+- **Strategic writing** — documents that align humans AND serve as AI prompts
+
+This is the role I'm building toward. Memoir is the proof that it works.
+
+<MetricGrid metrics={[
+  { value: "4,060+", label: "Lines Shipped" },
+  { value: "1", label: "Designer" },
+  { value: "3", label: "AI Tools" },
+  { value: "0", label: "Handoffs" }
+]} />
