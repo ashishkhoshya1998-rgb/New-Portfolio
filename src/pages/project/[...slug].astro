@@ -689,41 +689,53 @@ const { title, subtitle, description, role, services, year, accentColor, coverIm
     position: fixed;
     inset: 0;
     z-index: 9999;
-    background: rgba(0, 0, 0, 0.95);
+    background: #000;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 48px 8px 40px;
     opacity: 0;
     transition: opacity 0.3s ease;
-    cursor: zoom-out;
     -webkit-user-select: none;
     user-select: none;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   :global(.cs-lightbox--visible) {
     opacity: 1;
   }
 
-  :global(.cs-lightbox img),
-  :global(.cs-lightbox video) {
-    max-width: 95vw;
-    max-height: 95vh;
+  :global(.cs-lightbox img) {
+    width: 100%;
+    height: auto;
+    max-height: none;
     object-fit: contain;
-    border-radius: 8px;
-    pointer-events: none;
+    border-radius: 4px;
+    pointer-events: auto;
+  }
+
+  :global(.cs-lightbox video) {
+    width: 100%;
+    height: auto;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 4px;
+    pointer-events: auto;
   }
 
   :global(.cs-lightbox__close) {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    width: 40px;
-    height: 40px;
+    position: fixed;
+    top: 8px;
+    right: 8px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
     border: none;
     color: #fff;
-    font-size: 20px;
+    font-size: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -732,13 +744,14 @@ const { title, subtitle, description, role, services, year, accentColor, coverIm
   }
 
   :global(.cs-lightbox__hint) {
-    position: absolute;
-    bottom: 16px;
+    position: fixed;
+    bottom: 12px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.5);
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
     letter-spacing: 1px;
+    white-space: nowrap;
   }
 </style>
 
@@ -970,7 +983,12 @@ const { title, subtitle, description, role, services, year, accentColor, coverIm
     const mediaElements = document.querySelectorAll('.cs__body img, .cs__body video');
 
     mediaElements.forEach((el) => {
-      el.addEventListener('click', () => {
+      el.addEventListener('click', (e) => {
+        e.stopPropagation();
+
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+
         const overlay = document.createElement('div');
         overlay.className = 'cs-lightbox';
 
@@ -982,7 +1000,7 @@ const { title, subtitle, description, role, services, year, accentColor, coverIm
 
         const hint = document.createElement('span');
         hint.className = 'cs-lightbox__hint';
-        hint.textContent = 'Rotate device for best view';
+        hint.textContent = 'Rotate for best view · Pinch to zoom';
         overlay.appendChild(hint);
 
         let clone: HTMLElement;
@@ -991,7 +1009,7 @@ const { title, subtitle, description, role, services, year, accentColor, coverIm
           (clone as HTMLVideoElement).src = (el as HTMLVideoElement).src;
           (clone as HTMLVideoElement).autoplay = true;
           (clone as HTMLVideoElement).loop = true;
-          (clone as HTMLVideoElement).muted = true;
+          (clone as HTMLVideoElement).muted = false;
           (clone as HTMLVideoElement).playsInline = true;
           (clone as HTMLVideoElement).controls = true;
         } else {
@@ -1002,11 +1020,12 @@ const { title, subtitle, description, role, services, year, accentColor, coverIm
         overlay.appendChild(clone);
 
         const close = () => {
+          document.body.style.overflow = '';
           overlay.classList.remove('cs-lightbox--visible');
           setTimeout(() => overlay.remove(), 300);
         };
 
-        closeBtn.addEventListener('click', close);
+        closeBtn.addEventListener('click', (e) => { e.stopPropagation(); close(); });
         overlay.addEventListener('click', (e) => {
           if (e.target === overlay) close();
         });
