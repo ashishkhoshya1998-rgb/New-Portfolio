@@ -443,9 +443,24 @@
   /* ── PRINT ── */
   @media print {
     body { background: #fff; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
-    .page { width: 100%; padding: 18px 32px 14px; box-shadow: none; min-height: auto; }
+    .page { width: 100%; padding: 14px 28px 10px; box-shadow: none; min-height: auto; }
     .save-bar, .dl-overlay { display: none !important; }
     .header h1, .exp-company, .edu-inst { font-family: Georgia, 'Times New Roman', serif; }
+    .section { margin-bottom: 6px; }
+    .section-title { margin-bottom: 5px; padding-bottom: 2px; }
+    .exp-block { margin-bottom: 5px; }
+    .bullets li { margin-bottom: 0; line-height: 1.35; font-size: 9.5px; }
+    .role-impact { font-size: 9.5px; margin-bottom: 1px; }
+    .metrics-row { margin-top: 2px; }
+    .metric-badge { padding: 1px 5px; font-size: 8.5px; }
+    .summary { font-size: 10.5px; line-height: 1.45; }
+    .header { padding-bottom: 8px; margin-bottom: 8px; }
+    .skills-grid { gap: 8px; }
+    .skill-tag { font-size: 8.5px; padding: 1px 5px; }
+    .tools-row { gap: 3px; }
+    .tool { font-size: 8.5px; padding: 1px 7px; }
+    .bottom-grid { gap: 8px; }
+    .footer { margin-top: 5px; padding-top: 5px; }
     @page { size: A4; margin: 0; }
   }
 </style>
@@ -478,15 +493,6 @@ function closeModal() {
   document.getElementById('dl-overlay').classList.remove('open');
 }
 
-function downloadDesigned() {
-  closeModal();
-  window.print();
-}
-
-function downloadATS() {
-  closeModal();
-  window.open('/Ashish_Khoshya_Resume_ATS.pdf', '_blank');
-}
 
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeModal();
@@ -705,24 +711,24 @@ document.addEventListener('keydown', function(e) {
     <h3>Download Resume</h3>
     <p>Choose a version that fits your needs</p>
     <div class="dl-options">
-      <button class="dl-option" onclick="downloadDesigned()">
+      <a class="dl-option" href="/Ashish_Khoshya_Resume_Designed.pdf" target="_blank" rel="noopener noreferrer" onclick="closeModal()">
         <div class="dl-option-icon designed">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
         </div>
         <div class="dl-option-text">
           <strong>Designed</strong>
-          <span>Visual layout with styled formatting</span>
+          <span>Opens in new tab — visual layout with styled formatting</span>
         </div>
-      </button>
-      <button class="dl-option" onclick="downloadATS()">
+      </a>
+      <a class="dl-option" href="/Ashish_Khoshya_Resume_ATS.pdf" target="_blank" rel="noopener noreferrer" onclick="closeModal()">
         <div class="dl-option-icon ats">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#166534" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         </div>
         <div class="dl-option-text">
           <strong>ATS-Optimized</strong>
-          <span>Plain text, optimized for applicant tracking systems</span>
+          <span>Opens in new tab — plain text for applicant tracking systems</span>
         </div>
-      </button>
+      </a>
     </div>
   </div>
 </div>
