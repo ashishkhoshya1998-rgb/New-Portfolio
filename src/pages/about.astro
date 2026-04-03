@@ -87,15 +87,17 @@ const services = [
   { num: '01', title: 'Design Systems & Architecture', desc: 'Token-based systems, component libraries, PCS logic, multi-theme architectures, and adoption strategies that stick.' },
   { num: '02', title: 'Product Design & UX', desc: 'End-to-end design for enterprise products — from discovery and IA to interaction design and handoff.' },
   { num: '03', title: 'Research & Strategy', desc: 'Field studies, usability testing, journey mapping, and data-driven design that connects user needs to business goals.' },
+  { num: '04', title: 'Build with AI', desc: 'End-to-end product development using AI-native tools — from ideation to shipped product. Fluent in AI-assisted design, prototyping, and full-stack execution.' },
 ];
 
 const skills = {
   craft: ['Design Systems', 'Interaction Design', 'Visual Design', 'Information Architecture', 'Wireframing', 'Prototyping'],
   research: ['User Research', 'Usability Testing', 'Field Studies', 'Journey Mapping', 'Stakeholder Interviews', 'Data-Driven Design'],
   strategy: ['Product Architecture', 'Ecosystem Design', 'Project Management', 'Cross-functional Leadership', 'Communication & Collaboration'],
+  ai: ['AI-Native Product Development', 'Prompt Engineering', 'AI-Assisted Prototyping', 'AI Workflow Integration', 'Full-Stack AI Execution'],
 };
 
-const tools = ['Figma', 'FigJam', 'Sketch', 'Storybook', 'Adobe Creative Suite', 'Framer', 'Notion', 'Jira/Linear', 'Claude Code', 'Figma Make'];
+const tools = ['Figma', 'FigJam', 'Sketch', 'Storybook', 'Adobe Creative Suite', 'Framer', 'Notion', 'Jira/Linear', 'Claude Code', 'Cursor', 'v0', 'Figma Make'];
 ---
 
 <Layout title="About — Ashish Khoshya" description="About Ashish Khoshya — Senior Product Designer with 5+ years in design systems, enterprise UX, and product architecture.">
@@ -242,6 +244,10 @@ const tools = ['Figma', 'FigJam', 'Sketch', 'Storybook', 'Adobe Creative Suite',
         <div class="about__skills-col">
           <h4 class="about__skills-heading">Strategy</h4>
           {skills.strategy.map((s) => <span class="about__skill-tag">{s}</span>)}
+        </div>
+        <div class="about__skills-col">
+          <h4 class="about__skills-heading">AI</h4>
+          {skills.ai.map((s) => <span class="about__skill-tag">{s}</span>)}
         </div>
       </div>
       <div class="about__tools">
@@ -429,7 +435,7 @@ const tools = ['Figma', 'FigJam', 'Sketch', 'Storybook', 'Adobe Creative Suite',
 
   .about__services-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 24px;
   }
 
@@ -659,7 +665,7 @@ const tools = ['Figma', 'FigJam', 'Sketch', 'Storybook', 'Adobe Creative Suite',
 
   .about__skills-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 32px;
     margin-bottom: 32px;
   }
@@ -921,7 +927,7 @@ const tools = ['Figma', 'FigJam', 'Sketch', 'Storybook', 'Adobe Creative Suite',
     }
 
     .about__services-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, 1fr);
       gap: 16px;
     }
 

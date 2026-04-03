@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const cyclingWords = ['SYSTEMS', 'ENTERPRISE', 'COMPLEXITY', 'SCALE'];
+const cyclingWords = ['SYSTEMS', 'ENTERPRISE', 'AI', 'COMPLEXITY', 'SCALE'];
 
 export default function Hero() {
   const [wordIndex, setWordIndex] = useState(0);

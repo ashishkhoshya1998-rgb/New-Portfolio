@@ -27,6 +27,7 @@ export default function RightInfoPanel() {
             <span>Design Systems</span>
             <span>Product Design</span>
             <span>Research &amp; Strategy</span>
+            <span>Build with AI</span>
           </div>
           <a href="https://www.linkedin.com/in/ashish-khoshya-676b99183/" target="_blank" rel="noopener noreferrer" className="right-panel__help">
             How can I help? ↗
@@ -34,7 +35,7 @@ export default function RightInfoPanel() {
         </div>
         <div className="right-panel__bottom">
           <p className="right-panel__bio">
-            Senior Product Designer specialized in enterprise workflows and design systems.
+            Senior Product Designer specialized in enterprise workflows, design systems, and AI-native product development.
             I build for ClearTax, Zzazz.ai &amp; complex product problems.
           </p>
           <span className="right-panel__badge">IIT Guwahati</span>
