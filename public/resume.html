@@ -358,71 +358,93 @@
     .btn-back:hover { background: rgba(0,0,0,0.05); transform: translateY(-1px); }
   }
 
-  /* ── TABS ── */
-  .tab-bar {
-    display: flex;
+  /* ── DOWNLOAD MODAL ── */
+  .dl-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 999;
     justify-content: center;
-    gap: 0;
-    margin-bottom: 16px;
-  }
-  .tab-btn {
-    font-family: var(--fb);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    padding: 10px 28px;
-    background: transparent;
-    color: var(--muted);
-    border: 1px solid rgba(0,0,0,0.12);
-    transition: background 0.18s, color 0.18s;
-  }
-  .tab-btn:first-child { border-radius: 6px 0 0 6px; }
-  .tab-btn:last-child { border-radius: 0 6px 6px 0; border-left: none; }
-  .tab-btn--active {
-    background: #1A1A1A;
-    color: #fff;
-    border-color: #1A1A1A;
-  }
-  .tab-btn:not(.tab-btn--active):hover { background: rgba(0,0,0,0.04); }
-
-  .ats-view {
-    width: 210mm;
-    margin: 0 auto;
-    background: #fff;
-    border-radius: 2px;
-  }
-  .ats-view iframe {
-    width: 100%;
-    height: 297mm;
-    border: none;
-    border-radius: 2px;
-  }
-  .ats-download {
-    text-align: center;
-    margin-top: 12px;
-  }
-  .ats-download a {
-    font-family: var(--fb);
-    font-size: 13px;
-    font-weight: 600;
-    padding: 10px 22px;
-    background: #1A1A1A;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    display: inline-flex;
     align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: background 0.18s, transform 0.12s;
   }
-  .ats-download a:hover { background: #333; transform: translateY(-1px); }
+  .dl-overlay.open { display: flex; }
+
+  .dl-modal {
+    background: #fff;
+    border-radius: 14px;
+    padding: 32px;
+    width: 380px;
+    max-width: 90vw;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    text-align: center;
+  }
+  .dl-modal h3 {
+    font-family: var(--fd);
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .dl-modal p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+  .dl-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .dl-option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    background: #fff;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.15s, background 0.15s;
+    text-decoration: none;
+    color: inherit;
+    font-family: var(--fb);
+  }
+  .dl-option:hover {
+    border-color: var(--text);
+    background: #FAFAF8;
+  }
+  .dl-option-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+  .dl-option-icon.designed { background: #F0EDE8; }
+  .dl-option-icon.ats { background: #DCFCE7; }
+  .dl-option-text strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .dl-option-text span {
+    font-size: 12px;
+    color: var(--muted);
+  }
 
   /* ── PRINT ── */
   @media print {
     body { background: #fff; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
     .page { width: 100%; padding: 18px 32px 14px; box-shadow: none; min-height: auto; }
-    .save-bar, .tab-bar, .ats-view, .ats-download { display: none; }
+    .save-bar, .dl-overlay { display: none !important; }
     .header h1, .exp-company, .edu-inst { font-family: Georgia, 'Times New Roman', serif; }
     @page { size: A4; margin: 0; }
   }
@@ -443,45 +465,32 @@
       <polyline points="7 10 12 15 17 10"/>
       <line x1="12" y1="15" x2="12" y2="3"/>
     </svg>
-    <span id="downloadLabel">Save as PDF</span>
+    <span>Download PDF</span>
   </button>
-</div>
-
-<div class="tab-bar">
-  <button class="tab-btn tab-btn--active" onclick="switchTab('designed')">Designed</button>
-  <button class="tab-btn" onclick="switchTab('ats')">ATS-Optimized</button>
 </div>
 
 <script>
 function downloadResume() {
-  const activeTab = document.querySelector('.tab-btn--active').textContent.trim();
-  if (activeTab === 'ATS-Optimized') {
-    window.open('/Ashish_Khoshya_Resume_ATS.pdf', '_blank');
-  } else {
-    window.print();
-  }
+  document.getElementById('dl-overlay').classList.add('open');
 }
 
-function switchTab(tab) {
-  const btns = document.querySelectorAll('.tab-btn');
-  const page = document.querySelector('.page');
-  const atsView = document.getElementById('ats-view');
-  const downloadLabel = document.getElementById('downloadLabel');
-
-  btns.forEach(b => b.classList.remove('tab-btn--active'));
-
-  if (tab === 'ats') {
-    btns[1].classList.add('tab-btn--active');
-    page.style.display = 'none';
-    atsView.style.display = 'block';
-    downloadLabel.textContent = 'Download ATS PDF';
-  } else {
-    btns[0].classList.add('tab-btn--active');
-    page.style.display = 'block';
-    atsView.style.display = 'none';
-    downloadLabel.textContent = 'Save as PDF';
-  }
+function closeModal() {
+  document.getElementById('dl-overlay').classList.remove('open');
 }
+
+function downloadDesigned() {
+  closeModal();
+  window.print();
+}
+
+function downloadATS() {
+  closeModal();
+  window.open('/Ashish_Khoshya_Resume_ATS.pdf', '_blank');
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
 </script>
 
 <div class="page">
@@ -691,13 +700,31 @@ function switchTab(tab) {
 
 </div>
 
-<div class="ats-view" id="ats-view" style="display: none;">
-  <object data="/Ashish_Khoshya_Resume_ATS.pdf" type="application/pdf" width="100%" height="1122">
-    <p style="text-align: center; padding: 40px; font-family: var(--fb); color: var(--muted);">
-      Your browser doesn't support inline PDF viewing.<br />
-      <a href="/Ashish_Khoshya_Resume_ATS.pdf" target="_blank" style="color: var(--text); font-weight: 600; text-decoration: underline;">Open PDF in new tab</a>
-    </p>
-  </object>
+<div class="dl-overlay" id="dl-overlay" onclick="if(event.target===this)closeModal()">
+  <div class="dl-modal">
+    <h3>Download Resume</h3>
+    <p>Choose a version that fits your needs</p>
+    <div class="dl-options">
+      <button class="dl-option" onclick="downloadDesigned()">
+        <div class="dl-option-icon designed">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="dl-option-text">
+          <strong>Designed</strong>
+          <span>Visual layout with styled formatting</span>
+        </div>
+      </button>
+      <button class="dl-option" onclick="downloadATS()">
+        <div class="dl-option-icon ats">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#166534" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="dl-option-text">
+          <strong>ATS-Optimized</strong>
+          <span>Plain text, optimized for applicant tracking systems</span>
+        </div>
+      </button>
+    </div>
+  </div>
 </div>
 
 </body>
