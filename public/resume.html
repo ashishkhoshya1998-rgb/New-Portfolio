@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Ashish Khoshya — Resume</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
   :root {
     --bg: #FAFAF8;
@@ -383,30 +382,13 @@
       <polyline points="7 10 12 15 17 10"/>
       <line x1="12" y1="15" x2="12" y2="3"/>
     </svg>
-    <span id="downloadLabel">Download PDF</span>
+    <span id="downloadLabel">Save as PDF</span>
   </button>
 </div>
 
 <script>
 function downloadResume() {
-  const btn = document.getElementById('downloadBtn');
-  const label = document.getElementById('downloadLabel');
-  btn.disabled = true;
-  label.textContent = 'Generating…';
-
-  const el = document.querySelector('.page');
-  const opt = {
-    margin: 0,
-    filename: 'Ashish_Khoshya_Resume.pdf',
-    image: { type: 'jpeg', quality: 0.99 },
-    html2canvas: { scale: 2, useCORS: true, logging: false },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-  };
-
-  html2pdf().set(opt).from(el).save().then(() => {
-    btn.disabled = false;
-    label.textContent = 'Download PDF';
-  });
+  window.print();
 }
 </script>
 
@@ -425,7 +407,7 @@ function downloadResume() {
       </div>
       <div class="contact-item">
         <a href="https://ashishkhoshya.com">ashishkhoshya.com</a><br />
-        <a href="https://linkedin.com/in/ashish-khoshya">LinkedIn</a> &middot; Bengaluru, India
+        <a href="https://www.linkedin.com/in/ashish-khoshya-676b99183/">LinkedIn</a> &middot; Bengaluru, India
       </div>
     </div>
   </div>
@@ -609,7 +591,7 @@ function downloadResume() {
 
   <!-- FOOTER -->
   <div class="footer">
-    <span>&copy; 2025 Ashish Khoshya</span>
+    <span>&copy; 2026 Ashish Khoshya</span>
     <span>Portfolio: <a href="https://ashishkhoshya.com">ashishkhoshya.com</a></span>
   </div>
 
