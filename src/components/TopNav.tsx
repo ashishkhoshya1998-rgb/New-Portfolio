@@ -122,7 +122,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
               )}
             </div>
           </div>
-          <a href="https://www.linkedin.com/messaging/compose/?to=ashish-khoshya-676b99183" target="_blank" rel="noopener noreferrer" className="topnav__cta">
+          <a href="https://www.linkedin.com/messaging/compose/?to=ashish-khoshya-676b99183&body=Hi%20Ashish%2C%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20connect!" target="_blank" rel="noopener noreferrer" className="topnav__cta">
             Let's talk!
           </a>
         </div>
@@ -177,7 +177,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
               </a>
             ))}
           </div>
-          <a href="https://www.linkedin.com/messaging/compose/?to=ashish-khoshya-676b99183" target="_blank" rel="noopener noreferrer" className="mobile-menu__cta" onClick={closeMenu}>
+          <a href="https://www.linkedin.com/messaging/compose/?to=ashish-khoshya-676b99183&body=Hi%20Ashish%2C%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20connect!" target="_blank" rel="noopener noreferrer" className="mobile-menu__cta" onClick={closeMenu}>
             Let's talk!
           </a>
         </div>
