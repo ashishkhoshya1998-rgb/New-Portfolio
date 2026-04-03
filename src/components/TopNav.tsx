@@ -36,6 +36,7 @@ function isActive(href: string, currentPath: string): boolean {
 export default function TopNav({ currentPath }: TopNavProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [socialsOpen, setSocialsOpen] = useState(false);
 
   // On case study pages, always show blur bg
   const isCaseStudy = currentPath === '/projects' && typeof window !== 'undefined' && window.location.pathname.startsWith('/project/');
@@ -47,6 +48,17 @@ export default function TopNav({ currentPath }: TopNavProps) {
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, [isCaseStudy]);
+
+  // Close socials dropdown on click outside
+  useEffect(() => {
+    if (!socialsOpen) return;
+    const handler = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('.topnav__socials-wrap')) setSocialsOpen(false);
+    };
+    document.addEventListener('click', handler);
+    return () => document.removeEventListener('click', handler);
+  }, [socialsOpen]);
 
   // Lock body when menu open
   useEffect(() => {
@@ -69,24 +81,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
           <span className="topnav__logo">AK</span>
         </a>
 
-        {/* Center: Socials */}
-        <div className="topnav__socials">
-          {socials.map((s) => (
-            <a
-              key={s.title}
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="topnav__social-link"
-              title={s.title}
-              aria-label={s.title}
-            >
-              {s.icon}
-            </a>
-          ))}
-        </div>
-
-        {/* Right: Nav links + Theme toggle + CTA */}
+        {/* Right: Nav links + Socials dropdown + CTA */}
         <div className="topnav__right">
           <div className="topnav__links">
             {navLinks.map((link) => (
@@ -98,6 +93,34 @@ export default function TopNav({ currentPath }: TopNavProps) {
                 {link.label}
               </a>
             ))}
+            <div className="topnav__socials-wrap">
+              <button
+                className={`topnav__link topnav__socials-btn ${socialsOpen ? 'topnav__socials-btn--open' : ''}`}
+                onClick={() => setSocialsOpen(!socialsOpen)}
+                aria-expanded={socialsOpen}
+              >
+                Socials
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="topnav__socials-chevron">
+                  <polyline points="2,3.5 5,6.5 8,3.5" />
+                </svg>
+              </button>
+              {socialsOpen && (
+                <div className="topnav__socials-dropdown">
+                  {socials.map((s) => (
+                    <a
+                      key={s.title}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="topnav__socials-dropdown-link"
+                    >
+                      {s.icon}
+                      <span>{s.title}</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
           <a href="mailto:ashish.khoshya1998@gmail.com" className="topnav__cta">
             Let's talk!
@@ -150,6 +173,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
             {socials.map((s) => (
               <a key={s.title} href={s.href} target="_blank" rel="noopener noreferrer" className="mobile-menu__social" aria-label={s.title}>
                 {s.icon}
+                <span>{s.title}</span>
               </a>
             ))}
           </div>
@@ -197,22 +221,64 @@ export default function TopNav({ currentPath }: TopNavProps) {
           line-height: 1;
         }
 
-        /* Socials (center) */
-        .topnav__socials {
-          display: flex;
-          align-items: center;
-          gap: 16px;
+        /* Socials dropdown */
+        .topnav__socials-wrap {
+          position: relative;
         }
 
-        .topnav__social-link {
+        .topnav__socials-btn {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-family: inherit;
+          padding: 0;
+        }
+
+        .topnav__socials-chevron {
+          transition: transform 0.2s;
+        }
+
+        .topnav__socials-btn--open .topnav__socials-chevron {
+          transform: rotate(180deg);
+        }
+
+        .topnav__socials-dropdown {
+          position: absolute;
+          top: calc(100% + 12px);
+          right: 0;
+          background: var(--card-bg, rgba(30, 30, 30, 0.95));
+          border: 1px solid var(--border);
+          border-radius: 12px;
+          padding: 8px;
+          min-width: 160px;
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+          animation: socials-dropdown-in 0.15s ease-out;
+        }
+
+        @keyframes socials-dropdown-in {
+          from { opacity: 0; transform: translateY(-4px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        .topnav__socials-dropdown-link {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 10px 12px;
+          font-size: 14px;
           color: var(--text-muted);
           text-decoration: none;
-          transition: color 0.2s;
-          display: flex;
-          align-items: center;
+          border-radius: 8px;
+          transition: background 0.15s, color 0.15s;
         }
 
-        .topnav__social-link:hover {
+        .topnav__socials-dropdown-link:hover {
+          background: rgba(255, 255, 255, 0.06);
           color: var(--accent);
         }
 
@@ -379,6 +445,8 @@ export default function TopNav({ currentPath }: TopNavProps) {
           transition: color 0.2s;
           display: flex;
           align-items: center;
+          gap: 8px;
+          font-size: 14px;
         }
 
         .mobile-menu__social:hover {
@@ -410,7 +478,6 @@ export default function TopNav({ currentPath }: TopNavProps) {
             height: 60px;
           }
 
-          .topnav__socials,
           .topnav__right {
             display: none;
           }
