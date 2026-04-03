@@ -358,11 +358,71 @@
     .btn-back:hover { background: rgba(0,0,0,0.05); transform: translateY(-1px); }
   }
 
+  /* ── TABS ── */
+  .tab-bar {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 16px;
+  }
+  .tab-btn {
+    font-family: var(--fb);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 28px;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid rgba(0,0,0,0.12);
+    transition: background 0.18s, color 0.18s;
+  }
+  .tab-btn:first-child { border-radius: 6px 0 0 6px; }
+  .tab-btn:last-child { border-radius: 0 6px 6px 0; border-left: none; }
+  .tab-btn--active {
+    background: #1A1A1A;
+    color: #fff;
+    border-color: #1A1A1A;
+  }
+  .tab-btn:not(.tab-btn--active):hover { background: rgba(0,0,0,0.04); }
+
+  .ats-view {
+    width: 210mm;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 2px;
+  }
+  .ats-view iframe {
+    width: 100%;
+    height: 297mm;
+    border: none;
+    border-radius: 2px;
+  }
+  .ats-download {
+    text-align: center;
+    margin-top: 12px;
+  }
+  .ats-download a {
+    font-family: var(--fb);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 22px;
+    background: #1A1A1A;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: background 0.18s, transform 0.12s;
+  }
+  .ats-download a:hover { background: #333; transform: translateY(-1px); }
+
   /* ── PRINT ── */
   @media print {
     body { background: #fff; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
     .page { width: 100%; padding: 18px 32px 14px; box-shadow: none; min-height: auto; }
-    .save-bar { display: none; }
+    .save-bar, .tab-bar, .ats-view, .ats-download { display: none; }
     .header h1, .exp-company, .edu-inst { font-family: Georgia, 'Times New Roman', serif; }
     @page { size: A4; margin: 0; }
   }
@@ -387,9 +447,40 @@
   </button>
 </div>
 
+<div class="tab-bar">
+  <button class="tab-btn tab-btn--active" onclick="switchTab('designed')">Designed</button>
+  <button class="tab-btn" onclick="switchTab('ats')">ATS-Optimized</button>
+</div>
+
 <script>
 function downloadResume() {
-  window.print();
+  const activeTab = document.querySelector('.tab-btn--active').textContent.trim();
+  if (activeTab === 'ATS-Optimized') {
+    window.open('/Ashish_Khoshya_Resume_ATS.pdf', '_blank');
+  } else {
+    window.print();
+  }
+}
+
+function switchTab(tab) {
+  const btns = document.querySelectorAll('.tab-btn');
+  const page = document.querySelector('.page');
+  const atsView = document.getElementById('ats-view');
+  const downloadLabel = document.getElementById('downloadLabel');
+
+  btns.forEach(b => b.classList.remove('tab-btn--active'));
+
+  if (tab === 'ats') {
+    btns[1].classList.add('tab-btn--active');
+    page.style.display = 'none';
+    atsView.style.display = 'block';
+    downloadLabel.textContent = 'Download ATS PDF';
+  } else {
+    btns[0].classList.add('tab-btn--active');
+    page.style.display = 'block';
+    atsView.style.display = 'none';
+    downloadLabel.textContent = 'Save as PDF';
+  }
 }
 </script>
 
@@ -598,6 +689,10 @@ function downloadResume() {
     <span>Portfolio: <a href="https://ashishkhoshya.com">ashishkhoshya.com</a></span>
   </div>
 
+</div>
+
+<div class="ats-view" id="ats-view" style="display: none;">
+  <iframe src="/Ashish_Khoshya_Resume_ATS.pdf"></iframe>
 </div>
 
 </body>
