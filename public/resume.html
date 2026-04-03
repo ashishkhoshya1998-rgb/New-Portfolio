@@ -360,9 +360,10 @@
 
   /* ── PRINT ── */
   @media print {
-    body { background: #fff; padding: 0; }
+    body { background: #fff; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
     .page { width: 100%; padding: 18px 32px 14px; box-shadow: none; min-height: auto; }
     .save-bar { display: none; }
+    .header h1, .exp-company, .edu-inst { font-family: Georgia, 'Times New Roman', serif; }
     @page { size: A4; margin: 0; }
   }
 </style>
@@ -456,10 +457,10 @@ function downloadResume() {
 
       <!-- Senior PD -->
       <div class="role-row">
-        <span class="role-title">Senior Product Designer</span>
+        <span class="role-title">Senior Product Designer <span style="color: var(--green); font-weight: 400; font-size: 10px;">&uarr; Promoted</span></span>
         <span class="role-period">Oct 2023 &ndash; Jul 2025</span>
       </div>
-      <div class="role-impact">Owned Accounts Payable suite design and automated Table-4 ITC reconciliation engine</div>
+      <div class="role-impact">Directed Accounts Payable suite design and automated Table-4 ITC reconciliation engine</div>
       <ul class="bullets">
         <li>Designed automation engine for <strong>Table-4 ITC reconciliation</strong>, matching GSTR-2B with purchase registers &mdash; reduced <strong>65% of support queries</strong>; escalated to roadmap-level initiative</li>
         <li>Executed <strong>UX audit across 4 AP modules</strong> &mdash; standardised usability testing and research methods across 3 product pods, improving design consistency by <strong>30%</strong></li>
@@ -474,11 +475,11 @@ function downloadResume() {
         <span class="role-title">Product Designer</span>
         <span class="role-period">Jul 2021 &ndash; Sep 2023</span>
       </div>
-      <div class="role-impact">Created Mint V8 design system &middot; Streamlined GSTR-3B filing &middot; Owned Max ITC and Ingestion Module</div>
+      <div class="role-impact">Built Mint V8 design system &middot; Streamlined GSTR-3B filing &middot; Drove Max ITC and Ingestion Module</div>
       <ul class="bullets">
         <li>Spearheaded <strong>Mint V8 design system</strong> &mdash; token-based architecture with PCS Logic compressed <strong>700+ button variants to 32</strong>, cutting dev implementation time by <strong>50%</strong></li>
         <li>Streamlined <strong>GSTR-3B workflow</strong> for <strong>1.4Cr+ businesses</strong> &mdash; bulk upload, multi-GSTIN filing, and reconciliation engine; reduced filing time by <strong>60%</strong></li>
-        <li>Owned <strong>Max ITC</strong> (field research with 12+ tax professionals, boosted adoption from 18% to <strong>53%</strong>) and <strong>Ingestion Module</strong> (schema-based import, <strong>45% higher success rate</strong>)</li>
+        <li>Championed <strong>Max ITC</strong> (field research with 12+ tax professionals, boosted adoption from 18% to <strong>53%</strong>) and <strong>Ingestion Module</strong> (schema-based import, <strong>45% higher success rate</strong>)</li>
       </ul>
       <div class="metrics-row">
         <span class="metric-badge blue"><span class="val">700+&rarr;32</span> <span class="lbl">Button variants</span></span>
@@ -513,10 +514,10 @@ function downloadResume() {
         <div class="skill-tags">
           <span class="skill-tag">Design Systems</span>
           <span class="skill-tag">Interaction Design</span>
-          <span class="skill-tag">Visual Design</span>
+          <span class="skill-tag">UI/UX Design</span>
           <span class="skill-tag">Information Architecture</span>
           <span class="skill-tag">Wireframing</span>
-          <span class="skill-tag">Prototyping</span>
+          <span class="skill-tag">Responsive Design</span>
         </div>
       </div>
       <div class="skill-group research">
@@ -524,20 +525,20 @@ function downloadResume() {
         <div class="skill-tags">
           <span class="skill-tag">User Research</span>
           <span class="skill-tag">Usability Testing</span>
-          <span class="skill-tag">Field Studies</span>
+          <span class="skill-tag">A/B Testing</span>
           <span class="skill-tag">Journey Mapping</span>
-          <span class="skill-tag">Stakeholder Interviews</span>
+          <span class="skill-tag">Stakeholder Management</span>
           <span class="skill-tag">Data Analysis</span>
         </div>
       </div>
       <div class="skill-group strategy">
         <h4>Strategy &amp; AI</h4>
         <div class="skill-tags">
-          <span class="skill-tag">Product Architecture</span>
+          <span class="skill-tag">Product Strategy</span>
           <span class="skill-tag">AI-Native Development</span>
           <span class="skill-tag">Prompt Engineering</span>
-          <span class="skill-tag">Cross-functional Leadership</span>
-          <span class="skill-tag">Project Management</span>
+          <span class="skill-tag">Cross-functional Collaboration</span>
+          <span class="skill-tag">Agile / Scrum</span>
         </div>
       </div>
     </div>
@@ -569,6 +570,7 @@ function downloadResume() {
         <div>
           <div class="edu-inst">IIT Guwahati</div>
           <div class="edu-degree">Bachelor of Technology &middot; 2017 &ndash; 2021</div>
+          <div style="font-size: 9px; color: var(--muted); margin-top: 2px;">Relevant: HCI, Cognitive Psychology, Visual Communication</div>
         </div>
       </div>
     </div>
