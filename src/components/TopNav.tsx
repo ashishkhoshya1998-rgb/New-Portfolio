@@ -13,7 +13,7 @@ const navLinks = [
 const socials = [
   {
     title: 'LinkedIn',
-    href: 'https://linkedin.com/in/ashish-khoshya',
+    href: 'https://www.linkedin.com/in/ashish-khoshya-676b99183/',
     icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>,
   },
   {
@@ -122,7 +122,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
               )}
             </div>
           </div>
-          <a href="mailto:ashish.khoshya1998@gmail.com" className="topnav__cta">
+          <a href="https://www.linkedin.com/messaging/compose/?to=ashish-khoshya-676b99183" target="_blank" rel="noopener noreferrer" className="topnav__cta">
             Let's talk!
           </a>
         </div>
@@ -177,7 +177,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
               </a>
             ))}
           </div>
-          <a href="mailto:ashish.khoshya1998@gmail.com" className="mobile-menu__cta" onClick={closeMenu}>
+          <a href="https://www.linkedin.com/messaging/compose/?to=ashish-khoshya-676b99183" target="_blank" rel="noopener noreferrer" className="mobile-menu__cta" onClick={closeMenu}>
             Let's talk!
           </a>
         </div>

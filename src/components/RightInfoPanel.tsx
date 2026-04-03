@@ -28,7 +28,7 @@ export default function RightInfoPanel() {
             <span>Product Design</span>
             <span>Research &amp; Strategy</span>
           </div>
-          <a href="mailto:ashish.khoshya1998@gmail.com" className="right-panel__help">
+          <a href="https://www.linkedin.com/messaging/compose/?to=ashish-khoshya-676b99183" target="_blank" rel="noopener noreferrer" className="right-panel__help">
             How can I help? ↗
           </a>
         </div>
