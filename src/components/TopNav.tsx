@@ -11,9 +11,21 @@ const navLinks = [
 ];
 
 const socials = [
-  { label: 'li', href: 'https://linkedin.com/in/ashish-khoshya', title: 'LinkedIn' },
-  { label: 'tw', href: 'https://twitter.com/ashishkhoshya', title: 'Twitter' },
-  { label: 'be', href: 'https://behance.net/ashishkhoshya', title: 'Behance' },
+  {
+    title: 'LinkedIn',
+    href: 'https://linkedin.com/in/ashish-khoshya',
+    icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>,
+  },
+  {
+    title: 'Instagram',
+    href: 'https://www.instagram.com/ashi_sh_3798/',
+    icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>,
+  },
+  {
+    title: 'GitHub',
+    href: 'https://github.com/ashishkhoshya1998-rgb',
+    icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>,
+  },
 ];
 
 function isActive(href: string, currentPath: string): boolean {
@@ -59,22 +71,18 @@ export default function TopNav({ currentPath }: TopNavProps) {
 
         {/* Center: Socials */}
         <div className="topnav__socials">
-          <span className="topnav__socials-label">Socials</span>
-          <span className="topnav__socials-sep">/</span>
-          {socials.map((s, i) => (
-            <span key={s.label}>
-              <a
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="topnav__social-link"
-                title={s.title}
-                aria-label={s.title}
-              >
-                {s.label}
-              </a>
-              {i < socials.length - 1 && <span className="topnav__socials-sep">/</span>}
-            </span>
+          {socials.map((s) => (
+            <a
+              key={s.title}
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="topnav__social-link"
+              title={s.title}
+              aria-label={s.title}
+            >
+              {s.icon}
+            </a>
           ))}
         </div>
 
@@ -139,13 +147,10 @@ export default function TopNav({ currentPath }: TopNavProps) {
 
         <div className="mobile-menu__footer">
           <div className="mobile-menu__socials">
-            {socials.map((s, i) => (
-              <span key={s.label}>
-                <a href={s.href} target="_blank" rel="noopener noreferrer" className="mobile-menu__social">
-                  {s.title}
-                </a>
-                {i < socials.length - 1 && <span className="mobile-menu__sep">/</span>}
-              </span>
+            {socials.map((s) => (
+              <a key={s.title} href={s.href} target="_blank" rel="noopener noreferrer" className="mobile-menu__social" aria-label={s.title}>
+                {s.icon}
+              </a>
             ))}
           </div>
           <a href="mailto:ashish.khoshya1998@gmail.com" className="mobile-menu__cta" onClick={closeMenu}>
@@ -196,24 +201,15 @@ export default function TopNav({ currentPath }: TopNavProps) {
         .topnav__socials {
           display: flex;
           align-items: center;
-          gap: 6px;
-          font-size: 13px;
-          color: var(--text-muted);
-        }
-
-        .topnav__socials-label {
-          color: var(--text-muted);
-        }
-
-        .topnav__socials-sep {
-          color: var(--border);
-          user-select: none;
+          gap: 16px;
         }
 
         .topnav__social-link {
           color: var(--text-muted);
           text-decoration: none;
           transition: color 0.2s;
+          display: flex;
+          align-items: center;
         }
 
         .topnav__social-link:hover {
@@ -374,22 +370,19 @@ export default function TopNav({ currentPath }: TopNavProps) {
         .mobile-menu__socials {
           display: flex;
           align-items: center;
-          gap: 8px;
-          font-size: 14px;
+          gap: 20px;
         }
 
         .mobile-menu__social {
           color: var(--text-muted);
           text-decoration: none;
           transition: color 0.2s;
+          display: flex;
+          align-items: center;
         }
 
         .mobile-menu__social:hover {
           color: var(--accent);
-        }
-
-        .mobile-menu__sep {
-          color: var(--border);
         }
 
         .mobile-menu__cta {
