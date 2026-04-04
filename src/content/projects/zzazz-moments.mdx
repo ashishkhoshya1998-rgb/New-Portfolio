@@ -1,7 +1,7 @@
 ---
 title: "Moments"
-subtitle: "Time-Sensitive Content with Dynamic Pricing"
-description: "Created a short-form, time-sensitive content format that creates urgency through temporal scarcity — content priced by its freshness."
+subtitle: "Direct Creator Monetization"
+description: "Created a new vertical from scratch — opening the supply side to individual creators who can monetize content quality, not popularity. Content value drives earnings from day one."
 role: "Designer · UX Architect · Product Architect"
 services: ["Product Design", "Information Architecture", "Interaction Design"]
 year: "2025"
@@ -13,17 +13,74 @@ parentProject:
 
 import MetricGrid from '../../components/cs/MetricGrid.astro';
 import ProcessStep from '../../components/cs/ProcessStep.astro';
+import ImageRow from '../../components/cs/ImageRow.astro';
 
 ## Overview
 
-*Detailed content coming soon — this section will cover the Moments vertical of the Zzazz.ai ecosystem.*
+Moments is the vertical I identified as missing and created from scratch. It opens the supply side of the ZZAZZ ecosystem to individual creators — people who can monetize content quality, not popularity. No follower thresholds. No virality requirements. Content value drives earnings from day one.
 
-Moments is a new vertical I created from scratch. Time-sensitive, short-form content with dynamic pricing — creating genuine urgency through temporal scarcity. Content that exists for a window, priced by its freshness.
+**My contribution: Information architecture + initial designs** — I defined the vertical, designed the creator workflow, and built the pre-publish pricing experience. I then delegated UI execution to a team member while maintaining system coherence.
 
-## The Problem
+## Why Moments Was Needed
 
-No creator monetization existed from day one for short-form content. Existing platforms reward follower count over content quality, making it impossible for new creators to monetize.
+Most content platforms gate monetization behind followers and thresholds. YouTube, Instagram, Medium — they all tie monetization heavily to views, engagement, subscriber base, or brand strength. A newcomer with genuinely valuable insight earns almost nothing. Primary research is hard, and there's no easy way to ensure original work stays attributable and monetizable over time.
 
-## Design Approach
+ZZAZZ's thesis is that content has intrinsic value — independent of who created it. Moments is where that thesis becomes real for individual creators.
 
-I set the base, defined full IA + wireframes, and delegated UI to a team member. The core principle: **content quality > follower count** for monetization.
+![Creator economy problem — current platforms gate monetization behind followers vs ZZAZZ where content value drives earnings](/cs/zzazz-moments-creator-problem.png)
+
+## The Workflow I Architected
+
+<ProcessStep number="01" title="Create">
+  Write, record audio, or upload video. The creation interface is minimal — focused on content, not formatting.
+</ProcessStep>
+
+<ProcessStep number="02" title="Preview Pricing">
+  See the expected market valuation before publishing. The LPM evaluates the content and shows what it's likely worth in the current market.
+</ProcessStep>
+
+<ProcessStep number="03" title="Improve">
+  Iterate on the content and watch the price adjust in real-time. This creates a quality feedback loop — creators can see exactly how their edits affect perceived value.
+</ProcessStep>
+
+<ProcessStep number="04" title="Set Rights">
+  Choose the rights model: view-only, transferable, editorial, derivative. Each option has clear implications for how the content can be used and how revenue flows.
+</ProcessStep>
+
+<ProcessStep number="05" title="Publish & List">
+  The content enters Exchange, competing on value — not brand. A newcomer's well-researched analysis sits alongside established publishers, priced by the same LPM.
+</ProcessStep>
+
+<ImageRow images={[
+  { src: "/cs/zzazz-moments-create.png", alt: "Moments — content creation interface" },
+  { src: "/cs/zzazz-moments-pricing.png", alt: "Moments — pre-publish pricing preview" },
+  { src: "/cs/zzazz-moments-rights.png", alt: "Moments — rights selection controls" }
+]} />
+
+## Pre-Publish Pricing & Forecasting
+
+The pre-publish pricing experience is the most novel UX pattern in the Moments vertical. Creators see:
+
+- **Expected price** — what the LPM calculates based on content quality, topic demand, and market conditions
+- **Real-time response** — how the price changes as they edit, add depth, or improve structure
+- **Near-term forecast** — projected pricing trajectory after publication
+- **Benchmark comparison** — how the expected price compares to similar content in the market
+
+This turns pricing from an opaque system into a transparent tool. Creators understand why their content is worth what it's worth — and what they can do to increase its value.
+
+<ImageRow images={[
+  { src: "/cs/zzazz-moments-forecast-1.png", alt: "Pre-publish — expected price and response to edits" },
+  { src: "/cs/zzazz-moments-forecast-2.png", alt: "Pre-publish — near-term forecast and benchmark comparison" }
+]} />
+
+## The Bigger Implication
+
+Moments doesn't just add individual creators to the ZZAZZ ecosystem. It changes the supply dynamics entirely. When anyone can publish and earn based on content quality, the ecosystem generates more diverse, higher-quality content — which makes Exchange more valuable for consumers, which generates more revenue through TimePay, which attracts more creators.
+
+Without Moments, ZZAZZ only serves publishers. With Moments, ZZAZZ serves anyone who creates something worth reading.
+
+<MetricGrid metrics={[
+  { value: "0→1", label: "Built from Scratch" },
+  { value: "5-Step", label: "Creator Workflow" },
+  { value: "Real-Time", label: "Price Feedback" }
+]} />

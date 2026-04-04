@@ -1,7 +1,7 @@
 ---
 title: "DOTS Protocol"
-subtitle: "Cryptographic Trust & Revenue Attribution"
-description: "Architected a creator credibility framework with cryptographic lineage — derivatives link to originals with automatic revenue splits."
+subtitle: "Ownership, Lineage & Revenue Attribution"
+description: "Architected the ownership layer for the content economy — cryptographic lineage where derivatives link to originals with automatic revenue splits."
 role: "Designer · UX Architect · Product Architect"
 services: ["System Architecture", "Trust Design", "UX Research"]
 year: "2025"
@@ -16,14 +16,46 @@ import ProcessStep from '../../components/cs/ProcessStep.astro';
 
 ## Overview
 
-*Detailed content coming soon — this section will cover the DOTS Protocol vertical of the Zzazz.ai ecosystem.*
+DOTS Protocol is the ownership and protection layer of the ZZAZZ ecosystem. It didn't exist when I joined. I identified the need for an ownership system, defined the conceptual model, and scoped the lineage logic that makes content protection and derivative tracking possible.
 
-DOTS is the trust and reputation system — creator credibility scores that make pricing transparent. Users can see *why* content is priced the way it is based on creator track record.
+**My contribution: Future scoping** — identified the need, defined the conceptual model and lineage logic.
 
-## The Problem
+## Why DOTS Was Needed
 
-Copying breaks revenue — 50K bot scrapes/day vs 20 humans reading. Without provenance tracking, creators lose control and revenue the moment their content is shared or repurposed.
+Content gets copied easily, and the original owner often doesn't know it — losing both revenue and attribution. In a world where AI can summarize, rephrase, and redistribute content in seconds, the problem is accelerating. Without provenance tracking, creators lose control and revenue the moment their content is shared or repurposed.
 
-## Design Approach
+For the ZZAZZ ecosystem to work, creators need to trust that their content remains attributable and monetizable even as it travels through the system. Without that trust, the supply side collapses.
 
-Cryptographic lineage where derivatives link to originals with automatic revenue splits. Creators participate in the downstream value chain — even when their content is remixed, quoted, or built upon.
+## The Conceptual Model
+
+Every piece of content in ZZAZZ gets a DOT — a unique identifier that carries ownership, rights, and lineage information.
+
+<ProcessStep number="01" title="Original Registration">
+  When content is published through Publish or Moments, it receives a DOT identifier (e.g., DOT-123) that records the original creator, publication time, and rights configuration.
+</ProcessStep>
+
+<ProcessStep number="02" title="Derivative Tracking">
+  When content is remixed, quoted, summarized, or built upon, the derivative receives its own DOT (e.g., DOT-1234) that links back to the original. The lineage is permanent and transparent.
+</ProcessStep>
+
+<ProcessStep number="03" title="Automatic Revenue Splits">
+  When a derivative earns revenue — through any TimePay access path — the revenue automatically splits between the derivative creator and the original creator according to predefined rules. Value flows back upstream.
+</ProcessStep>
+
+<ProcessStep number="04" title="Lineage Visualization">
+  Creators can see the full lineage tree of their content — every derivative, every downstream use, every revenue event. This makes the value of original creation visible and tangible.
+</ProcessStep>
+
+![DOTS lineage model — original content → derivative → lineage tree → revenue split flowing back](/cs/zzazz-dots-lineage.png)
+
+## Why DOTS Matters for the Ecosystem
+
+Without DOTS, Moments doesn't fully protect creators. Without creator protection, the supply side weakens. Without strong supply, Exchange has less to discover. Without discovery, TimePay has less to monetize.
+
+DOTS completes the trust loop that makes creators willing to publish their best work into the ecosystem — knowing that their contribution remains attributed and monetizable regardless of how it's used downstream.
+
+<MetricGrid metrics={[
+  { value: "Ownership", label: "Layer Added" },
+  { value: "Lineage", label: "Tracking Model" },
+  { value: "Auto-Split", label: "Revenue Attribution" }
+]} />

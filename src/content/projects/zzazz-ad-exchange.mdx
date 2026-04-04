@@ -1,7 +1,7 @@
 ---
 title: "Ad Exchange"
 subtitle: "Content-Intent Contextual Advertising"
-description: "Designed content-intent contextual ads as cookie targeting dies — achieving 50% higher CTR and 30% higher conversion."
+description: "Identified the need for a new ad model, researched the landscape, and designed content-intent contextual ads as cookie targeting dies — making attention a real currency."
 role: "Designer · UX Architect · Product Architect"
 services: ["Product Design", "Advertising UX", "UX Research"]
 year: "2025"
@@ -16,21 +16,56 @@ import ProcessStep from '../../components/cs/ProcessStep.astro';
 
 ## Overview
 
-*Detailed content coming soon — this section will cover the Ad Exchange vertical of the Zzazz.ai ecosystem.*
+The Ad Exchange is the advertising layer of ZZAZZ — connecting brands with priced content environments. It didn't exist when I joined. I identified the need, researched the ad landscape, designed the MVP, and scoped the complete future vision.
 
-The Ad Exchange is the advertising layer — connecting brands with priced content environments. Advertisers pay premium rates because priced content signals engaged, intentional audiences.
+**My contribution: Research + MVP design + complete future scoping**
 
-## The Problem
+## Why Ad Exchange Was Needed
 
-Cookie targeting is dying. Platforms need a new model for connecting advertisers with relevant audiences without invasive tracking.
+Cookie-based ad targeting is dying. Post-AI, the logic for mapping ads through cookies continues to weaken, and ads frequently fail to capture real attention or create strong conversion value. But ZZAZZ has something traditional ad platforms don't: **content understanding at the pricing level.**
 
-## Design Approach
+The LPM already evaluates content using intrinsic and extrinsic signals. If the system knows what a piece of content is about deeply enough to price it, it knows enough to match it with the right brand — without ever tracking the user.
 
-I designed content-intent contextual ads — a cricket article about Kohli's century shows cricket equipment ads. The content itself becomes the targeting signal, not user tracking data.
+## The Content-Intent Model
 
-## Impact
+Traditional advertising: track the user → build a profile → show ads based on browsing history.
+
+ZZAZZ Ad Exchange: understand the content → match brand to content intent → show ads based on what the user is actively consuming.
+
+<ProcessStep number="01" title="Content Understanding">
+  The LPM already evaluates content deeply. A cricket article about Kohli's century isn't just "sports" — it's cricket, performance, achievement, competition.
+</ProcessStep>
+
+<ProcessStep number="02" title="User Intent">
+  A user reading that article has cricket intent right now. Not because of cookies — because of what they chose to read.
+</ProcessStep>
+
+<ProcessStep number="03" title="Brand Match">
+  Cricket equipment brands, sports streaming services, athletic wear — brands whose products align with the content's topic and the user's current mindset.
+</ProcessStep>
+
+<ProcessStep number="04" title="Sponsored Access">
+  The brand pays for the user's content access. The user reads for free. The creator earns. The brand reaches a high-intent, contextually relevant audience.
+</ProcessStep>
+
+![Ad Exchange matching logic — content understanding → user intent → brand match → sponsored access](/cs/zzazz-ad-exchange-matching.png)
+
+## Why This Matters for the Ecosystem
+
+Ad Exchange powers the "sponsored access" path in TimePay. Without it, TimePay only has two paths (cash and credits). With it, users who won't pay cash and haven't earned credits can still access content — dramatically expanding the addressable audience.
+
+The economics work because priced content signals engaged, intentional audiences. Advertisers pay premium rates because they know the user is actively consuming relevant content — not passively scrolling a feed.
+
+## What I Delivered
+
+- **Research** — Landscape analysis of cookie-decline impact, content-intent advertising models, and contextual ad economics
+- **MVP Design** — Brand-facing interface for campaign setup, content-brand matching, and performance tracking
+- **Future Scoping** — Complete vision for how Ad Exchange scales as the content ecosystem grows
+
+![Ad Exchange MVP — brand-facing interface, campaign setup, and matching view](/cs/zzazz-ad-exchange-mvp.png)
 
 <MetricGrid metrics={[
-  { value: "50%", label: "Higher CTR" },
-  { value: "30%", label: "Higher Conversion" }
+  { value: "0→1", label: "Built from Scratch" },
+  { value: "Content-Intent", label: "Targeting Model" },
+  { value: "3rd Path", label: "Enables in TimePay" }
 ]} />

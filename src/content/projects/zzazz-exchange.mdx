@@ -1,7 +1,7 @@
 ---
 title: "Exchange"
 subtitle: "Query-Led Content Discovery"
-description: "Redesigned a table-heavy data interface into a conversational, AI-native content marketplace where pricing feels like context, not a barrier."
+description: "Redesigned a table-heavy data interface into a conversational, AI-native content marketplace where users state their need first and pricing feels like context, not a barrier."
 role: "Designer · UX Architect · Product Architect"
 services: ["Interaction Design", "Information Architecture", "UX Research"]
 year: "2025"
@@ -13,21 +13,98 @@ parentProject:
 
 import MetricGrid from '../../components/cs/MetricGrid.astro';
 import ProcessStep from '../../components/cs/ProcessStep.astro';
+import ImageRow from '../../components/cs/ImageRow.astro';
 
 ## Overview
 
-*Detailed content coming soon — this section will cover the Exchange vertical of the Zzazz.ai ecosystem.*
+The Exchange is the marketplace layer of ZZAZZ — where content assets are discovered, compared, and evaluated. It already existed when I joined, but the interaction model had a fundamental problem that was undermining the entire product thesis.
 
-The Exchange is the marketplace layer — where content assets are discovered, priced, and traded. It was redesigned from a data-table interface into a content-first browsing experience where pricing feels like context, not a barrier.
+**My contribution: Rethink & redesign** — moved from a table-first UI to a query-led, AI-native interaction model. This wasn't a visual refresh. It was a fundamental rethinking of how users interact with priced content.
 
-## The Problem
+## What Was Broken
 
-The existing Exchange was table-heavy and data-dense. It showed market data for content assets but buried the actual content under spreadsheet-like interfaces that only power users could navigate.
+The existing Exchange was built as a live market listing with price movement tables, content performance metrics, and trust factors. The foundation was solid, but the interface assumed users were traders.
 
-## Design Approach
+**Specific failures I identified:**
 
-Users wanted to ask questions — not apply 5 filters. This drove the redesign toward a query-led, AI-native interaction model.
+- Users had to learn too many new concepts before they could extract useful insight
+- Getting a simple answer required applying multiple filters and knowing the system structure in advance
+- Too much data at once — hurting comprehension and slowing decisions
+- The UI looked like a financial terminal, but users were content consumers, writers, and researchers — not traders
+- Other AI platforms felt easier because users could describe what they wanted in natural language
+
+![Exchange before — table-heavy, filter-dependent interface with data overload](/cs/zzazz-exchange-before.png)
+
+## The Research Trigger
+
+> Users think in questions, not in dashboard operations. They want to type "Show me how Modi versus Trump content is performing from top publishers in my region" — not manually reverse-engineer the right filter combination.
+
+This insight came directly from user conversations. Researchers, writers, and editors all expressed the same frustration: they knew what they wanted to know, but the interface made them translate that intent into filter operations. In an AI-first world, users are increasingly impatient with filter flows.
+
+## How I Changed the Direction
+
+I moved Exchange from a **table-led UI** to a **chat or query-based interface** — a fundamental rethinking of the interaction model.
 
 ### Module vs Hybrid vs Chat
 
-Users wanted conversational interaction, but pure chat removes the structure power users need. I chose a **hybrid approach** — chat + structured views on demand. Users ask questions naturally and call structured views when they need data depth.
+I explored three directions:
+
+- **Module approach** — structured dashboard with improved filters. Familiar, but doesn't solve the core problem.
+- **Pure chat** — fully conversational. Solves discovery, but removes the structured views power users need for comparison.
+- **Hybrid** — chat + structured views on demand. Users ask questions naturally and call structured views when they need data depth.
+
+I chose the **hybrid approach**. Users state their need first. The system responds with curated content. Tables and graphs appear as artifacts when needed — not as the front door.
+
+<ImageRow images={[
+  { src: "/cs/zzazz-exchange-exploration-1.png", alt: "Exchange — early wireframe explorations" },
+  { src: "/cs/zzazz-exchange-exploration-2.png", alt: "Exchange — concept direction: query-first" },
+  { src: "/cs/zzazz-exchange-exploration-3.png", alt: "Exchange — hybrid model with structured views" }
+]} />
+
+### Core Design Principles
+
+<ProcessStep number="01" title="Let the User State Their Need First">
+  The entry point is a query, not a dashboard. Users describe what they want to know in natural language.
+</ProcessStep>
+
+<ProcessStep number="02" title="Show a Curated Subset, Not Everything">
+  Users don't want to see a huge amount of content. They want only what's relevant. Too much data shown too early hurts comprehension.
+</ProcessStep>
+
+<ProcessStep number="03" title="Tables and Graphs Are Artifacts, Not the Front Door">
+  Structured data views appear when the user's query warrants them — as a response, not as the default state.
+</ProcessStep>
+
+<ProcessStep number="04" title="Price Becomes a Decision-Support Signal">
+  Pricing integrates naturally into the discovery experience. It feels like context — a quality indicator — not a gate.
+</ProcessStep>
+
+## The Redesigned Experience
+
+### Query State
+The user types a natural language question. Suggested queries help new users understand what's possible.
+
+### Results View
+Curated content cards with pricing signals, trust indicators, and performance context. Not 50 rows of data — a focused response to the user's actual question.
+
+### Detail & Comparison View
+Drill into any piece of content for full pricing history, performance metrics, and creator context. Compare multiple pieces side by side when evaluating options.
+
+### Paid Service Flow
+When a query requires a paid service (like summarizing an article), TimePay activates inline — the user pays with cash, credits, or sponsored attention without leaving the conversation.
+
+<ImageRow images={[
+  { src: "/cs/zzazz-exchange-query.png", alt: "Exchange — query input and empty state" },
+  { src: "/cs/zzazz-exchange-results.png", alt: "Exchange — curated results with pricing signals" },
+  { src: "/cs/zzazz-exchange-detail.png", alt: "Exchange — detail and comparison view" }
+]} />
+
+## Impact
+
+The conversational direction resonated strongest with investors and users alike. The Exchange went from feeling like a trading terminal to feeling like an intelligent research assistant that happens to understand content pricing.
+
+<MetricGrid metrics={[
+  { value: "Query-Led", label: "Interaction Model" },
+  { value: "3", label: "Interaction Modes" },
+  { value: "50%", label: "Higher CTR Projected" }
+]} />

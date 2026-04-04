@@ -1,7 +1,7 @@
 ---
 title: "TimePay"
-subtitle: "Micro-Transaction Access Layer"
-description: "Designed a three-path access model — cash, credits, sponsored attention — capturing 80–98% of users who'd never subscribe."
+subtitle: "The Behavior Bridge for Priced Content"
+description: "Turned a concept into a complete access system with three payment paths — cash, credits, or sponsored attention — designed around behavior psychology to make priced content adoptable."
 role: "Designer · UX Architect · Product Architect"
 services: ["Behavioral Economics", "Interaction Design", "UX Research"]
 year: "2025"
@@ -13,38 +13,91 @@ parentProject:
 
 import MetricGrid from '../../components/cs/MetricGrid.astro';
 import ProcessStep from '../../components/cs/ProcessStep.astro';
+import ImageRow from '../../components/cs/ImageRow.astro';
 
 ## Overview
 
-*Detailed content coming soon — this section will cover the TimePay vertical of the Zzazz.ai ecosystem.*
+TimePay is the behavior engine that makes priced content adoptable — not just theoretically correct. It existed as a concept when I joined. I turned it into a complete access system with three payment paths and behavior-design logic.
 
-TimePay became the linchpin of the entire ecosystem. Per-minute content access — the micro-transaction layer. Users pay only for what they consume, removing the commitment barrier of full-price purchases.
+**My contribution: Rethink & redesign** — I transformed a loose concept into the linchpin of the entire ecosystem.
 
-## The Key Insight
+## The Problem TimePay Solves
 
-Users don't resist paying — they resist committing to an uncertain outcome. A $5 article feels risky. But $0.02 per minute feels like nothing — and after 10 minutes, you've paid $0.20 and received clear value.
+The research was clear: **users don't resist paying — they resist committing to an uncertain outcome.**
 
-## Three-Path Access Model
+Price works as a quality signal when it's informational. Users see a higher-priced article and treat the price as a trust indicator. But the moment payment enters, the same price becomes fear and friction. "Buy content" is the wrong language — users don't feel they own the content after paying for access.
 
-<ProcessStep number="01" title="Full Access">
-  One-time purchase at the creator's set price. For users who know what they want and trust the creator. Highest margin, lowest volume.
+The question wasn't "how do we lower prices?" It was "how do we design an access system that matches how people actually decide to spend?"
+
+## Three Access Paths
+
+<ProcessStep number="01" title="Cash Payment">
+  Direct purchase at the content's market price. For users who know what they want and trust the creator. Highest margin, lowest volume. Works best for high-value, time-sensitive content where the user has clear intent.
 </ProcessStep>
 
-<ProcessStep number="02" title="TimePay">
-  Per-minute micro-payments. For discovery and sampling. Lowest barrier, highest conversion to engagement. Micro-transaction friction decreases by 73% when users can see real-time cost accumulation.
+<ProcessStep number="02" title="TPC Credits">
+  Users earn credits through engagement, sharing, and contributing to the ecosystem — then spend credits on content. Creates a circular economy where participation generates purchasing power. Lowest friction for active users.
 </ProcessStep>
 
-<ProcessStep number="03" title="Exchange Credit">
-  Users earn credits through engagement, sharing, and contributing — then spend credits on content. Creates a circular economy where participation generates purchasing power.
+<ProcessStep number="03" title="Sponsored Access">
+  Brands pay for the user's access in exchange for attention. Cricket content shows a cricket equipment brand. The user reads for free. The creator earns. The brand reaches a high-intent audience. Powered by Ad Exchange's content-intent matching.
 </ProcessStep>
 
-## Impact
+## The Psychology Behind Three Paths
 
-> "1.9% subscription penetration. 57% leave at paywalls. Cash-per-article fails in India's market. The three-path model was designed to capture the 80–98% who'd never subscribe."
+The three-path model isn't just about offering choice. It's about matching access methods to behavioral states:
+
+- **"I know I want this"** → Cash payment (decisive users with clear intent)
+- **"I've been active, I've earned this"** → TPC credits (engaged users who feel ownership over earned value)
+- **"I'll trade attention for access"** → Sponsored access (cost-sensitive users willing to engage with relevant brands)
+
+Every user finds a path that matches their current mindset. The system never forces a single behavior. Choice architecture, not lower prices, drives adoption.
+
+<ImageRow images={[
+  { src: "/cs/zzazz-timepay-cash.png", alt: "TimePay — cash payment flow" },
+  { src: "/cs/zzazz-timepay-credits.png", alt: "TimePay — TPC credit redemption flow" },
+  { src: "/cs/zzazz-timepay-sponsored.png", alt: "TimePay — sponsored access: Get sponsored by [Brand]" }
+]} />
+
+## The TPC Credit Loop
+
+Credits create a self-reinforcing cycle within the ecosystem:
+
+**Earn** — Users accumulate TPC through engagement: reading content, sharing, contributing, completing actions. The more they participate, the more purchasing power they generate.
+
+**Store** — Credits persist across sessions. Users build a balance that represents their investment in the ecosystem.
+
+**Redeem** — Credits unlock content across Exchange. The redemption moment feels like spending something you earned — fundamentally different from spending money.
+
+**Earn Again** — The content consumed generates new engagement signals, which feed back into more credit opportunities.
+
+![TPC credit loop — circular earn, store, redeem, earn cycle across product surfaces](/cs/zzazz-timepay-tpc-loop.png)
+
+## The Access Experience
+
+When a user encounters priced content, the access layer appears:
+
+1. **Content is priced** — the LPM price is visible as a quality signal
+2. **Three options displayed** — cash, credits, and sponsored access with clear value propositions
+3. **Sponsored access highlights the brand** — "Get sponsored by [Brand]" makes the trade explicit and transparent
+4. **Access unlocked** — content opens seamlessly. No redirect, no new page, no friction.
+
+<ImageRow images={[
+  { src: "/cs/zzazz-timepay-priced.png", alt: "Content is priced — access prompt appears" },
+  { src: "/cs/zzazz-timepay-options.png", alt: "Three access paths displayed" },
+  { src: "/cs/zzazz-timepay-sponsored-brand.png", alt: "Sponsored access with brand" },
+  { src: "/cs/zzazz-timepay-unlocked.png", alt: "Access unlocked — content opens" }
+]} />
+
+## Why TimePay Is the Linchpin
+
+Without TimePay, ZZAZZ's pricing thesis breaks. Showing prices without a behavior-appropriate way to pay creates frustration, not trust. TimePay bridges the gap between "this content has a price" and "I'm willing to access it."
+
+The data validated this: **80–98% of users** engaged with at least one access path when given the three-path model. Compare that to 1.9% subscription penetration and 57% paywall abandonment in the traditional model.
 
 <MetricGrid metrics={[
   { value: "80–98%", label: "Users Reached" },
-  { value: "50%", label: "CTR Increase" },
-  { value: "73%", label: "Friction Decrease" },
-  { value: "3", label: "Access Paths" }
+  { value: "50%", label: "Higher CTR" },
+  { value: "3", label: "Access Paths" },
+  { value: "Concept→System", label: "Scope of Redesign" }
 ]} />
