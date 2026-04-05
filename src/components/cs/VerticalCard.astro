@@ -10,54 +10,60 @@ const { number, title, description, href } = Astro.props;
 ---
 
 <a href={href} class="vcard" data-cs-section>
-  <span class="vcard__num">{number}</span>
-  <div class="vcard__body">
+  <div class="vcard__top">
+    <span class="vcard__num">{number}</span>
     <span class="vcard__title">{title}</span>
-    <span class="vcard__desc">{description}</span>
   </div>
-  <span class="vcard__arrow">→</span>
+  <span class="vcard__desc">{description}</span>
+  <span class="vcard__cta">
+    Read case study
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
 </a>
 
 <style>
   .vcard {
     display: flex;
-    align-items: flex-start;
-    gap: 16px;
+    flex-direction: column;
+    gap: 12px;
     text-decoration: none;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--border);
-    transition: padding-left 0.2s;
-  }
-
-  .vcard:first-of-type {
-    border-top: 1px solid var(--border);
+    padding: 20px 24px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.02);
+    transition: background 0.25s, border-color 0.25s, transform 0.25s;
+    cursor: pointer;
+    margin-bottom: 12px;
   }
 
   .vcard:hover {
-    padding-left: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .vcard__top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
   .vcard__num {
     font-size: 11px;
-    font-weight: 600;
-    color: var(--text-muted);
-    opacity: 0.4;
+    font-weight: 700;
+    color: var(--accent);
     letter-spacing: 1px;
-    padding-top: 3px;
+    background: rgba(var(--accent-rgb, 245, 158, 11), 0.12);
+    padding: 2px 8px;
+    border-radius: 4px;
     flex-shrink: 0;
-    width: 24px;
-  }
-
-  .vcard__body {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
   }
 
   .vcard__title {
     font-family: var(--font-display);
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     color: var(--text);
     transition: color 0.2s;
@@ -68,24 +74,56 @@ const { number, title, description, href } = Astro.props;
   }
 
   .vcard__desc {
-    font-size: 13px;
-    color: var(--text-muted);
-    line-height: 1.5;
-    opacity: 0.7;
-  }
-
-  .vcard__arrow {
     font-size: 14px;
     color: var(--text-muted);
-    opacity: 0;
-    padding-top: 2px;
-    transition: opacity 0.2s, transform 0.2s;
-    flex-shrink: 0;
+    line-height: 1.6;
+    opacity: 0.75;
   }
 
-  .vcard:hover .vcard__arrow {
-    opacity: 1;
-    transform: translateX(4px);
+  .vcard__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
     color: var(--accent);
+    opacity: 0.7;
+    transition: opacity 0.2s, gap 0.2s;
+    margin-top: 2px;
+  }
+
+  .vcard__cta svg {
+    transition: transform 0.2s;
+  }
+
+  .vcard:hover .vcard__cta {
+    opacity: 1;
+    gap: 8px;
+  }
+
+  .vcard:hover .vcard__cta svg {
+    transform: translateX(2px);
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .vcard {
+      padding: 16px 18px;
+      gap: 10px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+    }
+
+    .vcard__title {
+      font-size: 16px;
+    }
+
+    .vcard__desc {
+      font-size: 13px;
+    }
+
+    .vcard__cta {
+      font-size: 12px;
+    }
   }
 </style>
