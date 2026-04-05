@@ -180,35 +180,29 @@ The ecosystem needed to meet users where they are. I designed three distribution
 
 **Widget** (discover on publisher sites) → **Plugin** (explore across the web) → **Terminal** (commit to the full ecosystem)
 
-![Three form factors — Terminal, Plugin, Widget — each in its natural context](/cs/zzazz-three-form-factors.png)
+<ImageRow images={[
+  { src: "/cs/zzazz-form-widget.png", alt: "Widget — embedded on publisher websites" },
+  { src: "/cs/zzazz-form-plugin.png", alt: "Plugin — browser extension meeting users in existing behavior" },
+  { src: "/cs/zzazz-form-terminal.png", alt: "Terminal — full ecosystem in a conversational interface" }
+]} />
 
 ### Terminal — Fully Chat-Based
 
 The Terminal is the full ecosystem in a conversational interface. Users type natural language queries and receive structured artifacts — tables, graphs, summaries — generated on demand. Paid services (like article summaries) trigger TimePay inline. The chat becomes the marketplace.
 
-<ImageRow images={[
-  { src: "/cs/zzazz-terminal-empty.png", alt: "Terminal — empty state with suggested queries" },
-  { src: "/cs/zzazz-terminal-table.png", alt: "Terminal — table artifact from a trending query" },
-  { src: "/cs/zzazz-terminal-graph.png", alt: "Terminal — graph artifact showing content performance" }
-]} />
-
-![Terminal — paid service flow: query → TimePay inline → summary delivered](/cs/zzazz-terminal-paid-flow.png)
+<video src="/cs/zzazz-terminal-video.mov" autoplay loop muted playsinline style="width:100%;border-radius:12px;margin:8px 0" />
 
 ### Plugin — Browser Extension
 
 The Plugin meets users in their existing browsing behavior. Paste a partner URL → recognized → pricing → TimePay → unlocked. Paste a non-partner URL → "Similar content available" → alternatives → pick one → access. Two flows, one extension, zero behavior change required.
 
-<ImageRow images={[
-  { src: "/cs/zzazz-plugin-overview.png", alt: "Plugin — browser extension with URL input" },
-  { src: "/cs/zzazz-plugin-partner.png", alt: "Plugin — partner content recognized and priced" },
-  { src: "/cs/zzazz-plugin-similar.png", alt: "Plugin — similar content alternatives for non-partner URLs" }
-]} />
+<video src="/cs/zzazz-plugin-video.mov" autoplay loop muted playsinline style="width:100%;border-radius:12px;margin:8px 0" />
 
 ### Widget — Inside Publisher Websites
 
 The Widget embeds the ZZAZZ ecosystem directly on publisher sites. Browse related content, compare pricing, access via TimePay — all without leaving the publisher's property. Publishers monetize existing traffic. Users discover the ecosystem without coming to a new platform.
 
-![Widget — embedded on a publisher website with browse and compare interface](/cs/zzazz-widget-publisher.png)
+<video src="/cs/zzazz-widget-video.mov" autoplay loop muted playsinline style="width:100%;border-radius:12px;margin:8px 0" />
 
 ## The Ecosystem in Motion
 
@@ -227,18 +221,34 @@ The seven verticals and three form factors create a reinforcing loop:
 </ProcessStep>
 
 <ProcessStep number="04" title="Discovery">
-  Exchange surfaces content via query-based interaction. Signal Pill shows pricing on partner sites.
+  Exchange surfaces content via query-based interaction.
 </ProcessStep>
 
 <ProcessStep number="05" title="Access">
-  TimePay enables three paths — cash, credits, or sponsored attention via Ad Exchange.
+  TimePay enables three paths — cash, credits, or sponsored attention.
 </ProcessStep>
 
-<ProcessStep number="06" title="Revenue Flows Back">
-  Creators and publishers earn based on content value. Better supply → stronger market → the loop reinforces.
+<ProcessStep number="06" title="Sponsored Access">
+  Powered by Ad Exchange — content-intent contextual ads replace cookie targeting.
 </ProcessStep>
 
-![End-to-end ecosystem journey — circular flow with all entry points and reinforcing loops](/cs/zzazz-ecosystem-flow.png)
+<ProcessStep number="07" title="External Signals">
+  Signal Pill surfaces pricing on partner publisher websites.
+</ProcessStep>
+
+<ProcessStep number="08" title="Users Encounter the Ecosystem">
+  Through Terminal, Plugin, or Widget — three form factors for different adoption stages.
+</ProcessStep>
+
+<ProcessStep number="09" title="Revenue Flows Back">
+  Creators and publishers earn based on content value.
+</ProcessStep>
+
+<ProcessStep number="10" title="The Loop Reinforces">
+  Better discovery → more access → more revenue → better supply → stronger market.
+</ProcessStep>
+
+![End-to-end ecosystem journey — circular flow with all entry points and reinforcing loops](/cs/zzazz-ecosystem-flow.svg)
 
 ## Building the Team
 
@@ -289,4 +299,3 @@ The key challenge: each vertical needs deep, dedicated design work, but the syst
 
 > I didn't just design features. I saw that isolated POCs wouldn't prove the thesis, reframed the problem as an ecosystem, architected the system that made it believable, and built the team to bring it to life.
 
-![Full breadth of work — key screens from all 7 verticals and 3 form factors](/cs/zzazz-closing-montage.png)

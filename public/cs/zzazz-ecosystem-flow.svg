@@ -1,0 +1,277 @@
+<svg viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ZZAZZ Terminal ecosystem diagram">
+  <defs>
+    <style>
+      .bg { fill: #0A0A0A; }
+      .section {
+        font-family: Inter, system-ui, sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1.8px;
+        fill: rgba(255,255,255,0.34);
+      }
+      .card {
+        stroke: rgba(255,255,255,0.12);
+        stroke-width: 1;
+      }
+      .step {
+        font-family: Inter, system-ui, sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        fill: rgba(255,255,255,0.5);
+      }
+      .title {
+        font-family: Inter, system-ui, sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        fill: #F5F5EF;
+      }
+      .subtitle {
+        font-family: Inter, system-ui, sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        fill: rgba(255,255,255,0.62);
+      }
+      .small {
+        font-family: Inter, system-ui, sans-serif;
+        font-size: 11px;
+        font-weight: 500;
+        fill: rgba(255,255,255,0.66);
+      }
+      .label {
+        font-family: Inter, system-ui, sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        fill: rgba(232,255,71,0.88);
+      }
+      .muted {
+        font-family: Inter, system-ui, sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        fill: #666666;
+      }
+      .flow {
+        fill: none;
+        stroke: rgba(232,255,71,0.44);
+        stroke-width: 1.75;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .flow-soft {
+        fill: none;
+        stroke: rgba(232,255,71,0.3);
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 5 6;
+      }
+      .flow-return {
+        fill: none;
+        stroke: rgba(232,255,71,0.3);
+        stroke-width: 1.7;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 6 5;
+      }
+      .entry-wrap {
+        fill: rgba(255,255,255,0.012);
+        stroke: rgba(255,255,255,0.18);
+        stroke-width: 1;
+        stroke-dasharray: 5 6;
+      }
+      .mini {
+        fill: rgba(255,255,255,0.02);
+        stroke: rgba(255,255,255,0.1);
+        stroke-width: 1;
+      }
+      .mini-title {
+        font-family: Inter, system-ui, sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        fill: #F5F5EF;
+      }
+      .mini-sub {
+        font-family: Inter, system-ui, sans-serif;
+        font-size: 11px;
+        font-weight: 400;
+        fill: rgba(255,255,255,0.58);
+      }
+    </style>
+
+    <marker id="arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" orient="auto-start-reverse">
+      <path d="M2,2 L10,6 L2,10" fill="none" stroke="rgba(232,255,71,0.78)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+
+    <marker id="arrow-soft" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" orient="auto-start-reverse">
+      <path d="M2,2 L10,6 L2,10" fill="none" stroke="rgba(232,255,71,0.55)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1200" height="900"/>
+
+  <!-- section labels -->
+  <text class="section" x="108" y="88">SUPPLY &amp; PROTECT</text>
+  <text class="section" x="506" y="150">DISCOVERY</text>
+  <text class="section" x="832" y="528">ACCESS</text>
+  <text class="section" x="492" y="422">ENTRY POINTS</text>
+  <text class="section" x="1018" y="98">REVENUE RETURN</text>
+
+  <!-- LEFT SIDE -->
+  <!-- Publish -->
+  <g transform="translate(90 120)">
+    <rect class="card" x="0" y="0" width="200" height="70" rx="12" fill="#0F6E56"/>
+    <text class="step" x="18" y="20">①</text>
+    <text class="title" x="20" y="42">Publish</text>
+    <text class="subtitle" x="20" y="59">Publishers</text>
+  </g>
+
+  <!-- Moments -->
+  <g transform="translate(90 220)">
+    <rect class="card" x="0" y="0" width="200" height="70" rx="12" fill="#0F6E56"/>
+    <text class="step" x="18" y="20">①</text>
+    <text class="title" x="20" y="42">Moments</text>
+    <text class="subtitle" x="20" y="59">Individual creators</text>
+  </g>
+
+  <!-- LPM -->
+  <g transform="translate(90 370)">
+    <rect class="card" x="0" y="0" width="200" height="70" rx="12" fill="#2C2C2A"/>
+    <text class="step" x="18" y="20">②</text>
+    <text class="title" x="20" y="42">LPM</text>
+    <text class="subtitle" x="20" y="59">Content gets priced</text>
+  </g>
+
+  <!-- DOTS -->
+  <g transform="translate(90 520)">
+    <rect class="card" x="0" y="0" width="200" height="70" rx="12" fill="#3C3489"/>
+    <text class="step" x="18" y="20">③</text>
+    <text class="title" x="20" y="42">DOTS</text>
+    <text class="subtitle" x="20" y="59">Cryptographic identity</text>
+  </g>
+
+  <!-- DISCOVERY -->
+  <!-- Exchange -->
+  <g transform="translate(470 200)">
+    <rect class="card" x="0" y="0" width="200" height="70" rx="12" fill="#0C447C"/>
+    <text class="step" x="18" y="20">④</text>
+    <text class="title" x="20" y="42">Exchange</text>
+    <text class="subtitle" x="20" y="59">Listed &amp; searchable</text>
+  </g>
+
+  <!-- Signal Pill -->
+  <g transform="translate(470 340)">
+    <rect class="card" x="0" y="0" width="200" height="70" rx="12" fill="#72243E"/>
+    <text class="step" x="18" y="20">⑦</text>
+    <text class="title" x="20" y="42">Signal Pill</text>
+    <text class="subtitle" x="20" y="59">On publisher websites</text>
+  </g>
+
+  <!-- ACCESS -->
+  <!-- TimePay -->
+  <g transform="translate(840 560)">
+    <rect class="card" x="0" y="0" width="200" height="70" rx="12" fill="#633806"/>
+    <text class="step" x="18" y="20">⑤</text>
+    <text class="title" x="20" y="42">TimePay</text>
+    <text class="subtitle" x="20" y="59">Cash, credits, or attention</text>
+  </g>
+
+  <!-- Ad Exchange -->
+  <g transform="translate(840 690)">
+    <rect class="card" x="0" y="0" width="200" height="70" rx="12" fill="#712B13"/>
+    <text class="step" x="18" y="20">⑥</text>
+    <text class="title" x="20" y="42">Ad Exchange</text>
+    <text class="subtitle" x="20" y="59">Matches relevant sponsor</text>
+  </g>
+
+  <!-- ENTRY POINTS -->
+  <g transform="translate(450 455)">
+    <rect class="entry-wrap" x="0" y="0" width="300" height="206" rx="18"/>
+    <text class="small" x="22" y="28">⑧</text>
+    <text class="small" x="42" y="28" fill="rgba(255,255,255,0.78)">Users enter via</text>
+
+    <g transform="translate(22 50)">
+      <rect class="mini" x="0" y="0" width="256" height="38" rx="12"/>
+      <rect x="0" y="0" width="4" height="38" rx="2" fill="#4D8DFF"/>
+      <text class="mini-title" x="16" y="24">Terminal</text>
+      <text class="mini-sub" x="94" y="24">Full access</text>
+    </g>
+
+    <g transform="translate(22 96)">
+      <rect class="mini" x="0" y="0" width="256" height="38" rx="12"/>
+      <rect x="0" y="0" width="4" height="38" rx="2" fill="#0F6E56"/>
+      <text class="mini-title" x="16" y="24">Plugin</text>
+      <text class="mini-sub" x="75" y="24">Any website</text>
+    </g>
+
+    <g transform="translate(22 142)">
+      <rect class="mini" x="0" y="0" width="256" height="38" rx="12"/>
+      <rect x="0" y="0" width="4" height="38" rx="2" fill="#B77A1F"/>
+      <text class="mini-title" x="16" y="24">Widget</text>
+      <text class="mini-sub" x="78" y="24">Publisher sites</text>
+    </g>
+  </g>
+
+  <!-- FLOW ARROWS -->
+  <!-- Publish + Moments into LPM -->
+  <path class="flow" marker-end="url(#arrow)"
+        d="M 290 155
+           C 350 155, 365 225, 285 390" />
+  <path class="flow" marker-end="url(#arrow)"
+        d="M 290 255
+           C 350 255, 360 315, 245 390" />
+
+  <!-- LPM to DOTS -->
+  <path class="flow" marker-end="url(#arrow)"
+        d="M 190 440
+           C 190 485, 190 500, 190 520" />
+
+  <!-- DOTS fork -->
+  <path class="flow" marker-end="url(#arrow)"
+        d="M 290 555
+           C 375 555, 410 470, 448 315
+           C 456 282, 462 247, 470 235" />
+
+  <path class="flow" marker-end="url(#arrow)"
+        d="M 290 555
+           C 370 555, 412 505, 470 375" />
+
+  <!-- discovery to TimePay -->
+  <path class="flow" marker-end="url(#arrow)"
+        d="M 670 235
+           C 770 235, 800 420, 840 595" />
+
+  <path class="flow" marker-end="url(#arrow)"
+        d="M 670 375
+           C 760 390, 800 485, 840 595" />
+
+  <!-- TimePay to Ad Exchange -->
+  <path class="flow" marker-end="url(#arrow)"
+        d="M 940 630
+           C 940 652, 940 670, 940 690" />
+  <text class="label" x="956" y="665">If sponsored</text>
+
+  <!-- entry cluster subtle dashed connection -->
+  <path class="flow-soft" marker-end="url(#arrow-soft)"
+        d="M 750 560
+           C 790 560, 812 575, 840 595" />
+
+  <path class="flow-soft" marker-end="url(#arrow-soft)"
+        d="M 750 520
+           C 780 500, 792 468, 760 430
+           C 730 395, 705 385, 670 385" />
+
+  <!-- revenue return loop -->
+  <path class="flow-return" marker-end="url(#arrow-soft)"
+        d="M 1040 725
+           C 1110 725, 1115 665, 1115 590
+           L 1115 185
+           C 1115 130, 1075 110, 1022 110
+           L 360 110
+           C 320 110, 300 120, 290 145" />
+
+  <text class="small" transform="translate(1092 496) rotate(-90)" fill="rgba(232,255,71,0.62)">
+    Revenue flows back to creators
+  </text>
+
+  <!-- bottom reinforcing loop -->
+  <text class="muted" x="330" y="830">⑩ Better discovery → more access → more revenue → better supply → stronger market</text>
+</svg>
