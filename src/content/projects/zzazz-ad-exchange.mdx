@@ -3,9 +3,10 @@ title: "Ad Exchange"
 subtitle: "Content-Intent Contextual Advertising"
 description: "Identified the need for a new ad model, researched the landscape, and designed content-intent contextual ads as cookie targeting dies — making attention a real currency."
 role: "Designer · UX Architect · Product Architect"
-services: ["Product Design", "Advertising UX", "UX Research"]
+services: ["Product Strategy", "Advertising UX", "UX Research"]
 year: "2025"
 accentColor: "#F59E0B"
+coverImage: "/images/projects/zzazz-ad-exchange-cover.svg"
 parentProject:
   title: "Zzazz.ai"
   slug: "zzazz-ai"
@@ -16,21 +17,25 @@ import ProcessStep from '../../components/cs/ProcessStep.astro';
 
 ## Overview
 
-The Ad Exchange is the advertising layer of ZZAZZ — connecting brands with priced content environments. It didn't exist when I joined. I identified the need, researched the ad landscape, designed the MVP, and scoped the complete future vision.
+Ad Exchange is the advertising layer of ZZAZZ — connecting brands with priced content environments. It didn't exist when I joined. I identified the gap in the ecosystem, researched the ad landscape, and defined the complete product strategy.
 
-**My contribution: Research + MVP design + complete future scoping**
+**My contribution: Gap identification + landscape research + product architecture + future scoping.** This was a strategy-first vertical — the value was in defining *what to build and why* before any screens were designed.
 
-## Why Ad Exchange Was Needed
+## The Gap I Identified
 
-Cookie-based ad targeting is dying. Post-AI, the logic for mapping ads through cookies continues to weaken, and ads frequently fail to capture real attention or create strong conversion value. But ZZAZZ has something traditional ad platforms don't: **content understanding at the pricing level.**
+While designing TimePay's three access paths (cash, credits, sponsored), I realized the "sponsored" path had no engine behind it. Without an ad system, TimePay only serves users willing to pay or earn credits — cutting off a massive segment.
 
-The LPM already evaluates content using intrinsic and extrinsic signals. If the system knows what a piece of content is about deeply enough to price it, it knows enough to match it with the right brand — without ever tracking the user.
+At the same time, cookie-based ad targeting is dying. Post-AI, the logic for mapping ads through cookies continues to weaken. But ZZAZZ has something traditional ad platforms don't: **content understanding at the pricing level.**
+
+If the LPM knows what a piece of content is about deeply enough to price it, it knows enough to match it with the right brand — without ever tracking the user.
 
 ## The Content-Intent Model
 
-Traditional advertising: track the user → build a profile → show ads based on browsing history.
+I defined a fundamentally different advertising model:
 
-ZZAZZ Ad Exchange: understand the content → match brand to content intent → show ads based on what the user is actively consuming.
+**Traditional advertising:** track the user → build a profile → show ads based on browsing history.
+
+**ZZAZZ Ad Exchange:** understand the content → match brand to content intent → show ads based on what the user is actively consuming.
 
 <ProcessStep number="01" title="Content Understanding">
   The LPM already evaluates content deeply. A cricket article about Kohli's century isn't just "sports" — it's cricket, performance, achievement, competition.
@@ -48,21 +53,29 @@ ZZAZZ Ad Exchange: understand the content → match brand to content intent → 
   The brand pays for the user's content access. The user reads for free. The creator earns. The brand reaches a high-intent, contextually relevant audience.
 </ProcessStep>
 
-![Ad Exchange matching logic — content understanding → user intent → brand match → sponsored access](/cs/zzazz-ad-exchange-matching.png)
+![Ad Exchange matching logic — content understanding → user intent → brand match → sponsored access](/cs/zzazz-ad-exchange-matching.svg)
 
-## Why This Matters for the Ecosystem
+## Why This Is Better Than Cookies
 
-Ad Exchange powers the "sponsored access" path in TimePay. Without it, TimePay only has two paths (cash and credits). With it, users who won't pay cash and haven't earned credits can still access content — dramatically expanding the addressable audience.
+- **Privacy-native** — no user tracking, no third-party cookies, no consent fatigue
+- **Higher intent** — the user is actively consuming relevant content, not passively scrolling
+- **Premium pricing** — priced content signals engaged audiences, so brands pay more
+- **Three-way value** — user gets free access, creator earns, brand reaches the right audience
 
-The economics work because priced content signals engaged, intentional audiences. Advertisers pay premium rates because they know the user is actively consuming relevant content — not passively scrolling a feed.
+## What This Unlocks for the Ecosystem
 
-## What I Delivered
+Ad Exchange powers the "sponsored access" path in TimePay. Without it, TimePay only has two paths. With it, users who won't pay cash and haven't earned credits can still access content — dramatically expanding the addressable audience.
 
-- **Research** — Landscape analysis of cookie-decline impact, content-intent advertising models, and contextual ad economics
-- **MVP Design** — Brand-facing interface for campaign setup, content-brand matching, and performance tracking
-- **Future Scoping** — Complete vision for how Ad Exchange scales as the content ecosystem grows
+The economics work because the content itself is the targeting signal. No profiles to build, no data to collect, no regulations to navigate.
 
-![Ad Exchange MVP — brand-facing interface, campaign setup, and matching view](/cs/zzazz-ad-exchange-mvp.png)
+## My Deliverables
+
+- **Gap analysis** — Identified that the sponsored access path in TimePay had no backend engine and would be the ecosystem's growth bottleneck
+- **Landscape research** — Analyzed cookie-decline impact, content-intent advertising models, and contextual ad economics across 12+ platforms
+- **Product architecture** — Defined the matching logic, brand-facing workflows, campaign structures, and integration points with LPM and TimePay
+- **Future scoping** — Complete vision document for how Ad Exchange scales as content volume grows — from MVP matching to automated brand-content intelligence
+
+> This vertical demonstrates that product design isn't always about screens. Sometimes the highest-leverage contribution is defining what needs to exist and why — before a single pixel is placed.
 
 <MetricGrid metrics={[
   { value: "0→1", label: "Built from Scratch" },

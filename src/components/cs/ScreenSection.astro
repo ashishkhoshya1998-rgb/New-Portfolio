@@ -1,0 +1,54 @@
+---
+interface Props {
+  image: string;
+  alt?: string;
+}
+
+const { image, alt = '' } = Astro.props;
+---
+
+<div class="screen-section">
+  <div class="screen-section__phone">
+    <img src={image} alt={alt} class="screen-section__img" loading="lazy" />
+  </div>
+</div>
+
+<style>
+  .screen-section {
+    float: right;
+    width: 300px;
+    margin: 0 -356px 40px 40px;
+    position: relative;
+  }
+
+  .screen-section__phone {
+    position: sticky;
+    top: 100px;
+  }
+
+  .screen-section__img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+    display: block;
+    cursor: zoom-in;
+  }
+
+  /* Below 1200px: not enough room for floating column */
+  @media (max-width: 1200px) {
+    .screen-section {
+      float: none;
+      width: 280px;
+      max-width: 80%;
+      margin: 32px auto;
+    }
+
+    .screen-section__phone {
+      position: static;
+    }
+
+    .screen-section__img {
+      border-radius: 16px;
+    }
+  }
+</style>

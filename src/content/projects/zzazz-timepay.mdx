@@ -6,6 +6,7 @@ role: "Designer · UX Architect · Product Architect"
 services: ["Behavioral Economics", "Interaction Design", "UX Research"]
 year: "2025"
 accentColor: "#F59E0B"
+coverImage: "/images/projects/zzazz-timepay-cover.png"
 parentProject:
   title: "Zzazz.ai"
   slug: "zzazz-ai"
@@ -53,11 +54,11 @@ The three-path model isn't just about offering choice. It's about matching acces
 
 Every user finds a path that matches their current mindset. The system never forces a single behavior. Choice architecture, not lower prices, drives adoption.
 
-<ImageRow images={[
-  { src: "/cs/zzazz-timepay-cash.png", alt: "TimePay — cash payment flow" },
-  { src: "/cs/zzazz-timepay-credits.png", alt: "TimePay — TPC credit redemption flow" },
-  { src: "/cs/zzazz-timepay-sponsored.png", alt: "TimePay — sponsored access: Get sponsored by [Brand]" }
-]} />
+### Why Mobile-First
+
+I prioritized mobile because TimePay lives at the point of impulse. Users discover content on their phones through Widget or Plugin — both primarily mobile contexts. Micropayment decisions are impulse-driven — no one switches devices to pay ₹10 for an article. If the mobile experience has friction, the transaction dies.
+
+The payment layer itself is natively mobile — Apple Pay, Google Pay, tap-to-pay. Designing for desktop first would mean designing around the weaker payment UX. And TimePay's "attention as currency" model (sponsored access) is a mobile behavior pattern borrowed from mobile gaming and social media. Desktop flows were planned as responsive scale-ups, not the other way around.
 
 ## The TPC Credit Loop
 
@@ -71,23 +72,18 @@ Credits create a self-reinforcing cycle within the ecosystem:
 
 **Earn Again** — The content consumed generates new engagement signals, which feed back into more credit opportunities.
 
-![TPC credit loop — circular earn, store, redeem, earn cycle across product surfaces](/cs/zzazz-timepay-tpc-loop.png)
+![TPC credit loop — circular earn, store, redeem, earn cycle across product surfaces](/cs/zzazz-timepay-tpc-loop.svg)
 
 ## The Access Experience
 
-When a user encounters priced content, the access layer appears:
+When a user encounters priced content on mobile, the access layer appears as a native bottom sheet — minimal, decisive, zero navigation:
 
 1. **Content is priced** — the LPM price is visible as a quality signal
 2. **Three options displayed** — cash, credits, and sponsored access with clear value propositions
 3. **Sponsored access highlights the brand** — "Get sponsored by [Brand]" makes the trade explicit and transparent
 4. **Access unlocked** — content opens seamlessly. No redirect, no new page, no friction.
 
-<ImageRow images={[
-  { src: "/cs/zzazz-timepay-priced.png", alt: "Content is priced — access prompt appears" },
-  { src: "/cs/zzazz-timepay-options.png", alt: "Three access paths displayed" },
-  { src: "/cs/zzazz-timepay-sponsored-brand.png", alt: "Sponsored access with brand" },
-  { src: "/cs/zzazz-timepay-unlocked.png", alt: "Access unlocked — content opens" }
-]} />
+<video src="/cs/zzazz-timepay-video.mov" autoplay loop muted playsinline style="width:100%;border-radius:12px;margin:8px 0" />
 
 ## Why TimePay Is the Linchpin
 

@@ -15,10 +15,39 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 const { Content } = await render(project);
 const { title, subtitle, description, role, services, year, accentColor, coverImage, nextProject, parentProject } = project.data;
+const isLocked = Astro.url.pathname.includes('memoir');
 ---
 
 <Layout title={`${title} — Ashish Khoshya`} description={description}>
   <TopNav currentPath="/projects" client:load />
+
+  {isLocked && (
+    <div class="pw-gate" id="pw-gate">
+      <div class="pw-gate__card">
+        <div class="pw-gate__icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <h2 class="pw-gate__title">This project is protected</h2>
+        <p class="pw-gate__desc">Enter the password to view this case study.</p>
+        <form class="pw-gate__form" id="pw-form">
+          <input
+            type="password"
+            class="pw-gate__input"
+            id="pw-input"
+            placeholder="Password"
+            autocomplete="off"
+            autofocus
+          />
+          <button type="submit" class="pw-gate__btn">Unlock</button>
+        </form>
+        <p class="pw-gate__error" id="pw-error">Incorrect password. Try again.</p>
+        <a href="/projects" class="pw-gate__back">← Back to Projects</a>
+      </div>
+    </div>
+  )}
 
   <main id="main-content" class="cs">
     {parentProject && (
@@ -103,6 +132,117 @@ const { title, subtitle, description, role, services, year, accentColor, coverIm
 </Layout>
 
 <style define:vars={{ csAccent: accentColor }}>
+  /* ── Password gate ── */
+  .pw-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: var(--bg, #0a0a0a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .pw-gate__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    max-width: 360px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .pw-gate__icon {
+    color: var(--text-muted);
+    opacity: 0.4;
+    margin-bottom: 8px;
+  }
+
+  .pw-gate__title {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0;
+  }
+
+  .pw-gate__desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin: 0;
+    opacity: 0.7;
+  }
+
+  .pw-gate__form {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .pw-gate__input {
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .pw-gate__input:focus {
+    border-color: var(--csAccent);
+  }
+
+  .pw-gate__btn {
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: 1px solid var(--csAccent);
+    background: transparent;
+    color: var(--csAccent);
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+
+  .pw-gate__btn:hover {
+    background: var(--csAccent);
+    color: #0a0a0a;
+  }
+
+  .pw-gate__error {
+    font-size: 13px;
+    color: #ef4444;
+    margin: 0;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .pw-gate__error.visible {
+    opacity: 1;
+  }
+
+  .pw-gate__back {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+    margin-top: 8px;
+  }
+
+  .pw-gate__back:hover {
+    opacity: 1;
+  }
+
   /* ── Back bar ── */
   .cs__back-bar {
     position: relative;
@@ -732,6 +872,33 @@ const { title, subtitle, description, role, services, year, accentColor, coverIm
 </style>
 
 <script>
+  // Password gate for locked projects
+  (function() {
+    const gate = document.getElementById('pw-gate');
+    if (!gate) return;
+
+    const form = document.getElementById('pw-form') as HTMLFormElement;
+    const input = document.getElementById('pw-input') as HTMLInputElement;
+    const error = document.getElementById('pw-error')!;
+    const CORRECT = 'Alka@6146';
+
+    document.body.style.overflow = 'hidden';
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (input.value === CORRECT) {
+        gate.style.opacity = '0';
+        gate.style.transition = 'opacity 0.3s';
+        document.body.style.overflow = '';
+        setTimeout(() => gate.remove(), 300);
+      } else {
+        error.classList.add('visible');
+        input.value = '';
+        input.focus();
+        setTimeout(() => error.classList.remove('visible'), 2000);
+      }
+    });
+  })();
+
   import gsap from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
