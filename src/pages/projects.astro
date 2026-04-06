@@ -14,12 +14,12 @@ const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
   <main id="main-content" class="proj-page">
     <!-- Header -->
     <div class="content-wrap proj-page__header">
-      <div class="proj-page__header-left">
-        <span class="proj-page__header-line">SELECTED</span>
-        <span class="proj-page__header-line">PROJECTS</span>
-        <span class="proj-page__header-line proj-page__header-year">21-25 ®</span>
+      <h1 class="proj-page__header-title">Selected Projects</h1>
+      <div class="proj-page__header-meta">
+        <span class="proj-page__header-count">{sorted.length} Case Studies</span>
+        <span class="proj-page__header-sep">/</span>
+        <span class="proj-page__header-year">2021 — 2025</span>
       </div>
-      <span class="proj-page__header-right">{sorted.length} Case Studies</span>
     </div>
 
     <!-- Two-column layout -->
@@ -98,32 +98,40 @@ const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
   /* Header */
   .proj-page__header {
     display: flex;
+    align-items: baseline;
     justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 80px;
+    margin-bottom: 48px;
+    padding-bottom: 20px;
+    border-bottom: 0.5px solid var(--border);
   }
 
-  .proj-page__header-left {
+  .proj-page__header-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.1;
+  }
+
+  .proj-page__header-meta {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: var(--font-body);
   }
 
-  .proj-page__header-line {
-    font-family: var(--font-heading-condensed);
-    font-size: clamp(60px, 10vw, 140px);
-    text-transform: uppercase;
-    line-height: 0.9;
-    color: var(--text-massive);
+  .proj-page__header-sep {
+    opacity: 0.3;
+  }
+
+  .proj-page__header-count {
+    font-weight: 500;
   }
 
   .proj-page__header-year {
-    font-size: clamp(30px, 5vw, 70px);
-  }
-
-  .proj-page__header-right {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin-bottom: 12px;
+    font-variant-numeric: tabular-nums;
   }
 
   /* Two-column layout */
@@ -296,11 +304,7 @@ const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
       flex-direction: column;
       align-items: flex-start;
       gap: 8px;
-      margin-bottom: 48px;
-    }
-
-    .proj-page__header-right {
-      margin-bottom: 0;
+      margin-bottom: 32px;
     }
 
     .proj-page__layout {
