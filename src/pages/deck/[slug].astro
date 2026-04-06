@@ -16,19 +16,36 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
 <Layout title={`${title} — Presentation`}>
   <div class="deck-page" style={`--dk-accent:${accentColor};--dk-accent-bg:${accentBg};--dk-accent-text:${accentText};`}>
     <div class="dk-nav-bar">
-      <div class="dk-nav-pills" id="nav-pills">
-        {slides.map((s, i) => (
-          <button
-            class={`dk-nav-pill ${i === 0 ? 'active' : ''}`}
-            data-pill-index={i}
-          >{s.label}</button>
-        ))}
+      <a href={`/project/${slug}`} class="dk-back">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Case Study
+      </a>
+      <div class="dk-nav-center">
+        <button class="dk-nav-arrow" id="prev-btn" disabled>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="dk-nav-selector">
+          <button class="dk-nav-current" id="nav-current">
+            <span id="current-label">{slides[0].label}</span>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="dk-nav-dropdown" id="nav-dropdown">
+            {slides.map((s, i) => (
+              <button
+                class={`dk-dropdown-item ${i === 0 ? 'active' : ''}`}
+                data-pill-index={i}
+              >
+                <span class="dk-dropdown-num">{String(i + 1).padStart(2, '0')}</span>
+                {s.label}
+              </button>
+            ))}
+          </div>
+        </div>
+        <button class="dk-nav-arrow" id="next-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
       </div>
-      <div class="dk-nav-controls">
-        <button class="dk-nav-btn" id="prev-btn" disabled>←</button>
-        <span class="dk-slide-counter" id="counter">1 / {slides.length}</span>
-        <button class="dk-nav-btn" id="next-btn">→</button>
-      </div>
+      <span class="dk-slide-counter" id="counter">1 / {slides.length}</span>
     </div>
 
     {slides.map((s, i) => (
@@ -36,11 +53,6 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
         <div class="dk-slide-body" set:html={s.content} />
       </div>
     ))}
-
-    <a href={`/project/${slug}`} class="dk-close">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      Back to case study
-    </a>
   </div>
 </Layout>
 
@@ -63,7 +75,7 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 20px;
+    padding: 10px 20px;
     border-bottom: 0.5px solid var(--border);
     position: sticky;
     top: 0;
@@ -74,98 +86,165 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     gap: 12px;
   }
 
-  .dk-nav-pills {
+  /* Back link */
+  .dk-back {
     display: flex;
-    gap: 4px;
-    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-family: var(--font-body);
+    white-space: nowrap;
+    transition: color 0.15s;
+    flex-shrink: 0;
+  }
+
+  .dk-back:hover { color: var(--text); }
+
+  /* Center nav: ← Dropdown → */
+  .dk-nav-center {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-full);
+    background: var(--bg-elevated);
+    padding: 2px;
+    width: 240px;
+  }
+
+  .dk-nav-arrow {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.15s, background 0.15s;
+    flex-shrink: 0;
+  }
+
+  .dk-nav-arrow:hover {
+    color: var(--text);
+    background: rgba(245, 240, 232, 0.06);
+  }
+
+  .dk-nav-arrow:disabled {
+    opacity: 0.2;
+    cursor: default;
+    background: transparent;
+  }
+
+  /* Dropdown selector */
+  .dk-nav-selector {
+    position: relative;
     flex: 1;
     min-width: 0;
   }
 
-  .dk-nav-pill {
-    font-size: 11px;
-    padding: 4px 10px;
-    border-radius: 20px;
+  .dk-nav-current {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 8px;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: var(--font-body);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.15s;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .dk-nav-current:hover { color: var(--dk-accent); }
+
+  .dk-nav-current svg {
+    opacity: 0.5;
+    transition: transform 0.2s;
+  }
+
+  .dk-nav-selector.open .dk-nav-current svg {
+    transform: rotate(180deg);
+  }
+
+  /* Dropdown menu */
+  .dk-nav-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 200px;
+    background: var(--bg-elevated);
     border: 0.5px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 4px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    z-index: 200;
+  }
+
+  .dk-nav-selector.open .dk-nav-dropdown {
+    display: block;
+  }
+
+  .dk-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
     background: transparent;
     color: var(--text-muted);
-    cursor: pointer;
-    transition: all 0.15s;
-    white-space: nowrap;
-    font-family: var(--font-body);
-  }
-
-  .dk-nav-pill:hover {
-    background: var(--bg-elevated);
-    color: var(--text);
-  }
-
-  .dk-nav-pill.active {
-    background: rgba(245, 240, 232, 0.08);
-    color: var(--dk-accent);
-    border-color: rgba(245, 240, 232, 0.12);
-  }
-
-  .dk-nav-controls {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    flex-shrink: 0;
-  }
-
-  .dk-nav-btn {
     font-size: 13px;
-    padding: 6px 14px;
-    border-radius: var(--radius-sm);
-    border: 0.5px solid var(--border);
-    background: transparent;
-    color: var(--text);
-    cursor: pointer;
     font-family: var(--font-body);
-    transition: background 0.15s, border-color 0.15s;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    text-align: left;
+    transition: background 0.1s, color 0.1s;
+    white-space: nowrap;
   }
 
-  .dk-nav-btn:hover {
-    background: var(--bg-elevated);
-    border-color: rgba(245, 240, 232, 0.12);
+  .dk-dropdown-item:hover {
+    background: rgba(245, 240, 232, 0.06);
+    color: var(--text);
   }
 
-  .dk-nav-btn:disabled { opacity: 0.25; cursor: default; }
+  .dk-dropdown-item.active {
+    color: var(--dk-accent);
+    background: rgba(245, 240, 232, 0.04);
+  }
+
+  .dk-dropdown-num {
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(245, 240, 232, 0.25);
+    min-width: 16px;
+  }
+
+  .dk-dropdown-item.active .dk-dropdown-num {
+    color: var(--dk-accent);
+    opacity: 0.6;
+  }
 
   .dk-slide-counter {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--text-muted);
-    min-width: 40px;
-    text-align: center;
     font-variant-numeric: tabular-nums;
-  }
-
-  /* ─── Close Button ─── */
-  .dk-close {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    z-index: 200;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 16px;
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius-full);
-    background: rgba(10, 10, 10, 0.85);
-    backdrop-filter: blur(8px);
-    color: var(--text-muted);
-    font-size: 12px;
-    font-weight: 500;
-    text-decoration: none;
-    font-family: var(--font-body);
-    transition: color var(--duration-fast), border-color var(--duration-fast);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
-  }
-
-  .dk-close:hover {
-    color: var(--text);
-    border-color: rgba(245, 240, 232, 0.2);
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   /* ─── Slide ─── */
@@ -530,9 +609,11 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
 
   /* ─── Mobile ─── */
   @media (max-width: 640px) {
-    .dk-nav-bar { padding: 10px 16px; flex-wrap: wrap; }
-    .dk-nav-pills { gap: 3px; }
-    .dk-nav-pill { font-size: 10px; padding: 3px 8px; }
+    .dk-nav-bar { padding: 8px 12px; gap: 8px; }
+    .dk-back { font-size: 11px; gap: 4px; }
+    .dk-back svg { width: 12px; height: 12px; }
+    .dk-nav-current { font-size: 12px; padding: 5px 10px; }
+    .dk-slide-counter { font-size: 10px; }
     .dk-slide-body { padding: 20px 16px 40px; }
     .slide-title { font-size: 19px; }
     .metric-grid { grid-template-columns: repeat(2, 1fr); }
@@ -545,7 +626,6 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     .screen-row-3 { grid-template-columns: repeat(2, 1fr); }
     .screen-row-3 .screen img, .screen-row-3 .screen video { height: 300px; }
     .info-grid { grid-template-columns: 1fr; gap: 8px; }
-    .dk-close { bottom: 16px; right: 16px; }
   }
 </style>
 
@@ -556,6 +636,10 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     const counter = document.getElementById('counter');
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
+    const currentLabel = document.getElementById('current-label');
+    const navCurrent = document.getElementById('nav-current');
+    const selector = navCurrent?.closest('.dk-nav-selector');
+    const dropdown = document.getElementById('nav-dropdown');
 
     if (!allSlides.length || !counter || !prevBtn || !nextBtn) return;
 
@@ -566,36 +650,51 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
       if (index < 0 || index >= totalSlides) return;
       current = index;
 
-      allSlides.forEach((s, i) => {
-        s.classList.toggle('active', i === current);
-      });
-
-      allPills.forEach((p, i) => {
-        p.classList.toggle('active', i === current);
-      });
+      allSlides.forEach((s, i) => s.classList.toggle('active', i === current));
+      allPills.forEach((p, i) => p.classList.toggle('active', i === current));
 
       counter.textContent = `${current + 1} / ${totalSlides}`;
+      currentLabel.textContent = allPills[current]?.textContent || '';
       prevBtn.disabled = current === 0;
       nextBtn.disabled = current === totalSlides - 1;
 
-      allPills[current]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      // Close dropdown
+      selector?.classList.remove('open');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    // Arrow buttons
     prevBtn.addEventListener('click', () => goTo(current - 1));
     nextBtn.addEventListener('click', () => goTo(current + 1));
 
+    // Dropdown toggle
+    navCurrent?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      selector.classList.toggle('open');
+    });
+
+    // Dropdown items
     allPills.forEach((pill) => {
       pill.addEventListener('click', () => {
         goTo(Number(pill.dataset.pillIndex));
       });
     });
 
+    // Close dropdown on outside click
+    document.addEventListener('click', () => {
+      selector?.classList.remove('open');
+    });
+
+    dropdown?.addEventListener('click', (e) => e.stopPropagation());
+
+    // Keyboard
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
       if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+      if (e.key === 'Escape') selector?.classList.remove('open');
     });
 
+    // Touch/swipe
     let touchStartX = 0;
     document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
     document.addEventListener('touchend', (e) => {
@@ -607,7 +706,6 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     });
   }
 
-  // Run on initial load and after view transitions
   initDeck();
   document.addEventListener('astro:after-swap', initDeck);
 </script>

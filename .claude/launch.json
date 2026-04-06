@@ -3,8 +3,14 @@
   "configurations": [
     {
       "name": "portfolio-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeExecutable": "/usr/local/bin/node",
+      "runtimeArgs": ["node_modules/.bin/astro", "dev"],
+      "port": 4321
+    },
+    {
+      "name": "portfolio-preview",
+      "runtimeExecutable": "/usr/local/bin/node",
+      "runtimeArgs": ["node_modules/.bin/astro", "preview"],
       "port": 4321
     }
   ]
