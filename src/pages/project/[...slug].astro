@@ -94,7 +94,7 @@ const hasDeck = !!decks[project.id];
           <h1 class="cs__hero-title">{title}</h1>
           <p class="cs__hero-subtitle">{subtitle}</p>
           {hasDeck && (
-            <a href={`/deck/${project.id}`} class="cs__deck-btn">
+            <a href={`/deck/${project.id}`} class="cs__deck-btn" data-astro-reload>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
                 <line x1="8" y1="21" x2="16" y2="21"/>
