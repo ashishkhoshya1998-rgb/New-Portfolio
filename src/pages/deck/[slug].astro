@@ -20,7 +20,7 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <style define:vars={{ accent: accentColor, accentBg, accentText }}>
+  <style is:global define:vars={{ accent: accentColor, accentBg, accentText }}>
     /* ─── Reset & Base ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
