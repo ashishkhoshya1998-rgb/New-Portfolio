@@ -93,16 +93,6 @@ const hasDeck = !!decks[project.id];
         <div class="cs__hero-left">
           <h1 class="cs__hero-title">{title}</h1>
           <p class="cs__hero-subtitle">{subtitle}</p>
-          {hasDeck && (
-            <a href={`/deck/${project.id}`} class="cs__deck-btn" data-astro-reload>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                <line x1="8" y1="21" x2="16" y2="21"/>
-                <line x1="12" y1="17" x2="12" y2="21"/>
-              </svg>
-              View Presentation
-            </a>
-          )}
         </div>
         <div class="cs__hero-right">
           <div class="cs__hero-meta-item">
@@ -123,6 +113,18 @@ const hasDeck = !!decks[project.id];
       </div>
       <div class="cs__hero-scroll-hint">Scroll down</div>
     </section>
+
+    {hasDeck && (
+      <div class="cs__deck-prompt">
+        <div class="content-wrap cs__deck-prompt-inner">
+          <span class="cs__deck-prompt-text">Short on time?</span>
+          <a href={`/deck/${project.id}`} class="cs__deck-btn" data-astro-reload>
+            View slide deck
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    )}
 
     <!-- MDX Body with section nav + share sidebar -->
     <div class="cs__content-layout">
@@ -434,23 +436,40 @@ const hasDeck = !!decks[project.id];
     line-height: 1.5;
   }
 
+  /* Deck prompt — between hero and body */
+  .cs__deck-prompt {
+    border-bottom: 0.5px solid var(--border);
+    background: var(--bg);
+  }
+
+  .cs__deck-prompt-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 14px 0;
+  }
+
+  .cs__deck-prompt-text {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+  }
+
   .cs__deck-btn {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    margin-top: 20px;
-    padding: 10px 22px;
-    border: 1px solid var(--csAccent, rgba(245,240,232,0.2));
-    border-radius: 999px;
-    color: var(--csAccent, #F5F0E8);
+    gap: 6px;
+    padding: 6px 16px;
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-full);
+    color: var(--text);
     font-size: 13px;
-    font-weight: 600;
-    font-family: 'DM Sans', system-ui, sans-serif;
+    font-weight: 500;
+    font-family: var(--font-body);
     text-decoration: none;
-    letter-spacing: 0.5px;
-    transition: background 0.3s, color 0.3s, border-color 0.3s;
-    backdrop-filter: blur(8px);
-    background: rgba(245, 240, 232, 0.04);
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    background: var(--bg-elevated);
   }
 
   .cs__deck-btn:hover {
@@ -460,7 +479,13 @@ const hasDeck = !!decks[project.id];
   }
 
   .cs__deck-btn svg {
-    opacity: 0.8;
+    opacity: 0.6;
+    transition: transform 0.2s;
+  }
+
+  .cs__deck-btn:hover svg {
+    opacity: 1;
+    transform: translateX(2px);
   }
 
   .cs__hero-right {
