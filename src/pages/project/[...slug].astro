@@ -957,6 +957,12 @@ const hasDeck = !!decks[project.id];
     const gate = document.getElementById('pw-gate');
     if (!gate) return;
 
+    // Skip gate if already unlocked this session
+    if (sessionStorage.getItem('ak-memoir-unlocked')) {
+      gate.remove();
+      return;
+    }
+
     const form = document.getElementById('pw-form') as HTMLFormElement;
     const input = document.getElementById('pw-input') as HTMLInputElement;
     const error = document.getElementById('pw-error')!;
@@ -966,6 +972,7 @@ const hasDeck = !!decks[project.id];
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       if (input.value === CORRECT) {
+        sessionStorage.setItem('ak-memoir-unlocked', '1');
         gate.style.opacity = '0';
         gate.style.transition = 'opacity 0.3s';
         document.body.style.overflow = '';
