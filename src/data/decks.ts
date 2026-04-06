@@ -1,6 +1,6 @@
 export interface Slide {
   label: string;
-  html: string;
+  content: string;
 }
 
 export interface Deck {
@@ -26,7 +26,7 @@ export const decks: Record<string, Deck> = {
     slides: [
       {
         label: 'Cover',
-        html: `
+        content: `
           <div class="tag">B2B · Enterprise UX · Clear (ClearTax)</div>
           <div class="slide-title">GSTR-3B Filing Redesign</div>
           <div class="slide-subtitle">Simplifying GST compliance at scale for 1.4 crore+ businesses across India</div>
@@ -48,7 +48,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Problem',
-        html: `
+        content: `
           <div class="slide-label">Problem definition</div>
           <div class="slide-title">5 core failure points</div>
           <div class="slide-subtitle">The GSTN portal and Clear GST 1.0 limited users to filing one GSTIN at a time — an enterprise with 120 GSTINs repeated the same painful workflow 120 times.</div>
@@ -65,7 +65,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Research',
-        html: `
+        content: `
           <div class="slide-label">Research</div>
           <div class="slide-title">50+ interviews · 500+ tickets · 3 usability tests</div>
           <div class="metric-grid metric-grid-3">
@@ -93,7 +93,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Data Source',
-        html: `
+        content: `
           <div class="slide-label">Design solution</div>
           <div class="slide-title">Data Source Selection</div>
           <div class="slide-subtitle">Table-specific mapping with dropdown menus, smart auto-suggested defaults for SMEs, and a preview mode to validate auto-filled values before proceeding.</div>
@@ -102,7 +102,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Dashboard',
-        html: `
+        content: `
           <div class="slide-label">Design solution</div>
           <div class="slide-title">Multi-GSTIN Filing Dashboard</div>
           <div class="slide-subtitle">Centralised status overview tracking pending filings, tax liabilities, and ITC statuses. Batch filing for 10+ GSTINs in one click — enterprises activated 20+ GSTINs in under 10 minutes.</div>
@@ -115,7 +115,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Reconciliation',
-        html: `
+        content: `
           <div class="slide-label">Design solution</div>
           <div class="slide-title">Pre-Filing Reconciliation Engine</div>
           <div class="slide-subtitle">Split-view comparison of GSTR-2B vs Purchase Register with mismatches highlighted. Bulk approve/reject for 100+ invoices in one click.</div>
@@ -125,7 +125,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Table-4',
-        html: `
+        content: `
           <div class="slide-label">Design solution</div>
           <div class="slide-title">Table-4 Live Preview</div>
           <div class="slide-subtitle">Users didn't trust auto-generated values. I designed a live side panel that shows cause-and-effect in real time — each reconciliation action immediately updates Table-4, turning a black box into a transparent system.</div>
@@ -139,7 +139,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Upload',
-        html: `
+        content: `
           <div class="slide-label">Design solution</div>
           <div class="slide-title">Upload & Filing Flow</div>
           <div class="slide-subtitle">Streamlined GSTN upload with automated OTP capture and a unified filing status dashboard covering all GSTINs. Filing time dropped from 30 min to under 2 min per batch.</div>
@@ -149,7 +149,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Iterations',
-        html: `
+        content: `
           <div class="slide-label">Post-launch iteration</div>
           <div class="slide-title">What field shadowing revealed</div>
           <div class="slide-subtitle">Post-launch, the 90-90-90 adoption drive revealed a critical flaw: adoption ≠ proficiency. CSMs were doing tasks for users to hit targets. I shifted to direct user shadowing.</div>
@@ -172,7 +172,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Impact',
-        html: `
+        content: `
           <div class="slide-label">Impact</div>
           <div class="slide-title">Results across three phases</div>
           <div class="metric-grid">
@@ -196,7 +196,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Reflection',
-        html: `
+        content: `
           <div class="slide-label">Reflections</div>
           <div class="slide-title">What I'd carry forward</div>
           <div class="reflection-card">
@@ -231,7 +231,7 @@ export const decks: Record<string, Deck> = {
     slides: [
       {
         label: 'Cover',
-        html: `
+        content: `
           <div class="tag">AI-Native · Marketplace · Ecosystem Design</div>
           <div class="slide-title">Zzazz.ai</div>
           <div class="slide-subtitle">Designing the UX foundation for a new information economy — from Product Designer to ecosystem architect.</div>
@@ -253,7 +253,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Problem',
-        html: `
+        content: `
           <div class="slide-label">Problem space</div>
           <div class="slide-title">The content economy is broken on three sides</div>
           <div class="screen"><img src="/cs/zzazz-problem-space.svg" alt="Problem space — three broken sides" /></div>
@@ -264,7 +264,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Before',
-        html: `
+        content: `
           <div class="slide-label">What existed when I joined</div>
           <div class="slide-title">Disconnected POCs, no ecosystem logic</div>
           <div class="slide-subtitle">The base idea was strong. The LPM (Large Pricing Model) worked. But verticals weren't connected into a coherent story.</div>
@@ -280,7 +280,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Ecosystem',
-        html: `
+        content: `
           <div class="slide-label">Ecosystem architecture</div>
           <div class="slide-title">7 verticals, each solving a different adoption problem</div>
           <div class="screen"><img src="/cs/zzazz-ecosystem-map.svg" alt="Ecosystem map — 7 verticals" /></div>
@@ -293,7 +293,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Exchange',
-        html: `
+        content: `
           <div class="slide-label">Vertical deep-dive</div>
           <div class="slide-title">Exchange — From Trading Terminal to Research Assistant</div>
           <div class="slide-subtitle">Users think in questions, not dashboards. The old table-heavy UI made pricing feel like a barrier — the exact opposite of ZZAZZ's thesis that price makes content more accessible.</div>
@@ -304,7 +304,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'TimePay + Publish',
-        html: `
+        content: `
           <div class="slide-label">Vertical deep-dives</div>
           <div class="slide-title">TimePay & Publish</div>
           <div class="kf-card">
@@ -321,7 +321,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Distribution',
-        html: `
+        content: `
           <div class="slide-label">Distribution strategy</div>
           <div class="slide-title">Three form factors for three adoption stages</div>
           <div class="slide-subtitle">Widget → Plugin → Terminal. A graduation path from discovering the ecosystem on publisher sites, to exploring across the web, to committing fully.</div>
@@ -335,7 +335,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Flow',
-        html: `
+        content: `
           <div class="slide-label">System design</div>
           <div class="slide-title">The Ecosystem in Motion</div>
           <div class="slide-subtitle">Content enters → pricing applied → protection added → discovery → access → revenue flows back → the loop reinforces.</div>
@@ -348,7 +348,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Impact',
-        html: `
+        content: `
           <div class="slide-label">Impact & signals</div>
           <div class="slide-title">What this project demonstrates</div>
           <div class="metric-grid">
@@ -389,7 +389,7 @@ export const decks: Record<string, Deck> = {
     slides: [
       {
         label: 'Cover',
-        html: `
+        content: `
           <div class="tag">D2C · Mobile-First · AI-Native Build</div>
           <div class="slide-title">Memoir</div>
           <div class="slide-subtitle">Designing & building an emotion-led D2C jewellery brand from zero — strategy through shipping code.</div>
@@ -411,7 +411,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Insight',
-        html: `
+        content: `
           <div class="slide-label">Core insight</div>
           <div class="slide-title">Two audiences, two anxieties, one site</div>
           <div class="quote-block">
@@ -435,7 +435,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Homepage',
-        html: `
+        content: `
           <div class="slide-label">Homepage & navigation</div>
           <div class="slide-title">Dual CTAs + Moment Navigation</div>
           <div class="slide-subtitle">First segmentation signal captured before seeing a single product. "First Light" / "In Her Honour" instead of "Rings" / "Necklaces" — emotion over category.</div>
@@ -447,7 +447,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Gift Guide',
-        html: `
+        content: `
           <div class="slide-label">Gifter journey</div>
           <div class="slide-title">3-Step Gift Guide</div>
           <div class="slide-subtitle">Full-screen guided flow for one-handed mobile use. He doesn't choose from 50 products — he's guided to 3. The site makes the decision easy.</div>
@@ -460,7 +460,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Product',
-        html: `
+        content: `
           <div class="slide-label">Product page</div>
           <div class="slide-title">Full-Bleed Imagery + Gift Card + Story</div>
           <div class="slide-subtitle">Gift toggle reveals a parchment note card with torn edges (50+ clipPath coordinates), paper grain, and Caveat handwriting font. Pre-written messages for gifters who freeze.</div>
@@ -473,7 +473,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Unboxing',
-        html: `
+        content: `
           <div class="slide-label">Gifter anxiety resolution</div>
           <div class="slide-title">The Unboxing Ritual</div>
           <div class="slide-subtitle">"How She'll Receive It" — three swipeable steps. The gifter's anxiety about "what will she get?" is resolved through touch interaction as emotional simulation.</div>
@@ -486,7 +486,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Cart',
-        html: `
+        content: `
           <div class="slide-label">Checkout</div>
           <div class="slide-title">Cart & Checkout Flow</div>
           <div class="slide-subtitle">Cart drawer slides up from bottom. "GIFT WRAPPED" badge on gifted items. Bottom-anchored checkout with total always visible. Gift messages persist through Shopify checkout as cart line attributes.</div>
@@ -498,7 +498,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Stack',
-        html: `
+        content: `
           <div class="slide-label">AI-native workflow</div>
           <div class="slide-title">The Stack Pivot</div>
           <div class="slide-subtitle">The original 4-tool stack (Figma Make + Supabase + Razorpay + Shiprocket) couldn't hold the experience complexity. Claude Code changed the economics of building.</div>
@@ -523,7 +523,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Reflection',
-        html: `
+        content: `
           <div class="slide-label">What this demonstrates</div>
           <div class="slide-title">The design role in 2026</div>
           <div class="reflection-card">
@@ -558,7 +558,7 @@ export const decks: Record<string, Deck> = {
     slides: [
       {
         label: 'Cover',
-        html: `
+        content: `
           <div class="tag">Design System · Token Architecture · B2B</div>
           <div class="slide-title">Mint V8 Design System</div>
           <div class="slide-subtitle">Token-based, theme-ready system with PCS Logic — reducing 760 button variants to 32 while supporting multi-theme architecture.</div>
@@ -580,7 +580,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Problem',
-        html: `
+        content: `
           <div class="slide-label">The challenge</div>
           <div class="slide-title">5 reasons we needed to start over</div>
           <div class="step-row"><div class="step-num">1</div><div class="step-content"><div class="step-title">Fragmented systems</div><div class="step-desc">Finance Cloud and Supply Chain Cloud had no consistent UI — some used outdated Basil, others a barebones Mint library.</div></div></div>
@@ -596,7 +596,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'System',
-        html: `
+        content: `
           <div class="slide-label">The system overview</div>
           <div class="slide-title">Mint V8 — Built from Tokens Up</div>
           <div class="screen"><img src="/cs/mint-hero.jpg" alt="Mint V8 design system overview" /></div>
@@ -608,7 +608,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Tokens',
-        html: `
+        content: `
           <div class="slide-label">Foundation</div>
           <div class="slide-title">Token Architecture</div>
           <div class="slide-subtitle">Four categories: Typography, Spacing, Colour (functional names, not appearance), Radius/Elevation. System tokens → Reference tokens → Raw values.</div>
@@ -618,7 +618,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'PCS Logic',
-        html: `
+        content: `
           <div class="slide-label">The breakthrough</div>
           <div class="slide-title">PCS Logic — Prefix · Content · Suffix</div>
           <div class="slide-subtitle">As we built molecules, we hit a wall — component bloat. A whiteboard session revealed a pattern: nearly every component = Prefix + Content + Suffix. Constrained slots per component type.</div>
@@ -633,7 +633,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Components',
-        html: `
+        content: `
           <div class="slide-label">Building blocks</div>
           <div class="slide-title">Icons, Organisms & Atomic Design</div>
           <div class="kf-card">
@@ -650,7 +650,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Theming',
-        html: `
+        content: `
           <div class="slide-label">Multi-theme support</div>
           <div class="slide-title">Two Themes, Zero Component Duplication</div>
           <div class="slide-subtitle">Clear Finance Cloud (Blue) and Clear Supply Chain (Purple). They differ only in token values — no component changes needed.</div>
@@ -669,7 +669,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Adoption',
-        html: `
+        content: `
           <div class="slide-label">Adoption strategy</div>
           <div class="slide-title">100% adoption — because the team chose it</div>
           <div class="slide-subtitle">The Design Manager wanted immediate system-wide deprecation. I pushed back — mandates create resistance. Each sprint that proved PCS Logic's value converted skeptics into advocates.</div>
@@ -684,7 +684,7 @@ export const decks: Record<string, Deck> = {
       },
       {
         label: 'Reflection',
-        html: `
+        content: `
           <div class="slide-label">Reflections</div>
           <div class="slide-title">What I'd carry forward</div>
           <div class="reflection-card">

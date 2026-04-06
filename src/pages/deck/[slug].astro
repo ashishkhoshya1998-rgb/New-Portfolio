@@ -31,13 +31,11 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
       </div>
     </div>
 
-    <div class="dk-slides">
-      {slides.map((s, i) => (
-        <div class={`dk-slide ${i === 0 ? 'active' : ''}`} data-slide-index={i}>
-          <div class="dk-slide-body" set:html={s.html} />
-        </div>
-      ))}
-    </div>
+    {slides.map((s, i) => (
+      <div class={`dk-slide ${i === 0 ? 'active' : ''}`} data-slide-index={i}>
+        <div class="dk-slide-body" set:html={s.content} />
+      </div>
+    ))}
 
     <a href={`/project/${slug}`} class="dk-close">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -537,7 +535,6 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
 
 <script define:vars={{ totalSlides: slides.length }}>
   let current = 0;
-
   const allSlides = document.querySelectorAll('[data-slide-index]');
   const allPills = document.querySelectorAll('[data-pill-index]');
   const counter = document.getElementById('counter');
