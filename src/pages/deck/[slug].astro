@@ -1,0 +1,795 @@
+---
+import { decks } from '../../data/decks';
+
+export function getStaticPaths() {
+  return Object.keys(decks).map((slug) => ({
+    params: { slug },
+    props: { deck: decks[slug] },
+  }));
+}
+
+const { deck } = Astro.props;
+const { slug, accentColor, slides } = deck;
+---
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{slides[0].heading} — Presentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style define:vars={{ accent: accentColor }}>
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      background: #0A0A0A;
+      color: #F5F0E8;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Deck Container ─── */
+    .deck {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ─── Individual Slide ─── */
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 64px 80px;
+      opacity: 0;
+      transform: translateX(60px);
+      transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+      will-change: opacity, transform;
+    }
+
+    .slide--active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+
+    .slide--prev {
+      opacity: 0;
+      transform: translateX(-60px);
+    }
+
+    .slide__inner {
+      max-width: 960px;
+      width: 100%;
+    }
+
+    /* ─── Slide Type: Title ─── */
+    .slide--title {
+      text-align: center;
+    }
+
+    .slide--title .slide__inner {
+      max-width: 800px;
+    }
+
+    .slide__eyebrow {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+
+    .slide__heading {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: clamp(48px, 7vw, 96px);
+      line-height: 1.05;
+      margin-bottom: 24px;
+    }
+
+    .slide__subheading {
+      font-size: clamp(18px, 2.2vw, 24px);
+      line-height: 1.5;
+      color: rgba(245, 240, 232, 0.7);
+      max-width: 640px;
+      margin: 0 auto 20px;
+    }
+
+    .slide__body-text {
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.4);
+    }
+
+    /* ─── Slide Type: Content (problem, insight, actions, decision) ─── */
+    .slide--content .slide__heading {
+      font-size: clamp(32px, 4vw, 52px);
+      margin-bottom: 32px;
+      color: var(--accent);
+    }
+
+    .slide--content .slide__body {
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.7;
+      color: rgba(245, 240, 232, 0.85);
+      max-width: 720px;
+    }
+
+    /* ─── Quote ─── */
+    .slide__quote {
+      border-left: 3px solid var(--accent);
+      padding: 20px 0 20px 28px;
+      margin-top: 32px;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(18px, 2vw, 24px);
+      font-style: italic;
+      line-height: 1.6;
+      color: rgba(245, 240, 232, 0.9);
+      max-width: 640px;
+    }
+
+    .slide__quote-author {
+      display: block;
+      margin-top: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-style: normal;
+      font-size: 14px;
+      color: rgba(245, 240, 232, 0.5);
+    }
+
+    /* ─── Bullets ─── */
+    .slide__bullets {
+      list-style: none;
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .slide__bullets li {
+      font-size: clamp(16px, 1.8vw, 20px);
+      line-height: 1.6;
+      color: rgba(245, 240, 232, 0.85);
+      padding-left: 28px;
+      position: relative;
+    }
+
+    .slide__bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 11px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* ─── Metrics ─── */
+    .slide__metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 32px;
+      margin-top: 40px;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .slide__metric {
+      text-align: center;
+      padding: 28px 16px;
+      border: 1px solid rgba(245, 240, 232, 0.08);
+      border-radius: 12px;
+      background: rgba(245, 240, 232, 0.02);
+    }
+
+    .slide__metric-value {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1.1;
+    }
+
+    .slide__metric-label {
+      display: block;
+      margin-top: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.5);
+    }
+
+    /* ─── Visual Slide ─── */
+    .slide--visual .slide__heading {
+      font-size: clamp(24px, 3vw, 36px);
+      margin-bottom: 12px;
+      text-align: center;
+      color: var(--accent);
+    }
+
+    .slide--visual .slide__body {
+      text-align: center;
+      margin: 0 auto 24px;
+      max-width: 640px;
+    }
+
+    .slide__visual-wrap {
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(245, 240, 232, 0.08);
+    }
+
+    .slide__visual-wrap img,
+    .slide__visual-wrap video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ─── Statement Slide (big centered quote) ─── */
+    .slide--statement {
+      text-align: center;
+    }
+
+    .slide--statement .slide__inner {
+      max-width: 760px;
+    }
+
+    .slide--statement .slide__quote {
+      border-left: none;
+      padding: 0;
+      text-align: center;
+      font-size: clamp(24px, 3.5vw, 40px);
+      line-height: 1.4;
+      margin-top: 0;
+      color: #F5F0E8;
+    }
+
+    .slide--statement .slide__quote::before {
+      content: '\201C';
+      display: block;
+      font-size: 72px;
+      line-height: 1;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .slide--statement .slide__body {
+      margin-top: 32px;
+      text-align: center;
+      font-size: 16px;
+      color: rgba(245, 240, 232, 0.5);
+    }
+
+    /* ─── Comparison Slide (two columns) ─── */
+    .slide--comparison .slide__heading {
+      font-size: clamp(28px, 3.5vw, 44px);
+      margin-bottom: 32px;
+      color: var(--accent);
+      text-align: center;
+    }
+
+    .slide__comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      width: 100%;
+    }
+
+    .slide__comparison-col {
+      padding: 28px;
+      border-radius: 12px;
+      border: 1px solid rgba(245, 240, 232, 0.08);
+      background: rgba(245, 240, 232, 0.02);
+    }
+
+    .slide__comparison-col--before {
+      border-color: rgba(239, 68, 68, 0.2);
+      background: rgba(239, 68, 68, 0.03);
+    }
+
+    .slide__comparison-col--after {
+      border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+      background: color-mix(in srgb, var(--accent) 4%, transparent);
+    }
+
+    .slide__comparison-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .slide__comparison-col--before .slide__comparison-label { color: #EF4444; }
+    .slide__comparison-col--after .slide__comparison-label { color: var(--accent); }
+
+    .slide__comparison-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .slide__comparison-col li {
+      font-size: 16px;
+      line-height: 1.5;
+      color: rgba(245, 240, 232, 0.8);
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .slide__comparison-col--before li::before {
+      content: '×';
+      position: absolute;
+      left: 0;
+      color: #EF4444;
+      font-weight: 700;
+    }
+
+    .slide__comparison-col--after li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* ─── Split Slide (text + visual) ─── */
+    .slide--split .slide__inner {
+      max-width: 1100px;
+    }
+
+    .slide__split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .slide__split-text .slide__heading {
+      font-size: clamp(24px, 3vw, 36px);
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .slide__split-text .slide__body {
+      font-size: 17px;
+      line-height: 1.7;
+      color: rgba(245, 240, 232, 0.8);
+    }
+
+    .slide__split-visual {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(245, 240, 232, 0.08);
+    }
+
+    .slide__split-visual img,
+    .slide__split-visual video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ─── CTA Slide ─── */
+    .slide--cta {
+      text-align: center;
+    }
+
+    .slide--cta .slide__heading {
+      font-size: clamp(32px, 4vw, 52px);
+      margin-bottom: 16px;
+    }
+
+    .slide--cta .slide__subheading {
+      margin-bottom: 40px;
+    }
+
+    .slide__cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 36px;
+      border: 2px solid var(--accent);
+      border-radius: 999px;
+      color: var(--accent);
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .slide__cta-btn:hover {
+      background: var(--accent);
+      color: #0A0A0A;
+    }
+
+    /* ─── Navigation ─── */
+    .deck__nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      z-index: 100;
+      background: linear-gradient(transparent, rgba(10,10,10,0.95));
+    }
+
+    .deck__progress {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .deck__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(245, 240, 232, 0.2);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .deck__dot--active {
+      background: var(--accent);
+      transform: scale(1.4);
+    }
+
+    .deck__dot:hover {
+      background: rgba(245, 240, 232, 0.5);
+    }
+
+    .deck__arrows {
+      display: flex;
+      gap: 12px;
+    }
+
+    .deck__arrow {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(245, 240, 232, 0.15);
+      background: rgba(245, 240, 232, 0.04);
+      color: #F5F0E8;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.3s, background 0.3s;
+    }
+
+    .deck__arrow:hover {
+      border-color: var(--accent);
+      background: rgba(245, 240, 232, 0.08);
+    }
+
+    .deck__arrow:disabled {
+      opacity: 0.25;
+      cursor: default;
+    }
+
+    .deck__counter {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(245, 240, 232, 0.4);
+      letter-spacing: 2px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ─── Close Button ─── */
+    .deck__close {
+      position: fixed;
+      top: 24px;
+      right: 32px;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border: 1px solid rgba(245, 240, 232, 0.12);
+      border-radius: 999px;
+      background: rgba(10, 10, 10, 0.7);
+      backdrop-filter: blur(12px);
+      color: rgba(245, 240, 232, 0.7);
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.3s, border-color 0.3s;
+    }
+
+    .deck__close:hover {
+      color: #F5F0E8;
+      border-color: rgba(245, 240, 232, 0.3);
+    }
+
+    /* ─── Keyboard hint ─── */
+    .deck__hint {
+      position: fixed;
+      top: 24px;
+      left: 32px;
+      z-index: 200;
+      font-size: 12px;
+      color: rgba(245, 240, 232, 0.25);
+      letter-spacing: 1px;
+    }
+
+    .deck__hint kbd {
+      display: inline-block;
+      padding: 2px 8px;
+      border: 1px solid rgba(245, 240, 232, 0.15);
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 11px;
+      margin: 0 2px;
+      background: rgba(245, 240, 232, 0.04);
+    }
+
+    /* ─── Mobile ─── */
+    @media (max-width: 768px) {
+      .slide { padding: 48px 24px 100px; }
+      .slide__metrics { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .slide__metric { padding: 20px 12px; }
+      .deck__nav { padding: 16px 20px; }
+      .deck__hint { display: none; }
+      .deck__close { top: 16px; right: 16px; padding: 8px 16px; }
+      .slide__quote { padding-left: 20px; }
+      .slide__bullets li { padding-left: 22px; }
+      .slide__comparison-grid { grid-template-columns: 1fr; gap: 20px; }
+      .slide__split-grid { grid-template-columns: 1fr; gap: 24px; }
+      .slide__comparison-col { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <a href={`/project/${slug}`} class="deck__close">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    Close
+  </a>
+
+  <div class="deck__hint">
+    <kbd>←</kbd> <kbd>→</kbd> to navigate
+  </div>
+
+  <div class="deck" id="deck">
+    {slides.map((slide, i) => (
+      <div
+        class={`slide ${i === 0 ? 'slide--active' : ''} ${
+          slide.type === 'title' ? 'slide--title' :
+          slide.type === 'visual' ? 'slide--visual' :
+          slide.type === 'cta' ? 'slide--cta' :
+          slide.type === 'statement' ? 'slide--statement' :
+          slide.type === 'comparison' ? 'slide--comparison' :
+          slide.type === 'split' ? 'slide--split' :
+          'slide--content'
+        }`}
+        data-slide-index={i}
+      >
+        <div class="slide__inner">
+          {slide.type === 'title' && (
+            <>
+              <p class="slide__eyebrow">Case Study Presentation</p>
+              <h1 class="slide__heading">{slide.heading}</h1>
+              <p class="slide__subheading">{slide.subheading}</p>
+              <p class="slide__body-text">{slide.body}</p>
+            </>
+          )}
+
+          {(slide.type === 'problem' || slide.type === 'insight' || slide.type === 'actions' || slide.type === 'decision') && (
+            <>
+              <h2 class="slide__heading">{slide.heading}</h2>
+              {slide.body && <p class="slide__body">{slide.body}</p>}
+              {slide.bullets && (
+                <ul class="slide__bullets">
+                  {slide.bullets.map((b) => <li>{b}</li>)}
+                </ul>
+              )}
+              {slide.quote && (
+                <blockquote class="slide__quote">
+                  {slide.quote}
+                  {slide.quoteAuthor && <span class="slide__quote-author">— {slide.quoteAuthor}</span>}
+                </blockquote>
+              )}
+            </>
+          )}
+
+          {slide.type === 'visual' && (
+            <>
+              <h2 class="slide__heading">{slide.heading}</h2>
+              {slide.body && <p class="slide__body">{slide.body}</p>}
+              <div class="slide__visual-wrap">
+                {slide.visualType === 'video' ? (
+                  <video src={slide.visual} autoplay loop muted playsinline />
+                ) : (
+                  <img src={slide.visual} alt={slide.heading || ''} />
+                )}
+              </div>
+            </>
+          )}
+
+          {slide.type === 'statement' && (
+            <>
+              <blockquote class="slide__quote">
+                {slide.quote}
+                {slide.quoteAuthor && <span class="slide__quote-author">— {slide.quoteAuthor}</span>}
+              </blockquote>
+              {slide.body && <p class="slide__body">{slide.body}</p>}
+            </>
+          )}
+
+          {slide.type === 'comparison' && (
+            <>
+              <h2 class="slide__heading">{slide.heading}</h2>
+              <div class="slide__comparison-grid">
+                <div class="slide__comparison-col slide__comparison-col--before">
+                  <span class="slide__comparison-label">{slide.subheading?.split('|')[0] || 'Before'}</span>
+                  <ul>
+                    {slide.bullets?.filter((_, bi) => bi < Math.ceil((slide.bullets?.length || 0) / 2)).map((b) => <li>{b}</li>)}
+                  </ul>
+                </div>
+                <div class="slide__comparison-col slide__comparison-col--after">
+                  <span class="slide__comparison-label">{slide.subheading?.split('|')[1] || 'After'}</span>
+                  <ul>
+                    {slide.bullets?.filter((_, bi) => bi >= Math.ceil((slide.bullets?.length || 0) / 2)).map((b) => <li>{b}</li>)}
+                  </ul>
+                </div>
+              </div>
+            </>
+          )}
+
+          {slide.type === 'split' && (
+            <div class="slide__split-grid">
+              <div class="slide__split-text">
+                <h2 class="slide__heading">{slide.heading}</h2>
+                {slide.body && <p class="slide__body">{slide.body}</p>}
+                {slide.bullets && (
+                  <ul class="slide__bullets" style="margin-top:20px;">
+                    {slide.bullets.map((b) => <li>{b}</li>)}
+                  </ul>
+                )}
+              </div>
+              <div class="slide__split-visual">
+                {slide.visualType === 'video' ? (
+                  <video src={slide.visual} autoplay loop muted playsinline />
+                ) : (
+                  <img src={slide.visual} alt={slide.heading || ''} />
+                )}
+              </div>
+            </div>
+          )}
+
+          {slide.type === 'impact' && (
+            <>
+              <h2 class="slide__heading" style="text-align:center;">{slide.heading}</h2>
+              {slide.body && <p class="slide__body" style="text-align:center;margin:0 auto 16px;">{slide.body}</p>}
+              <div class="slide__metrics">
+                {slide.metrics?.map((m) => (
+                  <div class="slide__metric">
+                    <span class="slide__metric-value">{m.value}</span>
+                    <span class="slide__metric-label">{m.label}</span>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+
+          {slide.type === 'cta' && (
+            <>
+              <h2 class="slide__heading">{slide.heading}</h2>
+              <p class="slide__subheading">{slide.subheading}</p>
+              <a href={`/project/${slug}`} class="slide__cta-btn">
+                Open Case Study
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Navigation -->
+  <nav class="deck__nav">
+    <div class="deck__progress">
+      {slides.map((_, i) => (
+        <button
+          class={`deck__dot ${i === 0 ? 'deck__dot--active' : ''}`}
+          data-dot-index={i}
+          aria-label={`Go to slide ${i + 1}`}
+        />
+      ))}
+    </div>
+    <span class="deck__counter" id="deck-counter">01 / {String(slides.length).padStart(2, '0')}</span>
+    <div class="deck__arrows">
+      <button class="deck__arrow" id="prev-btn" disabled aria-label="Previous slide">←</button>
+      <button class="deck__arrow" id="next-btn" aria-label="Next slide">→</button>
+    </div>
+  </nav>
+
+  <script define:vars={{ totalSlides: slides.length }}>
+    let current = 0;
+
+    const allSlides = document.querySelectorAll('[data-slide-index]');
+    const allDots = document.querySelectorAll('[data-dot-index]');
+    const counter = document.getElementById('deck-counter');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    function goTo(index) {
+      if (index < 0 || index >= totalSlides) return;
+
+      const prev = current;
+      current = index;
+
+      allSlides.forEach((s, i) => {
+        s.classList.remove('slide--active', 'slide--prev');
+        if (i === current) s.classList.add('slide--active');
+        else if (i < current) s.classList.add('slide--prev');
+      });
+
+      allDots.forEach((d, i) => {
+        d.classList.toggle('deck__dot--active', i === current);
+      });
+
+      counter.textContent = `${String(current + 1).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === totalSlides - 1;
+    }
+
+    // Arrow buttons
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+
+    // Dot navigation
+    allDots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        goTo(Number(dot.dataset.dotIndex));
+      });
+    });
+
+    // Keyboard
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+      if (e.key === 'Escape') window.location.href = `/project/${document.querySelector('.deck__close').getAttribute('href').split('/project/')[1]}`;
+    });
+
+    // Touch/swipe
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    document.addEventListener('touchend', (e) => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) goTo(current + 1);
+        else goTo(current - 1);
+      }
+    });
+  </script>
+</body>
+</html>

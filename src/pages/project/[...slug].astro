@@ -4,6 +4,7 @@ import TopNav from '../../components/TopNav';
 import FooterCTA from '../../components/FooterCTA.astro';
 import { Image } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
+import { decks } from '../../data/decks';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -17,6 +18,7 @@ const { project } = Astro.props;
 const { Content } = await render(project);
 const { title, subtitle, description, role, services, year, accentColor, coverImage, nextProject, parentProject } = project.data;
 const isLocked = Astro.url.pathname.includes('memoir');
+const hasDeck = !!decks[project.id];
 ---
 
 <Layout title={`${title} — Ashish Khoshya`} description={description}>
@@ -91,6 +93,16 @@ const isLocked = Astro.url.pathname.includes('memoir');
         <div class="cs__hero-left">
           <h1 class="cs__hero-title">{title}</h1>
           <p class="cs__hero-subtitle">{subtitle}</p>
+          {hasDeck && (
+            <a href={`/deck/${project.id}`} class="cs__deck-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                <line x1="8" y1="21" x2="16" y2="21"/>
+                <line x1="12" y1="17" x2="12" y2="21"/>
+              </svg>
+              View Presentation
+            </a>
+          )}
         </div>
         <div class="cs__hero-right">
           <div class="cs__hero-meta-item">
@@ -420,6 +432,35 @@ const isLocked = Astro.url.pathname.includes('memoir');
     font-size: 16px;
     color: rgba(255,255,255,0.7);
     line-height: 1.5;
+  }
+
+  .cs__deck-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 10px 22px;
+    border: 1px solid var(--csAccent, rgba(245,240,232,0.2));
+    border-radius: 999px;
+    color: var(--csAccent, #F5F0E8);
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
+    backdrop-filter: blur(8px);
+    background: rgba(245, 240, 232, 0.04);
+  }
+
+  .cs__deck-btn:hover {
+    background: var(--csAccent, #F5F0E8);
+    color: #0A0A0A;
+    border-color: var(--csAccent, #F5F0E8);
+  }
+
+  .cs__deck-btn svg {
+    opacity: 0.8;
   }
 
   .cs__hero-right {
