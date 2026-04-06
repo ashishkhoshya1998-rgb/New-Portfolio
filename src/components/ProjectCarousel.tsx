@@ -139,13 +139,6 @@ export default function ProjectCarousel() {
           </div>
         </div>
 
-        {/* Bottom-left — Active project name + counter */}
-        <div className="content-wrap pc__bottom">
-          <div className="pc__bottom-name">{active.title}</div>
-          <div className="pc__bottom-counter">
-            {String(activeIndex + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
-          </div>
-        </div>
 
         {/* Custom cursor */}
         <div
@@ -366,29 +359,6 @@ export default function ProjectCarousel() {
           }
         }
 
-        /* Bottom */
-        .pc__bottom {
-          display: flex;
-          align-items: baseline;
-          justify-content: space-between;
-          margin-top: 48px;
-        }
-
-        .pc__bottom-name {
-          font-family: var(--font-heading-condensed);
-          font-size: clamp(48px, 8vw, 100px);
-          text-transform: uppercase;
-          color: var(--text-massive);
-          line-height: 1;
-        }
-
-        .pc__bottom-counter {
-          font-family: var(--font-body);
-          font-size: 14px;
-          color: var(--text-muted);
-          letter-spacing: 2px;
-        }
-
         /* Cursor */
         .pc__cursor {
           position: fixed;
@@ -461,9 +431,6 @@ export default function ProjectCarousel() {
             font-size: 22px;
           }
 
-          .pc__bottom {
-            display: none;
-          }
         }
       `}</style>
     </>
