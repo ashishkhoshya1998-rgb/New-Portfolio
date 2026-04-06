@@ -26,7 +26,7 @@ export const projects: Project[] = [
     role: 'Experience Architect · Product Designer (Co-founder)',
     initial: 'M',
     accentColor: '#C9A96E',
-    coverImage: '/images/projects/memoir-cover.png',
+    coverImage: '/images/projects/memoir-cover.webp',
     team: '1 Designer · 2 Co-founders (review)',
     overview:
       'Designed and shipped a complete D2C jewellery e-commerce experience — 4,000+ lines of React, Shopify headless, Firebase Auth — built end-to-end with Claude Code, Gemini, and Sora.',
@@ -48,7 +48,7 @@ export const projects: Project[] = [
     role: 'Designer · UX/Product Architect',
     initial: 'Z',
     accentColor: '#F59E0B',
-    coverImage: '/images/projects/zzazz-cover.png',
+    coverImage: '/images/projects/zzazz-cover.webp',
     team: 'Founder · Product Lead · AI · 2 Designers',
     overview:
       'Reframed disconnected POCs into a coherent 7-vertical ecosystem that makes priced content believable.',
@@ -70,7 +70,7 @@ export const projects: Project[] = [
     role: 'UX Design · Research',
     initial: 'G',
     accentColor: '#22C55E',
-    coverImage: '/images/projects/gstr3b-cover.png',
+    coverImage: '/images/projects/gstr3b-cover.webp',
     team: '4 Designers · 1 PM · 3 Devs',
     overview:
       'Redesigned filing for 1.4Cr+ businesses — 1hr to 8min per GSTIN, tripling adoption.',
@@ -92,7 +92,7 @@ export const projects: Project[] = [
     role: 'Design System Lead',
     initial: 'M',
     accentColor: '#156CEF',
-    coverImage: '/images/projects/mintv8-cover.png',
+    coverImage: '/images/projects/mintv8-cover.webp',
     team: '1 Frontend Dev · 4 Product Designers · Design Manager',
     overview:
       'Created Clear\'s design system — invented PCS Logic reducing 760 button variants to 32.',

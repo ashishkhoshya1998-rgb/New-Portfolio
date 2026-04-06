@@ -28,7 +28,7 @@ export default function Hero() {
 
         {/* Layer 2: background image */}
         <img
-          src="/images/hero-bg.png"
+          src="/images/hero-bg.webp"
           alt=""
           className="hero__bg-img"
           aria-hidden="true"
