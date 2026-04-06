@@ -12,7 +12,7 @@ const { deck } = Astro.props;
 const { slug, title, accentColor, accentBg, accentText, slides } = deck;
 ---
 
-<html lang="en">
+<html lang="en" style={`--accent:${accentColor};--accentBg:${accentBg};--accentText:${accentText};`}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,7 +20,7 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <style is:global define:vars={{ accent: accentColor, accentBg, accentText }}>
+  <style is:global>
     /* ─── Reset & Base ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
