@@ -53,19 +53,15 @@ const hasDeck = !!decks[project.id];
   )}
 
   <main id="main-content" class="cs">
-    <div class="cs__back-bar">
-      <div class="content-wrap">
-        {parentProject ? (
+    {parentProject && (
+      <div class="cs__back-bar">
+        <div class="content-wrap">
           <a href={`/project/${parentProject.slug}`} class="cs__back-link">
             ← Back to {parentProject.title}
           </a>
-        ) : (
-          <a href="/projects" class="cs__back-link">
-            ← All Projects
-          </a>
-        )}
+        </div>
       </div>
-    </div>
+    )}
 
     <!-- Hero — full viewport with morphing cover image -->
     <section class="cs__hero" data-cs-hero>
