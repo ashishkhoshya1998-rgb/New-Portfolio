@@ -56,12 +56,12 @@ export default function ProjectCarousel() {
       <section className="pc" ref={sectionRef} onMouseMove={handleMouseMove}>
         {/* Section header */}
         <div className="content-wrap pc__header">
-          <div className="pc__header-left">
-            <span className="pc__header-line">SELECTED</span>
-            <span className="pc__header-line">WORK</span>
-            <span className="pc__header-line pc__header-year">21-26 ®</span>
+          <h2 className="pc__header-title">Selected Work</h2>
+          <div className="pc__header-meta">
+            <span className="pc__header-count">{projects.length} Case Studies</span>
+            <span className="pc__header-sep">/</span>
+            <span className="pc__header-year">2021 — 2026</span>
           </div>
-          <span className="pc__header-right">{projects.length} Case Studies</span>
         </div>
 
         {/* Three-zone layout */}
@@ -166,32 +166,40 @@ export default function ProjectCarousel() {
         /* Header */
         .pc__header {
           display: flex;
+          align-items: baseline;
           justify-content: space-between;
-          align-items: flex-end;
-          margin-bottom: 64px;
+          margin-bottom: 48px;
+          padding-bottom: 20px;
+          border-bottom: 0.5px solid var(--border);
         }
 
-        .pc__header-left {
+        .pc__header-title {
+          font-family: var(--font-display);
+          font-size: clamp(28px, 4vw, 42px);
+          font-weight: 600;
+          color: var(--text);
+          line-height: 1.1;
+        }
+
+        .pc__header-meta {
           display: flex;
-          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+          font-size: 13px;
+          color: var(--text-muted);
+          font-family: var(--font-body);
         }
 
-        .pc__header-line {
-          font-family: var(--font-heading-condensed);
-          font-size: clamp(48px, 7vw, 100px);
-          text-transform: uppercase;
-          line-height: 0.9;
-          color: var(--text-massive);
+        .pc__header-sep {
+          opacity: 0.3;
+        }
+
+        .pc__header-count {
+          font-weight: 500;
         }
 
         .pc__header-year {
-          font-size: clamp(24px, 3.5vw, 50px);
-        }
-
-        .pc__header-right {
-          font-size: 14px;
-          color: var(--text-muted);
-          margin-bottom: 12px;
+          font-variant-numeric: tabular-nums;
         }
 
         /* Three-zone layout */
@@ -417,11 +425,7 @@ export default function ProjectCarousel() {
             flex-direction: column;
             align-items: flex-start;
             gap: 8px;
-            margin-bottom: 40px;
-          }
-
-          .pc__header-right {
-            margin-bottom: 0;
+            margin-bottom: 32px;
           }
 
           .pc__layout {
