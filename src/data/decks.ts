@@ -1,767 +1,710 @@
 export interface Slide {
-  type: 'title' | 'problem' | 'insight' | 'actions' | 'decision' | 'visual' | 'impact' | 'cta' | 'statement' | 'comparison' | 'split';
-  heading?: string;
-  subheading?: string;
-  body?: string;
-  bullets?: string[];
-  metrics?: { value: string; label: string }[];
-  visual?: string;
-  visualType?: 'image' | 'video';
-  quote?: string;
-  quoteAuthor?: string;
+  label: string;
+  html: string;
 }
 
 export interface Deck {
   slug: string;
+  title: string;
   accentColor: string;
+  accentBg: string;
+  accentText: string;
   slides: Slide[];
 }
 
 export const decks: Record<string, Deck> = {
 
   // ─────────────────────────────────────────────
-  // GSTR-3B — 15 slides
+  // GSTR-3B Filing Redesign
   // ─────────────────────────────────────────────
   'gstr-3b': {
     slug: 'gstr-3b',
+    title: 'GSTR-3B Filing Redesign',
     accentColor: '#22C55E',
+    accentBg: '#EAF3DE',
+    accentText: '#3B6D11',
     slides: [
       {
-        type: 'title',
-        heading: 'GSTR-3B Filing Redesign',
-        subheading: 'Simplifying GST Compliance at Scale',
-        body: 'UX Design · UI Design · Research · ClearTax · 2022–2024',
+        label: 'Cover',
+        html: `
+          <div class="tag">B2B · Enterprise UX · Clear (ClearTax)</div>
+          <div class="slide-title">GSTR-3B Filing Redesign</div>
+          <div class="slide-subtitle">Simplifying GST compliance at scale for 1.4 crore+ businesses across India</div>
+          <div class="divider"></div>
+          <div class="metric-grid">
+            <div class="metric-card"><div class="metric-num">87%</div><div class="metric-label">Filing time reduced</div></div>
+            <div class="metric-card"><div class="metric-num">53%</div><div class="metric-label">3B adoption (from 18%)</div></div>
+            <div class="metric-card"><div class="metric-num">94%</div><div class="metric-label">Reconciliation accuracy</div></div>
+            <div class="metric-card"><div class="metric-num">73%</div><div class="metric-label">Escalations reduced</div></div>
+          </div>
+          <div class="divider"></div>
+          <div class="info-grid">
+            <div><div class="info-label">Role</div><div class="info-value">UX Design · Research · UI</div></div>
+            <div><div class="info-label">Duration</div><div class="info-value">Jun 2022 – Feb 2024</div></div>
+            <div><div class="info-label">Ownership</div><div class="info-value">End-to-end UX lead</div></div>
+            <div><div class="info-label">Scope</div><div class="info-value">50+ interviews · 500+ tickets</div></div>
+          </div>
+        `,
       },
       {
-        type: 'impact',
-        heading: 'The Bottom Line',
-        body: 'Before diving in — here\'s what this project delivered.',
-        metrics: [
-          { value: '1hr → 8min', label: 'Filing Time per GSTIN' },
-          { value: '18% → 53%', label: 'GSTR-3B Adoption' },
-          { value: '₹60cr → ₹108cr', label: 'Revenue Growth' },
-          { value: '92 → 25', label: 'Weekly Escalations' },
-        ],
+        label: 'Problem',
+        html: `
+          <div class="slide-label">Problem definition</div>
+          <div class="slide-title">5 core failure points</div>
+          <div class="slide-subtitle">The GSTN portal and Clear GST 1.0 limited users to filing one GSTIN at a time — an enterprise with 120 GSTINs repeated the same painful workflow 120 times.</div>
+          <div class="step-row"><div class="step-num">1</div><div class="step-content"><div class="step-title">High cognitive load</div><div class="step-desc">Manual tracking across GSTINs multiplied mental burden — users had no single view of filing status or liability.</div></div></div>
+          <div class="step-row"><div class="step-num">2</div><div class="step-content"><div class="step-title">Forced Excel dependency</div><div class="step-desc">82% of users copied data from Excel to the portal — the platform lacked filtering, pivoting, and bulk actions natively.</div></div></div>
+          <div class="step-row"><div class="step-num">3</div><div class="step-content"><div class="step-title">Reconciliation anxiety</div><div class="step-desc">Matching GSTR-2B with purchase registers was opaque. 65% of support tickets were ITC mismatch complaints.</div></div></div>
+          <div class="step-row"><div class="step-num">4</div><div class="step-content"><div class="step-title">Table-4 confusion</div><div class="step-desc">Users didn't understand what ITC they could claim vs. reverse. CAs re-checked Table-4 entries 3–4 times before submitting.</div></div></div>
+          <div class="step-row"><div class="step-num">5</div><div class="step-content"><div class="step-title">Flow abandonment</div><div class="step-desc">A standalone data source step caused 47% drop-off — users didn't understand why it existed or what to do.</div></div></div>
+          <div class="quote-block">
+            <div class="quote-text">"My team of 6 spends 5 full days every month filing for 120 GSTINs. We make mistakes because the process creates mistakes."</div>
+            <div class="quote-attr">CFO, Manufacturing Firm</div>
+          </div>
+        `,
       },
       {
-        type: 'problem',
-        heading: 'The Scale of the Problem',
-        body: '1.4 crore Indian businesses file GSTR-3B every single month. ClearTax\'s existing product limited users to filing one GSTIN at a time — meaning an enterprise with 120 GSTINs repeated the same painful workflow 120 times.',
-        quote: 'My team of 6 spends 5 full days every month filing for 120 GSTINs. We make mistakes because the process creates mistakes.',
-        quoteAuthor: 'CFO, Manufacturing Firm',
+        label: 'Research',
+        html: `
+          <div class="slide-label">Research</div>
+          <div class="slide-title">50+ interviews · 500+ tickets · 3 usability tests</div>
+          <div class="metric-grid metric-grid-3">
+            <div class="metric-card" style="text-align:center"><div class="metric-num">50+</div><div class="metric-label">User interviews</div></div>
+            <div class="metric-card" style="text-align:center"><div class="metric-num">500+</div><div class="metric-label">Tickets analysed</div></div>
+            <div class="metric-card" style="text-align:center"><div class="metric-num">3</div><div class="metric-label">Usability tests</div></div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-icon">📋</div>
+            <div class="insight-body"><div class="kf-head">Multi-GSTIN burden was #1 pain point</div><div class="kf-body">78% of enterprises with 10+ GSTINs cited multi-filing as their biggest pain. One FMCG finance team: 5 full days/month for 120 GSTINs.</div></div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-icon">📊</div>
+            <div class="insight-body"><div class="kf-head">Excel as a crutch</div><div class="kf-body">82% copied from Excel to portal. Lack of in-platform grouping and pivoting increased error rates by 25%.</div></div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-icon">😰</div>
+            <div class="insight-body"><div class="kf-head">ITC mismatches caused fear, not just inconvenience</div><div class="kf-body">MSME owners feared ITC blockages from vendor errors in GSTR-1 — leading to over-checking and filing delays.</div></div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-icon">❓</div>
+            <div class="insight-body"><div class="kf-head">Table-4 was a black box</div><div class="kf-body">Users had no live feedback on how reconciliation choices affected final ITC. 89% reverted to Excel — CAs rechecked 3–4 times before submitting.</div></div>
+          </div>
+        `,
       },
       {
-        type: 'actions',
-        heading: 'Five Core Failures I Identified',
-        bullets: [
-          'High cognitive load — manual tracking across GSTINs increased mental burden exponentially with scale',
-          'No automation — 82% of users were copy-pasting from Excel, creating avoidable errors',
-          'Reconciliation was opaque — matching GSTR-2B with purchase registers was a black box. 65% of support tickets were ITC mismatches',
-          'Filing flow abandonment — 47% dropped off at the standalone data source step',
-          'Excel dependency — users needed pivot tables, filtering, and bulk actions the platform didn\'t provide',
-        ],
+        label: 'Data Source',
+        html: `
+          <div class="slide-label">Design solution</div>
+          <div class="slide-title">Data Source Selection</div>
+          <div class="slide-subtitle">Table-specific mapping with dropdown menus, smart auto-suggested defaults for SMEs, and a preview mode to validate auto-filled values before proceeding.</div>
+          <div class="screen"><img src="/cs/gstr-wireframe-a.webp" alt="Data source selection wireframe" /></div>
+        `,
       },
       {
-        type: 'impact',
-        heading: 'Research Scope',
-        body: 'I led the entire research program — field visits, support ticket analysis, and structured usability testing.',
-        metrics: [
-          { value: '50+', label: 'User Interviews' },
-          { value: '500+', label: 'Support Tickets Analyzed' },
-          { value: '3', label: 'Usability Test Rounds' },
-          { value: '78%', label: 'Cited Multi-Filing Pain' },
-        ],
+        label: 'Dashboard',
+        html: `
+          <div class="slide-label">Design solution</div>
+          <div class="slide-title">Multi-GSTIN Filing Dashboard</div>
+          <div class="slide-subtitle">Centralised status overview tracking pending filings, tax liabilities, and ITC statuses. Batch filing for 10+ GSTINs in one click — enterprises activated 20+ GSTINs in under 10 minutes.</div>
+          <div class="screen"><img src="/cs/gstr-wireframe-b.webp" alt="Multi-GSTIN dashboard wireframe" /></div>
+          <div class="kf-card">
+            <div class="kf-head">Why this matters</div>
+            <div class="kf-body">Users no longer context-switch between GSTINs. One view shows what's pending, what's risky, and what's ready to file — eliminating the mental tracking that caused errors.</div>
+          </div>
+        `,
       },
       {
-        type: 'insight',
-        heading: 'Key Research Finding: Users Are Not the Same',
-        body: 'Field shadowing revealed three distinct user personas with completely different pain points:',
-        bullets: [
-          'Enterprise CFOs (120+ GSTINs) — need batch filing and status dashboards. Time is the primary cost.',
-          'Tax Consultants (30+ clients) — need reconciliation tools and audit trails. Accuracy is the primary concern.',
-          'MSME Owners (1–5 GSTINs) — need simplicity. They don\'t understand GST terminology and call support for basic steps.',
-        ],
+        label: 'Reconciliation',
+        html: `
+          <div class="slide-label">Design solution</div>
+          <div class="slide-title">Pre-Filing Reconciliation Engine</div>
+          <div class="slide-subtitle">Split-view comparison of GSTR-2B vs Purchase Register with mismatches highlighted. Bulk approve/reject for 100+ invoices in one click.</div>
+          <div class="screen"><img src="/cs/gstr-wireframe-c.webp" alt="Reconciliation engine wireframe" /></div>
+          <div class="screen"><img src="/cs/gstr-data-prep.gif" alt="Data preparation flow" /></div>
+        `,
       },
       {
-        type: 'statement',
-        quote: 'I download the recon to Excel, create pivot tables, and cross-check. Your platform logic is a black box.',
-        quoteAuthor: 'Tax Consultant managing 30 clients',
-        body: 'This quote reshaped my entire approach — the platform needed to be transparent, not just automated.',
+        label: 'Table-4',
+        html: `
+          <div class="slide-label">Design solution</div>
+          <div class="slide-title">Table-4 Live Preview</div>
+          <div class="slide-subtitle">Users didn't trust auto-generated values. I designed a live side panel that shows cause-and-effect in real time — each reconciliation action immediately updates Table-4, turning a black box into a transparent system.</div>
+          <div class="screen"><img src="/cs/gstr-wireframe-d.webp" alt="Table-4 live preview wireframe" /></div>
+          <div class="screen"><img src="/cs/gstr-tax-calc.gif" alt="Tax calculation review" /></div>
+          <div class="quote-block">
+            <div class="quote-text">"The live previews made Table-4 feel less like a mystery."</div>
+            <div class="quote-attr">Meera, Tax Consultant</div>
+          </div>
+        `,
       },
       {
-        type: 'actions',
-        heading: 'Design Strategy — Five Mandates',
-        bullets: [
-          'Enable bulk filing for multiple GSTINs in one workflow — eliminate repetitive work entirely',
-          'Build a pre-filing reconciliation engine with transparency — users must see how decisions affect ITC',
-          'Let users choose and adjust data sources inline — not as a separate "gatekeeper" step',
-          'Replicate Excel flexibility natively — filtering, sorting, grouping, and bulk actions in-platform',
-          'Auto-generate Table-4 from reconciliation — turn ITC computation from mystery to transparent flow',
-        ],
+        label: 'Upload',
+        html: `
+          <div class="slide-label">Design solution</div>
+          <div class="slide-title">Upload & Filing Flow</div>
+          <div class="slide-subtitle">Streamlined GSTN upload with automated OTP capture and a unified filing status dashboard covering all GSTINs. Filing time dropped from 30 min to under 2 min per batch.</div>
+          <div class="screen"><img src="/cs/gstr-upload.gif" alt="Upload to GSTN" /></div>
+          <div class="screen"><img src="/cs/gstr-filing.gif" alt="Filing and status dashboard" /></div>
+        `,
       },
       {
-        type: 'split',
-        heading: 'Multi-GSTIN Dashboard',
-        body: 'Centralised status overview tracking pending filings, tax liabilities, and ITC statuses. Enterprises activated 20+ GSTINs in under 10 minutes. Batch filing for 10+ GSTINs in one click.',
-        visual: '/cs/gstr-wireframe-b.webp',
-        visualType: 'image',
+        label: 'Iterations',
+        html: `
+          <div class="slide-label">Post-launch iteration</div>
+          <div class="slide-title">What field shadowing revealed</div>
+          <div class="slide-subtitle">Post-launch, the 90-90-90 adoption drive revealed a critical flaw: adoption ≠ proficiency. CSMs were doing tasks for users to hit targets. I shifted to direct user shadowing.</div>
+          <div class="kf-card">
+            <div class="kf-head">Iteration 1 — Data source moved inline</div>
+            <div class="kf-body">Moved the standalone configuration step inside the form itself. Drop-off: 47% → near zero.</div>
+          </div>
+          <div class="screen"><img src="/cs/gstr-datasrc-redesign.gif" alt="Data source moved inline" /></div>
+          <div class="kf-card">
+            <div class="kf-head">Iteration 2 — Excel-free grouping</div>
+            <div class="kf-body">Native grouping and subgrouping replaced the need for Excel pivot tables entirely.</div>
+          </div>
+          <div class="screen"><img src="/cs/gstr-excel-free.gif" alt="Native grouping replacing Excel" /></div>
+          <div class="kf-card">
+            <div class="kf-head">Iteration 3 — Transparent Table-4</div>
+            <div class="kf-body">Real-time ITC impact previews — every row action updates the final number live.</div>
+          </div>
+          <div class="screen"><img src="/cs/gstr-table4.gif" alt="Table-4 live preview iteration" /></div>
+        `,
       },
       {
-        type: 'split',
-        heading: 'Pre-Filing Reconciliation Engine',
-        body: 'Split-view comparison of GSTR-2B vs Purchase Register with mismatches highlighted. Bulk approve/reject for 100+ invoices in one click. Each reconciliation action updates Table-4 in real time — turning a black box into a transparent system.',
-        visual: '/cs/gstr-wireframe-c.webp',
-        visualType: 'image',
+        label: 'Impact',
+        html: `
+          <div class="slide-label">Impact</div>
+          <div class="slide-title">Results across three phases</div>
+          <div class="metric-grid">
+            <div class="metric-card"><div class="metric-num">87%</div><div class="metric-label">Filing time cut (1hr → 8min)</div></div>
+            <div class="metric-card"><div class="metric-num">53%</div><div class="metric-label">3B adoption (from 18%)</div></div>
+            <div class="metric-card"><div class="metric-num">94%</div><div class="metric-label">Reconciliation accuracy</div></div>
+            <div class="metric-card"><div class="metric-num">73%</div><div class="metric-label">Escalations down (92→25/wk)</div></div>
+          </div>
+          <table class="impact-table">
+            <thead><tr><th>Metric</th><th>Clear 1.0</th><th>2.0 Launch</th><th>Post-launch</th></tr></thead>
+            <tbody>
+              <tr><td>GSTR-3B adoption</td><td>18%</td><td>42%</td><td class="good">53%</td></tr>
+              <tr><td>Speed per GSTIN</td><td>~1 hour</td><td>&lt;10 min</td><td class="good">&lt;8 min</td></tr>
+              <tr><td>Recon accuracy</td><td>80%</td><td>92%</td><td class="good">94%</td></tr>
+              <tr><td>CSM escalations/wk</td><td>92</td><td>80</td><td class="good">25</td></tr>
+              <tr><td>Revenue</td><td>₹60cr</td><td>₹100cr</td><td class="good">₹108cr</td></tr>
+              <tr><td>Automation</td><td>10%</td><td>30%</td><td class="good">60%</td></tr>
+            </tbody>
+          </table>
+        `,
       },
       {
-        type: 'decision',
-        heading: 'The Hardest Design Decision',
-        body: 'The data source configuration page had a 47% drop-off rate. Users saw it as a gatekeeper — a mandatory step before they could start filing. I moved data source controls inline into the GSTR-3B form itself.',
-        quote: 'Why can I not adjust sources directly in the GSTR-3B form?',
-        quoteAuthor: 'MSME Owner',
-      },
-      {
-        type: 'insight',
-        heading: 'Why This Structural Change Mattered',
-        body: 'A small IA change — moving configuration from a standalone page into inline controls — had the biggest impact of any single design decision:',
-        bullets: [
-          'Drop-off at data source: 47% → near-zero',
-          'Users could adjust sources while reviewing Table-4 — context preserved',
-          'Eliminated the single largest support call driver',
-          'Lesson: Context > Isolation. Where a feature lives matters more than how it looks.',
-        ],
-      },
-      {
-        type: 'comparison',
-        heading: 'Post-Launch Discovery',
-        subheading: 'What We Expected|What Actually Happened',
-        bullets: [
-          'Users would adopt features after launch training',
-          'CSM-led onboarding would drive proficiency',
-          'Excel usage would decline with better in-platform tools',
-          'CSMs were completing tasks FOR users to hit adoption metrics',
-          'Adoption ≠ Proficiency — users were filing but not mastering',
-          '89% still reverted to Excel for reconciliation — our tools weren\'t transparent enough',
-        ],
-      },
-      {
-        type: 'impact',
-        heading: 'Final Results — Three Phases',
-        metrics: [
-          { value: '87%', label: 'Filing Time Reduction' },
-          { value: '53%', label: 'GSTR-3B Adoption' },
-          { value: '94%', label: 'Reconciliation Accuracy' },
-          { value: '73%', label: 'Escalation Reduction' },
-        ],
-      },
-      {
-        type: 'actions',
-        heading: 'What This Project Demonstrates',
-        bullets: [
-          'End-to-end ownership — from 50+ interviews to shipped product to post-launch iteration',
-          'Research that changes direction — field shadowing revealed "adoption ≠ proficiency" which dashboards couldn\'t',
-          'Structural design > visual design — moving data source inline was a small change with massive UX impact',
-          'Transparency builds trust — live Table-4 previews drove adoption where mandates couldn\'t',
-          'Iteration after launch matters — the 90-90-90 drive and user shadowing caught critical blind spots',
-        ],
-      },
-      {
-        type: 'cta',
-        heading: 'Read the full case study',
-        subheading: 'Explore the complete research, all wireframes, the 6-step IA, post-launch iterations, and the full before/after metrics table.',
+        label: 'Reflection',
+        html: `
+          <div class="slide-label">Reflections</div>
+          <div class="slide-title">What I'd carry forward</div>
+          <div class="reflection-card">
+            <div class="refl-num">01</div>
+            <div class="refl-title">Adoption ≠ proficiency</div>
+            <div class="refl-body">Incentivising usage without ensuring understanding backfires. Field shadowing revealed what dashboards couldn't — users were filing but not mastering the tool.</div>
+          </div>
+          <div class="reflection-card">
+            <div class="refl-num">02</div>
+            <div class="refl-title">Context beats isolation</div>
+            <div class="refl-body">Moving the data source step inline was a small structural change with massive UX impact. Where something lives in a flow shapes how users understand it.</div>
+          </div>
+          <div class="reflection-card">
+            <div class="refl-num">03</div>
+            <div class="refl-title">Transparency builds trust</div>
+            <div class="refl-body">Users needed to see how their actions shaped outcomes. Live Table-4 previews transformed anxiety into confidence — and drove adoption where mandates had failed.</div>
+          </div>
+        `,
       },
     ],
   },
 
   // ─────────────────────────────────────────────
-  // ZZAZZ.AI — 14 slides
+  // Zzazz.ai
   // ─────────────────────────────────────────────
   'zzazz-ai': {
     slug: 'zzazz-ai',
+    title: 'Zzazz.ai',
     accentColor: '#F59E0B',
+    accentBg: '#FEF3D6',
+    accentText: '#8B5E0A',
     slides: [
       {
-        type: 'title',
-        heading: 'Zzazz.ai',
-        subheading: 'Designing the UX Foundation for a New Information Economy',
-        body: 'Designer · UX Architect · Product Architect · 2025',
+        label: 'Cover',
+        html: `
+          <div class="tag">AI-Native · Marketplace · Ecosystem Design</div>
+          <div class="slide-title">Zzazz.ai</div>
+          <div class="slide-subtitle">Designing the UX foundation for a new information economy — from Product Designer to ecosystem architect.</div>
+          <div class="divider"></div>
+          <div class="metric-grid">
+            <div class="metric-card"><div class="metric-num">7</div><div class="metric-label">Verticals architected</div></div>
+            <div class="metric-card"><div class="metric-num">50%</div><div class="metric-label">Higher CTR projected</div></div>
+            <div class="metric-card"><div class="metric-num">80–98%</div><div class="metric-label">Users reached</div></div>
+            <div class="metric-card"><div class="metric-num">2→4</div><div class="metric-label">Design team built</div></div>
+          </div>
+          <div class="divider"></div>
+          <div class="info-grid">
+            <div><div class="info-label">Role</div><div class="info-value">Designer · UX Architect · Product Architect</div></div>
+            <div><div class="info-label">Year</div><div class="info-value">2025</div></div>
+            <div><div class="info-label">Scope</div><div class="info-value">7 verticals · 3 form factors</div></div>
+            <div><div class="info-label">Shift</div><div class="info-value">Product Designer → Ecosystem Architect</div></div>
+          </div>
+        `,
       },
       {
-        type: 'problem',
-        heading: 'The Content Economy Is Broken',
-        body: 'The content economy is broken on three sides simultaneously — and they\'re all connected:',
-        bullets: [
-          'Creators can\'t monetize — AI scrapes content, subscriptions convert <2%, individual creators earn almost nothing',
-          'Consumers can\'t evaluate — too much content, no quality signal, paywall fatigue, subscribe-to-everything or leave',
-          'No infrastructure — content gets copied trivially, cookie-based ads are dying, no ownership or rights layer exists',
-        ],
+        label: 'Problem',
+        html: `
+          <div class="slide-label">Problem space</div>
+          <div class="slide-title">The content economy is broken on three sides</div>
+          <div class="screen"><img src="/cs/zzazz-problem-space.svg" alt="Problem space — three broken sides" /></div>
+          <div class="step-row"><div class="step-num">1</div><div class="step-content"><div class="step-title">For creators & publishers</div><div class="step-desc">AI scrapes content, subscription conversion is low, individual creators earn almost nothing. Monetization is tied to views and brand strength, not content quality.</div></div></div>
+          <div class="step-row"><div class="step-num">2</div><div class="step-content"><div class="step-title">For consumers</div><div class="step-desc">Too much content, relevance is poor, paywalls frustrate. No shared signal for what's worth your time or money.</div></div></div>
+          <div class="step-row"><div class="step-num">3</div><div class="step-content"><div class="step-title">For market infrastructure</div><div class="step-desc">Content gets copied easily, no system-wide ownership layer, cookie-based ad logic is declining.</div></div></div>
+        `,
       },
       {
-        type: 'insight',
-        heading: 'What ZZAZZ Proposes',
-        body: 'Replace "brand" as the lazy quality shortcut with a more dynamic market signal — price — calculated by a Large Pricing Model (LPM) that evaluates content using intrinsic and extrinsic signals. Price becomes a trust indicator, not a paywall.',
+        label: 'Before',
+        html: `
+          <div class="slide-label">What existed when I joined</div>
+          <div class="slide-title">Disconnected POCs, no ecosystem logic</div>
+          <div class="slide-subtitle">The base idea was strong. The LPM (Large Pricing Model) worked. But verticals weren't connected into a coherent story.</div>
+          <div class="screen-row">
+            <div class="screen"><img src="/cs/zzazz-state-entry-exchange.jpg" alt="Exchange before" /><div class="screen-caption">Exchange — table-heavy listing</div></div>
+            <div class="screen"><img src="/cs/zzazz-state-entry-publish.jpg" alt="Publish before" /><div class="screen-caption">Publish — basic metrics</div></div>
+            <div class="screen"><img src="/cs/zzazz-state-entry-signal.jpg" alt="Signal before" /><div class="screen-caption">Signal Pill — basic widget</div></div>
+          </div>
+          <div class="quote-block">
+            <div class="quote-text">"I shifted the conversation from 'Which POC do we ship first?' to 'What ecosystem makes any single POC believable?'"</div>
+          </div>
+        `,
       },
       {
-        type: 'comparison',
-        heading: 'What I Walked Into vs. What I Built',
-        subheading: 'When I Joined|What I Shipped',
-        bullets: [
-          'Exchange existed as a table-heavy data listing',
-          'Publish existed as basic metrics surface',
-          'TimePay was an early concept/POC',
-          'Signal Pill was a basic integration widget',
-          'No creator vertical, no ad model, no ownership layer',
-          'Exchange redesigned as query-led AI-native marketplace',
-          'Publish designed as modular publisher workspace with 3 dashboard configs',
-          'TimePay redesigned as 3-path behavior bridge (cash, credits, sponsored)',
-          'Created Moments (creator vertical), Ad Exchange, and DOTS Protocol from scratch',
-          'Architected ecosystem logic connecting all 7 verticals',
-        ],
+        label: 'Ecosystem',
+        html: `
+          <div class="slide-label">Ecosystem architecture</div>
+          <div class="slide-title">7 verticals, each solving a different adoption problem</div>
+          <div class="screen"><img src="/cs/zzazz-ecosystem-map.svg" alt="Ecosystem map — 7 verticals" /></div>
+          <div class="step-row"><div class="step-num">1</div><div class="step-content"><div class="step-title">Exchange</div><div class="step-desc">Rethink & redesign — query-led, AI-native interaction model</div></div></div>
+          <div class="step-row"><div class="step-num">2</div><div class="step-content"><div class="step-title">Publish</div><div class="step-desc">Complete design — workspace, dashboards, analytics, earnings</div></div></div>
+          <div class="step-row"><div class="step-num">3</div><div class="step-content"><div class="step-title">Moments</div><div class="step-desc">New vertical — creator workflow, pre-publish pricing</div></div></div>
+          <div class="step-row"><div class="step-num">4</div><div class="step-content"><div class="step-title">TimePay</div><div class="step-desc">Rethink & redesign — three-path access (cash, credits, sponsored attention)</div></div></div>
+          <div class="step-row"><div class="step-num">5</div><div class="step-content"><div class="step-title">Ad Exchange + DOTS + Signal Pill</div><div class="step-desc">Contextual ads, ownership layer, pricing widget — completing the ecosystem</div></div></div>
+        `,
       },
       {
-        type: 'statement',
-        quote: 'I shifted the conversation from "Which POC do we ship first?" to "What ecosystem makes any single POC believable?"',
-        body: 'This was the most important strategic contribution I made. Individual POCs can\'t prove the thesis — only the connected system can.',
+        label: 'Exchange',
+        html: `
+          <div class="slide-label">Vertical deep-dive</div>
+          <div class="slide-title">Exchange — From Trading Terminal to Research Assistant</div>
+          <div class="slide-subtitle">Users think in questions, not dashboards. The old table-heavy UI made pricing feel like a barrier — the exact opposite of ZZAZZ's thesis that price makes content more accessible.</div>
+          <div class="screen"><img src="/cs/zzazz-exchange-before.jpg" alt="Exchange before — table-heavy" /><div class="screen-caption">Before — table-heavy, filter-dependent interface</div></div>
+          <div class="screen"><video src="/cs/zzazz-exchange-video.mp4" autoplay loop muted playsinline></video><div class="screen-caption">After — query-led hybrid interface</div></div>
+          <div class="screen"><video src="/cs/zzazz-exchange-redesign-video.mp4" autoplay loop muted playsinline></video><div class="screen-caption">Redesigned experience — chat + structured views on demand</div></div>
+        `,
       },
       {
-        type: 'insight',
-        heading: 'How My Role Evolved',
-        body: 'I joined as a Product Designer. Within weeks, I identified that the gap wasn\'t in interface design — it was in ecosystem logic, go-to-market thinking, and adoption psychology. Nobody was connecting product strategy to the product experience.',
-        bullets: [
-          'From designing screens → to defining what each vertical should be and why it exists',
-          'From working within modules → to architecting how modules connect into a system',
-          'From individual contributor → to building a team of 4 designers across 7 verticals',
-        ],
+        label: 'TimePay + Publish',
+        html: `
+          <div class="slide-label">Vertical deep-dives</div>
+          <div class="slide-title">TimePay & Publish</div>
+          <div class="kf-card">
+            <div class="kf-head">TimePay — Three-path access system</div>
+            <div class="kf-body">Cash, credits, or sponsored attention. Captures 80–98% of users who'd never subscribe. Payment activates inline — no redirect breaks the discovery flow.</div>
+          </div>
+          <div class="screen"><video src="/cs/zzazz-timepay-video.mp4" autoplay loop muted playsinline></video></div>
+          <div class="kf-card">
+            <div class="kf-head">Publish — Publisher workspace</div>
+            <div class="kf-body">Pricing intelligence, performance analytics, custom dashboards, and earnings views. Publishers used pricing as an internal decision tool before exposing prices to readers.</div>
+          </div>
+          <div class="screen"><video src="/cs/zzazz-publish-video.mp4" autoplay loop muted playsinline></video></div>
+        `,
       },
       {
-        type: 'actions',
-        heading: 'Research That Shaped Everything',
-        body: 'Direct conversations with end users and publishers fundamentally changed every design decision:',
-        bullets: [
-          'Users think in questions, not dashboards — "How is Modi vs Trump content performing?" drove the Exchange redesign',
-          'Price works as signal until you pay it — informational pricing builds trust, but payment triggers loss aversion. This validated TimePay.',
-          '"Buy content" is the wrong language — users reacted against it. They don\'t feel they own content after paying.',
-          'Publishers adopt internally first — they\'d use pricing as an internal tool before showing it publicly',
-          'Users are not traders — the UI must reflect content consumers, not financial analysts',
-        ],
+        label: 'Distribution',
+        html: `
+          <div class="slide-label">Distribution strategy</div>
+          <div class="slide-title">Three form factors for three adoption stages</div>
+          <div class="slide-subtitle">Widget → Plugin → Terminal. A graduation path from discovering the ecosystem on publisher sites, to exploring across the web, to committing fully.</div>
+          <div class="kf-card"><div class="kf-head">Terminal — Full ecosystem, chat-based</div><div class="kf-body">Natural language queries → structured artifacts. Paid services trigger TimePay inline.</div></div>
+          <div class="screen"><video src="/cs/zzazz-terminal-video.mp4" autoplay loop muted playsinline></video></div>
+          <div class="kf-card"><div class="kf-head">Plugin — Browser extension</div><div class="kf-body">Meets users in existing behavior. Paste URL → pricing → TimePay → unlocked.</div></div>
+          <div class="screen"><video src="/cs/zzazz-plugin-video.mp4" autoplay loop muted playsinline></video></div>
+          <div class="kf-card"><div class="kf-head">Widget — Embedded on publisher sites</div><div class="kf-body">Browse, compare, access via TimePay — without leaving the publisher's property.</div></div>
+          <div class="screen"><video src="/cs/zzazz-widget-video.mp4" autoplay loop muted playsinline></video></div>
+        `,
       },
       {
-        type: 'visual',
-        heading: 'The Seven Verticals',
-        body: 'Each solves a different adoption problem. Each reinforces the others. Together, they make priced content believable.',
-        visual: '/cs/zzazz-ecosystem-flow.svg',
-        visualType: 'image',
+        label: 'Flow',
+        html: `
+          <div class="slide-label">System design</div>
+          <div class="slide-title">The Ecosystem in Motion</div>
+          <div class="slide-subtitle">Content enters → pricing applied → protection added → discovery → access → revenue flows back → the loop reinforces.</div>
+          <div class="screen"><img src="/cs/zzazz-ecosystem-flow.svg" alt="End-to-end ecosystem flow" /></div>
+          <div class="insight-row">
+            <div class="insight-icon">💡</div>
+            <div class="insight-body"><div class="kf-head">The critical realization</div><div class="kf-body">Pricing only becomes believable when discovery, access, monetization, ad logic, rights, ownership, and creator incentives all work together as one ecosystem. That realization was the most important strategic contribution I made.</div></div>
+          </div>
+        `,
       },
       {
-        type: 'actions',
-        heading: 'Distribution: Three Form Factors',
-        body: 'The ecosystem needed to meet users where they are — not ask them to come to a new platform:',
-        bullets: [
-          'Widget (Signal Pill) — embedded on publisher sites. Users discover pricing without leaving their reading experience.',
-          'Plugin — browser extension. Intercepts existing browsing behavior. Paste a URL → pricing → TimePay → unlocked.',
-          'Terminal — full ecosystem in a conversational interface. Power users type natural language queries and get structured responses.',
-          'The graduation path: Widget → Plugin → Terminal (discovery → exploration → commitment)',
-        ],
-      },
-      {
-        type: 'split',
-        heading: 'Terminal — Chat-First Marketplace',
-        body: 'Users type natural language queries and receive structured artifacts — tables, graphs, summaries — generated on demand. Paid services trigger TimePay inline. The chat becomes the marketplace.',
-        visual: '/cs/zzazz-terminal-video.mp4',
-        visualType: 'video',
-      },
-      {
-        type: 'split',
-        heading: 'Plugin — Zero Behavior Change',
-        body: 'Paste a partner URL → recognized → pricing → TimePay → unlocked. Paste a non-partner URL → "Similar content available" → alternatives. Two flows, one extension, no behavior change required.',
-        visual: '/cs/zzazz-plugin-video.mp4',
-        visualType: 'video',
-      },
-      {
-        type: 'actions',
-        heading: 'Signals & Validation',
-        bullets: [
-          'Publishers used pricing as an internal decision tool — before showing prices to readers. Internal-first adoption validated.',
-          'Price worked as a quality signal — higher-priced content was perceived as more trustworthy.',
-          'Payment triggered sharp psychological friction — confirming TimePay\'s behavior-bridge was critical, not optional.',
-          'The conversational direction resonated strongest — investors responded most positively to the Terminal\'s chat-first approach.',
-          'The team scaled from 2 to 4+ designers — validating the ecosystem scope required dedicated ownership per vertical.',
-        ],
-      },
-      {
-        type: 'impact',
-        heading: 'Impact',
-        metrics: [
-          { value: '7', label: 'Verticals Architected' },
-          { value: '50%', label: 'Higher CTR Projected' },
-          { value: '80–98%', label: 'Users Reached via TimePay' },
-          { value: '2 → 4', label: 'Design Team Built' },
-        ],
-      },
-      {
-        type: 'cta',
-        heading: 'Explore the verticals',
-        subheading: 'Each vertical has its own case study with deep design process — Exchange, Publish, Moments, TimePay, Ad Exchange, DOTS, and Signal Pill.',
+        label: 'Impact',
+        html: `
+          <div class="slide-label">Impact & signals</div>
+          <div class="slide-title">What this project demonstrates</div>
+          <div class="metric-grid">
+            <div class="metric-card"><div class="metric-num">7</div><div class="metric-label">Verticals architected</div></div>
+            <div class="metric-card"><div class="metric-num">3</div><div class="metric-label">Form factors shipped</div></div>
+            <div class="metric-card"><div class="metric-num">50%</div><div class="metric-label">Higher CTR projected</div></div>
+            <div class="metric-card"><div class="metric-num">2→4</div><div class="metric-label">Design team built</div></div>
+          </div>
+          <div class="reflection-card">
+            <div class="refl-num">01</div>
+            <div class="refl-title">I see gaps others miss and act on them</div>
+            <div class="refl-body">Joined as Product Designer. Identified the gap was in ecosystem logic, GTM thinking, and adoption psychology. Expanded my own scope.</div>
+          </div>
+          <div class="reflection-card">
+            <div class="refl-num">02</div>
+            <div class="refl-title">I think in systems, not screens</div>
+            <div class="refl-body">Seven verticals connected into a coherent ecosystem where each piece reinforces the others.</div>
+          </div>
+          <div class="reflection-card">
+            <div class="refl-num">03</div>
+            <div class="refl-title">I design around user psychology</div>
+            <div class="refl-body">Price shifts from signal to friction the moment payment enters. Users need behavior bridges, not lower prices.</div>
+          </div>
+        `,
       },
     ],
   },
 
   // ─────────────────────────────────────────────
-  // MEMOIR — 14 slides
+  // Memoir
   // ─────────────────────────────────────────────
   'memoir': {
     slug: 'memoir',
+    title: 'Memoir',
     accentColor: '#C9A96E',
+    accentBg: '#F5EDE0',
+    accentText: '#6B5A35',
     slides: [
       {
-        type: 'title',
-        heading: 'Memoir',
-        subheading: 'Designing & Building an Emotion-Led D2C Brand from Zero',
-        body: 'Experience Architect · Product Designer (Co-founder) · 2026',
+        label: 'Cover',
+        html: `
+          <div class="tag">D2C · Mobile-First · AI-Native Build</div>
+          <div class="slide-title">Memoir</div>
+          <div class="slide-subtitle">Designing & building an emotion-led D2C jewellery brand from zero — strategy through shipping code.</div>
+          <div class="divider"></div>
+          <div class="metric-grid">
+            <div class="metric-card"><div class="metric-num">4,060+</div><div class="metric-label">Lines of code</div></div>
+            <div class="metric-card"><div class="metric-num">3</div><div class="metric-label">Weeks to ship</div></div>
+            <div class="metric-card"><div class="metric-num">30K+</div><div class="metric-label">Words of strategy</div></div>
+            <div class="metric-card"><div class="metric-num">0</div><div class="metric-label">Handoffs</div></div>
+          </div>
+          <div class="divider"></div>
+          <div class="info-grid">
+            <div><div class="info-label">Role</div><div class="info-value">Experience Architect (Co-founder)</div></div>
+            <div><div class="info-label">Year</div><div class="info-value">2026</div></div>
+            <div><div class="info-label">Stack</div><div class="info-value">React · Shopify Headless · Claude Code</div></div>
+            <div><div class="info-label">Built with</div><div class="info-value">Claude Code + Gemini + Sora</div></div>
+          </div>
+        `,
       },
       {
-        type: 'problem',
-        heading: 'The Market Gap',
-        body: 'India\'s silver jewellery market is dominated by well-funded incumbents competing on trends and discounts. Everyone fights the same war — seasonal collections, influencer marketing, price undercutting. Nobody owns gifting as an emotional category.',
-        quote: 'People don\'t buy jewellery. They buy emotional resolution.',
+        label: 'Insight',
+        html: `
+          <div class="slide-label">Core insight</div>
+          <div class="slide-title">Two audiences, two anxieties, one site</div>
+          <div class="quote-block">
+            <div class="quote-text">"People don't buy jewellery. They buy emotional resolution."</div>
+          </div>
+          <div class="ba-row">
+            <div class="ba-box ba-before">
+              <div class="ba-label">The Gifter</div>
+              Carries taste anxiety — "What if she doesn't like it?" He doesn't speak jewellery language. He wants someone to tell him "this is the one."
+            </div>
+            <div class="ba-box ba-after">
+              <div class="ba-label">The Self-Purchaser</div>
+              Carries guilt — "Should I really spend this on myself?" She's culturally conditioned to spend on family. She needs permission, not persuasion.
+            </div>
+          </div>
+          <div class="kf-card">
+            <div class="kf-head">This insight became the literal architecture</div>
+            <div class="kf-body">From the dual homepage CTAs to the copy system to the checkout flow's conditional UI — every component was designed for one of these two psychological states.</div>
+          </div>
+        `,
       },
       {
-        type: 'insight',
-        heading: 'The Core Insight: Two Buyers, One Product Page',
-        body: 'Every product page serves two completely different emotional states that existing jewellery sites treat identically:',
-        bullets: [
-          'The Gifter — driven by taste anxiety ("Will they like it? What if it\'s wrong?"). Needs guidance, not options.',
-          'The Self-Purchaser — driven by guilt permission ("I deserve this, but do I?"). Needs emotional justification, not features.',
-          'The design question became: How do you serve both emotional states without fragmenting the experience?',
-        ],
+        label: 'Homepage',
+        html: `
+          <div class="slide-label">Homepage & navigation</div>
+          <div class="slide-title">Dual CTAs + Moment Navigation</div>
+          <div class="slide-subtitle">First segmentation signal captured before seeing a single product. "First Light" / "In Her Honour" instead of "Rings" / "Necklaces" — emotion over category.</div>
+          <div class="screen-row">
+            <div class="screen"><img src="/cs/memoir-mobile-hero.webp" alt="Homepage with dual CTAs" /><div class="screen-caption">Dual CTAs: Shop Now + Find a Gift</div></div>
+            <div class="screen"><img src="/cs/memoir-mobile-moments.webp" alt="Moment navigation" /><div class="screen-caption">Moment navigation + trust strip</div></div>
+          </div>
+        `,
       },
       {
-        type: 'decision',
-        heading: 'The Answer: A Gift Toggle',
-        body: 'Every product page has a toggle that shifts the entire narrative, imagery, and CTAs between "Give this to someone" and "Treat yourself." Same product, two emotional entry points. The toggle isn\'t a feature — it\'s the business model.',
-        bullets: [
-          'Gift mode: Story-first presentation, guided selection, parchment note card, unboxing narrative',
-          'Self mode: Self-affirmation copy, "You deserve this" framing, personal ritual language',
-        ],
+        label: 'Gift Guide',
+        html: `
+          <div class="slide-label">Gifter journey</div>
+          <div class="slide-title">3-Step Gift Guide</div>
+          <div class="slide-subtitle">Full-screen guided flow for one-handed mobile use. He doesn't choose from 50 products — he's guided to 3. The site makes the decision easy.</div>
+          <div class="screen-row screen-row-3">
+            <div class="screen"><img src="/cs/memoir-mobile-gift-step1.webp" alt="Step 1: Who is this for?" /><div class="screen-caption">Step 1: Who is this for?</div></div>
+            <div class="screen"><img src="/cs/memoir-mobile-gift-step2.webp" alt="Step 2: What's the occasion?" /><div class="screen-caption">Step 2: Occasion</div></div>
+            <div class="screen"><img src="/cs/memoir-mobile-gift-step3.webp" alt="Step 3: Curated picks" /><div class="screen-caption">Step 3: Curated picks</div></div>
+          </div>
+        `,
       },
       {
-        type: 'actions',
-        heading: 'What I Designed & Built',
-        bullets: [
-          'Complete e-commerce experience — 4,060+ lines of React shipped end-to-end',
-          'Mobile-first architecture — 85% of Indian e-commerce is mobile. Every component designed at 390px first.',
-          '3-step gift guide — "Who is this for?" → "What\'s the occasion?" → curated picks with BEST MATCH tags',
-          'Unboxing as design deliverable — ink-pressed linen box, hand-lettered story card, silk velvet reveal',
-          'Six hero products with dual emotional framing',
-          'AI-native workflow — Claude Code for engineering, Gemini for product imagery, Sora for video',
-        ],
+        label: 'Product',
+        html: `
+          <div class="slide-label">Product page</div>
+          <div class="slide-title">Full-Bleed Imagery + Gift Card + Story</div>
+          <div class="slide-subtitle">Gift toggle reveals a parchment note card with torn edges (50+ clipPath coordinates), paper grain, and Caveat handwriting font. Pre-written messages for gifters who freeze.</div>
+          <div class="screen-row screen-row-3">
+            <div class="screen"><img src="/cs/memoir-mobile-product.webp" alt="Product page" /><div class="screen-caption">Full-bleed product + emotional hook</div></div>
+            <div class="screen"><img src="/cs/memoir-mobile-gift-card.webp" alt="Gift card toggle" /><div class="screen-caption">Gift toggle + parchment card</div></div>
+            <div class="screen"><img src="/cs/memoir-mobile-story.webp" alt="Product story" /><div class="screen-caption">The Story Behind This Piece</div></div>
+          </div>
+        `,
       },
       {
-        type: 'split',
-        heading: 'Mobile-First Homepage',
-        body: 'Dual CTAs from the very first screen — "Find the Perfect Gift" and "Explore for Yourself." The emotional fork happens before the user sees a single product.',
-        visual: '/cs/memoir-mobile-hero.webp',
-        visualType: 'image',
+        label: 'Unboxing',
+        html: `
+          <div class="slide-label">Gifter anxiety resolution</div>
+          <div class="slide-title">The Unboxing Ritual</div>
+          <div class="slide-subtitle">"How She'll Receive It" — three swipeable steps. The gifter's anxiety about "what will she get?" is resolved through touch interaction as emotional simulation.</div>
+          <div class="screen-row screen-row-3">
+            <div class="screen"><img src="/cs/memoir-mobile-unbox1.webp" alt="The Opening" /><div class="screen-caption">The Opening</div></div>
+            <div class="screen"><img src="/cs/memoir-mobile-unbox2.webp" alt="The Narrative" /><div class="screen-caption">The Narrative</div></div>
+            <div class="screen"><img src="/cs/memoir-mobile-unbox3.webp" alt="The Reveal" /><div class="screen-caption">The Reveal</div></div>
+          </div>
+        `,
       },
       {
-        type: 'insight',
-        heading: 'The AI-Native Workflow',
-        body: 'This project was built by one designer using AI as a force multiplier across every dimension:',
-        bullets: [
-          'Claude Code — full engineering execution. 4,060+ lines of production React from conversational prompts.',
-          'Gemini — product imagery generation. Six products, each with multiple mood shots.',
-          'Sora — brand video generation. Emotional storytelling without a production team.',
-          '30,000+ words of strategy documentation became AI prompts — the strategy IS the prompt.',
-          'Stack collapsed from 6 tools to 3: Claude Code + Shopify Headless + Vercel',
-        ],
+        label: 'Cart',
+        html: `
+          <div class="slide-label">Checkout</div>
+          <div class="slide-title">Cart & Checkout Flow</div>
+          <div class="slide-subtitle">Cart drawer slides up from bottom. "GIFT WRAPPED" badge on gifted items. Bottom-anchored checkout with total always visible. Gift messages persist through Shopify checkout as cart line attributes.</div>
+          <div class="screen-row">
+            <div class="screen"><img src="/cs/memoir-mobile-cart-drawer.webp" alt="Cart drawer" /><div class="screen-caption">Cart drawer with gift badge</div></div>
+            <div class="screen"><img src="/cs/memoir-mobile-cart.webp" alt="Full cart view" /><div class="screen-caption">Full cart + bottom checkout</div></div>
+          </div>
+        `,
       },
       {
-        type: 'statement',
-        quote: 'The strategy is the prompt. 30,000 words of positioning, buyer psychology, and brand narrative became the AI\'s context — and the output was better for it.',
-        body: 'This is the emerging model: designers who can write deeply AND build with AI ship 10x faster.',
+        label: 'Stack',
+        html: `
+          <div class="slide-label">AI-native workflow</div>
+          <div class="slide-title">The Stack Pivot</div>
+          <div class="slide-subtitle">The original 4-tool stack (Figma Make + Supabase + Razorpay + Shiprocket) couldn't hold the experience complexity. Claude Code changed the economics of building.</div>
+          <div class="ba-row">
+            <div class="ba-box ba-before">
+              <div class="ba-label">Before</div>
+              Figma Make · Supabase · Razorpay · Shiprocket — 4 tools, 3 backend integrations, weeks of setup
+            </div>
+            <div class="ba-box ba-after">
+              <div class="ba-label">After</div>
+              Claude Code + Shopify Headless + Vercel — 1 AI tool, 1 commerce platform, shipped in 3 weeks
+            </div>
+          </div>
+          <div class="kf-card">
+            <div class="kf-head">The compound effect</div>
+            <div class="kf-body">AI-generated images (Gemini) + AI-generated video (Sora) + AI-built code (Claude Code) + headless commerce = a single designer creating a complete, testable, emotionally coherent mobile commerce experience.</div>
+          </div>
+          <div class="quote-block">
+            <div class="quote-text">"My strategic documents weren't just alignment tools. They were the best possible prompts. Strategy documentation and AI prompting are the same skill."</div>
+          </div>
+        `,
       },
       {
-        type: 'decision',
-        heading: 'Why Shopify Headless (Not Custom)',
-        body: 'The founding team initially wanted a fully custom backend. I pushed for Shopify Headless — not because it was easier, but because it was strategically correct:',
-        bullets: [
-          'Inventory, payments, and shipping are solved problems — custom-building them wastes time on non-differentiating work',
-          'Shopify handles PCI compliance, fraud detection, and tax calculation',
-          'The differentiation is in the front-end experience and emotional architecture — that\'s where design effort should concentrate',
-          'Time saved: 3 weeks instead of 3+ months for a comparable custom build',
-        ],
-      },
-      {
-        type: 'visual',
-        heading: 'The Unboxing Experience',
-        body: 'The unboxing isn\'t packaging — it\'s the final act of the emotional narrative. Every element is designed to extend the purchase emotion into a physical ritual.',
-        visual: '/cs/memoir-mobile-unbox1.webp',
-        visualType: 'image',
-      },
-      {
-        type: 'actions',
-        heading: 'Touch-First Design Decisions',
-        body: 'Not just "responsive" — genuinely mobile-native:',
-        bullets: [
-          'Swipeable product galleries with momentum physics — feels native, not web',
-          'Bottom-anchored CTAs always visible — the action is always one tap away',
-          'Full-bleed product imagery — no wasted viewport on a 5.8" screen',
-          'Moment-based navigation ("Anniversary," "Birthday") instead of category-based ("Rings," "Necklaces")',
-          'Cart drawer, not cart page — preserves browsing context and reduces abandonment',
-        ],
-      },
-      {
-        type: 'impact',
-        heading: 'What This Project Demonstrates',
-        metrics: [
-          { value: '4,060+', label: 'Lines of Code Shipped' },
-          { value: '3 Weeks', label: 'Concept to Live' },
-          { value: '3 AI Tools', label: 'Force Multipliers' },
-          { value: '0 Handoffs', label: 'Design → Production' },
-        ],
-      },
-      {
-        type: 'insight',
-        heading: 'The Bigger Implication',
-        body: 'Memoir isn\'t just a jewellery site. It\'s proof of a new model:',
-        bullets: [
-          'One designer can ship a complete e-commerce experience in 3 weeks using AI tools',
-          'Deep strategy + AI execution > large teams with shallow strategy',
-          'The "AI-native designer" isn\'t a buzzword — it\'s a designer who can hold strategy, design, and engineering simultaneously',
-          'The moat isn\'t code or pixels — it\'s the 30,000 words of thinking that precedes both',
-        ],
-      },
-      {
-        type: 'cta',
-        heading: 'Read the full case study',
-        subheading: 'Explore every design decision, the complete AI workflow, product pages, gift guide, unboxing system, and the strategic foundation.',
+        label: 'Reflection',
+        html: `
+          <div class="slide-label">What this demonstrates</div>
+          <div class="slide-title">The design role in 2026</div>
+          <div class="reflection-card">
+            <div class="refl-num">01</div>
+            <div class="refl-title">End-to-end product creation with AI tools</div>
+            <div class="refl-body">Strategy, experience architecture, visual identity, 4,000+ lines of code, backend integration, deployment. No design agency. No engineering team. One designer with AI as leverage.</div>
+          </div>
+          <div class="reflection-card">
+            <div class="refl-num">02</div>
+            <div class="refl-title">Psychological depth as a technical requirement</div>
+            <div class="refl-body">Dual copy system as parallel metafields. Gift card as CSS artwork with 50+ polygon coordinates. Every design decision maps to a specific emotional mechanism — implemented in working code.</div>
+          </div>
+          <div class="reflection-card">
+            <div class="refl-num">03</div>
+            <div class="refl-title">The stack pivot as a design decision</div>
+            <div class="refl-body">Where does the team's limited time create the most user value? Not in payment integration. In the emotional experience layer. The stack should serve the design ambition.</div>
+          </div>
+        `,
       },
     ],
   },
 
   // ─────────────────────────────────────────────
-  // MINT V8 — 13 slides
+  // Mint V8 Design System
   // ─────────────────────────────────────────────
   'mint-v8': {
     slug: 'mint-v8',
+    title: 'Mint V8 Design System',
     accentColor: '#156CEF',
+    accentBg: '#E0EDFE',
+    accentText: '#0B3D8A',
     slides: [
       {
-        type: 'title',
-        heading: 'Mint V8',
-        subheading: 'Token-Based, Theme-Ready Design System with PCS Logic',
-        body: 'Design System Lead · ClearTax · 2023',
+        label: 'Cover',
+        html: `
+          <div class="tag">Design System · Token Architecture · B2B</div>
+          <div class="slide-title">Mint V8 Design System</div>
+          <div class="slide-subtitle">Token-based, theme-ready system with PCS Logic — reducing 760 button variants to 32 while supporting multi-theme architecture.</div>
+          <div class="divider"></div>
+          <div class="metric-grid">
+            <div class="metric-card"><div class="metric-num">80%</div><div class="metric-label">Variant reduction</div></div>
+            <div class="metric-card"><div class="metric-num">70%</div><div class="metric-label">Dev effort saved</div></div>
+            <div class="metric-card"><div class="metric-num">100%</div><div class="metric-label">Adoption in 6 weeks</div></div>
+            <div class="metric-card"><div class="metric-num">0</div><div class="metric-label">Component duplication</div></div>
+          </div>
+          <div class="divider"></div>
+          <div class="info-grid">
+            <div><div class="info-label">Role</div><div class="info-value">Design System Lead</div></div>
+            <div><div class="info-label">Company</div><div class="info-value">Clear (ClearTax)</div></div>
+            <div><div class="info-label">Year</div><div class="info-value">2023</div></div>
+            <div><div class="info-label">Scope</div><div class="info-value">Tokens · Components · Adoption</div></div>
+          </div>
+        `,
       },
       {
-        type: 'problem',
-        heading: 'Why Clear Needed a New System',
-        body: 'Clear (ClearTax) had grown through acquisitions and rapid feature development. The result was design chaos:',
-        bullets: [
-          '760+ button variants and 624+ badge variants — nobody knew which to use',
-          'Three fragmented systems — Basil, old Mint, and ad hoc components with no shared logic',
-          'Engineers hardcoding UI because they didn\'t trust the existing components',
-          'Theming was impossible — every regional brand required full component duplication',
-          'Zero documentation — all knowledge was tribal',
-        ],
+        label: 'Problem',
+        html: `
+          <div class="slide-label">The challenge</div>
+          <div class="slide-title">5 reasons we needed to start over</div>
+          <div class="step-row"><div class="step-num">1</div><div class="step-content"><div class="step-title">Fragmented systems</div><div class="step-desc">Finance Cloud and Supply Chain Cloud had no consistent UI — some used outdated Basil, others a barebones Mint library.</div></div></div>
+          <div class="step-row"><div class="step-num">2</div><div class="step-content"><div class="step-title">Engineers hardcoding UI</div><div class="step-desc">Without a reliable system, engineers hardcoded visual decisions — diverging further with every sprint.</div></div></div>
+          <div class="step-row"><div class="step-num">3</div><div class="step-content"><div class="step-title">Impossible theming</div><div class="step-desc">Regional theming for global expansion required duplicating entire component sets.</div></div></div>
+          <div class="step-row"><div class="step-num">4</div><div class="step-content"><div class="step-title">Component variant explosion</div><div class="step-desc">760+ button variants. 624+ badges. 113+ inputs. Maintenance was a nightmare.</div></div></div>
+          <div class="step-row"><div class="step-num">5</div><div class="step-content"><div class="step-title">Zero documentation</div><div class="step-desc">5 designers, 5 different answers. Design decisions were tribal knowledge.</div></div></div>
+          <div class="quote-block">
+            <div class="quote-text">"I don't trust the Figma components. I just hardcode CSS."</div>
+            <div class="quote-attr">Amit, Frontend Engineer</div>
+          </div>
+        `,
       },
       {
-        type: 'statement',
-        quote: 'The problem wasn\'t that we had too many components. The problem was that we had no logic governing how components should be structured.',
-        body: 'This realization led to PCS Logic — the core invention that made everything else possible.',
+        label: 'System',
+        html: `
+          <div class="slide-label">The system overview</div>
+          <div class="slide-title">Mint V8 — Built from Tokens Up</div>
+          <div class="screen"><img src="/cs/mint-hero.jpg" alt="Mint V8 design system overview" /></div>
+          <div class="kf-card">
+            <div class="kf-head">Tokens first, always</div>
+            <div class="kf-body">I studied Material Design, Carbon, and atomic design. One insight: everything scalable starts with a token system. The team wanted quick wins. I pushed for a 3-week token foundation — every component built after would be theme-ready by default.</div>
+          </div>
+        `,
       },
       {
-        type: 'insight',
-        heading: 'The Breakthrough: PCS Logic',
-        body: 'Every component, regardless of complexity, decomposes into exactly three zones:',
-        bullets: [
-          'Prefix — the leading element (icon, avatar, checkbox). Constrained to specific types per component.',
-          'Content — the core content (text, label, value). Always present. The component\'s reason for existing.',
-          'Suffix — the trailing element (icon, badge, action). Optional. Provides secondary information or actions.',
-          'By constraining which elements are allowed in each zone per component type, you get massive flexibility within strict guardrails.',
-        ],
+        label: 'Tokens',
+        html: `
+          <div class="slide-label">Foundation</div>
+          <div class="slide-title">Token Architecture</div>
+          <div class="slide-subtitle">Four categories: Typography, Spacing, Colour (functional names, not appearance), Radius/Elevation. System tokens → Reference tokens → Raw values.</div>
+          <div class="screen"><video src="/cs/mint-token-arch.webm" autoplay loop muted playsinline></video><div class="screen-caption">Token architecture — system → reference → raw values</div></div>
+          <div class="screen"><img src="/cs/mint-color-tokens.webp" alt="Colour token system" /><div class="screen-caption">Colour tokens — functional names mapped per theme</div></div>
+        `,
       },
       {
-        type: 'comparison',
-        heading: 'Before PCS vs. After PCS',
-        subheading: 'Before (Unstructured)|After (PCS Logic)',
-        bullets: [
-          '760 button variants — each a unique Figma component',
-          'No naming convention — "Button_Primary_Large_WithIcon_v2_final"',
-          'Adding a new variant meant duplicating and modifying existing',
-          'Engineers guessing which component to use',
-          '32 button variants — structured by PCS zones',
-          'Systematic naming — ButtonPrimary/Prefix-Icon/Content-Text/Suffix-None',
-          'New variants created by composing existing zones',
-          'Engineers look up the PCS table and know exactly what to use',
-        ],
+        label: 'PCS Logic',
+        html: `
+          <div class="slide-label">The breakthrough</div>
+          <div class="slide-title">PCS Logic — Prefix · Content · Suffix</div>
+          <div class="slide-subtitle">As we built molecules, we hit a wall — component bloat. A whiteboard session revealed a pattern: nearly every component = Prefix + Content + Suffix. Constrained slots per component type.</div>
+          <div class="screen"><img src="/cs/mint-button.gif" alt="PCS Logic reducing button variants" /><div class="screen-caption">Buttons: 760 variants → 32 with PCS Logic</div></div>
+          <div class="metric-grid">
+            <div class="metric-card"><div class="metric-num">760→32</div><div class="metric-label">Buttons</div></div>
+            <div class="metric-card"><div class="metric-num">624→25</div><div class="metric-label">Badges</div></div>
+            <div class="metric-card"><div class="metric-num">113→40</div><div class="metric-label">Inputs</div></div>
+            <div class="metric-card"><div class="metric-num">80%</div><div class="metric-label">Total reduction</div></div>
+          </div>
+        `,
       },
       {
-        type: 'actions',
-        heading: 'Phase 1 — Token Foundation',
-        body: 'Before building any components, I established a comprehensive token system:',
-        bullets: [
-          'Typography tokens — functional naming (heading-lg, body-md) not appearance-based (font-24-bold)',
-          'Spacing scale — 4px base unit, consistent rhythm across all components',
-          'Colour tokens — semantic naming (surface-primary, text-accent) that maps to different values per theme',
-          'Radius, elevation, shadows — all tokenized for consistency and theme-ability',
-        ],
+        label: 'Components',
+        html: `
+          <div class="slide-label">Building blocks</div>
+          <div class="slide-title">Icons, Organisms & Atomic Design</div>
+          <div class="kf-card">
+            <div class="kf-head">Dynamic icon weights</div>
+            <div class="kf-body">Each icon in multiple weights (body, label) — designers switch based on prominence. Fixed the visual imbalance between icons and text.</div>
+          </div>
+          <div class="screen"><img src="/cs/mint-icons.gif" alt="Dynamic icon weights" /></div>
+          <div class="kf-card">
+            <div class="kf-head">Organisms from PCS molecules</div>
+            <div class="kf-body">Filter bars, form builders, data tables — all assembled from the same atomic PCS base. No one-off components.</div>
+          </div>
+          <div class="screen"><img src="/cs/mint-organisms.jpg" alt="Organisms assembled from PCS molecules" /></div>
+        `,
       },
       {
-        type: 'split',
-        heading: 'Colour Token Architecture',
-        body: 'Functional names map to different values per theme. "surface-primary" is blue in CFC and purple in CSC — zero component changes needed.',
-        visual: '/cs/mint-color-tokens.webp',
-        visualType: 'image',
+        label: 'Theming',
+        html: `
+          <div class="slide-label">Multi-theme support</div>
+          <div class="slide-title">Two Themes, Zero Component Duplication</div>
+          <div class="slide-subtitle">Clear Finance Cloud (Blue) and Clear Supply Chain (Purple). They differ only in token values — no component changes needed.</div>
+          <div class="screen"><img src="/cs/mint-theming.gif" alt="Live theming — CFC to CSC" /><div class="screen-caption">CFC (blue) → CSC (purple) — only token values swap</div></div>
+          <div class="ba-row">
+            <div class="ba-box ba-before">
+              <div class="ba-label">Before</div>
+              Each theme required duplicating entire component libraries. New region = new maintenance burden.
+            </div>
+            <div class="ba-box ba-after">
+              <div class="ba-label">After</div>
+              Token value swap. Every component, every organism — themed automatically with zero duplication.
+            </div>
+          </div>
+        `,
       },
       {
-        type: 'insight',
-        heading: 'Phase 2 — Atomic Components with PCS',
-        body: 'Every component follows Atomic Design (Atoms → Molecules → Organisms) but with PCS Logic applied at every level:',
-        bullets: [
-          'Atoms — Button, Input, Badge, Tag. PCS defines their internal structure.',
-          'Molecules — Search bar (Input + Button), Form field (Label + Input + Helper). PCS zones compose cleanly.',
-          'Organisms — Data table, Filter panel, Navigation. Built from molecules that already follow PCS.',
-          'Dynamic icon sets — icons automatically scale with component size for visual weight consistency.',
-        ],
+        label: 'Adoption',
+        html: `
+          <div class="slide-label">Adoption strategy</div>
+          <div class="slide-title">100% adoption — because the team chose it</div>
+          <div class="slide-subtitle">The Design Manager wanted immediate system-wide deprecation. I pushed back — mandates create resistance. Each sprint that proved PCS Logic's value converted skeptics into advocates.</div>
+          <div class="step-row"><div class="step-num">1</div><div class="step-content"><div class="step-title">Weekly PCS workshops</div><div class="step-desc">45-min sessions every Thursday. After 4 weeks, all designers were self-sufficient. Engineers attended too.</div></div></div>
+          <div class="step-row"><div class="step-num">2</div><div class="step-content"><div class="step-title">Figma playground</div><div class="step-desc">Shared experimentation space with interactive PCS components for inline exploration.</div></div></div>
+          <div class="step-row"><div class="step-num">3</div><div class="step-content"><div class="step-title">Gradual deprecation</div><div class="step-desc">2–3 screens per sprint migrated. By week 4, teams were voluntarily migrating their own screens.</div></div></div>
+          <div class="quote-block">
+            <div class="quote-text">"I was skeptical. Once I built with PCS, I couldn't go back."</div>
+            <div class="quote-attr">Vikram, Sr. Product Designer</div>
+          </div>
+        `,
       },
       {
-        type: 'decision',
-        heading: 'The Theming Challenge',
-        body: 'Clear operates two brands — CFC (blue) and CSC (purple). Previously, theming meant duplicating every component for each brand. My approach:',
-        bullets: [
-          'Components are theme-agnostic — they reference token names, never raw values',
-          'Theme = token value map. CFC blue and CSC purple are just different token configurations.',
-          'Zero component duplication — switch themes by swapping the token layer',
-          'New brands can be added by creating a new token map. No design or engineering work on components.',
-        ],
-      },
-      {
-        type: 'decision',
-        heading: 'The Adoption Strategy',
-        body: 'I learned from past system rollouts that mandating adoption fails. Teams resist being told what to use. My approach was different:',
-        bullets: [
-          'Make the new system easier than the old one — if old patterns require more effort, migration happens naturally',
-          'Weekly workshops — not presentations, but hands-on building sessions where teams create real features with Mint V8',
-          'Figma playground — a sandbox where anyone can experiment without consequences',
-          'Token sync pipeline — design tokens auto-sync to code, so what designers see is what engineers get',
-          'Gradual deprecation — old components get "deprecated" labels, not deletion. No breaking changes.',
-        ],
-      },
-      {
-        type: 'statement',
-        quote: 'Adoption is a design problem. If your system requires a mandate to be used, the system has failed.',
-        body: '100% adoption in 6 weeks. Without a single mandate.',
-      },
-      {
-        type: 'impact',
-        heading: 'Results',
-        metrics: [
-          { value: '760 → 32', label: 'Button Variants' },
-          { value: '80%', label: 'Total Variant Reduction' },
-          { value: '70%', label: 'Dev Effort Saved' },
-          { value: '6 Weeks', label: '100% Adoption' },
-        ],
-      },
-      {
-        type: 'cta',
-        heading: 'Read the full case study',
-        subheading: 'Explore PCS Logic in detail, the full token architecture, atomic component breakdown, theming system, and adoption strategy.',
+        label: 'Reflection',
+        html: `
+          <div class="slide-label">Reflections</div>
+          <div class="slide-title">What I'd carry forward</div>
+          <div class="reflection-card">
+            <div class="refl-num">01</div>
+            <div class="refl-title">Tokens first, always</div>
+            <div class="refl-body">Everything scalable flows from a token system. Components built without tokens are houses built without foundations.</div>
+          </div>
+          <div class="reflection-card">
+            <div class="refl-num">02</div>
+            <div class="refl-title">Structure > Style</div>
+            <div class="refl-body">PCS abstracts structure, not just visuals. It's a thinking model as much as a design pattern — and that's what made it transferable to engineers.</div>
+          </div>
+          <div class="reflection-card">
+            <div class="refl-num">03</div>
+            <div class="refl-title">Adoption is a design problem</div>
+            <div class="refl-body">Workshops and playgrounds beat mandates every time. Make the new system easier to use than the old one — and the team will choose it themselves.</div>
+          </div>
+        `,
       },
     ],
   },
 
-  // ─────────────────────────────────────────────
-  // EXCHANGE — 11 slides
-  // ─────────────────────────────────────────────
-  'zzazz-exchange': {
-    slug: 'zzazz-exchange',
-    accentColor: '#F59E0B',
-    slides: [
-      {
-        type: 'title',
-        heading: 'Exchange',
-        subheading: 'Query-Led Content Discovery',
-        body: 'Designer · UX Architect · Zzazz.ai · 2025',
-      },
-      {
-        type: 'problem',
-        heading: 'The Fundamental Problem',
-        body: 'The existing Exchange was built as a live market listing with price tables and performance metrics. The foundation was solid, but it assumed users were financial traders. The actual users — content consumers, writers, researchers — just wanted to ask a question and get an answer.',
-        bullets: [
-          'Users had to learn too many new concepts before extracting insight',
-          'Getting a simple answer required 3–4 filters and knowing the system structure in advance',
-          'The UI looked like a trading terminal — but users weren\'t traders',
-          'ZZAZZ\'s thesis says price makes content more accessible. The table-heavy UI made pricing feel like a barrier.',
-        ],
-      },
-      {
-        type: 'statement',
-        quote: 'Users think in questions, not dashboard operations. They want to type "How is Modi vs Trump content performing?" — not reverse-engineer a filter combination.',
-        body: 'This insight came directly from user conversations and reshaped the entire interaction model.',
-      },
-      {
-        type: 'insight',
-        heading: 'The Core Tension I Identified',
-        body: 'The product says "price helps you decide." The UI says "here\'s a spreadsheet." Those can\'t coexist. I needed to design an interaction model where price enters the experience after relevance — as supporting context, not as the first thing users see.',
-      },
-      {
-        type: 'comparison',
-        heading: 'Three Directions Explored',
-        subheading: 'Rejected Approaches|Chosen: Hybrid Approach',
-        bullets: [
-          'Module approach — better filters, familiar dashboard. Doesn\'t solve the core "translate intent to filters" problem.',
-          'Pure chat — fully conversational. Solves discovery but removes structured views power users need.',
-          'Users state their need in natural language first — the entry point is a query, not a dashboard',
-          'Tables and graphs appear as artifacts when the query warrants them — on demand, not on arrival',
-          'Two user modes served: exploration ("What\'s trending?") AND evaluation ("Compare these three articles")',
-        ],
-      },
-      {
-        type: 'actions',
-        heading: 'Why Each Design Principle Exists',
-        bullets: [
-          'Query-first entry — in interviews, every user articulated what they wanted in one sentence. Translating to filters took 2+ minutes and often failed.',
-          'Show curated subset, not everything — the old Exchange showed 50+ rows on load. Users spent 30 seconds just orienting before finding relevant content.',
-          'Tables as artifacts, not front door — structured views are powerful for comparison, but only after the user has context.',
-          'Price as context, not gate — price works as a positive signal alongside quality indicators. When price appears first, it triggers loss aversion. Sequencing matters.',
-        ],
-      },
-      {
-        type: 'split',
-        heading: 'The Redesigned Experience',
-        body: 'Query → curated results with pricing signals → drill into any piece for full pricing history and comparison. TimePay activates inline for paid services — no redirects, no checkout pages breaking the discovery flow.',
-        visual: '/cs/zzazz-exchange-redesign-video.mp4',
-        visualType: 'video',
-      },
-      {
-        type: 'decision',
-        heading: 'What I\'d Reconsider',
-        body: 'Two areas where the design needs further iteration:',
-        bullets: [
-          'Suggested queries need real usage data — initial suggestions are manually curated. In production, they should come from actual search patterns.',
-          'Chat-to-table transition needs smoother bridging — users in testing occasionally lost context when switching modes. Progressive reveal may work better than full view change.',
-        ],
-      },
-      {
-        type: 'impact',
-        heading: 'Impact',
-        body: 'The Exchange went from feeling like a trading terminal to feeling like an intelligent research assistant that happens to understand content pricing.',
-        metrics: [
-          { value: 'Query-Led', label: 'New Interaction Model' },
-          { value: '3 Modes', label: 'Query / Results / Compare' },
-          { value: '50%', label: 'Higher CTR Projected' },
-        ],
-      },
-      {
-        type: 'cta',
-        heading: 'Read the full case study',
-        subheading: 'Explore the complete trade-off analysis, before/after screenshots, design principles with rationale, and self-critique.',
-      },
-    ],
-  },
-
-  // ─────────────────────────────────────────────
-  // PUBLISH — 8 slides
-  // ─────────────────────────────────────────────
-  'zzazz-publish': {
-    slug: 'zzazz-publish',
-    accentColor: '#F59E0B',
-    slides: [
-      { type: 'title', heading: 'Publish', subheading: 'The Publisher Workspace', body: 'Designer · UX Architect · Zzazz.ai · 2025' },
-      { type: 'problem', heading: 'The Challenge', body: 'Publishers needed to adopt ZZAZZ\'s pricing model — but they wouldn\'t expose prices to readers until they trusted the system. The workspace needed to be valuable as an internal decision tool before it could become a public-facing feature.' },
-      { type: 'insight', heading: 'Four Research Insights', bullets: ['Publishers adopt internally first — pricing as a decision tool before showing it publicly', 'Different publishers need different workflows — editorial, revenue, competitive views', 'Revenue attribution is critical — publishers need to see which content earns and through which access path', 'Comparison is the primary use case — "How does my content compare to competitors?"'] },
-      { type: 'actions', heading: 'What I Designed', bullets: ['Modular workspace with 3 configurable dashboards — Editorial Planning, Revenue Attribution, Competitive Benchmarking', 'Pricing intelligence — see content worth, WHY it\'s priced that way, and market comparisons', 'Custom analytics — trends over time, competitive positioning, revenue breakdown by access path', 'Direct integrations to Exchange and Signal Pill for live market context'] },
-      { type: 'split', heading: 'Publisher Dashboard', body: 'Each publisher configures their workspace around their primary use case — editorial decision-making, revenue tracking, or competitive analysis. The same data, different lenses.', visual: '/cs/zzazz-publish-video.mp4', visualType: 'video' },
-      { type: 'split', heading: 'Analytics & Intelligence', body: 'Pricing intelligence shows not just what content is worth, but why — which signals drive the price, how it compares to market, and where revenue comes from.', visual: '/cs/zzazz-publish-dashboard-video.mp4', visualType: 'video' },
-      { type: 'impact', heading: 'Outcome', body: 'Publishers adopted pricing as an internal intelligence tool before showing prices to readers — validating Publish as a standalone product, not just a feature.', metrics: [{ value: '3', label: 'Dashboard Configs' }, { value: 'Internal-First', label: 'Adoption Validated' }, { value: 'Complete', label: 'Design Scope (0→1)' }] },
-      { type: 'cta', heading: 'Read the full case study', subheading: 'Explore the modular workspace, publisher research, and all three dashboard configurations.' },
-    ],
-  },
-
-  // ─────────────────────────────────────────────
-  // MOMENTS — 8 slides
-  // ─────────────────────────────────────────────
-  'zzazz-moments': {
-    slug: 'zzazz-moments',
-    accentColor: '#F59E0B',
-    slides: [
-      { type: 'title', heading: 'Moments', subheading: 'Direct Creator Monetization', body: 'Designer · UX Architect · Zzazz.ai · 2025' },
-      { type: 'problem', heading: 'The Creator Problem', body: 'Most platforms gate monetization behind follower counts, views, and virality. YouTube requires 1,000 subscribers. Instagram requires brand deals. Medium ties revenue to claps. A newcomer with genuinely valuable insight earns almost nothing.', quote: 'ZZAZZ\'s thesis: content has intrinsic value independent of creator popularity. If the LPM can price content by quality, creators should earn from day one.' },
-      { type: 'insight', heading: 'The Design Challenge', body: 'How do you convince creators to publish on a new platform? By giving them something no other platform offers:', bullets: ['Pre-publish pricing — see what your content is worth before you publish it', 'Real-time quality feedback — iterate and watch the price adjust as you improve', 'Earnings from day one — no follower thresholds, no waiting for virality', 'Rights control — view-only, transferable, editorial, or derivative. Creator decides.'] },
-      { type: 'actions', heading: 'The 5-Step Creator Workflow', bullets: ['Create — write, record, or upload content in any format', 'Preview Pricing — LPM shows market valuation before publishing. Transparency into why it\'s valued that way.', 'Improve — iterate and watch price adjust in real-time. This creates a quality feedback loop that doesn\'t exist anywhere else.', 'Set Rights — configure exactly how content can be used downstream', 'Publish & List — content enters Exchange, competes on value not brand'] },
-      { type: 'split', heading: 'The Creator Experience', body: 'Pre-publish pricing creates a fundamentally new relationship between creator and content. For the first time, creators can see market value before committing to publish — and use that signal to improve their work.', visual: '/cs/zzazz-moments-video.mp4', visualType: 'video' },
-      { type: 'insight', heading: 'Ecosystem Flywheel', body: 'Moments isn\'t just a creator tool — it\'s the supply engine for the entire ecosystem:', bullets: ['More diverse, higher-quality content → more valuable Exchange', 'More valuable Exchange → more revenue through TimePay', 'More revenue → attracts more creators → better supply', 'DOTS Protocol protects creators\' work downstream → trust → more willingness to publish'] },
-      { type: 'impact', heading: 'Impact', metrics: [{ value: '0 → 1', label: 'Built from Scratch' }, { value: '5-Step', label: 'Creator Workflow' }, { value: 'Real-Time', label: 'Price Feedback Loop' }] },
-      { type: 'cta', heading: 'Read the full case study', subheading: 'Explore the creator workflow, pre-publish pricing system, rights configuration, and ecosystem flywheel.' },
-    ],
-  },
-
-  // ─────────────────────────────────────────────
-  // TIMEPAY — 10 slides
-  // ─────────────────────────────────────────────
-  'zzazz-timepay': {
-    slug: 'zzazz-timepay',
-    accentColor: '#F59E0B',
-    slides: [
-      { type: 'title', heading: 'TimePay', subheading: 'The Behavior Bridge for Priced Content', body: 'Designer · UX Architect · Zzazz.ai · 2025' },
-      { type: 'problem', heading: 'The Adoption Problem', body: 'Pricing content is technically solved by the LPM. But making users actually pay for content they\'re trained to get for free is a behavioral design problem:', bullets: ['Subscription conversion: 1.9% industry average', 'Paywall abandonment: 57% of users leave and never return', 'Users don\'t resist paying — they resist commitment to an uncertain outcome', 'A single "subscribe" button forces a binary choice on a spectrum of intent'] },
-      { type: 'insight', heading: 'The Behavioral Insight', body: 'Different users are in different behavioral states when they encounter priced content. A decisive user wants to pay and read. An engaged user would pay if the cost were lower. A cost-sensitive user won\'t pay at all but will give attention. One payment model can\'t serve all three states.' },
-      { type: 'actions', heading: 'Three Access Paths', body: 'Each path matches a behavioral state — not a user segment, but a moment of intent:', bullets: ['Cash Payment — direct purchase at market price. For decisive users who know what they want. Highest margin, lowest volume.', 'TPC Credits — earn through engagement, sharing, and participation. Spend on content. A circular economy where active users accumulate value. For engaged users who value the ecosystem.', 'Sponsored Access — brands pay for user access in exchange for attention. Cricket content shows cricket brand ads. Zero friction for cost-sensitive users. For users who would never pay but will engage with relevant brands.'] },
-      { type: 'visual', heading: 'TPC Credit Loop', body: 'The credit system creates a self-reinforcing cycle: Earn → Store → Redeem → Earn Again. Active participation in the ecosystem generates value that can be spent on content.', visual: '/cs/zzazz-tpc-credit-loop.svg', visualType: 'image' },
-      { type: 'decision', heading: 'Why Mobile-First', body: 'Content access decisions happen on impulse during mobile browsing. Desktop checkout flows kill the impulse. The entire TimePay experience was designed at 390px first:', bullets: ['Native bottom sheet with three clear options — one tap to choose', 'Apple Pay / Google Pay integration — no form filling, no friction', 'Content unlocks seamlessly — no redirect, no loading page, the article appears', 'Micropayment psychology — ₹5 feels trivial on a phone, expensive on a checkout page'] },
-      { type: 'split', heading: 'The Access Experience', body: 'A native bottom sheet presents three clear options. The user picks one, the content unlocks. No checkout page, no registration wall, no 5-step payment flow. The entire transaction happens in the context where the user is already reading.', visual: '/cs/zzazz-timepay-video.mp4', visualType: 'video' },
-      { type: 'comparison', heading: 'TimePay vs. Traditional Models', subheading: 'Traditional Paywall|TimePay', bullets: ['One option: Subscribe or leave', 'Binary choice forces commitment anxiety', '57% abandonment, 1.9% conversion', 'Three options matched to behavioral state', 'Cash, credits, or sponsored — something for every intent level', '80–98% of users engage with at least one path'] },
-      { type: 'impact', heading: 'Impact', metrics: [{ value: '80–98%', label: 'Users Reached' }, { value: '50%', label: 'Higher CTR' }, { value: '3 Paths', label: 'Behavioral Access Model' }, { value: 'Concept → System', label: 'Full Scope' }] },
-      { type: 'cta', heading: 'Read the full case study', subheading: 'Explore the three-path model, TPC credit loop, mobile-first rationale, and behavioral psychology behind each decision.' },
-    ],
-  },
-
-  // ─────────────────────────────────────────────
-  // SIGNAL PILL — 6 slides
-  // ─────────────────────────────────────────────
-  'zzazz-signal': {
-    slug: 'zzazz-signal',
-    accentColor: '#F59E0B',
-    slides: [
-      { type: 'title', heading: 'Signal Pill', subheading: 'Surfacing the Ecosystem Where Users Already Are', body: 'Designer · UX Architect · Zzazz.ai · 2025' },
-      { type: 'problem', heading: 'The Problem', body: 'The original Signal Pill was a passive price display on partner publisher websites. It showed a number next to an article — useful, but it didn\'t create a pathway into the ecosystem. For users who never visit the Terminal or install the Plugin, this is the only touchpoint.' },
-      { type: 'insight', heading: 'The Reframe', body: 'Signal Pill isn\'t a widget — it\'s the first impression of the entire ZZAZZ ecosystem for most users. It now communicates three things:', bullets: ['Content value signal — LPM price as an independent quality indicator. Higher-priced content perceived as more trustworthy.', 'Market context — how this piece compares to similar content in the market', 'Access pathway — for users who want to go deeper, a bridge into Exchange, TimePay, and the full ecosystem'] },
-      { type: 'split', heading: 'The Redesigned Widget', body: 'Non-intrusive, contextually relevant, gateway not destination. Signal Pill enhances the reading experience without disrupting it — and creates awareness at the largest possible scale.', visual: '/cs/zzazz-signal-pill-video.mp4', visualType: 'video' },
-      { type: 'impact', heading: 'Strategic Role', body: 'Signal Pill → Plugin → Terminal. The graduation path from discovery to commitment. Publishers monetize existing traffic. Users discover the ecosystem without visiting a new platform.', metrics: [{ value: 'Redesigned', label: 'Integration Layer' }, { value: 'Entry Point', label: 'Ecosystem Role' }, { value: 'Publisher Sites', label: 'Distribution Surface' }] },
-      { type: 'cta', heading: 'Read the full case study', subheading: 'Explore the reframing, design principles, and ecosystem positioning.' },
-    ],
-  },
-
-  // ─────────────────────────────────────────────
-  // AD EXCHANGE — 7 slides
-  // ─────────────────────────────────────────────
-  'zzazz-ad-exchange': {
-    slug: 'zzazz-ad-exchange',
-    accentColor: '#F59E0B',
-    slides: [
-      { type: 'title', heading: 'Ad Exchange', subheading: 'Content-Intent Contextual Advertising', body: 'Designer · UX Architect · Zzazz.ai · 2025' },
-      { type: 'problem', heading: 'The Gap I Identified', body: 'TimePay\'s third path — sponsored access — had no backend engine. Meanwhile, cookie-based ad targeting is dying. ZZAZZ had the infrastructure to build something fundamentally better: ads targeted by content intent, not user tracking.' },
-      { type: 'insight', heading: 'Content-Intent Model', body: 'Traditional ads track users. ZZAZZ\'s LPM already evaluates content deeply — not just "sports" but cricket, performance, achievement, competition. A user reading that article has expressed intent through their content choice.', bullets: ['The content tells you what the user cares about right now', 'Match brands to content intent: cricket equipment, sports streaming, athletic wear', 'The user gets free access. The brand reaches a high-intent audience. The creator earns. Three-way value.'] },
-      { type: 'comparison', heading: 'Content-Intent vs. Cookie Targeting', subheading: 'Cookie-Based (Dying)|Content-Intent (ZZAZZ)', bullets: ['Tracks users across websites — privacy invasive', 'Consent fatigue — users click "accept" without reading', 'Declining accuracy as browsers block third-party cookies', 'Passive targeting — user may not be in a relevant context right now', 'No user tracking — privacy-native by design', 'No consent required — targeting is based on content, not behavior', 'Higher intent — user is actively consuming relevant content', 'Premium pricing — priced content environments signal engaged, quality audiences'] },
-      { type: 'decision', heading: 'What I Delivered', body: 'Product design isn\'t always screens. Sometimes the highest-leverage contribution is defining what needs to exist and why:', bullets: ['Gap analysis — identified the missing engine powering TimePay\'s sponsored access path', 'Landscape research — mapped the dying cookie ecosystem and emerging alternatives', 'Product architecture — defined the content-intent matching logic and three-way value model', 'Future scoping — deliverables for engineering to build the matching engine'] },
-      { type: 'impact', heading: 'Impact', body: 'Ad Exchange enables TimePay\'s third access path — making ZZAZZ accessible to the 57% of users who would never pay but will engage with relevant brands.', metrics: [{ value: '0 → 1', label: 'Conceived & Architected' }, { value: 'Content-Intent', label: 'Targeting Model' }, { value: 'Enables', label: 'TimePay Sponsored Path' }] },
-      { type: 'cta', heading: 'Read the full case study', subheading: 'Explore the gap analysis, content-intent model, cookie comparison, and strategic positioning.' },
-    ],
-  },
-
-  // ─────────────────────────────────────────────
-  // DOTS — 6 slides
-  // ─────────────────────────────────────────────
-  'zzazz-dots': {
-    slug: 'zzazz-dots',
-    accentColor: '#F59E0B',
-    slides: [
-      { type: 'title', heading: 'DOTS Protocol', subheading: 'Ownership, Lineage & Revenue Attribution', body: 'Designer · UX Architect · Zzazz.ai · 2025' },
-      { type: 'problem', heading: 'The Trust Problem', body: 'Content gets copied easily and the original creator loses revenue and attribution. AI accelerates this — summarize, rephrase, redistribute in seconds. Without an ownership layer, creators won\'t publish their best work. The ecosystem can\'t grow without trust.' },
-      { type: 'actions', heading: 'How DOTS Works', body: 'Every piece of content gets a DOT identifier that carries permanent ownership, rights, and lineage information:', bullets: ['Original Registration — DOT-123 records creator, timestamp, and rights configuration. Ownership is permanent.', 'Derivative Tracking — when content is remixed, the derivative gets DOT-1234 linking back to the original. The lineage chain is permanent and unforgeable.', 'Automatic Revenue Splits — when a derivative earns revenue, the original creator automatically receives their configured share. No invoicing, no disputes.', 'Lineage Visualization — creators see their full derivative tree and downstream revenue. Every contribution remains attributed and monetizable.'] },
-      { type: 'split', heading: 'Lineage Model', body: 'Original content → derivative → lineage tree → revenue split flowing back. Creators participate in the downstream value of everything their work inspires.', visual: '/cs/zzazz-dots-lineage.svg', visualType: 'image' },
-      { type: 'impact', heading: 'Ecosystem Role', body: 'Without DOTS, Moments can\'t fully protect creators. Supply weakens. Exchange has less content. TimePay has less to monetize. DOTS completes the trust loop that makes the entire ecosystem viable.', metrics: [{ value: 'Ownership', label: 'Layer Architected' }, { value: 'Lineage', label: 'Permanent Tracking' }, { value: 'Auto-Split', label: 'Revenue Attribution' }] },
-      { type: 'cta', heading: 'Read the full case study', subheading: 'Explore the ownership model, lineage tracking, revenue splits, and ecosystem trust loop.' },
-    ],
-  },
 };
