@@ -489,6 +489,9 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
   .screen video {
     width: 100%;
     display: block;
+    height: 380px;
+    object-fit: contain;
+    background: var(--bg-elevated);
   }
 
   .screen-caption {
@@ -511,8 +514,18 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     margin: 0;
   }
 
+  .screen-row .screen img,
+  .screen-row .screen video {
+    height: 320px;
+  }
+
   .screen-row-3 {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .screen-row-3 .screen img,
+  .screen-row-3 .screen video {
+    height: 400px;
   }
 
   /* ─── Mobile ─── */
@@ -526,62 +539,75 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     .metric-grid-3 { grid-template-columns: repeat(2, 1fr); }
     .metric-num { font-size: 22px; }
     .ba-row { grid-template-columns: 1fr; gap: 8px; }
+    .screen img, .screen video { height: 260px; }
     .screen-row { grid-template-columns: 1fr; }
+    .screen-row .screen img, .screen-row .screen video { height: 260px; }
     .screen-row-3 { grid-template-columns: repeat(2, 1fr); }
+    .screen-row-3 .screen img, .screen-row-3 .screen video { height: 300px; }
     .info-grid { grid-template-columns: 1fr; gap: 8px; }
     .dk-close { bottom: 16px; right: 16px; }
   }
 </style>
 
-<script define:vars={{ totalSlides: slides.length }}>
-  let current = 0;
-  const allSlides = document.querySelectorAll('[data-slide-index]');
-  const allPills = document.querySelectorAll('[data-pill-index]');
-  const counter = document.getElementById('counter');
-  const prevBtn = document.getElementById('prev-btn');
-  const nextBtn = document.getElementById('next-btn');
+<script is:inline>
+  function initDeck() {
+    const allSlides = document.querySelectorAll('[data-slide-index]');
+    const allPills = document.querySelectorAll('[data-pill-index]');
+    const counter = document.getElementById('counter');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
 
-  function goTo(index) {
-    if (index < 0 || index >= totalSlides) return;
-    current = index;
+    if (!allSlides.length || !counter || !prevBtn || !nextBtn) return;
 
-    allSlides.forEach((s, i) => {
-      s.classList.toggle('active', i === current);
+    const totalSlides = allSlides.length;
+    let current = 0;
+
+    function goTo(index) {
+      if (index < 0 || index >= totalSlides) return;
+      current = index;
+
+      allSlides.forEach((s, i) => {
+        s.classList.toggle('active', i === current);
+      });
+
+      allPills.forEach((p, i) => {
+        p.classList.toggle('active', i === current);
+      });
+
+      counter.textContent = `${current + 1} / ${totalSlides}`;
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === totalSlides - 1;
+
+      allPills[current]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+
+    allPills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        goTo(Number(pill.dataset.pillIndex));
+      });
     });
 
-    allPills.forEach((p, i) => {
-      p.classList.toggle('active', i === current);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
     });
 
-    counter.textContent = `${current + 1} / ${totalSlides}`;
-    prevBtn.disabled = current === 0;
-    nextBtn.disabled = current === totalSlides - 1;
-
-    allPills[current]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    document.addEventListener('touchend', (e) => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) goTo(current + 1);
+        else goTo(current - 1);
+      }
+    });
   }
 
-  prevBtn.addEventListener('click', () => goTo(current - 1));
-  nextBtn.addEventListener('click', () => goTo(current + 1));
-
-  allPills.forEach((pill) => {
-    pill.addEventListener('click', () => {
-      goTo(Number(pill.dataset.pillIndex));
-    });
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
-    if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
-  });
-
-  let touchStartX = 0;
-  document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
-  document.addEventListener('touchend', (e) => {
-    const diff = touchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) goTo(current + 1);
-      else goTo(current - 1);
-    }
-  });
+  // Run on initial load and after view transitions
+  initDeck();
+  document.addEventListener('astro:after-swap', initDeck);
 </script>
