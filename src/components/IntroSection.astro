@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import aboutPortrait from '../assets/images/about-portrait.webp';
 ---
 
 <section class="intro-section">
@@ -29,12 +31,14 @@
       </div>
     </div>
     <div class="intro-section__image" data-intro-image>
-      <img
-        src="/images/about-portrait.webp"
+      <Image
+        src={aboutPortrait}
         alt="Ashish Khoshya"
-        width="400"
-        height="500"
+        width={400}
+        height={500}
         loading="lazy"
+        format="avif"
+        quality={80}
       />
     </div>
   </div>

@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import TopNav from '../components/TopNav';
 import FooterCTA from '../components/FooterCTA.astro';
+import { Image } from 'astro:assets';
+import aboutPortrait from '../assets/images/about-portrait.webp';
 
 const experience = [
   {
@@ -154,7 +156,7 @@ const tools = ['Figma', 'FigJam', 'Sketch', 'Storybook', 'Adobe Creative Suite',
       <!-- Sticky image column -->
       <div class="about__top-right">
         <div class="about__sticky-image">
-          <img src="/images/about-portrait.webp" alt="Ashish Khoshya" width="350" height="440" loading="eager" />
+          <Image src={aboutPortrait} alt="Ashish Khoshya" width={350} height={440} loading="eager" format="avif" quality={80} />
         </div>
       </div>
     </div>

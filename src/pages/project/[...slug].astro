@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import TopNav from '../../components/TopNav';
 import FooterCTA from '../../components/FooterCTA.astro';
+import { Image } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -64,12 +65,25 @@ const isLocked = Astro.url.pathname.includes('memoir');
     <section class="cs__hero" data-cs-hero>
       {coverImage && (
         <>
-          <img
-            src={coverImage}
-            alt=""
-            class="cs__hero-cover"
-            aria-hidden="true"
-          />
+          {typeof coverImage === 'string' ? (
+            <img
+              src={coverImage}
+              alt=""
+              class="cs__hero-cover"
+              aria-hidden="true"
+            />
+          ) : (
+            <Image
+              src={coverImage}
+              alt=""
+              class="cs__hero-cover"
+              aria-hidden="true"
+              format="avif"
+              quality={80}
+              widths={[640, 960, 1280, 1920]}
+              sizes="100vw"
+            />
+          )}
           <div class="cs__hero-cover-gradient" />
         </>
       )}

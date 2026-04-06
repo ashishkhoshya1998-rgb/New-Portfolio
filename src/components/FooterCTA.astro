@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import footerPortrait from '../assets/images/footer-portrait.webp';
 const emailText = 'ashish.khoshya1998@gmail.com ✦ ashish.khoshya1998@gmail.com ✦ ashish.khoshya1998@gmail.com ✦ ';
 ---
 
@@ -16,13 +18,15 @@ const emailText = 'ashish.khoshya1998@gmail.com ✦ ashish.khoshya1998@gmail.com
   <!-- 2. Photo + Email marquee -->
   <div class="content-wrap footer__marquee-section" data-footer-section>
     <div class="footer__portrait-wrap">
-      <img
-        src="/images/footer-portrait.webp"
+      <Image
+        src={footerPortrait}
         alt="Ashish Khoshya"
         class="footer__portrait"
         loading="lazy"
-        width="300"
-        height="400"
+        width={300}
+        height={400}
+        format="avif"
+        quality={80}
       />
       <div class="footer__portrait-fade" aria-hidden="true"></div>
     </div>
