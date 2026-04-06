@@ -1,4 +1,5 @@
 ---
+import Layout from '../../layouts/Layout.astro';
 import { decks } from '../../data/decks';
 
 export function getStaticPaths() {
@@ -12,599 +13,578 @@ const { deck } = Astro.props;
 const { slug, title, accentColor, accentBg, accentText, slides } = deck;
 ---
 
-<html lang="en" style={`--accent:${accentColor};--accentBg:${accentBg};--accentText:${accentText};`}>
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{title} — Presentation</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <style is:global>
-    /* ─── Reset & Base ─── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html, body {
-      height: 100%;
-      background: #FFFFFF;
-      color: #1A1A1A;
-      font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      font-size: 15px;
-      line-height: 1.5;
-    }
-
-    /* ─── Theme tokens ─── */
-    :root {
-      --color-bg: #FFFFFF;
-      --color-bg-secondary: #F7F7F7;
-      --color-text-primary: #1A1A1A;
-      --color-text-secondary: #6B6B6B;
-      --color-border: #E5E5E5;
-      --color-border-light: #F0F0F0;
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
-    }
-
-    /* ─── Layout ─── */
-    .deck {
-      max-width: 720px;
-      margin: 0 auto;
-      min-height: 100vh;
-    }
-
-    /* ─── Nav Bar ─── */
-    .nav-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 20px;
-      border-bottom: 0.5px solid var(--color-border);
-      position: sticky;
-      top: 0;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      z-index: 100;
-      gap: 12px;
-    }
-
-    .nav-pills {
-      display: flex;
-      gap: 4px;
-      flex-wrap: wrap;
-      flex: 1;
-      min-width: 0;
-    }
-
-    .nav-pill {
-      font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 20px;
-      border: 0.5px solid var(--color-border);
-      background: transparent;
-      color: var(--color-text-secondary);
-      cursor: pointer;
-      transition: all 0.15s;
-      white-space: nowrap;
-      font-family: inherit;
-    }
-
-    .nav-pill:hover {
-      background: var(--color-bg-secondary);
-    }
-
-    .nav-pill.active {
-      background: var(--accentBg);
-      color: var(--accentText);
-      border-color: transparent;
-    }
-
-    .nav-controls {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      flex-shrink: 0;
-    }
-
-    .nav-btn {
-      font-size: 13px;
-      padding: 6px 14px;
-      border-radius: var(--radius-sm);
-      border: 0.5px solid var(--color-border);
-      background: transparent;
-      color: var(--color-text-primary);
-      cursor: pointer;
-      font-family: inherit;
-      transition: background 0.15s;
-    }
-
-    .nav-btn:hover { background: var(--color-bg-secondary); }
-    .nav-btn:disabled { opacity: 0.3; cursor: default; }
-
-    .slide-counter {
-      font-size: 12px;
-      color: var(--color-text-secondary);
-      min-width: 40px;
-      text-align: center;
-      font-variant-numeric: tabular-nums;
-    }
-
-    /* ─── Close button ─── */
-    .deck-close {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 200;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 16px;
-      border: 0.5px solid var(--color-border);
-      border-radius: 20px;
-      background: rgba(255,255,255,0.9);
-      backdrop-filter: blur(8px);
-      color: var(--color-text-secondary);
-      font-size: 12px;
-      font-weight: 500;
-      text-decoration: none;
-      font-family: inherit;
-      transition: color 0.2s, border-color 0.2s;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-
-    .deck-close:hover {
-      color: var(--color-text-primary);
-      border-color: var(--color-text-secondary);
-    }
-
-    /* ─── Slide ─── */
-    .slide {
-      display: none;
-      padding: 0;
-    }
-
-    .slide.active {
-      display: block;
-    }
-
-    .slide-body {
-      padding: 28px 24px 48px;
-    }
-
-    /* ─── Slide Content Elements ─── */
-    .tag {
-      display: inline-block;
-      font-size: 11px;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-weight: 500;
-      margin-bottom: 12px;
-      background: var(--accentBg);
-      color: var(--accentText);
-    }
-
-    .slide-label {
-      font-size: 11px;
-      color: var(--color-text-secondary);
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-
-    .slide-title {
-      font-size: 22px;
-      font-weight: 500;
-      color: var(--color-text-primary);
-      line-height: 1.25;
-      margin-bottom: 8px;
-    }
-
-    .slide-subtitle {
-      font-size: 15px;
-      color: var(--color-text-secondary);
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .divider {
-      height: 0.5px;
-      background: var(--color-border);
-      margin: 20px 0;
-    }
-
-    /* ─── Metrics ─── */
-    .metric-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin: 16px 0;
-    }
-
-    .metric-grid-3 {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .metric-card {
-      background: var(--color-bg-secondary);
-      border-radius: var(--radius-md);
-      padding: 14px;
-    }
-
-    .metric-num {
-      font-size: 26px;
-      font-weight: 500;
-      color: var(--accentText);
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-
-    .metric-label {
-      font-size: 12px;
-      color: var(--color-text-secondary);
-    }
-
-    /* ─── Info Grid (role, year, etc.) ─── */
-    .info-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      font-size: 13px;
-    }
-
-    .info-label {
-      color: var(--color-text-secondary);
-      margin-bottom: 2px;
-    }
-
-    .info-value {
-      color: var(--color-text-primary);
-      font-weight: 500;
-    }
-
-    /* ─── Quote Block ─── */
-    .quote-block {
-      border-left: 3px solid var(--accent);
-      padding: 12px 16px;
-      background: var(--color-bg-secondary);
-      border-radius: 0 var(--radius-md) var(--radius-md) 0;
-      margin: 16px 0;
-    }
-
-    .quote-text {
-      font-size: 14px;
-      color: var(--color-text-primary);
-      line-height: 1.6;
-      font-style: italic;
-    }
-
-    .quote-attr {
-      font-size: 12px;
-      color: var(--color-text-secondary);
-      margin-top: 6px;
-    }
-
-    /* ─── Steps ─── */
-    .step-row {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      margin: 12px 0;
-    }
-
-    .step-num {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: var(--accentBg);
-      color: var(--accentText);
-      font-size: 12px;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .step-content { flex: 1; }
-
-    .step-title {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--color-text-primary);
-    }
-
-    .step-desc {
-      font-size: 13px;
-      color: var(--color-text-secondary);
-      line-height: 1.55;
-      margin-top: 3px;
-    }
-
-    /* ─── Knowledge/Feature Card ─── */
-    .kf-card {
-      border: 0.5px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      padding: 14px;
-      margin: 10px 0;
-    }
-
-    .kf-head {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--color-text-primary);
-      margin-bottom: 4px;
-    }
-
-    .kf-body {
-      font-size: 13px;
-      color: var(--color-text-secondary);
-      line-height: 1.55;
-    }
-
-    /* ─── Insight Row ─── */
-    .insight-row {
-      display: flex;
-      gap: 10px;
-      margin: 10px 0;
-      align-items: flex-start;
-    }
-
-    .insight-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      flex-shrink: 0;
-      background: var(--accentBg);
-    }
-
-    .insight-body { flex: 1; }
-
-    /* ─── Before / After Row ─── */
-    .ba-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin: 12px 0;
-    }
-
-    .ba-box {
-      border-radius: var(--radius-md);
-      padding: 12px;
-      font-size: 13px;
-      line-height: 1.55;
-    }
-
-    .ba-before {
-      background: var(--color-bg-secondary);
-      border: 0.5px solid var(--color-border);
-      color: var(--color-text-secondary);
-    }
-
-    .ba-after {
-      background: var(--accentBg);
-      border: 0.5px solid color-mix(in srgb, var(--accent) 30%, transparent);
-      color: var(--accentText);
-    }
-
-    .ba-label {
-      font-size: 11px;
-      font-weight: 600;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .ba-before .ba-label { color: var(--color-text-secondary); }
-    .ba-after .ba-label { color: var(--accentText); }
-
-    /* ─── Reflection Card ─── */
-    .reflection-card {
-      border-radius: var(--radius-lg);
-      border: 0.5px solid var(--color-border);
-      padding: 14px 16px;
-      margin: 10px 0;
-    }
-
-    .refl-num {
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--accentText);
-      margin-bottom: 4px;
-    }
-
-    .refl-title {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--color-text-primary);
-      margin-bottom: 4px;
-    }
-
-    .refl-body {
-      font-size: 13px;
-      color: var(--color-text-secondary);
-      line-height: 1.55;
-    }
-
-    /* ─── Impact Table ─── */
-    .impact-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12px;
-      margin-top: 12px;
-    }
-
-    .impact-table th {
-      text-align: left;
-      padding: 8px;
-      color: var(--color-text-secondary);
-      font-weight: 500;
-      border-bottom: 0.5px solid var(--color-border);
-    }
-
-    .impact-table td {
-      padding: 8px;
-      border-bottom: 0.5px solid var(--color-border-light);
-      color: var(--color-text-primary);
-    }
-
-    .impact-table .good {
-      color: var(--accentText);
-      font-weight: 500;
-    }
-
-    /* ─── Screen (image/video container) ─── */
-    .screen {
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      border: 0.5px solid var(--color-border);
-      margin: 16px 0;
-      background: var(--color-bg-secondary);
-    }
-
-    .screen img,
-    .screen video {
-      width: 100%;
-      display: block;
-    }
-
-    .screen-caption {
-      font-size: 12px;
-      color: var(--color-text-secondary);
-      text-align: center;
-      padding: 8px 12px;
-      background: var(--color-bg-secondary);
-      border-top: 0.5px solid var(--color-border-light);
-    }
-
-    .screen-row {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin: 16px 0;
-    }
-
-    .screen-row .screen {
-      margin: 0;
-    }
-
-    .screen-row-3 {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    /* ─── Mobile ─── */
-    @media (max-width: 640px) {
-      .nav-bar { padding: 10px 16px; flex-wrap: wrap; }
-      .nav-pills { gap: 3px; }
-      .nav-pill { font-size: 10px; padding: 3px 8px; }
-      .slide-body { padding: 20px 16px 40px; }
-      .slide-title { font-size: 19px; }
-      .metric-grid { grid-template-columns: repeat(2, 1fr); }
-      .metric-grid-3 { grid-template-columns: repeat(2, 1fr); }
-      .metric-num { font-size: 22px; }
-      .ba-row { grid-template-columns: 1fr; gap: 8px; }
-      .screen-row { grid-template-columns: 1fr; }
-      .screen-row-3 { grid-template-columns: repeat(2, 1fr); }
-      .info-grid { grid-template-columns: 1fr; gap: 8px; }
-      .deck-close { bottom: 16px; right: 16px; }
-    }
-  </style>
-</head>
-<body>
-  <div class="deck">
-    <div class="nav-bar">
-      <div class="nav-pills" id="nav-pills">
+<Layout title={`${title} — Presentation`}>
+  <div class="deck-page" style={`--dk-accent:${accentColor};--dk-accent-bg:${accentBg};--dk-accent-text:${accentText};`}>
+    <div class="dk-nav-bar">
+      <div class="dk-nav-pills" id="nav-pills">
         {slides.map((s, i) => (
           <button
-            class={`nav-pill ${i === 0 ? 'active' : ''}`}
+            class={`dk-nav-pill ${i === 0 ? 'active' : ''}`}
             data-pill-index={i}
           >{s.label}</button>
         ))}
       </div>
-      <div class="nav-controls">
-        <button class="nav-btn" id="prev-btn" disabled>←</button>
-        <span class="slide-counter" id="counter">1 / {slides.length}</span>
-        <button class="nav-btn" id="next-btn">→</button>
+      <div class="dk-nav-controls">
+        <button class="dk-nav-btn" id="prev-btn" disabled>←</button>
+        <span class="dk-slide-counter" id="counter">1 / {slides.length}</span>
+        <button class="dk-nav-btn" id="next-btn">→</button>
       </div>
     </div>
 
-    {slides.map((s, i) => (
-      <div class={`slide ${i === 0 ? 'active' : ''}`} data-slide-index={i}>
-        <div class="slide-body" set:html={s.html} />
-      </div>
-    ))}
+    <div class="dk-slides">
+      {slides.map((s, i) => (
+        <div class={`dk-slide ${i === 0 ? 'active' : ''}`} data-slide-index={i}>
+          <div class="dk-slide-body" set:html={s.html} />
+        </div>
+      ))}
+    </div>
+
+    <a href={`/project/${slug}`} class="dk-close">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      Back to case study
+    </a>
   </div>
+</Layout>
 
-  <a href={`/project/${slug}`} class="deck-close">
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    Back to case study
-  </a>
+<style is:global>
+  /* ─── Hide site nav & footer on deck pages ─── */
+  .deck-page ~ footer,
+  body > nav,
+  body > header { display: none; }
 
-  <script define:vars={{ totalSlides: slides.length }}>
-    let current = 0;
+  /* ─── Deck Layout ─── */
+  .deck-page {
+    max-width: 720px;
+    margin: 0 auto;
+    min-height: 100vh;
+    padding-bottom: 80px;
+  }
 
-    const allSlides = document.querySelectorAll('[data-slide-index]');
-    const allPills = document.querySelectorAll('[data-pill-index]');
-    const counter = document.getElementById('counter');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
+  /* ─── Nav Bar ─── */
+  .dk-nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    border-bottom: 0.5px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(10, 10, 10, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 100;
+    gap: 12px;
+  }
 
-    function goTo(index) {
-      if (index < 0 || index >= totalSlides) return;
-      current = index;
+  .dk-nav-pills {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    flex: 1;
+    min-width: 0;
+  }
 
-      allSlides.forEach((s, i) => {
-        s.classList.toggle('active', i === current);
-      });
+  .dk-nav-pill {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 0.5px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+    font-family: var(--font-body);
+  }
 
-      allPills.forEach((p, i) => {
-        p.classList.toggle('active', i === current);
-      });
+  .dk-nav-pill:hover {
+    background: var(--bg-elevated);
+    color: var(--text);
+  }
 
-      counter.textContent = `${current + 1} / ${totalSlides}`;
-      prevBtn.disabled = current === 0;
-      nextBtn.disabled = current === totalSlides - 1;
+  .dk-nav-pill.active {
+    background: rgba(245, 240, 232, 0.08);
+    color: var(--dk-accent);
+    border-color: rgba(245, 240, 232, 0.12);
+  }
 
-      // Scroll nav pill into view
-      allPills[current]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  .dk-nav-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;
+  }
 
-      // Scroll to top of slide
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+  .dk-nav-btn {
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: var(--radius-sm);
+    border: 0.5px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .dk-nav-btn:hover {
+    background: var(--bg-elevated);
+    border-color: rgba(245, 240, 232, 0.12);
+  }
+
+  .dk-nav-btn:disabled { opacity: 0.25; cursor: default; }
+
+  .dk-slide-counter {
+    font-size: 12px;
+    color: var(--text-muted);
+    min-width: 40px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ─── Close Button ─── */
+  .dk-close {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-full);
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(8px);
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    font-family: var(--font-body);
+    transition: color var(--duration-fast), border-color var(--duration-fast);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  .dk-close:hover {
+    color: var(--text);
+    border-color: rgba(245, 240, 232, 0.2);
+  }
+
+  /* ─── Slide ─── */
+  .dk-slide {
+    display: none;
+    padding: 0;
+  }
+
+  .dk-slide.active {
+    display: block;
+  }
+
+  .dk-slide-body {
+    padding: 28px 24px 48px;
+  }
+
+  /* ─── Slide Content Elements ─── */
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    font-weight: 500;
+    margin-bottom: 12px;
+    background: rgba(245, 240, 232, 0.06);
+    color: var(--dk-accent);
+    border: 0.5px solid rgba(245, 240, 232, 0.08);
+  }
+
+  .slide-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .slide-title {
+    font-size: 22px;
+    font-weight: 500;
+    font-family: var(--font-display);
+    color: var(--text);
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+
+  .slide-subtitle {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .divider {
+    height: 0.5px;
+    background: var(--border);
+    margin: 20px 0;
+  }
+
+  /* ─── Metrics ─── */
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 16px 0;
+  }
+
+  .metric-grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .metric-card {
+    background: var(--bg-elevated);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    border: 0.5px solid var(--border);
+  }
+
+  .metric-num {
+    font-size: 26px;
+    font-weight: 600;
+    font-family: var(--font-display);
+    color: var(--dk-accent);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .metric-label {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* ─── Info Grid ─── */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    font-size: 13px;
+  }
+
+  .info-label {
+    color: var(--text-muted);
+    margin-bottom: 2px;
+  }
+
+  .info-value {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* ─── Quote Block ─── */
+  .quote-block {
+    border-left: 3px solid var(--dk-accent);
+    padding: 12px 16px;
+    background: var(--bg-elevated);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: 16px 0;
+  }
+
+  .quote-text {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  .quote-attr {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  /* ─── Steps ─── */
+  .step-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin: 12px 0;
+  }
+
+  .step-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(245, 240, 232, 0.06);
+    color: var(--dk-accent);
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+    border: 0.5px solid rgba(245, 240, 232, 0.08);
+  }
+
+  .step-content { flex: 1; }
+
+  .step-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .step-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin-top: 3px;
+  }
+
+  /* ─── Knowledge/Feature Card ─── */
+  .kf-card {
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px;
+    margin: 10px 0;
+    background: var(--card-bg);
+  }
+
+  .kf-head {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .kf-body {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  /* ─── Insight Row ─── */
+  .insight-row {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+    align-items: flex-start;
+  }
+
+  .insight-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+    background: rgba(245, 240, 232, 0.06);
+    border: 0.5px solid var(--border);
+  }
+
+  .insight-body { flex: 1; }
+
+  /* ─── Before / After Row ─── */
+  .ba-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 12px 0;
+  }
+
+  .ba-box {
+    border-radius: var(--radius-md);
+    padding: 12px;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .ba-before {
+    background: var(--bg-elevated);
+    border: 0.5px solid var(--border);
+    color: var(--text-muted);
+  }
+
+  .ba-after {
+    background: rgba(245, 240, 232, 0.04);
+    border: 0.5px solid rgba(245, 240, 232, 0.1);
+    color: var(--text);
+  }
+
+  .ba-label {
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .ba-before .ba-label { color: var(--text-muted); }
+  .ba-after .ba-label { color: var(--dk-accent); }
+
+  /* ─── Reflection Card ─── */
+  .reflection-card {
+    border-radius: var(--radius-lg);
+    border: 0.5px solid var(--border);
+    padding: 14px 16px;
+    margin: 10px 0;
+    background: var(--card-bg);
+  }
+
+  .refl-num {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--dk-accent);
+    margin-bottom: 4px;
+  }
+
+  .refl-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .refl-body {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  /* ─── Impact Table ─── */
+  .impact-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-top: 12px;
+  }
+
+  .impact-table th {
+    text-align: left;
+    padding: 8px;
+    color: var(--text-muted);
+    font-weight: 500;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .impact-table td {
+    padding: 8px;
+    border-bottom: 0.5px solid var(--border);
+    color: var(--text);
+  }
+
+  .impact-table .good {
+    color: var(--dk-accent);
+    font-weight: 600;
+  }
+
+  /* ─── Screen (image/video container) ─── */
+  .screen {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 0.5px solid var(--border);
+    margin: 16px 0;
+    background: var(--bg-elevated);
+  }
+
+  .screen img,
+  .screen video {
+    width: 100%;
+    display: block;
+  }
+
+  .screen-caption {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 8px 12px;
+    background: var(--bg-elevated);
+    border-top: 0.5px solid var(--border);
+  }
+
+  .screen-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .screen-row .screen {
+    margin: 0;
+  }
+
+  .screen-row-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* ─── Mobile ─── */
+  @media (max-width: 640px) {
+    .dk-nav-bar { padding: 10px 16px; flex-wrap: wrap; }
+    .dk-nav-pills { gap: 3px; }
+    .dk-nav-pill { font-size: 10px; padding: 3px 8px; }
+    .dk-slide-body { padding: 20px 16px 40px; }
+    .slide-title { font-size: 19px; }
+    .metric-grid { grid-template-columns: repeat(2, 1fr); }
+    .metric-grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .metric-num { font-size: 22px; }
+    .ba-row { grid-template-columns: 1fr; gap: 8px; }
+    .screen-row { grid-template-columns: 1fr; }
+    .screen-row-3 { grid-template-columns: repeat(2, 1fr); }
+    .info-grid { grid-template-columns: 1fr; gap: 8px; }
+    .dk-close { bottom: 16px; right: 16px; }
+  }
+</style>
+
+<script define:vars={{ totalSlides: slides.length }}>
+  let current = 0;
+
+  const allSlides = document.querySelectorAll('[data-slide-index]');
+  const allPills = document.querySelectorAll('[data-pill-index]');
+  const counter = document.getElementById('counter');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+
+  function goTo(index) {
+    if (index < 0 || index >= totalSlides) return;
+    current = index;
+
+    allSlides.forEach((s, i) => {
+      s.classList.toggle('active', i === current);
+    });
+
+    allPills.forEach((p, i) => {
+      p.classList.toggle('active', i === current);
+    });
+
+    counter.textContent = `${current + 1} / ${totalSlides}`;
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === totalSlides - 1;
+
+    allPills[current]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+
+  allPills.forEach((pill) => {
+    pill.addEventListener('click', () => {
+      goTo(Number(pill.dataset.pillIndex));
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+  });
+
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', (e) => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) goTo(current + 1);
+      else goTo(current - 1);
     }
-
-    // Arrow buttons
-    prevBtn.addEventListener('click', () => goTo(current - 1));
-    nextBtn.addEventListener('click', () => goTo(current + 1));
-
-    // Pill navigation
-    allPills.forEach((pill) => {
-      pill.addEventListener('click', () => {
-        goTo(Number(pill.dataset.pillIndex));
-      });
-    });
-
-    // Keyboard
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
-    });
-
-    // Touch/swipe
-    let touchStartX = 0;
-    document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
-    document.addEventListener('touchend', (e) => {
-      const diff = touchStartX - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 50) {
-        if (diff > 0) goTo(current + 1);
-        else goTo(current - 1);
-      }
-    });
-  </script>
-</body>
-</html>
+  });
+</script>
