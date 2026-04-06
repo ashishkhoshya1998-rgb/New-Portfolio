@@ -1306,6 +1306,19 @@ const hasDeck = !!decks[project.id];
     }
   }
 
+  // Force deck button to do a hard navigation (bypass view transitions + smooth scroll)
+  function initDeckBtn() {
+    const deckBtn = document.querySelector('.cs__deck-btn');
+    if (deckBtn) {
+      deckBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        window.location.href = (deckBtn as HTMLAnchorElement).href;
+      });
+    }
+  }
+
   initCaseStudy();
-  document.addEventListener('astro:after-swap', initCaseStudy);
+  initDeckBtn();
+  document.addEventListener('astro:after-swap', () => { initCaseStudy(); initDeckBtn(); });
 </script>
