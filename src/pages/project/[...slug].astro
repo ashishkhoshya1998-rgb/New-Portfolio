@@ -1107,9 +1107,7 @@ const hasDeck = !!decks[project.id];
       }
 
       function runAnimation() {
-        const heroRect = hero.getBoundingClientRect();
-
-        // Position image at the stored card rect using clip-path for smooth morph
+        // Position image at the stored card rect (fixed, above everything)
         gsap.set(heroCover, {
           position: 'fixed',
           top: rect.top,
@@ -1117,47 +1115,53 @@ const hasDeck = !!decks[project.id];
           width: rect.width,
           height: rect.height,
           objectFit: 'cover',
-          zIndex: 9998,
+          zIndex: 100,
           borderRadius: 12,
           inset: 'auto',
         });
 
-        // Hide the hero section while image animates
-        gsap.set(hero, { opacity: 0 });
-
-        // Animate image expanding to fill hero position
+        // Animate image expanding to fill hero
         gsap.to(heroCover, {
-          top: heroRect.top,
+          top: 0,
           left: 0,
           width: window.innerWidth,
           height: hero.offsetHeight,
           borderRadius: 0,
-          duration: 0.7,
-          ease: 'power3.inOut',
+          duration: 0.8,
+          ease: 'power3.out',
           onComplete: () => {
-            // Reset image to normal flow and reveal the hero
-            gsap.set(heroCover, { clearProps: 'all' });
-            gsap.set(hero, { opacity: 1 });
-
-            // Fade in gradient
-            if (heroGradient) {
-              gsap.fromTo(heroGradient, { opacity: 0 }, { opacity: 1, duration: 0.4 });
-            }
-
-            // Fade in overlay content
-            if (heroOverlay) {
-              gsap.to(heroOverlay, {
-                opacity: 1,
-                y: 0,
-                duration: 0.45,
-                ease: 'power3.out',
-              });
-            }
-            if (heroHint) {
-              gsap.to(heroHint, { opacity: 1, duration: 0.3, delay: 0.2 });
-            }
+            gsap.set(heroCover, {
+              clearProps: 'all',
+            });
           },
         });
+
+        // Fade in gradient
+        if (heroGradient) {
+          gsap.to(heroGradient, {
+            opacity: 1,
+            duration: 0.6,
+            delay: 0.3,
+          });
+        }
+
+        // Fade in overlay content
+        if (heroOverlay) {
+          gsap.to(heroOverlay, {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: 'power3.out',
+            delay: 0.5,
+          });
+        }
+        if (heroHint) {
+          gsap.to(heroHint, {
+            opacity: 1,
+            duration: 0.4,
+            delay: 0.8,
+          });
+        }
       }
 
       // Wait for image to load if needed
