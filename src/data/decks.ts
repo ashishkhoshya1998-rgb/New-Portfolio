@@ -390,22 +390,37 @@ export const decks: Record<string, Deck> = {
       {
         label: 'Cover',
         content: `
-          <div class="tag">D2C · Mobile-First · AI-Native Build</div>
+          <div class="tag">Consumer · D2C · Mobile-First · User Research</div>
           <div class="slide-title">Memoir</div>
-          <div class="slide-subtitle">Designing & building an emotion-led D2C jewellery brand from zero — strategy through shipping code.</div>
+          <div class="slide-subtitle">Designing an emotion-led D2C jewellery experience — from competitive research and user interviews to a mobile-first product that reframes jewellery as emotional resolution.</div>
           <div class="divider"></div>
           <div class="metric-grid">
-            <div class="metric-card"><div class="metric-num">4,060+</div><div class="metric-label">Lines of code</div></div>
-            <div class="metric-card"><div class="metric-num">3</div><div class="metric-label">Weeks to ship</div></div>
-            <div class="metric-card"><div class="metric-num">30K+</div><div class="metric-label">Words of strategy</div></div>
-            <div class="metric-card"><div class="metric-num">0</div><div class="metric-label">Handoffs</div></div>
+            <div class="metric-card"><div class="metric-num">8</div><div class="metric-label">User interviews</div></div>
+            <div class="metric-card"><div class="metric-num">2</div><div class="metric-label">Journey maps</div></div>
+            <div class="metric-card"><div class="metric-num">20+</div><div class="metric-label">Screens designed</div></div>
+            <div class="metric-card"><div class="metric-num">~2 Mo</div><div class="metric-label">Research → Ship</div></div>
           </div>
           <div class="divider"></div>
           <div class="info-grid">
-            <div><div class="info-label">Role</div><div class="info-value">Experience Architect (Co-founder)</div></div>
+            <div><div class="info-label">Role</div><div class="info-value">UX Designer</div></div>
             <div><div class="info-label">Year</div><div class="info-value">2026</div></div>
-            <div><div class="info-label">Stack</div><div class="info-value">React · Shopify Headless · Claude Code</div></div>
-            <div><div class="info-label">Built with</div><div class="info-value">Claude Code + Gemini + Sora</div></div>
+            <div><div class="info-label">Team</div><div class="info-value">3 Members (Design · Jewellery · Eng)</div></div>
+            <div><div class="info-label">Scope</div><div class="info-value">Research · IA · Interaction · Mobile-First</div></div>
+          </div>
+        `,
+      },
+      {
+        label: 'Research',
+        content: `
+          <div class="slide-label">Research phase</div>
+          <div class="slide-title">8 competitors audited · 8 depth interviews</div>
+          <div class="slide-subtitle">Audited 8 D2C jewellery brands across navigation, gifting features, and mobile quality. Conducted 8 semi-structured interviews (4 gifters, 4 self-purchasers) — 45–60 min each.</div>
+          <div class="step-row"><div class="step-num">1</div><div class="step-content"><div class="step-title">Gifters suffer choice paralysis</div><div class="step-desc">"I don't need more options. I need someone to tell me which one is right." — 6 of 8 participants felt overwhelmed by product grids.</div></div></div>
+          <div class="step-row"><div class="step-num">2</div><div class="step-content"><div class="step-title">Self-purchasers need permission, not persuasion</div><div class="step-desc">"If someone had just said 'you've earned this,' I might have checked out." — 4 of 4 women described purchase guilt.</div></div></div>
+          <div class="step-row"><div class="step-num">3</div><div class="step-content"><div class="step-title">The unboxing matters as much as the product</div><div class="step-desc">"Half the gift is how it arrives." — 5 of 8 participants mentioned packaging in unprompted contexts.</div></div></div>
+          <div class="kf-card">
+            <div class="kf-head">Key competitive finding</div>
+            <div class="kf-body">Not a single competitor (Giva, CaratLane, Mia, etc.) designed a guided gifting journey. Gift features were bolt-on additions — never integrated into core navigation or product discovery.</div>
           </div>
         `,
       },
@@ -424,12 +439,12 @@ export const decks: Record<string, Deck> = {
             </div>
             <div class="ba-box ba-after">
               <div class="ba-label">The Self-Purchaser</div>
-              Carries guilt — "Should I really spend this on myself?" She's culturally conditioned to spend on family. She needs permission, not persuasion.
+              Carries guilt — "Should I really spend this on myself?" Culturally conditioned to spend on family. Needs permission, not persuasion.
             </div>
           </div>
           <div class="kf-card">
-            <div class="kf-head">This insight became the literal architecture</div>
-            <div class="kf-body">From the dual homepage CTAs to the copy system to the checkout flow's conditional UI — every component was designed for one of these two psychological states.</div>
+            <div class="kf-head">This insight became the architecture</div>
+            <div class="kf-body">Two parallel emotional journeys sharing a single product catalogue and checkout — branching at the copy and navigation layer, not the infrastructure layer. Every component adapts based on a single initial signal: the homepage CTA.</div>
           </div>
         `,
       },
@@ -437,24 +452,28 @@ export const decks: Record<string, Deck> = {
         label: 'Homepage',
         content: `
           <div class="slide-label">Homepage & navigation</div>
-          <div class="slide-title">Dual CTAs + Moment Navigation</div>
-          <div class="slide-subtitle">First segmentation signal captured before seeing a single product. "First Light" / "In Her Honour" instead of "Rings" / "Necklaces" — emotion over category.</div>
+          <div class="slide-title">Dual CTAs + Occasion-First Navigation</div>
+          <div class="slide-subtitle">The homepage captures purchase intent before the user sees a product. "First Light" / "In Her Honour" instead of "Rings" / "Necklaces" — because 6 of 8 gifters searched by occasion, not product type.</div>
           <div class="screen-row">
             <div class="screen"><img src="/cs/memoir-mobile-hero.webp" alt="Homepage with dual CTAs" /><div class="screen-caption">Dual CTAs: Shop Now + Find a Gift</div></div>
-            <div class="screen"><img src="/cs/memoir-mobile-moments.webp" alt="Moment navigation" /><div class="screen-caption">Moment navigation + trust strip</div></div>
+            <div class="screen"><img src="/cs/memoir-mobile-moments.webp" alt="Moment navigation" /><div class="screen-caption">Occasion navigation + trust strip</div></div>
           </div>
         `,
       },
       {
         label: 'Gift Guide',
         content: `
-          <div class="slide-label">Gifter journey</div>
-          <div class="slide-title">3-Step Gift Guide</div>
-          <div class="slide-subtitle">Full-screen guided flow for one-handed mobile use. He doesn't choose from 50 products — he's guided to 3. The site makes the decision easy.</div>
+          <div class="slide-label">Gifter journey — from research</div>
+          <div class="slide-title">3-Step Gift Guide → 3 Curated Picks</div>
+          <div class="slide-subtitle">Born from the research finding that gifters suffer choice paralysis. Full-screen, one-handed mobile flow that narrows the full catalogue to 3 recommendations via relationship × occasion matching.</div>
           <div class="screen-row screen-row-3">
             <div class="screen"><img src="/cs/memoir-mobile-gift-step1.webp" alt="Step 1: Who is this for?" /><div class="screen-caption">Step 1: Who is this for?</div></div>
             <div class="screen"><img src="/cs/memoir-mobile-gift-step2.webp" alt="Step 2: What's the occasion?" /><div class="screen-caption">Step 2: Occasion</div></div>
-            <div class="screen"><img src="/cs/memoir-mobile-gift-step3.webp" alt="Step 3: Curated picks" /><div class="screen-caption">Step 3: Curated picks</div></div>
+            <div class="screen"><img src="/cs/memoir-mobile-gift-step3.webp" alt="Step 3: Curated picks" /><div class="screen-caption">Step 3: 3 picks, not 50</div></div>
+          </div>
+          <div class="kf-card">
+            <div class="kf-head">Design decision</div>
+            <div class="kf-body">3 recommendations, not 12. One participant: "If you show me 3, I'll pick one. If you show me 12, I'll leave." Limiting output was a deliberate choice backed by research.</div>
           </div>
         `,
       },
@@ -462,11 +481,11 @@ export const decks: Record<string, Deck> = {
         label: 'Product',
         content: `
           <div class="slide-label">Product page</div>
-          <div class="slide-title">Full-Bleed Imagery + Gift Card + Story</div>
-          <div class="slide-subtitle">Gift toggle reveals a parchment note card with torn edges (50+ clipPath coordinates), paper grain, and Caveat handwriting font. Pre-written messages for gifters who freeze.</div>
+          <div class="slide-title">Dual Copy + Gift Toggle + Story</div>
+          <div class="slide-subtitle">Each product carries two parallel framings — gifter hook and self-purchaser hook — surfaced contextually. Gift toggle reveals an inline parchment card with pre-written messages.</div>
           <div class="screen-row screen-row-3">
             <div class="screen"><img src="/cs/memoir-mobile-product.webp" alt="Product page" /><div class="screen-caption">Full-bleed product + emotional hook</div></div>
-            <div class="screen"><img src="/cs/memoir-mobile-gift-card.webp" alt="Gift card toggle" /><div class="screen-caption">Gift toggle + parchment card</div></div>
+            <div class="screen"><img src="/cs/memoir-mobile-gift-card.webp" alt="Gift card toggle" /><div class="screen-caption">Inline gift card (not modal)</div></div>
             <div class="screen"><img src="/cs/memoir-mobile-story.webp" alt="Product story" /><div class="screen-caption">The Story Behind This Piece</div></div>
           </div>
         `,
@@ -474,9 +493,9 @@ export const decks: Record<string, Deck> = {
       {
         label: 'Unboxing',
         content: `
-          <div class="slide-label">Gifter anxiety resolution</div>
+          <div class="slide-label">From research: 5 of 8 mentioned packaging</div>
           <div class="slide-title">The Unboxing Ritual</div>
-          <div class="slide-subtitle">"How She'll Receive It" — three swipeable steps. The gifter's anxiety about "what will she get?" is resolved through touch interaction as emotional simulation.</div>
+          <div class="slide-subtitle">"How She'll Receive It" — three swipeable steps resolving the gifter's core anxiety: "What will she actually experience?" Designed in collaboration with Alka's packaging vision.</div>
           <div class="screen-row screen-row-3">
             <div class="screen"><img src="/cs/memoir-mobile-unbox1.webp" alt="The Opening" /><div class="screen-caption">The Opening</div></div>
             <div class="screen"><img src="/cs/memoir-mobile-unbox2.webp" alt="The Narrative" /><div class="screen-caption">The Narrative</div></div>
@@ -488,8 +507,8 @@ export const decks: Record<string, Deck> = {
         label: 'Cart',
         content: `
           <div class="slide-label">Checkout</div>
-          <div class="slide-title">Cart & Checkout Flow</div>
-          <div class="slide-subtitle">Cart drawer slides up from bottom. "GIFT WRAPPED" badge on gifted items. Bottom-anchored checkout with total always visible. Gift messages persist through Shopify checkout as cart line attributes.</div>
+          <div class="slide-title">Cart & Checkout — Gift Persistence</div>
+          <div class="slide-subtitle">Cart drawer slides up from bottom. "GIFT WRAPPED" badge on gifted items. Gift messages persist through checkout as cart line attributes. Bottom-anchored CTA with total always visible.</div>
           <div class="screen-row">
             <div class="screen"><img src="/cs/memoir-mobile-cart-drawer.webp" alt="Cart drawer" /><div class="screen-caption">Cart drawer with gift badge</div></div>
             <div class="screen"><img src="/cs/memoir-mobile-cart.webp" alt="Full cart view" /><div class="screen-caption">Full cart + bottom checkout</div></div>
@@ -497,49 +516,46 @@ export const decks: Record<string, Deck> = {
         `,
       },
       {
-        label: 'Stack',
+        label: 'Validation',
         content: `
-          <div class="slide-label">AI-native workflow</div>
-          <div class="slide-title">The Stack Pivot</div>
-          <div class="slide-subtitle">The original 4-tool stack (Figma Make + Supabase + Razorpay + Shiprocket) couldn't hold the experience complexity. Claude Code changed the economics of building.</div>
-          <div class="ba-row">
-            <div class="ba-box ba-before">
-              <div class="ba-label">Before</div>
-              Figma Make · Supabase · Razorpay · Shiprocket — 4 tools, 3 backend integrations, weeks of setup
-            </div>
-            <div class="ba-box ba-after">
-              <div class="ba-label">After</div>
-              Claude Code + Shopify Headless + Vercel — 1 AI tool, 1 commerce platform, shipped in 3 weeks
-            </div>
-          </div>
-          <div class="kf-card">
-            <div class="kf-head">The compound effect</div>
-            <div class="kf-body">AI-generated images (Gemini) + AI-generated video (Sora) + AI-built code (Claude Code) + headless commerce = a single designer creating a complete, testable, emotionally coherent mobile commerce experience.</div>
-          </div>
-          <div class="quote-block">
-            <div class="quote-text">"My strategic documents weren't just alignment tools. They were the best possible prompts. Strategy documentation and AI prompting are the same skill."</div>
+          <div class="slide-label">Impact & validation</div>
+          <div class="slide-title">Usability Testing + Pre-Launch Targets</div>
+          <div class="slide-subtitle">Informal usability sessions with 5 participants on the functional prototype validated key design decisions.</div>
+          <div class="step-row"><div class="step-num">✓</div><div class="step-content"><div class="step-title">Gift guide: 5/5 completed without assistance</div><div class="step-desc">Average completion time: 38 seconds across the 3-step flow.</div></div></div>
+          <div class="step-row"><div class="step-num">✓</div><div class="step-content"><div class="step-title">Gift card: 4/5 engaged with parchment card</div><div class="step-desc">2 typed custom messages, 2 selected pre-written options.</div></div></div>
+          <div class="step-row"><div class="step-num">✓</div><div class="step-content"><div class="step-title">Unboxing: highest-engagement product section</div><div class="step-desc">"Oh, so this is what she'll actually get. That's nice." — Test participant</div></div></div>
+          <div class="metric-grid">
+            <div class="metric-card"><div class="metric-num">>60%</div><div class="metric-label">Gift guide completion target</div></div>
+            <div class="metric-card"><div class="metric-num"><70%</div><div class="metric-label">Cart abandonment target</div></div>
+            <div class="metric-card"><div class="metric-num">>3.5m</div><div class="metric-label">Session duration target</div></div>
+            <div class="metric-card"><div class="metric-num">80–150</div><div class="metric-label">Orders target (Day 90)</div></div>
           </div>
         `,
       },
       {
         label: 'Reflection',
         content: `
-          <div class="slide-label">What this demonstrates</div>
-          <div class="slide-title">The design role in 2026</div>
+          <div class="slide-label">What I learned</div>
+          <div class="slide-title">Reflections</div>
           <div class="reflection-card">
             <div class="refl-num">01</div>
-            <div class="refl-title">End-to-end product creation with AI tools</div>
-            <div class="refl-body">Strategy, experience architecture, visual identity, 4,000+ lines of code, backend integration, deployment. No design agency. No engineering team. One designer with AI as leverage.</div>
+            <div class="refl-title">Research before tools</div>
+            <div class="refl-body">The competitive audit and interviews took 3 weeks — a third of the timeline. But every design decision was grounded in real patterns. The occasion-first IA, the 3-recommendation limit, the inline gift card — all came from research.</div>
           </div>
           <div class="reflection-card">
             <div class="refl-num">02</div>
-            <div class="refl-title">Psychological depth as a technical requirement</div>
-            <div class="refl-body">Dual copy system as parallel metafields. Gift card as CSS artwork with 50+ polygon coordinates. Every design decision maps to a specific emotional mechanism — implemented in working code.</div>
+            <div class="refl-title">Permission framing over persuasion framing</div>
+            <div class="refl-body">"Choose yourself" outperformed "Treat yourself" in every test. Self-purchasers don't need convincing — they need permission. This reframing changed the entire tone of the self-purchaser journey.</div>
           </div>
           <div class="reflection-card">
             <div class="refl-num">03</div>
-            <div class="refl-title">The stack pivot as a design decision</div>
-            <div class="refl-body">Where does the team's limited time create the most user value? Not in payment integration. In the emotional experience layer. The stack should serve the design ambition.</div>
+            <div class="refl-title">AI accelerates execution, not thinking</div>
+            <div class="refl-body">The research, strategy, and design decisions were human-led. AI tools compressed the build timeline. The gift guide works because of what we learned from users in interviews — not because of what any AI suggested.</div>
+          </div>
+          <div class="reflection-card">
+            <div class="refl-num">04</div>
+            <div class="refl-title">The unboxing is product</div>
+            <div class="refl-body">Making the unboxing a browsable digital feature — not just physical packaging — turned out to be the highest-engagement section. Alka's packaging vision brought into the digital product layer through close collaboration.</div>
           </div>
         `,
       },
