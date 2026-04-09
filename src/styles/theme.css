@@ -60,5 +60,63 @@
   --accent-red: #E53E3E;
   --selection-bg: #E8FF47;
   --selection-text: #0A0A0A;
+  /* Semantic overlay tokens */
+  --overlay-soft: rgba(245, 240, 232, 0.06);
+  --overlay-hover: rgba(245, 240, 232, 0.1);
+  --overlay-muted: rgba(245, 240, 232, 0.04);
+  --overlay-num: rgba(245, 240, 232, 0.25);
+  --overlay-border-subtle: rgba(245, 240, 232, 0.08);
+  --overlay-border-mid: rgba(245, 240, 232, 0.12);
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --shadow-light: rgba(0, 0, 0, 0.3);
+  --shadow-heavy: rgba(0, 0, 0, 0.4);
+  --gradient-overlay: rgba(0, 0, 0, 0.95);
+  --gradient-mid: rgba(0, 0, 0, 0.7);
+  --gradient-light: rgba(0, 0, 0, 0.3);
+  --lightbox-bg: rgba(0, 0, 0, 0.92);
+  --hero-text: #fff;
+  --hero-text-muted: rgba(255, 255, 255, 0.7);
+  --hero-meta: rgba(255, 255, 255, 0.85);
+  --hero-divider: rgba(255, 255, 255, 0.12);
+  --hero-hint: rgba(255, 255, 255, 0.4);
+  --btn-hover-text: #0A0A0A;
+}
+
+/* ── Light Theme ── */
+[data-theme='light'] {
+  --bg: #FAF9F6;
+  --bg-elevated: #FFFFFF;
+  --text: #1A1A1A;
+  --text-muted: #5C574F;
+  --text-subtle: rgba(26, 26, 26, 0.78);
+  --text-massive: rgba(26, 26, 26, 0.06);
+  --card-bg: rgba(26, 26, 26, 0.03);
+  --border: rgba(26, 26, 26, 0.1);
+  --nav-bg: rgba(250, 249, 246, 0.88);
+  --accent: #5C6B00;
+  --accent-hover: #D45A1E;
+  --accent-red: #C53030;
+  --selection-bg: #5C6B00;
+  --selection-text: #FFFFFF;
+  /* Semantic overlay tokens */
+  --overlay-soft: rgba(26, 26, 26, 0.04);
+  --overlay-hover: rgba(26, 26, 26, 0.08);
+  --overlay-muted: rgba(26, 26, 26, 0.03);
+  --overlay-num: rgba(26, 26, 26, 0.3);
+  --overlay-border-subtle: rgba(26, 26, 26, 0.08);
+  --overlay-border-mid: rgba(26, 26, 26, 0.14);
+  --shadow-color: rgba(0, 0, 0, 0.12);
+  --shadow-light: rgba(0, 0, 0, 0.06);
+  --shadow-heavy: rgba(0, 0, 0, 0.15);
+  --gradient-overlay: rgba(250, 249, 246, 0.85);
+  --gradient-mid: rgba(250, 249, 246, 0.5);
+  --gradient-light: rgba(250, 249, 246, 0.15);
+  --lightbox-bg: rgba(255, 255, 255, 0.95);
+  --hero-text: #1A1A1A;
+  --hero-text-muted: rgba(26, 26, 26, 0.6);
+  --hero-meta: rgba(26, 26, 26, 0.75);
+  --hero-divider: rgba(26, 26, 26, 0.12);
+  --hero-hint: rgba(26, 26, 26, 0.4);
+  --btn-hover-text: #FFFFFF;
 }
 

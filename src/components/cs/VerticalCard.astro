@@ -32,14 +32,14 @@ const { number, title, description, href } = Astro.props;
     padding: 20px 24px;
     border-radius: 12px;
     border: 1px solid var(--border);
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--card-bg);
     transition: background 0.25s, border-color 0.25s, transform 0.25s;
     cursor: pointer;
     margin-bottom: 12px;
   }
 
   .vcard:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--overlay-soft);
     border-color: var(--accent);
     transform: translateY(-2px);
   }

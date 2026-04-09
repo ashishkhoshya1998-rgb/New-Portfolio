@@ -15,6 +15,14 @@ const {
 <!doctype html>
 <html lang="en" data-theme="dark">
   <head>
+    <!-- Theme: prevent flash by setting before render -->
+    <script is:inline>
+      (function() {
+        var saved = localStorage.getItem('ak-theme');
+        var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
@@ -42,6 +50,10 @@ const {
       // Track page views on Astro view transitions
       document.addEventListener('astro:after-swap', function() {
         gtag('config', 'G-LQ1G8E3DFD', { page_path: window.location.pathname });
+        // Re-apply theme after swap
+        var saved = localStorage.getItem('ak-theme');
+        var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
       });
     </script>
 

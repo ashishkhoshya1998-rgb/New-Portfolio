@@ -255,7 +255,7 @@ export default function ProjectCarousel() {
 
         .pc__card:hover {
           transform: scale(1.01);
-          box-shadow: 0 12px 40px rgba(232,255,71,0.08);
+          box-shadow: 0 12px 40px var(--shadow-light);
         }
 
         .pc__card-cover {
@@ -276,7 +276,7 @@ export default function ProjectCarousel() {
         .pc__card-gradient {
           position: absolute;
           inset: 0;
-          background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0.3) 70%, transparent 100%);
+          background: linear-gradient(to top, var(--gradient-overlay) 0%, var(--gradient-mid) 40%, var(--gradient-light) 70%, transparent 100%);
           pointer-events: none;
         }
 
@@ -300,7 +300,7 @@ export default function ProjectCarousel() {
           font-size: 28px;
           font-weight: 700;
           color: var(--text);
-          text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+          text-shadow: 0 2px 12px var(--shadow-color);
         }
 
         /* Metadata */
@@ -366,7 +366,7 @@ export default function ProjectCarousel() {
           height: 70px;
           border-radius: 50%;
           background: var(--accent);
-          color: #0A0A0A;
+          color: var(--btn-hover-text);
           font-size: 13px;
           font-weight: 700;
           display: flex;

@@ -26,11 +26,17 @@ export default function Hero() {
       <section className="hero" id="hero">
         {/* Layer 1: dot grid — done via CSS */}
 
-        {/* Layer 2: background image */}
+        {/* Layer 2: background image (dark + light variants) */}
         <img
           src="/images/hero-bg.webp"
           alt=""
-          className="hero__bg-img"
+          className="hero__bg-img hero__bg-img--dark"
+          aria-hidden="true"
+        />
+        <img
+          src="/images/hero-bg-light.webp"
+          alt=""
+          className="hero__bg-img hero__bg-img--light"
           aria-hidden="true"
         />
 
@@ -95,6 +101,20 @@ export default function Hero() {
           mix-blend-mode: lighten;
           z-index: 1;
           pointer-events: none;
+        }
+
+        /* Theme-based image swap */
+        .hero__bg-img--light { display: none; }
+        .hero__bg-img--dark { display: block; }
+
+        [data-theme='light'] .hero__bg-img--dark { display: none; }
+        [data-theme='light'] .hero__bg-img--light {
+          display: block;
+          mix-blend-mode: multiply;
+        }
+
+        [data-theme='light'] .hero::before {
+          opacity: 0.94;
         }
 
         /* Layer 3: massive text */

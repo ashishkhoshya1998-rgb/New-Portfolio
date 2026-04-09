@@ -28,8 +28,10 @@ function initHero() {
       { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 0.2)
     .fromTo(hero.querySelector('.hero__line2'),
       { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 0.35)
-    .fromTo(hero.querySelector('.hero__bg-img'),
+    .fromTo(hero.querySelector('.hero__bg-img--dark'),
       { opacity: 0 }, { opacity: 0.4, duration: 1.2, ease: 'power2.out' }, 0.4)
+    .fromTo(hero.querySelector('.hero__bg-img--light'),
+      { opacity: 0 }, { opacity: 0.6, duration: 1.2, ease: 'power2.out' }, 0.4)
     .fromTo(hero.querySelector('.hero__scroll'),
       { opacity: 0 }, { opacity: 1, duration: 0.5 }, 0.9);
 }

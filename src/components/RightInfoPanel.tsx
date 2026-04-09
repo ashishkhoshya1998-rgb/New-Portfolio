@@ -102,6 +102,13 @@ export default function RightInfoPanel() {
           color: var(--text-muted);
         }
 
+        [data-theme='light'] .right-panel__services,
+        [data-theme='light'] .right-panel__help,
+        [data-theme='light'] .right-panel__bio,
+        [data-theme='light'] .right-panel__badge {
+          text-shadow: 0 0 16px var(--bg), 0 0 32px var(--bg), 0 0 48px var(--bg);
+        }
+
         @media (max-width: 768px) {
           .right-panel {
             display: none;

@@ -63,7 +63,7 @@ const clients = [
 
   .logo-section__card:hover {
     border-color: var(--accent);
-    box-shadow: 0 8px 32px rgba(232, 255, 71, 0.06);
+    box-shadow: 0 8px 32px var(--shadow-color);
   }
 
   .logo-section__logo-wrap {
@@ -85,6 +85,14 @@ const clients = [
   .logo-section__logo[src*="zzazz"] {
     height: 48px;
     filter: none;
+  }
+
+  :global([data-theme='light']) .logo-section__logo {
+    filter: brightness(0);
+  }
+
+  :global([data-theme='light']) .logo-section__logo[src*="zzazz"] {
+    filter: brightness(0);
   }
 
   .logo-section__card:hover .logo-section__logo {
