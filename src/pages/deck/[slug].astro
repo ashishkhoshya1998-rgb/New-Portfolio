@@ -258,58 +258,60 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
   }
 
   .dk-slide-body {
-    padding: 28px 24px 48px;
+    padding: 40px 48px 56px;
+    max-width: 900px;
+    margin: 0 auto;
   }
 
   /* ─── Slide Content Elements ─── */
   .tag {
     display: inline-block;
-    font-size: 11px;
-    padding: 3px 10px;
+    font-size: 13px;
+    padding: 5px 14px;
     border-radius: var(--radius-full);
     font-weight: 500;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
     background: rgba(245, 240, 232, 0.06);
     color: var(--dk-accent);
     border: 0.5px solid rgba(245, 240, 232, 0.08);
   }
 
   .slide-label {
-    font-size: 11px;
+    font-size: 13px;
     color: var(--text-muted);
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
 
   .slide-title {
-    font-size: 22px;
+    font-size: 32px;
     font-weight: 500;
     font-family: var(--font-display);
     color: var(--text);
     line-height: 1.25;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
   }
 
   .slide-subtitle {
-    font-size: 15px;
+    font-size: 17px;
     color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 20px;
+    line-height: 1.65;
+    margin-bottom: 28px;
   }
 
   .divider {
     height: 0.5px;
     background: var(--border);
-    margin: 20px 0;
+    margin: 28px 0;
   }
 
   /* ─── Metrics ─── */
   .metric-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-    margin: 16px 0;
+    gap: 14px;
+    margin: 24px 0;
   }
 
   .metric-grid-3 {
@@ -319,21 +321,21 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
   .metric-card {
     background: var(--bg-elevated);
     border-radius: var(--radius-md);
-    padding: 14px;
+    padding: 20px;
     border: 0.5px solid var(--border);
   }
 
   .metric-num {
-    font-size: 26px;
+    font-size: 34px;
     font-weight: 600;
     font-family: var(--font-display);
     color: var(--dk-accent);
     line-height: 1;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
 
   .metric-label {
-    font-size: 12px;
+    font-size: 14px;
     color: var(--text-muted);
   }
 
@@ -341,57 +343,59 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
   .info-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    font-size: 13px;
+    gap: 16px;
+    font-size: 15px;
   }
 
   .info-label {
     color: var(--text-muted);
-    margin-bottom: 2px;
+    margin-bottom: 3px;
+    font-size: 13px;
   }
 
   .info-value {
     color: var(--text);
     font-weight: 500;
+    font-size: 15px;
   }
 
   /* ─── Quote Block ─── */
   .quote-block {
     border-left: 3px solid var(--dk-accent);
-    padding: 12px 16px;
+    padding: 16px 24px;
     background: var(--bg-elevated);
     border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: 16px 0;
+    margin: 24px 0;
   }
 
   .quote-text {
-    font-size: 14px;
+    font-size: 17px;
     color: var(--text);
-    line-height: 1.6;
+    line-height: 1.65;
     font-style: italic;
   }
 
   .quote-attr {
-    font-size: 12px;
+    font-size: 14px;
     color: var(--text-muted);
-    margin-top: 6px;
+    margin-top: 8px;
   }
 
   /* ─── Steps ─── */
   .step-row {
     display: flex;
-    gap: 12px;
+    gap: 16px;
     align-items: flex-start;
-    margin: 12px 0;
+    margin: 16px 0;
   }
 
   .step-num {
-    width: 26px;
-    height: 26px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     background: rgba(245, 240, 232, 0.06);
     color: var(--dk-accent);
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
     display: flex;
     align-items: center;
@@ -404,38 +408,38 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
   .step-content { flex: 1; }
 
   .step-title {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     color: var(--text);
   }
 
   .step-desc {
-    font-size: 13px;
+    font-size: 15px;
     color: var(--text-muted);
-    line-height: 1.55;
-    margin-top: 3px;
+    line-height: 1.6;
+    margin-top: 4px;
   }
 
   /* ─── Knowledge/Feature Card ─── */
   .kf-card {
     border: 0.5px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: 14px;
-    margin: 10px 0;
+    padding: 20px;
+    margin: 16px 0;
     background: var(--card-bg);
   }
 
   .kf-head {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 500;
     color: var(--text);
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
 
   .kf-body {
-    font-size: 13px;
+    font-size: 15px;
     color: var(--text-muted);
-    line-height: 1.55;
+    line-height: 1.6;
   }
 
   /* ─── Insight Row ─── */
@@ -465,15 +469,15 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
   .ba-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin: 12px 0;
+    gap: 14px;
+    margin: 20px 0;
   }
 
   .ba-box {
     border-radius: var(--radius-md);
-    padding: 12px;
-    font-size: 13px;
-    line-height: 1.55;
+    padding: 18px;
+    font-size: 15px;
+    line-height: 1.6;
   }
 
   .ba-before {
@@ -489,9 +493,9 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
   }
 
   .ba-label {
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 600;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
@@ -503,49 +507,49 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
   .reflection-card {
     border-radius: var(--radius-lg);
     border: 0.5px solid var(--border);
-    padding: 14px 16px;
-    margin: 10px 0;
+    padding: 20px 24px;
+    margin: 14px 0;
     background: var(--card-bg);
   }
 
   .refl-num {
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 600;
     color: var(--dk-accent);
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
 
   .refl-title {
-    font-size: 14px;
+    font-size: 17px;
     font-weight: 500;
     color: var(--text);
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
 
   .refl-body {
-    font-size: 13px;
+    font-size: 15px;
     color: var(--text-muted);
-    line-height: 1.55;
+    line-height: 1.6;
   }
 
   /* ─── Impact Table ─── */
   .impact-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 12px;
-    margin-top: 12px;
+    font-size: 14px;
+    margin-top: 16px;
   }
 
   .impact-table th {
     text-align: left;
-    padding: 8px;
+    padding: 10px;
     color: var(--text-muted);
     font-weight: 500;
     border-bottom: 0.5px solid var(--border);
   }
 
   .impact-table td {
-    padding: 8px;
+    padding: 10px;
     border-bottom: 0.5px solid var(--border);
     color: var(--text);
   }
@@ -574,10 +578,10 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
   }
 
   .screen-caption {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--text-muted);
     text-align: center;
-    padding: 8px 12px;
+    padding: 10px 14px;
     background: var(--bg-elevated);
     border-top: 0.5px solid var(--border);
   }
@@ -585,8 +589,8 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
   .screen-row {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    margin: 16px 0;
+    gap: 14px;
+    margin: 24px 0;
   }
 
   .screen-row .screen {
@@ -614,11 +618,19 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     .dk-back svg { width: 12px; height: 12px; }
     .dk-nav-current { font-size: 12px; padding: 5px 10px; }
     .dk-slide-counter { font-size: 10px; }
-    .dk-slide-body { padding: 20px 16px 40px; }
-    .slide-title { font-size: 19px; }
+    .dk-slide-body { padding: 24px 18px 40px; }
+    .slide-title { font-size: 24px; }
+    .slide-subtitle { font-size: 15px; }
     .metric-grid { grid-template-columns: repeat(2, 1fr); }
     .metric-grid-3 { grid-template-columns: repeat(2, 1fr); }
-    .metric-num { font-size: 22px; }
+    .metric-num { font-size: 26px; }
+    .step-title { font-size: 15px; }
+    .step-desc { font-size: 14px; }
+    .kf-head { font-size: 14px; }
+    .kf-body { font-size: 14px; }
+    .quote-text { font-size: 15px; }
+    .refl-title { font-size: 15px; }
+    .refl-body { font-size: 14px; }
     .ba-row { grid-template-columns: 1fr; gap: 8px; }
     .screen img, .screen video { height: 260px; }
     .screen-row { grid-template-columns: 1fr; }
