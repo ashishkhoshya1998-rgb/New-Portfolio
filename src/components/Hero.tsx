@@ -114,7 +114,7 @@ export default function Hero() {
         }
 
         [data-theme='light'] .hero::before {
-          opacity: 0.94;
+          opacity: 0.96;
         }
 
         /* Layer 3: massive text */
