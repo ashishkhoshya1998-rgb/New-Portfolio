@@ -47,16 +47,18 @@ export default function TopNav({ currentPath }: TopNavProps) {
   // Subtle logo toggle — AK ↔ आ forever
   useEffect(() => {
     let isHindi = false;
+    let t1: ReturnType<typeof setTimeout>;
+    let t2: ReturnType<typeof setTimeout>;
     const swap = () => {
-      setLogoFade(false);
-      setTimeout(() => {
+      setLogoFade(false); // fade out (0.5s CSS)
+      t1 = setTimeout(() => {
         isHindi = !isHindi;
-        setLogoText(isHindi ? 'आ' : 'AK');
-        setLogoFade(true);
-      }, 600);
+        setLogoText(isHindi ? 'आ' : 'AK'); // swap text while invisible
+        t2 = setTimeout(() => setLogoFade(true), 50); // fade in after a tick
+      }, 550); // wait for fade-out to fully complete
     };
     const interval = setInterval(swap, 4000);
-    return () => clearInterval(interval);
+    return () => { clearInterval(interval); clearTimeout(t1); clearTimeout(t2); };
   }, []);
 
   // Scroll listener
@@ -240,7 +242,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
           display: inline-block;
           min-width: 32px;
           text-align: center;
-          transition: opacity 0.6s ease;
+          transition: opacity 0.5s ease;
         }
 
         .topnav__logo--visible {
