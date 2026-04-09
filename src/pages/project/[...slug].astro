@@ -115,14 +115,19 @@ const hasDeck = !!decks[project.id];
     </section>
 
     {hasDeck && (
-      <div class="cs__deck-prompt">
-        <div class="content-wrap cs__deck-prompt-inner">
-          <span class="cs__deck-prompt-text">Short on time?</span>
-          <a href={`/deck/${project.id}`} class="cs__deck-btn" data-astro-reload>
-            View slide deck
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-        </div>
+      <div class="cs__deck-prompt content-wrap">
+        <a href={`/deck/${project.id}`} class="cs__deck-prompt-inner" data-astro-reload>
+          <div class="cs__deck-prompt-left">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8" /><path d="M12 17v4" /></svg>
+            <div class="cs__deck-prompt-copy">
+              <span class="cs__deck-prompt-title">View the slide deck</span>
+              <span class="cs__deck-prompt-text">Get the highlights in 2 minutes</span>
+            </div>
+          </div>
+          <span class="cs__deck-prompt-arrow">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </a>
       </div>
     )}
 
@@ -438,16 +443,49 @@ const hasDeck = !!decks[project.id];
 
   /* Deck prompt — between hero and body */
   .cs__deck-prompt {
-    border-bottom: 0.5px solid var(--border);
-    background: var(--bg);
+    padding-top: 32px;
+    padding-bottom: 32px;
   }
 
   .cs__deck-prompt-inner {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 12px;
-    padding: 14px 0;
+    justify-content: space-between;
+    padding: 24px 28px;
+    text-decoration: none;
+    border: 1px solid color-mix(in srgb, var(--csAccent, var(--accent)) 30%, transparent);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--csAccent, var(--accent)) 5%, var(--bg));
+    transition: background 0.25s, border-color 0.25s;
+  }
+
+  .cs__deck-prompt-inner:hover {
+    background: color-mix(in srgb, var(--csAccent, var(--accent)) 10%, var(--bg));
+    border-color: color-mix(in srgb, var(--csAccent, var(--accent)) 50%, transparent);
+  }
+
+  .cs__deck-prompt-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .cs__deck-prompt-left > svg {
+    color: var(--csAccent, var(--accent));
+    flex-shrink: 0;
+  }
+
+  .cs__deck-prompt-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .cs__deck-prompt-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    font-family: var(--font-body);
   }
 
   .cs__deck-prompt-text {
@@ -456,20 +494,34 @@ const hasDeck = !!decks[project.id];
     font-family: var(--font-body);
   }
 
+  .cs__deck-prompt-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--csAccent, var(--accent)) 15%, transparent);
+    color: var(--csAccent, var(--accent));
+    flex-shrink: 0;
+    transition: background 0.25s, transform 0.25s;
+  }
+
+  .cs__deck-prompt-inner:hover .cs__deck-prompt-arrow {
+    background: color-mix(in srgb, var(--csAccent, var(--accent)) 25%, transparent);
+    transform: translateX(4px);
+  }
+
   .cs__deck-btn {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 6px 16px;
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius-full);
     color: var(--text);
     font-size: 13px;
     font-weight: 500;
     font-family: var(--font-body);
     text-decoration: none;
     transition: background 0.2s, border-color 0.2s, color 0.2s;
-    background: var(--bg-elevated);
   }
 
   .cs__deck-btn:hover {
