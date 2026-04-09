@@ -38,9 +38,26 @@ export default function TopNav({ currentPath }: TopNavProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [socialsOpen, setSocialsOpen] = useState(false);
+  const [logoText, setLogoText] = useState('AK');
+  const [logoFade, setLogoFade] = useState(true);
 
   // On case study pages, always show blur bg
   const isCaseStudy = currentPath === '/projects' && typeof window !== 'undefined' && window.location.pathname.startsWith('/project/');
+
+  // Subtle logo toggle — AK ↔ आ forever
+  useEffect(() => {
+    let isHindi = false;
+    const swap = () => {
+      setLogoFade(false);
+      setTimeout(() => {
+        isHindi = !isHindi;
+        setLogoText(isHindi ? 'आ' : 'AK');
+        setLogoFade(true);
+      }, 600);
+    };
+    const interval = setInterval(swap, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Scroll listener
   useEffect(() => {
@@ -79,7 +96,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
       >
         {/* Left: Avatar + Name + Greeting */}
         <a href="/" className="topnav__brand">
-          <span className="topnav__logo">AK</span>
+          <span className={`topnav__logo ${logoFade ? 'topnav__logo--visible' : 'topnav__logo--hidden'}`}>{logoText}</span>
         </a>
 
         {/* Right: Nav links + Socials dropdown + CTA */}
@@ -220,6 +237,18 @@ export default function TopNav({ currentPath }: TopNavProps) {
           color: var(--accent);
           letter-spacing: -1px;
           line-height: 1;
+          display: inline-block;
+          min-width: 32px;
+          text-align: center;
+          transition: opacity 0.6s ease;
+        }
+
+        .topnav__logo--visible {
+          opacity: 1;
+        }
+
+        .topnav__logo--hidden {
+          opacity: 0;
         }
 
         /* Socials dropdown */
