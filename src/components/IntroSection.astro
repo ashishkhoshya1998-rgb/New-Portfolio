@@ -1,6 +1,4 @@
 ---
-import { Image } from 'astro:assets';
-import aboutPortrait from '../assets/images/about-portrait.webp';
 ---
 
 <section class="intro-section">
@@ -30,17 +28,6 @@ import aboutPortrait from '../assets/images/about-portrait.webp';
         </p>
       </div>
     </div>
-    <div class="intro-section__image" data-intro-image>
-      <Image
-        src={aboutPortrait}
-        alt="Ashish Khoshya"
-        width={400}
-        height={500}
-        loading="lazy"
-        format="avif"
-        quality={80}
-      />
-    </div>
   </div>
 </section>
 
@@ -50,10 +37,7 @@ import aboutPortrait from '../assets/images/about-portrait.webp';
   }
 
   .intro-section__grid {
-    display: grid;
-    grid-template-columns: 3fr 2fr;
-    gap: 64px;
-    align-items: center;
+    display: block;
   }
 
   /* Labels */
@@ -79,16 +63,6 @@ import aboutPortrait from '../assets/images/about-portrait.webp';
     color: var(--text-subtle);
   }
 
-  /* Image */
-  .intro-section__image img {
-    max-width: 360px;
-    max-height: 420px;
-    width: 100%;
-    object-fit: cover;
-    object-position: top;
-    border-radius: 12px;
-  }
-
   @media (max-width: 1024px) {
     .intro-section {
       padding: 48px 0;
@@ -109,11 +83,6 @@ import aboutPortrait from '../assets/images/about-portrait.webp';
       padding: 32px 0;
     }
 
-    .intro-section__grid {
-      grid-template-columns: 1fr;
-      gap: 32px;
-    }
-
     .intro-section__body {
       gap: 14px;
     }
@@ -125,11 +94,6 @@ import aboutPortrait from '../assets/images/about-portrait.webp';
 
     .intro-section__labels {
       margin-bottom: 16px;
-    }
-
-    .intro-section__image img {
-      max-width: 280px;
-      max-height: 350px;
     }
   }
 </style>
@@ -149,7 +113,6 @@ import aboutPortrait from '../assets/images/about-portrait.webp';
 
   function initIntro() {
     const text = document.querySelector('[data-intro-text]');
-    const image = document.querySelector('[data-intro-image]');
     if (!text) return;
 
     gsap.fromTo(text,
@@ -159,16 +122,6 @@ import aboutPortrait from '../assets/images/about-portrait.webp';
         scrollTrigger: { trigger: text, start: 'top 80%', once: true },
       }
     );
-
-    if (image) {
-      gsap.fromTo(image,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1, y: 0, duration: 0.65, delay: 0.2, ease: 'power3.out',
-          scrollTrigger: { trigger: text, start: 'top 80%', once: true },
-        }
-      );
-    }
   }
 
   initIntro();

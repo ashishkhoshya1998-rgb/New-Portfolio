@@ -1,6 +1,4 @@
 ---
-import { Image } from 'astro:assets';
-import footerPortrait from '../assets/images/footer-portrait.webp';
 const emailText = 'ashish.khoshya1998@gmail.com ✦ ashish.khoshya1998@gmail.com ✦ ashish.khoshya1998@gmail.com ✦ ';
 ---
 
@@ -15,21 +13,8 @@ const emailText = 'ashish.khoshya1998@gmail.com ✦ ashish.khoshya1998@gmail.com
     </p>
   </div>
 
-  <!-- 2. Photo + Email marquee -->
+  <!-- 2. Email marquee -->
   <div class="content-wrap footer__marquee-section" data-footer-section>
-    <div class="footer__portrait-wrap">
-      <Image
-        src={footerPortrait}
-        alt="Ashish Khoshya"
-        class="footer__portrait"
-        loading="lazy"
-        width={300}
-        height={400}
-        format="avif"
-        quality={80}
-      />
-      <div class="footer__portrait-fade" aria-hidden="true"></div>
-    </div>
     <div class="footer__marquee-wrap">
       <a href="mailto:ashish.khoshya1998@gmail.com" class="footer__marquee-link">
         <div class="footer__marquee-scroll">
@@ -98,38 +83,10 @@ const emailText = 'ashish.khoshya1998@gmail.com ✦ ashish.khoshya1998@gmail.com
     max-width: 600px;
   }
 
-  /* 2. Photo + Marquee */
+  /* 2. Marquee */
   .footer__marquee-section {
-    display: flex;
-    align-items: center;
-    gap: 48px;
     margin-bottom: 80px;
     overflow: hidden;
-  }
-
-  .footer__portrait-wrap {
-    position: relative;
-    flex-shrink: 0;
-  }
-
-  .footer__portrait {
-    max-width: 300px;
-    max-height: 380px;
-    width: 100%;
-    object-fit: cover;
-    object-position: top;
-    border-radius: 12px;
-    display: block;
-  }
-
-  .footer__portrait-fade {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 40%;
-    background: linear-gradient(to bottom, transparent, var(--bg));
-    pointer-events: none;
   }
 
   .footer__marquee-wrap {
@@ -233,14 +190,7 @@ const emailText = 'ashish.khoshya1998@gmail.com ✦ ashish.khoshya1998@gmail.com
     }
 
     .footer__marquee-section {
-      flex-direction: column;
-      gap: 32px;
       margin-bottom: 48px;
-    }
-
-    .footer__portrait {
-      max-width: 200px;
-      max-height: 260px;
     }
 
     .footer__marquee-scroll span {
