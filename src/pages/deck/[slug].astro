@@ -15,37 +15,40 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
 
 <Layout title={`${title} — Presentation`}>
   <div class="deck-page" style={`--dk-accent:${accentColor};--dk-accent-bg:${accentBg};--dk-accent-text:${accentText};`}>
-    <div class="dk-nav-bar">
+    <!-- Top bar: back link + counter -->
+    <div class="dk-top-bar">
       <a href={`/project/${slug}`} class="dk-back" data-astro-reload>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         Case Study
       </a>
-      <div class="dk-nav-center">
-        <button class="dk-nav-arrow" id="prev-btn" disabled>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
-        </button>
-        <div class="dk-nav-selector">
-          <button class="dk-nav-current" id="nav-current">
-            <span id="current-label">{slides[0].label}</span>
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
-          <div class="dk-nav-dropdown" id="nav-dropdown">
-            {slides.map((s, i) => (
-              <button
-                class={`dk-dropdown-item ${i === 0 ? 'active' : ''}`}
-                data-pill-index={i}
-              >
-                <span class="dk-dropdown-num">{String(i + 1).padStart(2, '0')}</span>
-                {s.label}
-              </button>
-            ))}
-          </div>
-        </div>
-        <button class="dk-nav-arrow" id="next-btn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
-        </button>
-      </div>
       <span class="dk-slide-counter" id="counter">1 / {slides.length}</span>
+    </div>
+
+    <!-- Floating bottom nav -->
+    <div class="dk-float-nav">
+      <button class="dk-nav-arrow" id="prev-btn" disabled>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="dk-nav-selector">
+        <button class="dk-nav-current" id="nav-current">
+          <span id="current-label">{slides[0].label}</span>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="dk-nav-dropdown" id="nav-dropdown">
+          {slides.map((s, i) => (
+            <button
+              class={`dk-dropdown-item ${i === 0 ? 'active' : ''}`}
+              data-pill-index={i}
+            >
+              <span class="dk-dropdown-num">{String(i + 1).padStart(2, '0')}</span>
+              {s.label}
+            </button>
+          ))}
+        </div>
+      </div>
+      <button class="dk-nav-arrow" id="next-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
     </div>
 
     {slides.map((s, i) => (
@@ -67,11 +70,11 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     max-width: 720px;
     margin: 0 auto;
     min-height: 100vh;
-    padding-bottom: 80px;
+    padding-bottom: 100px;
   }
 
-  /* ─── Nav Bar ─── */
-  .dk-nav-bar {
+  /* ─── Top Bar ─── */
+  .dk-top-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -83,7 +86,6 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     z-index: 100;
-    gap: 12px;
   }
 
   /* Back link */
@@ -103,25 +105,32 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
 
   .dk-back:hover { color: var(--text); }
 
-  /* Center nav: ← Dropdown → */
-  .dk-nav-center {
+  /* ─── Floating Bottom Nav ─── */
+  .dk-float-nav {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     align-items: center;
-    gap: 2px;
-    border: 0.5px solid var(--border);
+    gap: 4px;
+    border: 1px solid rgba(245, 240, 232, 0.12);
     border-radius: var(--radius-full);
-    background: var(--bg-elevated);
-    padding: 2px;
-    width: 240px;
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 5px 6px;
+    z-index: 100;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(245, 240, 232, 0.04), 0 0 48px rgba(0, 0, 0, 0.3);
   }
 
   .dk-nav-arrow {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     border: none;
-    background: transparent;
-    color: var(--text-muted);
+    background: rgba(245, 240, 232, 0.06);
+    color: var(--text);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -131,8 +140,8 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
   }
 
   .dk-nav-arrow:hover {
-    color: var(--text);
-    background: rgba(245, 240, 232, 0.06);
+    color: var(--dk-accent);
+    background: rgba(245, 240, 232, 0.1);
   }
 
   .dk-nav-arrow:disabled {
@@ -153,12 +162,12 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     align-items: center;
     justify-content: center;
     gap: 6px;
-    padding: 6px 8px;
+    padding: 8px 14px;
     border: none;
     background: transparent;
     color: var(--text);
-    font-size: 13px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 600;
     font-family: var(--font-body);
     cursor: pointer;
     white-space: nowrap;
@@ -166,6 +175,7 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
+    letter-spacing: 0.2px;
   }
 
   .dk-nav-current:hover { color: var(--dk-accent); }
@@ -179,19 +189,28 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     transform: rotate(180deg);
   }
 
-  /* Dropdown menu */
+  /* Counter in top bar */
+  .dk-top-bar .dk-slide-counter {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Dropdown menu — opens upward from floating nav */
   .dk-nav-dropdown {
     display: none;
     position: absolute;
-    top: calc(100% + 10px);
+    bottom: calc(100% + 12px);
     left: 50%;
     transform: translateX(-50%);
     min-width: 200px;
-    background: var(--bg-elevated);
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 0.5px solid var(--border);
     border-radius: var(--radius-md);
     padding: 4px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.5);
     z-index: 200;
   }
 
@@ -613,11 +632,12 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
 
   /* ─── Mobile ─── */
   @media (max-width: 640px) {
-    .dk-nav-bar { padding: 8px 12px; gap: 8px; }
+    .dk-top-bar { padding: 8px 12px; }
     .dk-back { font-size: 11px; gap: 4px; }
     .dk-back svg { width: 12px; height: 12px; }
+    .dk-float-nav { bottom: 16px; padding: 3px; }
     .dk-nav-current { font-size: 12px; padding: 5px 10px; }
-    .dk-slide-counter { font-size: 10px; }
+    .dk-top-bar .dk-slide-counter { font-size: 10px; }
     .dk-slide-body { padding: 24px 18px 40px; }
     .slide-title { font-size: 24px; }
     .slide-subtitle { font-size: 15px; }
