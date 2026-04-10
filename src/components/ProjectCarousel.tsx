@@ -115,7 +115,8 @@ export default function ProjectCarousel() {
               >
                 <img
                   src={p.coverImage}
-                  alt={p.title}
+                  alt=""
+                  aria-hidden="true"
                   className="pc__card-cover"
                   loading={i === 0 ? 'eager' : 'lazy'}
                 />
@@ -134,7 +135,7 @@ export default function ProjectCarousel() {
               <div className="pc__meta-year" key={`year-${active.year}`}>{active.year}</div>
               <div className="pc__meta-role" key={`role-${active.slug}`}>{active.role}</div>
               <p className="pc__meta-desc" key={`desc-${active.slug}`}>{active.overview}</p>
-              <a href="/projects" className="pc__meta-link">All projects ↗</a>
+              <a href="/projects" className="pc__meta-link">All projects <span aria-hidden="true">↗</span></a>
             </div>
           </div>
         </div>
@@ -153,7 +154,11 @@ export default function ProjectCarousel() {
         .pc {
           position: relative;
           padding: 96px 0 64px;
-          cursor: none;
+        }
+
+        @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+          .pc { cursor: none; }
+          .pc__card { cursor: none; }
         }
 
         /* Header */
@@ -222,9 +227,14 @@ export default function ProjectCarousel() {
           justify-content: center;
           font-family: var(--font-heading-condensed);
           font-size: 24px;
-          opacity: 0.4;
+          opacity: 0.75;
           transition: opacity 0.3s, border-color 0.3s;
           cursor: pointer;
+        }
+
+        .pc__thumb:hover,
+        .pc__thumb:focus-visible {
+          opacity: 1;
         }
 
         .pc__thumb--active {
@@ -249,7 +259,6 @@ export default function ProjectCarousel() {
           flex-direction: column;
           justify-content: flex-end;
           padding: 32px;
-          cursor: none;
           transition: transform 0.3s var(--ease-out-expo);
         }
 
@@ -382,6 +391,10 @@ export default function ProjectCarousel() {
         .pc__cursor--visible {
           transform: translate(-50%, -50%) scale(1);
           opacity: 1;
+        }
+
+        @media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
+          .pc__cursor { display: none !important; }
         }
 
         /* ── Mobile ── */

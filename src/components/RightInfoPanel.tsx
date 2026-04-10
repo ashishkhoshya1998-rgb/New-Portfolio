@@ -29,8 +29,8 @@ export default function RightInfoPanel() {
             <span>Research &amp; Strategy</span>
             <span>Build with AI</span>
           </div>
-          <a href="https://www.linkedin.com/in/ashish-khoshya-676b99183/" target="_blank" rel="noopener noreferrer" className="right-panel__help">
-            How can I help? ↗
+          <a href="https://www.linkedin.com/in/ashish-khoshya-676b99183/" target="_blank" rel="noopener noreferrer" className="right-panel__help" aria-label="How can I help? Opens LinkedIn in new tab">
+            How can I help? <span aria-hidden="true">↗</span>
           </a>
         </div>
         <div className="right-panel__bottom">

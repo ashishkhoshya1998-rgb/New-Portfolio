@@ -35,7 +35,7 @@ const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
               <span class="proj-page__meta-counter" style={`color: ${p.accentColor}`}>
                 {String(i + 1).padStart(2, '0')}
               </span>
-              <h2 class="proj-page__meta-title">{p.title}</h2>
+              <p class="proj-page__meta-title">{p.title}</p>
               <p class="proj-page__meta-desc">{p.overview}</p>
               <div class="proj-page__meta-details">
                 <span class="proj-page__meta-label">Role</span>
@@ -50,7 +50,7 @@ const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
                 <span class="proj-page__meta-value">{p.category}</span>
               </div>
               <a href={`/project/${p.slug}`} class="proj-page__meta-cta" style={`color: ${p.accentColor}`}>
-                Explore Project →
+                Explore Project <span aria-hidden="true">→</span>
               </a>
             </div>
           ))}
@@ -68,7 +68,8 @@ const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
           >
             <img
               src={p.coverImage}
-              alt={p.title}
+              alt=""
+              aria-hidden="true"
               class="proj-page__card-cover"
               loading={i === 0 ? 'eager' : 'lazy'}
               data-slug={p.slug}
@@ -76,7 +77,7 @@ const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
             />
             <div class="proj-page__card-gradient" />
             <div class="proj-page__card-inner">
-              <h3 class="proj-page__card-title">{p.title}</h3>
+              <h2 class="proj-page__card-title">{p.title}</h2>
               <span class="proj-page__card-meta">{p.category} · {p.year}</span>
             </div>
           </a>
@@ -365,6 +366,8 @@ const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
 
     if (!cards.length || !metaBlocks.length) return;
 
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     let activeIndex = 0;
 
     function setActiveMeta(index: number) {
@@ -399,34 +402,46 @@ const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
       });
 
       // Entrance animation
-      gsap.fromTo(card,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
-          scrollTrigger: { trigger: card, start: 'top 80%', once: true },
-        }
-      );
+      if (prefersReducedMotion) {
+        gsap.set(card, { opacity: 1, y: 0 });
+      } else {
+        gsap.fromTo(card,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
+            scrollTrigger: { trigger: card, start: 'top 80%', once: true },
+          }
+        );
+      }
     });
 
     // Header entrance
     const header = document.querySelector('.proj-page__header');
     if (header) {
-      gsap.fromTo(header,
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out', delay: 0.2 }
-      );
+      if (prefersReducedMotion) {
+        gsap.set(header, { opacity: 1, y: 0 });
+      } else {
+        gsap.fromTo(header,
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out', delay: 0.2 }
+        );
+      }
     }
 
     // Meta panel entrance
     const meta = document.querySelector('.proj-page__meta');
     if (meta) {
-      gsap.fromTo(meta,
-        { opacity: 0, x: -20 },
-        {
-          opacity: 1, x: 0, duration: 0.6, ease: 'power3.out',
-          scrollTrigger: { trigger: meta, start: 'top 80%', once: true },
-        }
-      );
+      if (prefersReducedMotion) {
+        gsap.set(meta, { opacity: 1, x: 0 });
+      } else {
+        gsap.fromTo(meta,
+          { opacity: 0, x: -20 },
+          {
+            opacity: 1, x: 0, duration: 0.6, ease: 'power3.out',
+            scrollTrigger: { trigger: meta, start: 'top 80%', once: true },
+          }
+        );
+      }
     }
   }
 

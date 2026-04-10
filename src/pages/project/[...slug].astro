@@ -33,21 +33,23 @@ const hasDeck = !!decks[project.id];
             <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
           </svg>
         </div>
-        <h2 class="pw-gate__title">This project is protected</h2>
-        <p class="pw-gate__desc">Enter the password to view this case study.</p>
-        <form class="pw-gate__form" id="pw-form">
+        <h2 class="pw-gate__title" id="pw-title">This project is protected</h2>
+        <p class="pw-gate__desc" id="pw-desc">Enter the password to view this case study.</p>
+        <form class="pw-gate__form" id="pw-form" aria-labelledby="pw-title" aria-describedby="pw-desc">
+          <label for="pw-input" class="sr-only">Password</label>
           <input
             type="password"
             class="pw-gate__input"
             id="pw-input"
             placeholder="Password"
             autocomplete="off"
-            autofocus
+            aria-describedby="pw-error"
+            aria-invalid="false"
           />
           <button type="submit" class="pw-gate__btn">Unlock</button>
         </form>
-        <p class="pw-gate__error" id="pw-error">Incorrect password. Try again.</p>
-        <a href="/projects" class="pw-gate__back">← Back to Projects</a>
+        <p class="pw-gate__error" id="pw-error" role="alert" aria-live="polite">Incorrect password. Try again.</p>
+        <a href="/projects" class="pw-gate__back"><span aria-hidden="true">←</span> Back to Projects</a>
       </div>
     </div>
   )}
@@ -57,7 +59,7 @@ const hasDeck = !!decks[project.id];
       <div class="cs__back-bar">
         <div class="content-wrap">
           <a href={`/project/${parentProject.slug}`} class="cs__back-link">
-            ← Back to {parentProject.title}
+            <span aria-hidden="true">←</span> Back to {parentProject.title}
           </a>
         </div>
       </div>
@@ -150,11 +152,11 @@ const hasDeck = !!decks[project.id];
             <span class="cs__next-label">Next Project</span>
             <a href={`/project/${nextProject.slug}`} class="cs__next-link">
               {nextProject.title}
-              <span class="cs__next-arrow">→</span>
+              <span class="cs__next-arrow" aria-hidden="true">→</span>
             </a>
           </>
         )}
-        <a href="/projects" class="cs__all-projects">View all projects →</a>
+        <a href="/projects" class="cs__all-projects">View all projects <span aria-hidden="true">→</span></a>
       </div>
     </section>
 
@@ -1034,6 +1036,12 @@ const hasDeck = !!decks[project.id];
     const CORRECT = 'Alka@6146';
 
     document.body.style.overflow = 'hidden';
+    // Make page behind inert while gate is visible
+    const main = document.querySelector('main');
+    if (main) main.setAttribute('inert', '');
+    // Focus input without relying on autofocus attribute
+    setTimeout(() => input.focus(), 0);
+
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       if (input.value === CORRECT) {
@@ -1041,12 +1049,17 @@ const hasDeck = !!decks[project.id];
         gate.style.opacity = '0';
         gate.style.transition = 'opacity 0.3s';
         document.body.style.overflow = '';
+        if (main) main.removeAttribute('inert');
         setTimeout(() => gate.remove(), 300);
       } else {
+        input.setAttribute('aria-invalid', 'true');
         error.classList.add('visible');
         input.value = '';
         input.focus();
-        setTimeout(() => error.classList.remove('visible'), 2000);
+        setTimeout(() => {
+          error.classList.remove('visible');
+          input.setAttribute('aria-invalid', 'false');
+        }, 2000);
       }
     });
   })();
@@ -1153,6 +1166,14 @@ const hasDeck = !!decks[project.id];
     const hero = document.querySelector('.cs__hero') as HTMLElement;
 
     if (!heroCover || !hero) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      if (heroOverlay) gsap.set(heroOverlay, { opacity: 1, y: 0 });
+      if (heroHint) gsap.set(heroHint, { opacity: 1 });
+      if (heroGradient) gsap.set(heroGradient, { opacity: 1 });
+      return;
+    }
 
     if (raw) {
       const rect = JSON.parse(raw);
@@ -1346,8 +1367,25 @@ const hasDeck = !!decks[project.id];
       }
     });
 
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const h2s = document.querySelectorAll('.cs__body h2');
+    const imgs = document.querySelectorAll('.cs__body img:not(.image-row__img)');
+    const csSections = document.querySelectorAll('[data-cs-section]');
+    const bqs = document.querySelectorAll('.cs__body blockquote');
+    const nextSection = document.querySelector('.cs__next');
+
+    if (prefersReducedMotion) {
+      gsap.set(h2s, { opacity: 1, y: 0 });
+      gsap.set(imgs, { opacity: 1, y: 0, scale: 1 });
+      gsap.set(csSections, { opacity: 1, y: 0 });
+      gsap.set(bqs, { opacity: 1, x: 0 });
+      if (nextSection) gsap.set(nextSection, { opacity: 1, y: 0 });
+      return;
+    }
+
     // Animate h2 headings
-    document.querySelectorAll('.cs__body h2').forEach((h2) => {
+    h2s.forEach((h2) => {
       gsap.fromTo(h2,
         { opacity: 0, y: 24 },
         {
@@ -1358,7 +1396,7 @@ const hasDeck = !!decks[project.id];
     });
 
     // Animate images (skip ImageRow — those animate as a group via data-cs-section)
-    document.querySelectorAll('.cs__body img:not(.image-row__img)').forEach((img) => {
+    imgs.forEach((img) => {
       gsap.fromTo(img,
         { opacity: 0, y: 32, scale: 0.98 },
         {
@@ -1369,7 +1407,7 @@ const hasDeck = !!decks[project.id];
     });
 
     // Animate data-cs-section elements (MetricGrid, ProcessStep)
-    document.querySelectorAll('[data-cs-section]').forEach((el) => {
+    csSections.forEach((el) => {
       gsap.fromTo(el,
         { opacity: 0, y: 24 },
         {
@@ -1380,7 +1418,7 @@ const hasDeck = !!decks[project.id];
     });
 
     // Animate blockquotes
-    document.querySelectorAll('.cs__body blockquote').forEach((bq) => {
+    bqs.forEach((bq) => {
       gsap.fromTo(bq,
         { opacity: 0, x: -16 },
         {
@@ -1391,7 +1429,6 @@ const hasDeck = !!decks[project.id];
     });
 
     // Next project card
-    const nextSection = document.querySelector('.cs__next');
     if (nextSection) {
       gsap.fromTo(nextSection,
         { opacity: 0, y: 30 },

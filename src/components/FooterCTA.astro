@@ -1,5 +1,4 @@
 ---
-const emailText = 'ashish.khoshya1998@gmail.com ✦ ashish.khoshya1998@gmail.com ✦ ashish.khoshya1998@gmail.com ✦ ';
 ---
 
 <footer class="footer">
@@ -13,30 +12,18 @@ const emailText = 'ashish.khoshya1998@gmail.com ✦ ashish.khoshya1998@gmail.com
     </p>
   </div>
 
-  <!-- 2. Email marquee -->
-  <div class="content-wrap footer__marquee-section" data-footer-section>
-    <div class="footer__marquee-wrap">
-      <a href="mailto:ashish.khoshya1998@gmail.com" class="footer__marquee-link">
-        <div class="footer__marquee-scroll">
-          <span>{emailText}</span>
-          <span>{emailText}</span>
-        </div>
-      </a>
-    </div>
-  </div>
-
-  <!-- 3. Links -->
+  <!-- 2. Links -->
   <div class="content-wrap footer__links" data-footer-section>
     <div class="footer__links-grid">
       <div class="footer__links-col">
         <span class="footer__links-label">Socials</span>
-        <a href="https://www.linkedin.com/in/ashish-khoshya-676b99183/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://www.behance.net/ashishkhos9d01" target="_blank" rel="noopener noreferrer">Behance</a>
-        <a href="https://github.com/ashishkhoshya1998-rgb" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/ashish-khoshya-676b99183/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in new tab)">LinkedIn</a>
+        <a href="https://www.behance.net/ashishkhos9d01" target="_blank" rel="noopener noreferrer" aria-label="Behance (opens in new tab)">Behance</a>
+        <a href="https://github.com/ashishkhoshya1998-rgb" target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in new tab)">GitHub</a>
       </div>
       <div class="footer__links-col">
         <span class="footer__links-label">Contact</span>
-        <a href="mailto:ashish.khoshya1998@gmail.com">Email</a>
+        <a href="mailto:ashish.khoshya1998@gmail.com" class="footer__email">ashish.khoshya1998@gmail.com</a>
       </div>
     </div>
     <p class="footer__copyright">© 2026 Ashish Khoshya</p>
@@ -82,50 +69,7 @@ const emailText = 'ashish.khoshya1998@gmail.com ✦ ashish.khoshya1998@gmail.com
     max-width: 600px;
   }
 
-  /* 2. Marquee */
-  .footer__marquee-section {
-    margin-bottom: 80px;
-    overflow: hidden;
-  }
-
-  .footer__marquee-wrap {
-    flex: 1;
-    overflow: hidden;
-    min-width: 0;
-  }
-
-  .footer__marquee-link {
-    display: block;
-    text-decoration: none;
-    overflow: hidden;
-  }
-
-  .footer__marquee-link:hover .footer__marquee-scroll span {
-    text-decoration: underline;
-    text-underline-offset: 6px;
-  }
-
-  .footer__marquee-scroll {
-    display: flex;
-    width: max-content;
-    animation: footer-scroll 20s linear infinite;
-  }
-
-  .footer__marquee-scroll span {
-    font-family: var(--font-display);
-    font-size: 48px;
-    color: var(--accent);
-    white-space: nowrap;
-    flex-shrink: 0;
-    padding-right: 16px;
-  }
-
-  @keyframes footer-scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  /* 3. Links */
+  /* 2. Links */
   .footer__links {
     padding-top: 48px;
     border-top: 1px solid var(--border);
@@ -159,6 +103,29 @@ const emailText = 'ashish.khoshya1998@gmail.com ✦ ashish.khoshya1998@gmail.com
     color: var(--text-muted);
     text-decoration: none;
     transition: color 0.2s;
+    padding: 6px 0;
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+  }
+
+  .footer__email {
+    font-family: var(--font-display);
+    font-size: 18px !important;
+    color: var(--accent) !important;
+    letter-spacing: 0.2px;
+  }
+
+  .footer__email:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  @media (max-width: 768px) {
+    .footer__links-col a {
+      min-height: 44px;
+      padding: 10px 0;
+    }
   }
 
   .footer__links-col a:hover {
@@ -188,12 +155,9 @@ const emailText = 'ashish.khoshya1998@gmail.com ✦ ashish.khoshya1998@gmail.com
       font-size: 28px;
     }
 
-    .footer__marquee-section {
-      margin-bottom: 48px;
-    }
-
-    .footer__marquee-scroll span {
-      font-size: 28px;
+    .footer__email {
+      font-size: 15px !important;
+      word-break: break-all;
     }
 
     .footer__links-grid {
@@ -217,6 +181,11 @@ const emailText = 'ashish.khoshya1998@gmail.com ✦ ashish.khoshya1998@gmail.com
 
   function initFooter() {
     const sections = document.querySelectorAll('[data-footer-section]');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      gsap.set(sections, { opacity: 1, y: 0 });
+      return;
+    }
     sections.forEach((section) => {
       gsap.fromTo(section,
         { opacity: 0, y: 30 },

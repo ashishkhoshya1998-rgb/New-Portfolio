@@ -17,6 +17,19 @@ function initHero() {
   const hero = document.getElementById('hero');
   if (!hero) return;
 
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) {
+    gsap.set([
+      hero.querySelector('.hero__greeting'),
+      hero.querySelector('.hero__line1'),
+      hero.querySelector('.hero__line2'),
+      hero.querySelector('.hero__scroll'),
+    ], { opacity: 1, y: 0, clearProps: 'transform' });
+    gsap.set(hero.querySelector('.hero__bg-img--dark'), { opacity: 0.4 });
+    gsap.set(hero.querySelector('.hero__bg-img--light'), { opacity: 0.35 });
+    return;
+  }
+
   const loaderShown = !sessionStorage.getItem('ak-loaded');
   const delay = loaderShown ? 2.8 : 0.3;
 

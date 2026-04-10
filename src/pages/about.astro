@@ -140,9 +140,10 @@ const tools = ['Figma', 'FigJam', 'Sketch', 'Storybook', 'Adobe Creative Suite',
         </section>
 
         <!-- 3. Vision -->
-        <section class="about__vision" data-about-section>
-          <div class="about__vision-labels">
-            <span class="section-label-devanagari">(दृष्टि)</span>
+        <section class="about__vision" data-about-section aria-labelledby="about-vision-heading">
+          <h2 id="about-vision-heading" class="sr-only">Vision</h2>
+          <div class="about__vision-labels" aria-hidden="true">
+            <span class="section-label-devanagari" lang="hi">(दृष्टि)</span>
             <span class="section-label">Vision</span>
           </div>
           <blockquote class="about__quote">
@@ -157,16 +158,17 @@ const tools = ['Figma', 'FigJam', 'Sketch', 'Storybook', 'Adobe Creative Suite',
       <!-- Sticky image column -->
       <div class="about__top-right">
         <div class="about__sticky-image">
-          <Image src={aboutPortrait} alt="Ashish Khoshya" width={350} height={440} loading="eager" format="avif" quality={80} class="about__portrait about__portrait--dark" />
-          <Image src={aboutPortraitLight} alt="Ashish Khoshya" width={350} height={440} loading="eager" format="avif" quality={80} class="about__portrait about__portrait--light" />
+          <Image src={aboutPortrait} alt="Portrait of Ashish Khoshya" width={350} height={440} loading="eager" format="avif" quality={80} class="about__portrait about__portrait--dark" />
+          <Image src={aboutPortraitLight} alt="" aria-hidden="true" width={350} height={440} loading="eager" format="avif" quality={80} class="about__portrait about__portrait--light" />
         </div>
       </div>
     </div>
 
     <!-- 4. Services (full width, below sticky zone) -->
-    <section class="about__services content-wrap" data-about-section>
-      <div class="about__services-labels">
-        <span class="section-label-devanagari">(सेवाएं)</span>
+    <section class="about__services content-wrap" data-about-section aria-labelledby="about-services-heading">
+      <h2 id="about-services-heading" class="sr-only">Services</h2>
+      <div class="about__services-labels" aria-hidden="true">
+        <span class="section-label-devanagari" lang="hi">(सेवाएं)</span>
         <span class="section-label">Services</span>
       </div>
       <div class="about__services-grid">
@@ -181,9 +183,10 @@ const tools = ['Figma', 'FigJam', 'Sketch', 'Storybook', 'Adobe Creative Suite',
     </section>
 
     <!-- 5. Experience -->
-    <section class="about__experience content-wrap" data-about-section>
-      <div class="about__exp-labels">
-        <span class="section-label-devanagari">(अनुभव)</span>
+    <section class="about__experience content-wrap" data-about-section aria-labelledby="about-experience-heading">
+      <h2 id="about-experience-heading" class="sr-only">Experience</h2>
+      <div class="about__exp-labels" aria-hidden="true">
+        <span class="section-label-devanagari" lang="hi">(अनुभव)</span>
         <span class="section-label">Experience</span>
       </div>
       <div class="about__timeline">
@@ -232,31 +235,32 @@ const tools = ['Figma', 'FigJam', 'Sketch', 'Storybook', 'Adobe Creative Suite',
     </section>
 
     <!-- 6. Skills -->
-    <section class="about__skills content-wrap" data-about-section>
-      <div class="about__skills-labels">
-        <span class="section-label-devanagari">(कौशल)</span>
+    <section class="about__skills content-wrap" data-about-section aria-labelledby="about-skills-heading">
+      <h2 id="about-skills-heading" class="sr-only">Skills</h2>
+      <div class="about__skills-labels" aria-hidden="true">
+        <span class="section-label-devanagari" lang="hi">(कौशल)</span>
         <span class="section-label">Skills</span>
       </div>
       <div class="about__skills-grid">
         <div class="about__skills-col">
-          <h4 class="about__skills-heading">Craft</h4>
+          <h3 class="about__skills-heading">Craft</h3>
           {skills.craft.map((s) => <span class="about__skill-tag">{s}</span>)}
         </div>
         <div class="about__skills-col">
-          <h4 class="about__skills-heading">Research</h4>
+          <h3 class="about__skills-heading">Research</h3>
           {skills.research.map((s) => <span class="about__skill-tag">{s}</span>)}
         </div>
         <div class="about__skills-col">
-          <h4 class="about__skills-heading">Strategy</h4>
+          <h3 class="about__skills-heading">Strategy</h3>
           {skills.strategy.map((s) => <span class="about__skill-tag">{s}</span>)}
         </div>
         <div class="about__skills-col">
-          <h4 class="about__skills-heading">AI</h4>
+          <h3 class="about__skills-heading">AI</h3>
           {skills.ai.map((s) => <span class="about__skill-tag">{s}</span>)}
         </div>
       </div>
       <div class="about__tools">
-        <h4 class="about__skills-heading">Tools</h4>
+        <h3 class="about__skills-heading">Tools</h3>
         <div class="about__tools-row">
           {tools.map((t) => <span class="about__skill-tag">{t}</span>)}
         </div>
@@ -264,11 +268,12 @@ const tools = ['Figma', 'FigJam', 'Sketch', 'Storybook', 'Adobe Creative Suite',
     </section>
 
     <!-- 7. Education & Certifications -->
-    <section class="about__education content-wrap" data-about-section>
+    <section class="about__education content-wrap" data-about-section aria-labelledby="about-education-heading">
+      <h2 id="about-education-heading" class="sr-only">Education and Certifications</h2>
       <div class="about__edu-certs-grid">
         <div>
-          <div class="about__edu-labels">
-            <span class="section-label-devanagari">(शिक्षा)</span>
+          <div class="about__edu-labels" aria-hidden="true">
+            <span class="section-label-devanagari" lang="hi">(शिक्षा)</span>
             <span class="section-label">Education</span>
           </div>
           <div class="about__edu-card">
@@ -278,8 +283,8 @@ const tools = ['Figma', 'FigJam', 'Sketch', 'Storybook', 'Adobe Creative Suite',
           </div>
         </div>
         <div>
-          <div class="about__edu-labels">
-            <span class="section-label-devanagari">(प्रमाण)</span>
+          <div class="about__edu-labels" aria-hidden="true">
+            <span class="section-label-devanagari" lang="hi">(प्रमाण)</span>
             <span class="section-label">Certifications</span>
           </div>
           <div class="about__certs-list">
@@ -296,10 +301,10 @@ const tools = ['Figma', 'FigJam', 'Sketch', 'Storybook', 'Adobe Creative Suite',
     </section>
 
     <!-- 8. Resume Download -->
-    <section class="about__resume content-wrap" data-about-section>
+    <section class="about__resume content-wrap" data-about-section aria-labelledby="about-resume-heading">
       <div class="about__resume-card">
         <div class="about__resume-text">
-          <h3 class="about__resume-title">Download Resume</h3>
+          <h2 id="about-resume-heading" class="about__resume-title">Download Resume</h2>
           <p class="about__resume-desc">Get a detailed PDF of my experience, skills, and impact metrics.</p>
         </div>
         <a href="/resume.html" class="about__resume-download" target="_blank" rel="noopener">
@@ -1087,6 +1092,11 @@ const tools = ['Figma', 'FigJam', 'Sketch', 'Storybook', 'Adobe Creative Suite',
 
   function initAbout() {
     const sections = document.querySelectorAll('[data-about-section]');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      gsap.set(sections, { opacity: 1, y: 0 });
+      return;
+    }
     sections.forEach((section, i) => {
       gsap.fromTo(section,
         { opacity: 0, y: 30 },

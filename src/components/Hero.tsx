@@ -6,8 +6,11 @@ export default function Hero() {
   const [wordIndex, setWordIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
 
-  // Cycling words
+  // Cycling words — respect reduced motion
   useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
     const interval = setInterval(() => {
       setAnimating(true);
       setTimeout(() => {
@@ -43,17 +46,23 @@ export default function Hero() {
         {/* Layer 3: massive typography */}
         <div className="hero__text">
           <span className="hero__greeting">Hi there, I'm Ashish</span>
-          <div className="hero__line1">I DESIGN</div>
-          <div className="hero__line2">
-            FOR{' '}
-            <span className="hero__cycling-wrap">
-              <span
-                className={`hero__cycling-word ${animating ? 'hero__cycling-word--out' : 'hero__cycling-word--in'}`}
-              >
-                {cyclingWords[wordIndex]}
+          <h1 className="hero__headline">
+            <span className="hero__line1">I DESIGN</span>
+            <span className="hero__line2">
+              FOR{' '}
+              <span className="hero__cycling-wrap">
+                <span
+                  className={`hero__cycling-word ${animating ? 'hero__cycling-word--out' : 'hero__cycling-word--in'}`}
+                  aria-live="off"
+                >
+                  {cyclingWords[wordIndex]}
+                </span>
               </span>
             </span>
-          </div>
+            <span className="sr-only">
+              I design for systems, enterprise, AI, complexity, and scale.
+            </span>
+          </h1>
         </div>
 
 
@@ -135,10 +144,18 @@ export default function Hero() {
           opacity: 0;
         }
 
+        .hero__headline {
+          margin: 0;
+          font-weight: 700;
+          line-height: 0.9;
+        }
+
         .hero__line1,
         .hero__line2 {
+          display: block;
           font-family: var(--font-heading-condensed);
           font-size: clamp(80px, 15vw, 200px);
+          font-weight: 700;
           text-transform: uppercase;
           color: var(--text);
           letter-spacing: -2px;

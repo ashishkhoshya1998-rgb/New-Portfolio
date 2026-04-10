@@ -13,7 +13,7 @@ const clients = [
       {clients.map((client) => (
         <div class="logo-section__card">
           <div class="logo-section__logo-wrap">
-            <img src={client.logo} alt={client.name} class="logo-section__logo" loading="lazy" />
+            <img src={client.logo} alt={`${client.name} logo`} class="logo-section__logo" loading="lazy" />
           </div>
           <div class="logo-section__info">
             <span class="logo-section__role">{client.role}</span>
@@ -21,9 +21,9 @@ const clients = [
           </div>
         </div>
       ))}
-      <a href="https://www.linkedin.com/in/ashish-khoshya-676b99183/" target="_blank" rel="noopener noreferrer" class="logo-section__card logo-section__card--cta">
+      <a href="https://www.linkedin.com/in/ashish-khoshya-676b99183/" target="_blank" rel="noopener noreferrer" class="logo-section__card logo-section__card--cta" aria-label="Let's build something together — opens LinkedIn in new tab">
         <span class="logo-section__cta-text">Let's build something together</span>
-        <span class="logo-section__cta-arrow">↗</span>
+        <span class="logo-section__cta-arrow" aria-hidden="true">↗</span>
       </a>
     </div>
   </div>
@@ -209,6 +209,12 @@ const clients = [
   function initLogoRow() {
     const cards = document.querySelectorAll('.logo-section__card');
     if (!cards.length) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      gsap.set(cards, { opacity: 1, y: 0 });
+      return;
+    }
 
     cards.forEach((card, i) => {
       gsap.fromTo(card,

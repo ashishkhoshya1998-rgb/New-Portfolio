@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 interface TopNavProps {
   currentPath: string;
@@ -38,6 +38,10 @@ export default function TopNav({ currentPath }: TopNavProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [socialsOpen, setSocialsOpen] = useState(false);
+  const socialsBtnRef = useRef<HTMLButtonElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const socialsDropdownRef = useRef<HTMLDivElement>(null);
   const [logoText, setLogoText] = useState('AK');
   const [logoFade, setLogoFade] = useState(true);
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
@@ -57,8 +61,11 @@ export default function TopNav({ currentPath }: TopNavProps) {
   // On case study pages, always show blur bg
   const isCaseStudy = currentPath === '/projects' && typeof window !== 'undefined' && window.location.pathname.startsWith('/project/');
 
-  // Subtle logo toggle — AK ↔ आ forever
+  // Subtle logo toggle — AK ↔ आ forever — respect reduced motion
   useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
     let isHindi = false;
     let t1: ReturnType<typeof setTimeout>;
     let t2: ReturnType<typeof setTimeout>;
@@ -82,24 +89,73 @@ export default function TopNav({ currentPath }: TopNavProps) {
     return () => window.removeEventListener('scroll', onScroll);
   }, [isCaseStudy]);
 
-  // Close socials dropdown on click outside
+  // Close socials dropdown on click outside or Escape
   useEffect(() => {
     if (!socialsOpen) return;
     const handler = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (!target.closest('.topnav__socials-wrap')) setSocialsOpen(false);
     };
+    const keyHandler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSocialsOpen(false);
+        socialsBtnRef.current?.focus();
+      }
+    };
+    // Focus first link in dropdown on open
+    const firstLink = socialsDropdownRef.current?.querySelector<HTMLAnchorElement>('a');
+    firstLink?.focus();
     document.addEventListener('click', handler);
-    return () => document.removeEventListener('click', handler);
+    document.addEventListener('keydown', keyHandler);
+    return () => {
+      document.removeEventListener('click', handler);
+      document.removeEventListener('keydown', keyHandler);
+    };
   }, [socialsOpen]);
 
-  // Lock body when menu open
+  // Lock body when menu open + focus trap + Escape + focus return
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    if (!menuOpen) {
+      document.body.style.overflow = '';
+      return;
+    }
+    document.body.style.overflow = 'hidden';
+
+    // Move focus into menu
+    const focusable = mobileMenuRef.current?.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled])'
+    );
+    const first = focusable?.[0];
+    const last = focusable?.[focusable.length - 1];
+    first?.focus();
+
+    const keyHandler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMenuOpen(false);
+        hamburgerRef.current?.focus();
+        return;
+      }
+      if (e.key === 'Tab' && focusable && focusable.length > 0) {
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last?.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first?.focus();
+        }
+      }
+    };
+    document.addEventListener('keydown', keyHandler);
+    return () => {
+      document.removeEventListener('keydown', keyHandler);
+    };
   }, [menuOpen]);
 
-  const closeMenu = useCallback(() => setMenuOpen(false), []);
+  const closeMenu = useCallback(() => {
+    setMenuOpen(false);
+    // Return focus to hamburger after close
+    setTimeout(() => hamburgerRef.current?.focus(), 0);
+  }, []);
 
   return (
     <>
@@ -110,8 +166,14 @@ export default function TopNav({ currentPath }: TopNavProps) {
         aria-label="Main navigation"
       >
         {/* Left: Avatar + Name + Greeting */}
-        <a href="/" className="topnav__brand">
-          <span className={`topnav__logo ${logoFade ? 'topnav__logo--visible' : 'topnav__logo--hidden'}`}>{logoText}</span>
+        <a href="/" className="topnav__brand" aria-label="Ashish Khoshya — Home">
+          <span
+            className={`topnav__logo ${logoFade ? 'topnav__logo--visible' : 'topnav__logo--hidden'}`}
+            lang={logoText === 'आ' ? 'hi' : 'en'}
+            aria-hidden="true"
+          >
+            {logoText}
+          </span>
         </a>
 
         {/* Right: Nav links + Socials dropdown + CTA */}
@@ -128,9 +190,11 @@ export default function TopNav({ currentPath }: TopNavProps) {
             ))}
             <div className="topnav__socials-wrap">
               <button
+                ref={socialsBtnRef}
                 className={`topnav__link topnav__socials-btn ${socialsOpen ? 'topnav__socials-btn--open' : ''}`}
                 onClick={() => setSocialsOpen(!socialsOpen)}
                 aria-expanded={socialsOpen}
+                aria-haspopup="true"
               >
                 Socials
                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="topnav__socials-chevron">
@@ -138,7 +202,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
                 </svg>
               </button>
               {socialsOpen && (
-                <div className="topnav__socials-dropdown">
+                <div className="topnav__socials-dropdown" ref={socialsDropdownRef} role="menu">
                   {socials.map((s) => (
                     <a
                       key={s.title}
@@ -146,8 +210,10 @@ export default function TopNav({ currentPath }: TopNavProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="topnav__socials-dropdown-link"
+                      role="menuitem"
+                      aria-label={`${s.title} (opens in new tab)`}
                     >
-                      {s.icon}
+                      <span aria-hidden="true">{s.icon}</span>
                       <span>{s.title}</span>
                     </a>
                   ))}
@@ -167,7 +233,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
             )}
           </button>
-          <a href="https://www.linkedin.com/in/ashish-khoshya-676b99183/" target="_blank" rel="noopener noreferrer" className="topnav__cta">
+          <a href="https://www.linkedin.com/in/ashish-khoshya-676b99183/" target="_blank" rel="noopener noreferrer" className="topnav__cta" aria-label="Let's talk — opens LinkedIn in new tab">
             Let's talk!
           </a>
         </div>
@@ -186,10 +252,12 @@ export default function TopNav({ currentPath }: TopNavProps) {
             )}
           </button>
           <button
+            ref={hamburgerRef}
             className="topnav__hamburger"
             onClick={() => setMenuOpen(true)}
             aria-label="Open menu"
             aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
           >
             <span /><span /><span />
           </button>
@@ -198,10 +266,13 @@ export default function TopNav({ currentPath }: TopNavProps) {
 
       {/* ── Mobile Overlay ── */}
       <div
+        id="mobile-menu"
+        ref={mobileMenuRef}
         className={`mobile-menu ${menuOpen ? 'mobile-menu--open' : ''}`}
         role="dialog"
         aria-modal="true"
         aria-label="Navigation menu"
+        aria-hidden={!menuOpen}
       >
         <button className="mobile-menu__close" onClick={closeMenu} aria-label="Close menu">
           <svg width={28} height={28} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round">
@@ -227,13 +298,13 @@ export default function TopNav({ currentPath }: TopNavProps) {
         <div className="mobile-menu__footer">
           <div className="mobile-menu__socials">
             {socials.map((s) => (
-              <a key={s.title} href={s.href} target="_blank" rel="noopener noreferrer" className="mobile-menu__social" aria-label={s.title}>
-                {s.icon}
+              <a key={s.title} href={s.href} target="_blank" rel="noopener noreferrer" className="mobile-menu__social" aria-label={`${s.title} (opens in new tab)`}>
+                <span aria-hidden="true">{s.icon}</span>
                 <span>{s.title}</span>
               </a>
             ))}
           </div>
-          <a href="https://www.linkedin.com/in/ashish-khoshya-676b99183/" target="_blank" rel="noopener noreferrer" className="mobile-menu__cta" onClick={closeMenu}>
+          <a href="https://www.linkedin.com/in/ashish-khoshya-676b99183/" target="_blank" rel="noopener noreferrer" className="mobile-menu__cta" onClick={closeMenu} aria-label="Let's talk — opens LinkedIn in new tab">
             Let's talk!
           </a>
         </div>
