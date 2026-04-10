@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Ashish Khoshya — Resume</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-LQ1G8E3DFD"></script>
@@ -90,17 +90,14 @@
 </script>
 <style>
   :root {
-    --bg: #FAFAF8;
+    --bg: #FFFFFF;
     --text: #1A1A1A;
-    --muted: #64605A;
-    --subtle: rgba(26,26,26,0.72);
-    --border: rgba(0,0,0,0.08);
-    --accent: #1A1A1A;
-    --blue: #156CEF;
-    --green: #22C55E;
-    --amber: #E6A817;
-    --fd: 'Playfair Display', serif;
-    --fb: 'DM Sans', sans-serif;
+    --muted: #6B7280;
+    --subtle: #4B5563;
+    --border: #E5E7EB;
+    --accent: #156CEF;
+    --sidebar-bg: #FAFAFA;
+    --fb: 'DM Sans', -apple-system, sans-serif;
   }
 
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -113,260 +110,275 @@
     -webkit-font-smoothing: antialiased;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+    line-height: 1.5;
   }
 
   a { color: inherit; text-decoration: none; }
-  a:hover { color: var(--text); }
 
   .page {
     width: 210mm;
     min-height: 297mm;
     margin: 0 auto;
-    padding: 56px 64px 44px;
     background: var(--bg);
+    display: grid;
+    grid-template-columns: 1fr 250px;
+    gap: 0;
     position: relative;
   }
 
-  /* ── HEADER ── */
-  .header {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 32px;
-    align-items: end;
-    margin-bottom: 36px;
+  /* ── MAIN COLUMN ── */
+  .main {
+    padding: 48px 36px 40px 56px;
   }
+
   .header h1 {
-    font-family: var(--fd);
-    font-size: 40px;
-    font-weight: 400;
-    line-height: 0.95;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.05;
     letter-spacing: -0.6px;
     color: var(--text);
-  }
-  .header h1 em {
-    font-style: italic;
-    font-weight: 400;
+    margin-bottom: 6px;
   }
   .role-line {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 10px;
-    letter-spacing: 0.4px;
-  }
-  .contact-block {
-    text-align: right;
-    font-size: 10.5px;
-    line-height: 1.7;
-    color: var(--muted);
-  }
-  .contact-block a {
-    color: var(--text);
-    font-weight: 500;
-  }
-  .portfolio-url {
-    font-family: var(--fd);
-    font-size: 14px;
-    font-style: italic;
-    display: block;
-    margin-bottom: 6px;
-    letter-spacing: 0.1px;
-  }
-  .portfolio-meta {
-    font-size: 9.5px;
-    color: var(--muted);
-    letter-spacing: 0.3px;
-    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--subtle);
+    margin-bottom: 20px;
   }
 
-  /* ── POSITIONING (hero line) ── */
-  .positioning {
-    font-family: var(--fd);
-    font-style: italic;
-    font-size: 19px;
-    line-height: 1.42;
-    color: var(--text);
-    margin-bottom: 36px;
-    max-width: 92%;
-    letter-spacing: -0.1px;
-  }
-
-  /* ── SECTION ── */
-  .section { margin-bottom: 26px; }
-  .section:last-child { margin-bottom: 0; }
-  .section-label {
-    font-family: var(--fb);
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 1.6px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 14px;
-  }
-
-  /* ── SUMMARY ── */
   .summary {
     font-size: 11.5px;
-    line-height: 1.7;
+    line-height: 1.65;
     color: var(--subtle);
-    max-width: 95%;
+    margin-bottom: 28px;
   }
-  .summary strong { color: var(--text); font-weight: 600; }
+
+  /* ── SECTIONS ── */
+  .section { margin-bottom: 24px; }
+  .section:last-child { margin-bottom: 0; }
+
+  .section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 14px;
+    padding-bottom: 6px;
+    border-bottom: 1.5px solid var(--text);
+  }
 
   /* ── EXPERIENCE ── */
-  .exp-block { margin-bottom: 22px; }
-  .exp-block:last-child { margin-bottom: 0; }
-  .exp-header {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 16px;
-    align-items: baseline;
-    margin-bottom: 2px;
+  .role-block {
+    margin-bottom: 18px;
   }
-  .exp-company {
-    font-family: var(--fd);
-    font-size: 16px;
-    font-weight: 600;
+  .role-block:last-child { margin-bottom: 0; }
+
+  .role-title {
+    font-size: 14.5px;
+    font-weight: 700;
     color: var(--text);
-    letter-spacing: -0.1px;
+    margin-bottom: 1px;
+    line-height: 1.3;
   }
-  .exp-meta {
-    font-size: 10.5px;
+  .role-title .at {
+    color: var(--accent);
+  }
+  .role-title .company {
+    color: var(--text);
+  }
+  .role-period {
+    font-size: 10px;
+    font-weight: 600;
     color: var(--muted);
-    letter-spacing: 0.2px;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
   }
-  .role-row {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 16px;
-    align-items: baseline;
-    margin-top: 8px;
+
+  .project {
+    margin-bottom: 12px;
+  }
+  .project:last-child { margin-bottom: 0; }
+  .project-title {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--text);
     margin-bottom: 4px;
   }
-  .role-title {
-    font-size: 11.5px;
-    font-weight: 600;
-    color: var(--text);
-  }
-  .role-title .promoted {
-    font-weight: 400;
-    font-style: italic;
-    color: var(--muted);
+  .project-title .promoted {
+    font-weight: 500;
+    color: var(--accent);
     margin-left: 6px;
     font-size: 10px;
   }
-  .role-period {
-    font-size: 10.5px;
-    color: var(--muted);
-    letter-spacing: 0.2px;
-  }
-  .role-impact {
-    font-size: 11px;
-    color: var(--subtle);
-    margin-bottom: 6px;
-    line-height: 1.55;
-  }
   .bullets {
     list-style: none;
-    padding: 0;
+    padding-left: 0;
   }
   .bullets li {
     font-size: 11px;
-    line-height: 1.65;
+    line-height: 1.55;
     color: var(--subtle);
-    padding-left: 16px;
+    padding-left: 14px;
     position: relative;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
   }
   .bullets li::before {
-    content: "—";
+    content: "•";
     position: absolute;
-    left: 0;
+    left: 2px;
     top: 0;
-    color: var(--text);
-    font-weight: 400;
+    color: var(--subtle);
   }
   .bullets li strong { color: var(--text); font-weight: 600; }
+  .impact {
+    font-size: 11px;
+    line-height: 1.55;
+    color: var(--text);
+    font-weight: 500;
+    padding-left: 14px;
+    position: relative;
+    margin-top: 4px;
+  }
+  .impact::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
 
-  /* ── COLOPHON ROWS (Strengths, Tools) ── */
-  .colophon {
-    display: grid;
-    grid-template-columns: 140px 1fr;
-    gap: 20px;
+  /* ── SIDEBAR ── */
+  .sidebar {
+    background: var(--sidebar-bg);
+    padding: 48px 32px 40px 28px;
+    border-left: 1px solid var(--border);
+  }
+
+  .side-section {
+    margin-bottom: 26px;
+  }
+  .side-section:last-child { margin-bottom: 0; }
+
+  .side-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+    padding-bottom: 5px;
+    border-bottom: 1.5px solid var(--text);
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .contact-item:last-child { margin-bottom: 0; }
+  .contact-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #E8F0FE;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .contact-icon svg {
+    width: 11px;
+    height: 11px;
+  }
+  .contact-text {
+    font-size: 10px;
+    line-height: 1.4;
+  }
+  .contact-label {
+    color: var(--muted);
+    font-size: 9px;
+    margin-bottom: 1px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .contact-value {
+    color: var(--text);
+    font-weight: 500;
+    overflow-wrap: anywhere;
+    font-size: 9.5px;
+  }
+
+  .edu-inst {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .edu-inst .at { color: var(--accent); font-weight: 700; }
+  .edu-period {
+    font-size: 9.5px;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .cert-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .cert-item:last-child { margin-bottom: 0; }
+  .cert-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #E8F0FE;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .cert-text {
+    font-size: 10px;
+    line-height: 1.4;
+    color: var(--text);
+  }
+  .cert-link {
+    color: var(--accent);
+    font-size: 9.5px;
+    display: block;
+    margin-top: 1px;
+  }
+
+  .side-list {
+    list-style: none;
+  }
+  .side-list li {
     font-size: 10.5px;
-    line-height: 1.7;
+    line-height: 1.45;
+    color: var(--subtle);
+    padding-left: 12px;
+    position: relative;
     margin-bottom: 6px;
   }
-  .colophon:last-child { margin-bottom: 0; }
-  .colophon-label {
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
-    color: var(--muted);
-    padding-top: 2px;
-  }
-  .colophon-items {
-    color: var(--text);
-  }
-
-  /* ── BOTTOM (Education + Certifications) ── */
-  .bottom-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 56px;
-  }
-  .bottom-grid .section { margin-bottom: 0; }
-  .edu-row {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 16px;
-    align-items: baseline;
-  }
-  .edu-inst {
-    font-family: var(--fd);
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text);
-  }
-  .edu-degree {
+  .side-list li::before {
+    content: "•";
+    position: absolute;
+    left: 2px;
+    top: 0;
     color: var(--subtle);
-    margin-top: 3px;
-    font-size: 10.5px;
-    line-height: 1.55;
   }
-  .edu-period {
-    font-size: 10.5px;
-    color: var(--muted);
-    letter-spacing: 0.2px;
-  }
-
-  /* ── CERTIFICATIONS ── */
-  .cert-list { list-style: none; }
-  .cert-list li {
-    font-size: 10.5px;
-    color: var(--subtle);
-    padding: 2px 0;
-    line-height: 1.55;
-  }
-  .cert-org {
-    color: var(--muted);
-  }
-
-  /* ── FOOTER ── */
-  .footer {
-    margin-top: 36px;
-    font-size: 9.5px;
-    color: var(--muted);
-    display: flex;
-    justify-content: space-between;
-    letter-spacing: 0.3px;
-  }
-  .footer a { color: var(--muted); }
+  .side-list li:last-child { margin-bottom: 0; }
 
   /* ── SCREEN ONLY ── */
   @media screen {
     body { background: #E8E6E1; padding: 28px 0; }
-    .page { box-shadow: 0 4px 24px rgba(0,0,0,0.12); border-radius: 2px; }
+    .page { box-shadow: 0 8px 30px rgba(0,0,0,0.12); border-radius: 4px; overflow: hidden; }
     .save-bar {
       text-align: center;
       margin-bottom: 16px;
@@ -392,7 +404,6 @@
     }
     .btn-download:hover { background: #333; transform: translateY(-1px); }
     .btn-download svg { flex-shrink: 0; }
-    .btn-download:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
     .btn-back {
       font-family: var(--fb);
       font-size: 13px;
@@ -423,7 +434,6 @@
     align-items: center;
   }
   .dl-overlay.open { display: flex; }
-
   .dl-modal {
     background: #fff;
     border-radius: 14px;
@@ -434,9 +444,8 @@
     text-align: center;
   }
   .dl-modal h3 {
-    font-family: var(--fd);
     font-size: 20px;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 6px;
     color: var(--text);
   }
@@ -478,14 +487,13 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    font-size: 18px;
   }
-  .dl-option-icon.designed { background: #F0EDE8; }
+  .dl-option-icon.designed { background: #E8F0FE; }
   .dl-option-icon.ats { background: #DCFCE7; }
   .dl-option-text strong {
     display: block;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text);
     margin-bottom: 2px;
   }
@@ -497,23 +505,26 @@
   /* ── PRINT ── */
   @media print {
     body { background: #fff; padding: 0; -webkit-font-smoothing: auto; }
-    .page { width: 100%; padding: 38px 48px 32px; box-shadow: none; min-height: auto; background: #fff; }
+    .page { width: 100%; box-shadow: none; min-height: auto; border-radius: 0; }
+    .main { padding: 32px 28px 28px 40px; }
+    .sidebar { padding: 32px 24px 28px 22px; }
     .save-bar, .dl-overlay { display: none !important; }
-    .header { margin-bottom: 24px; }
-    .header h1 { font-size: 32px; }
-    .positioning { font-size: 16px; margin-bottom: 24px; }
-    .section { margin-bottom: 18px; }
-    .section-label { margin-bottom: 10px; }
-    .summary { font-size: 10.5px; line-height: 1.6; }
-    .exp-block { margin-bottom: 14px; }
-    .exp-company { font-size: 14px; }
-    .role-row { margin-top: 5px; margin-bottom: 3px; }
-    .role-impact { font-size: 10px; margin-bottom: 4px; }
-    .bullets li { font-size: 10px; line-height: 1.55; margin-bottom: 2px; padding-left: 14px; }
-    .colophon { font-size: 9.5px; margin-bottom: 4px; line-height: 1.65; }
-    .bottom-grid { gap: 40px; }
-    .edu-inst { font-size: 12.5px; }
-    .footer { margin-top: 22px; }
+    .header h1 { font-size: 30px; }
+    .role-line { font-size: 11px; margin-bottom: 14px; }
+    .summary { font-size: 10px; margin-bottom: 18px; }
+    .section { margin-bottom: 16px; }
+    .section-title { font-size: 13px; margin-bottom: 10px; }
+    .role-title { font-size: 12.5px; }
+    .role-period { font-size: 9px; margin-bottom: 6px; }
+    .project { margin-bottom: 8px; }
+    .project-title { font-size: 10.5px; }
+    .bullets li { font-size: 9.8px; line-height: 1.5; }
+    .impact { font-size: 9.8px; }
+    .side-title { font-size: 12px; }
+    .edu-inst { font-size: 11.5px; }
+    .contact-text { font-size: 9px; }
+    .cert-text { font-size: 9px; }
+    .side-list li { font-size: 9.5px; }
     @page { size: A4; margin: 0; }
   }
 </style>
@@ -541,12 +552,9 @@
 function downloadResume() {
   document.getElementById('dl-overlay').classList.add('open');
 }
-
 function closeModal() {
   document.getElementById('dl-overlay').classList.remove('open');
 }
-
-
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeModal();
 });
@@ -554,137 +562,187 @@ document.addEventListener('keydown', function(e) {
 
 <div class="page">
 
-  <!-- HEADER -->
-  <div class="header">
-    <div>
-      <h1>Ashish <em>Khoshya</em></h1>
-      <div class="role-line">SENIOR PRODUCT DESIGNER &middot; 5+ YEARS &middot; IIT GUWAHATI</div>
+  <!-- ── MAIN COLUMN ── -->
+  <div class="main">
+    <div class="header">
+      <h1>Ashish Khoshya</h1>
+      <div class="role-line">Senior Product Designer</div>
     </div>
-    <div class="contact-block">
-      <a class="portfolio-url" href="https://ashishkhoshya.com">ashishkhoshya.com</a>
-      <div class="portfolio-meta">4 CASE STUDIES &middot; LIVE DECK SYSTEM</div>
-      <a href="mailto:ashish.khoshya1998@gmail.com">ashish.khoshya1998@gmail.com</a><br />
-      <a href="tel:+917988721132">+91 7988721132</a> &middot; Bengaluru<br />
-      <a href="https://www.linkedin.com/in/ashish-khoshya-676b99183/">LinkedIn</a>
-    </div>
-  </div>
 
-  <!-- POSITIONING -->
-  <p class="positioning">
-    Design systems &amp; enterprise UX specialist who turns ambiguous, regulated problems into shipped products &mdash; now operating with an AI-native workflow that compresses design-to-prod by 40%.
-  </p>
-
-  <!-- SUMMARY -->
-  <div class="section">
     <p class="summary">
-      <strong>5+ years</strong> across fintech and AI. Engineered a token-based design system that cut dev implementation time by <strong>50%</strong>, simplified GST filing for <strong>1.4Cr+ businesses</strong> (60% faster end-to-end), and architected a <strong>7-vertical content ecosystem</strong> from zero in under 4 months. Ships production-ready work end-to-end with <strong>Figma, Claude Code, GitHub &amp; Vercel</strong>.
+      Senior Product Designer with <strong>5+ years</strong> across fintech and AI. Track record of building token-based design systems, simplifying enterprise workflows for millions of users, and leading 0&rarr;1 product architecture. Now operating with an AI-native workflow that compresses design-to-prod by 40%. Ships production-ready work end-to-end with Figma, Claude Code, GitHub &amp; Vercel.
     </p>
-  </div>
 
-  <!-- EXPERIENCE -->
-  <div class="section">
-    <div class="section-label">Experience</div>
-
-    <!-- Zzazz.ai -->
-    <div class="exp-block">
-      <div class="exp-header">
-        <span class="exp-company">Zzazz.ai</span>
-        <span class="exp-meta">Bengaluru</span>
-      </div>
-      <div class="role-row">
-        <span class="role-title">Designer &middot; UX Architect &middot; Product Architect</span>
-        <span class="role-period">Jul 2025 &ndash; Present</span>
-      </div>
-      <div class="role-impact">Turned disconnected POCs into a unified 7-vertical content economy reaching 80&ndash;98% of users</div>
-      <ul class="bullets">
-        <li>Partnered with Founder, Product Lead &amp; AI team to architect <strong>7 interconnected verticals</strong> from zero &mdash; unlocked <strong>projected 50% CTR lift</strong> and a coherent monetisation path across the ecosystem</li>
-        <li>Reframed Exchange as a <strong>query-led AI-native model</strong>, restructured Moments IA, and defined TimePay's <strong>3-path access model</strong> &mdash; collapsing 3 fragmented products into one navigable surface</li>
-        <li>Pioneered an <strong>AI-first design workflow</strong> (Claude Code + Figma Make + Cursor) shipping production-ready prototypes in days, cutting design-to-dev cycle by <strong>40%</strong></li>
-      </ul>
-    </div>
-
-    <!-- Clear -->
-    <div class="exp-block">
-      <div class="exp-header">
-        <span class="exp-company">Clear (ClearTax)</span>
-        <span class="exp-meta">Bengaluru</span>
-      </div>
-
-      <!-- Senior PD -->
-      <div class="role-row">
-        <span class="role-title">Senior Product Designer<span class="promoted">&mdash; promoted</span></span>
-        <span class="role-period">Oct 2023 &ndash; Jul 2025</span>
-      </div>
-      <div class="role-impact">Led the Accounts Payable suite design and shipped the Table-4 ITC reconciliation engine</div>
-      <ul class="bullets">
-        <li>Defined the <strong>research &amp; usability-testing playbook adopted by 3 product pods</strong>; ran weekly design crits and mentored 2 mid-level designers &mdash; lifted measured design consistency by <strong>30%</strong></li>
-        <li>Owned the <strong>Table-4 ITC reconciliation</strong> automation end-to-end (matching GSTR-2B with purchase registers) &mdash; cut <strong>65% of support queries</strong> and was escalated to a roadmap-level initiative</li>
-        <li>Drove a <strong>UX audit across 4 AP modules</strong>, partnering with 3 PMs and 8 engineers to align scope, success metrics, and rollout sequencing</li>
-      </ul>
-
-      <!-- PD -->
-      <div class="role-row">
-        <span class="role-title">Product Designer</span>
-        <span class="role-period">Jul 2021 &ndash; Sep 2023</span>
-      </div>
-      <div class="role-impact">Built Mint V8 design system &middot; Streamlined GSTR-3B filing &middot; Drove Max ITC and Ingestion Module</div>
-      <ul class="bullets">
-        <li>Spearheaded <strong>Mint V8 design system</strong> with 1 PM and 4 frontend engineers &mdash; token-based architecture &amp; PCS Logic compressed <strong>700+ button variants to 32</strong> and cut dev implementation time by <strong>50%</strong> across the org</li>
-        <li>Streamlined <strong>GSTR-3B filing</strong> for <strong>1.4Cr+ businesses</strong> &mdash; bulk upload, multi-GSTIN, and reconciliation engine accelerated end-to-end completion by <strong>60%</strong> and became Clear's flagship compliance flow</li>
-        <li>Drove <strong>Max ITC</strong> from <strong>18% to 53% adoption</strong> via field research with 12+ tax professionals; shipped <strong>Ingestion Module</strong> (schema-based import, <strong>45% higher success rate</strong>)</li>
-      </ul>
-    </div>
-
-  </div>
-
-  <!-- COLOPHON: STRENGTHS + TOOLS -->
-  <div class="section">
-    <div class="section-label">Strengths &amp; Tools</div>
-    <div class="colophon">
-      <div class="colophon-label">Systems &amp; Craft</div>
-      <div class="colophon-items">Design Systems &middot; Enterprise UX &middot; Information Architecture &middot; 0&rarr;1 Product</div>
-    </div>
-    <div class="colophon">
-      <div class="colophon-label">Research &amp; Ops</div>
-      <div class="colophon-items">Research Synthesis &middot; Usability Playbooks &middot; Design Ops &middot; Mentorship &amp; Crits</div>
-    </div>
-    <div class="colophon">
-      <div class="colophon-label">Strategy &amp; AI</div>
-      <div class="colophon-items">AI-Native Workflow &middot; Product Strategy &middot; Prototyping in Code &middot; Cross-functional Leadership</div>
-    </div>
-    <div class="colophon">
-      <div class="colophon-label">Tools</div>
-      <div class="colophon-items">Figma &middot; Claude Code &middot; Cursor &middot; Figma Make &middot; FigJam &middot; Storybook &middot; Framer &middot; v0 &middot; Notion &middot; Linear</div>
-    </div>
-  </div>
-
-  <!-- BOTTOM: EDUCATION + CERTIFICATIONS -->
-  <div class="bottom-grid">
     <div class="section">
-      <div class="section-label">Education</div>
-      <div class="edu-row">
-        <div>
-          <div class="edu-inst">IIT Guwahati</div>
-          <div class="edu-degree">Bachelor of Technology &middot; HCI, Cognitive Psychology, Visual Communication</div>
+      <div class="section-title">Work Experience</div>
+
+      <!-- Zzazz -->
+      <div class="role-block">
+        <div class="role-title"><span class="company">Designer, UX &amp; Product Architect</span> <span class="at">@</span> Zzazz.ai</div>
+        <div class="role-period">Jul 2025 &mdash; Present</div>
+
+        <div class="project">
+          <div class="project-title">Content Economy &mdash; 7 Verticals from Zero</div>
+          <ul class="bullets">
+            <li>Partnered with Founder, Product Lead &amp; AI team to architect <strong>7 interconnected verticals</strong> from scratch &mdash; unlocked a coherent monetisation path across the ecosystem</li>
+            <li>Reframed Exchange as a <strong>query-led AI-native model</strong>, restructured Moments IA, and defined TimePay&rsquo;s <strong>3-path access model</strong> &mdash; collapsed 3 fragmented products into one navigable surface</li>
+            <li>Pioneered an <strong>AI-first design workflow</strong> (Claude Code + Figma Make + Cursor), shipping production-ready prototypes in days</li>
+          </ul>
+          <div class="impact">Projected <strong>50% CTR lift</strong>, reaching 80&ndash;98% of users; design-to-dev cycle cut by <strong>40%</strong>.</div>
         </div>
-        <div class="edu-period">2017 &ndash; 2021</div>
       </div>
-    </div>
-    <div class="section">
-      <div class="section-label">Certifications</div>
-      <ul class="cert-list">
-        <li>UX: Ultimate Guide to Usability &amp; UX <span class="cert-org">&mdash; Udemy</span></li>
-        <li>Visual Elements of UI Design <span class="cert-org">&mdash; Coursera</span></li>
-        <li>IxDF Membership <span class="cert-org">&mdash; Interaction Design Foundation</span></li>
-      </ul>
+
+      <!-- Clear Senior PD -->
+      <div class="role-block">
+        <div class="role-title"><span class="company">Senior Product Designer</span> <span class="at">@</span> Clear (formerly ClearTax)</div>
+        <div class="role-period">Oct 2023 &mdash; Jul 2025 &middot; Promoted</div>
+
+        <div class="project">
+          <div class="project-title">Accounts Payable Suite &amp; Research Playbook</div>
+          <ul class="bullets">
+            <li>Defined the <strong>research &amp; usability-testing playbook adopted by 3 product pods</strong>; ran weekly design crits and mentored 2 mid-level designers</li>
+            <li>Owned <strong>Table-4 ITC reconciliation</strong> end-to-end (matching GSTR-2B with purchase registers) &mdash; escalated to a roadmap-level initiative</li>
+            <li>Drove a <strong>UX audit across 4 AP modules</strong>, partnering with 3 PMs and 8 engineers to align scope, success metrics, and rollout sequencing</li>
+          </ul>
+          <div class="impact">Cut <strong>65% of support queries</strong>; lifted measured design consistency by <strong>30%</strong>.</div>
+        </div>
+      </div>
+
+      <!-- Clear PD -->
+      <div class="role-block">
+        <div class="role-title"><span class="company">Product Designer</span> <span class="at">@</span> Clear (formerly ClearTax)</div>
+        <div class="role-period">Jul 2021 &mdash; Sep 2023</div>
+
+        <div class="project">
+          <div class="project-title">Mint V8 Design System</div>
+          <ul class="bullets">
+            <li>Spearheaded <strong>Mint V8</strong> with 1 PM and 4 frontend engineers &mdash; token-based architecture &amp; PCS Logic compressed <strong>700+ button variants to 32</strong></li>
+            <li>Built foundational tokens (typography, spacing, colour, elevation) with full accessibility support; led adoption workshops across product and dev</li>
+          </ul>
+          <div class="impact">Cut dev implementation time by <strong>50%</strong> across the org; enabled multi-region theming.</div>
+        </div>
+
+        <div class="project">
+          <div class="project-title">GSTR-3B Filing &amp; Max ITC</div>
+          <ul class="bullets">
+            <li>Streamlined <strong>GSTR-3B filing</strong> for <strong>1.4Cr+ businesses</strong> &mdash; bulk upload, multi-GSTIN, and reconciliation engine</li>
+            <li>Drove <strong>Max ITC</strong> from <strong>18% to 53% adoption</strong> via field research with 12+ tax professionals; shipped <strong>Ingestion Module</strong> (schema-based import)</li>
+          </ul>
+          <div class="impact">Filing time cut <strong>60%</strong>; import success rate up <strong>45%</strong>.</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <div class="footer">
-    <span>&copy; 2026 Ashish Khoshya</span>
-    <span><a href="https://ashishkhoshya.com">ashishkhoshya.com</a></span>
-  </div>
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+
+    <div class="side-section">
+      <div class="side-title">Contact</div>
+
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="contact-text">
+          <div class="contact-label">Email</div>
+          <a class="contact-value" href="mailto:ashish.khoshya1998@gmail.com">ashish.khoshya1998@gmail.com</a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        </div>
+        <div class="contact-text">
+          <div class="contact-label">Portfolio</div>
+          <a class="contact-value" href="https://ashishkhoshya.com">ashishkhoshya.com</a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="contact-text">
+          <div class="contact-label">Phone</div>
+          <a class="contact-value" href="tel:+917988721132">(+91) 7988721132</a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        </div>
+        <div class="contact-text">
+          <div class="contact-label">LinkedIn</div>
+          <a class="contact-value" href="https://www.linkedin.com/in/ashish-khoshya-676b99183/">@ashishkhoshya</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-section">
+      <div class="side-title">Education</div>
+      <div class="edu-inst"><span class="at">B-Tech @</span> IIT Guwahati</div>
+      <div class="edu-period">Jul 2017 &mdash; Jul 2021</div>
+    </div>
+
+    <div class="side-section">
+      <div class="side-title">Certification</div>
+
+      <div class="cert-item">
+        <div class="cert-icon">U</div>
+        <div class="cert-text">
+          User Experience (UX): The Ultimate Guide to Usability and UX
+          <a class="cert-link" href="https://www.udemy.com/">Certification Link</a>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <div class="cert-icon">C</div>
+        <div class="cert-text">
+          Visual Elements of User Interface Design
+          <a class="cert-link" href="https://www.coursera.org/">Certification Link</a>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <div class="cert-icon">I</div>
+        <div class="cert-text">
+          IxDF Membership Certificate
+          <a class="cert-link" href="https://www.interaction-design.org/">Certification Link</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-section">
+      <div class="side-title">Skills</div>
+      <ul class="side-list">
+        <li>Design Systems &amp; Tokens</li>
+        <li>Enterprise UX</li>
+        <li>Information Architecture</li>
+        <li>0&rarr;1 Product Strategy</li>
+        <li>User Research &amp; Usability</li>
+        <li>AI-Native Workflow</li>
+        <li>Cross-functional Leadership</li>
+        <li>Mentorship &amp; Design Crits</li>
+      </ul>
+    </div>
+
+    <div class="side-section">
+      <div class="side-title">Tools</div>
+      <ul class="side-list">
+        <li>Figma &amp; Figma Make</li>
+        <li>Claude Code &amp; Cursor</li>
+        <li>FigJam</li>
+        <li>Storybook</li>
+        <li>Framer &amp; v0</li>
+        <li>Notion &amp; Linear</li>
+      </ul>
+    </div>
+
+  </aside>
 
 </div>
 
@@ -695,7 +753,7 @@ document.addEventListener('keydown', function(e) {
     <div class="dl-options">
       <a class="dl-option" href="/Ashish_Khoshya_Resume_Designed.pdf" target="_blank" rel="noopener noreferrer" onclick="closeModal()">
         <div class="dl-option-icon designed">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#156CEF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
         </div>
         <div class="dl-option-text">
           <strong>Designed</strong>
