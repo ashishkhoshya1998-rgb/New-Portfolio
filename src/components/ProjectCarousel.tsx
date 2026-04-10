@@ -1,16 +1,12 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { projects as rawProjects } from '../data/projects';
 
 const projects = [...rawProjects].sort((a, b) => Number(b.year) - Number(a.year));
 
 export default function ProjectCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-  const [lerpPos, setLerpPos] = useState({ x: 0, y: 0 });
-  const [cursorVisible, setCursorVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const rafRef = useRef<number>(0);
 
   const active = projects[activeIndex];
 
@@ -31,29 +27,9 @@ export default function ProjectCarousel() {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
-  // Lerp cursor
-  useEffect(() => {
-    const animate = () => {
-      setLerpPos((prev) => ({
-        x: prev.x + (cursorPos.x - prev.x) * 0.15,
-        y: prev.y + (cursorPos.y - prev.y) * 0.15,
-      }));
-      rafRef.current = requestAnimationFrame(animate);
-    };
-    rafRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(rafRef.current);
-  }, [cursorPos]);
-
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    setCursorPos({ x: e.clientX, y: e.clientY });
-  }, []);
-
-  const handleCardEnter = useCallback(() => setCursorVisible(true), []);
-  const handleCardLeave = useCallback(() => setCursorVisible(false), []);
-
   return (
     <>
-      <section className="pc" ref={sectionRef} onMouseMove={handleMouseMove}>
+      <section className="pc" ref={sectionRef}>
         {/* Section header */}
         <div className="content-wrap pc__header">
           <h2 className="pc__header-title">Selected Work</h2>
@@ -98,8 +74,6 @@ export default function ProjectCarousel() {
                   borderColor: `${p.accentColor}26`,
                   background: `linear-gradient(135deg, var(--card-bg), ${p.accentColor}08)`,
                 }}
-                onMouseEnter={handleCardEnter}
-                onMouseLeave={handleCardLeave}
                 onClick={(e) => {
                   e.preventDefault();
                   const img = e.currentTarget.querySelector('.pc__card-cover') as HTMLImageElement;
@@ -139,26 +113,12 @@ export default function ProjectCarousel() {
             </div>
           </div>
         </div>
-
-
-        {/* Custom cursor */}
-        <div
-          className={`pc__cursor ${cursorVisible ? 'pc__cursor--visible' : ''}`}
-          style={{ left: lerpPos.x, top: lerpPos.y }}
-        >
-          View
-        </div>
       </section>
 
       <style>{`
         .pc {
           position: relative;
           padding: 96px 0 64px;
-        }
-
-        @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-          .pc { cursor: none; }
-          .pc__card { cursor: none; }
         }
 
         /* Header */
@@ -368,39 +328,9 @@ export default function ProjectCarousel() {
           }
         }
 
-        /* Cursor */
-        .pc__cursor {
-          position: fixed;
-          width: 70px;
-          height: 70px;
-          border-radius: 50%;
-          background: var(--accent);
-          color: var(--btn-hover-text);
-          font-size: 13px;
-          font-weight: 700;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          pointer-events: none;
-          z-index: 100;
-          transform: translate(-50%, -50%) scale(0);
-          opacity: 0;
-          transition: transform 0.3s var(--ease-out-expo), opacity 0.3s;
-        }
-
-        .pc__cursor--visible {
-          transform: translate(-50%, -50%) scale(1);
-          opacity: 1;
-        }
-
-        @media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
-          .pc__cursor { display: none !important; }
-        }
-
         /* ── Mobile ── */
         @media (max-width: 768px) {
           .pc {
-            cursor: auto;
             padding: 64px 0 48px;
           }
 
@@ -418,8 +348,7 @@ export default function ProjectCarousel() {
           }
 
           .pc__thumbs,
-          .pc__meta,
-          .pc__cursor {
+          .pc__meta {
             display: none;
           }
 
