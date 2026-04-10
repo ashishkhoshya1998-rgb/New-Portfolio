@@ -107,299 +107,261 @@
 
   body {
     font-family: var(--fb);
-    background: #fff;
+    background: var(--bg);
     color: var(--text);
+    font-feature-settings: 'liga', 'kern';
+    -webkit-font-smoothing: antialiased;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
+
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: var(--text); }
 
   .page {
     width: 210mm;
     min-height: 297mm;
     margin: 0 auto;
-    padding: 20px 36px 16px;
-    background: #fff;
+    padding: 56px 64px 44px;
+    background: var(--bg);
+    position: relative;
   }
 
   /* ── HEADER ── */
   .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--text);
-    margin-bottom: 11px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: end;
+    margin-bottom: 36px;
   }
   .header h1 {
     font-family: var(--fd);
-    font-size: 26px;
+    font-size: 40px;
     font-weight: 400;
-    line-height: 1;
+    line-height: 0.95;
+    letter-spacing: -0.6px;
     color: var(--text);
   }
   .header h1 em {
     font-style: italic;
     font-weight: 400;
   }
-  .header .subtitle {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 4px;
-    letter-spacing: 0.3px;
-  }
-  .contact-row {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    align-items: flex-start;
-  }
-  .contact-item {
+  .role-line {
     font-size: 11px;
     color: var(--muted);
-    text-align: right;
-    line-height: 1.5;
+    margin-top: 10px;
+    letter-spacing: 0.4px;
   }
-  .contact-item a {
+  .contact-block {
+    text-align: right;
+    font-size: 10.5px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+  .contact-block a {
     color: var(--text);
-    text-decoration: none;
     font-weight: 500;
   }
-
-  /* ── SECTION ── */
-  .section { margin-bottom: 9px; }
-  .section-title {
-    font-family: var(--fb);
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--text);
-    padding-bottom: 3px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 7px;
-  }
-
-  /* ── SUMMARY ── */
-  .positioning {
+  .portfolio-url {
     font-family: var(--fd);
+    font-size: 14px;
     font-style: italic;
-    font-size: 13px;
-    line-height: 1.4;
-    color: var(--text);
+    display: block;
     margin-bottom: 6px;
     letter-spacing: 0.1px;
   }
+  .portfolio-meta {
+    font-size: 9.5px;
+    color: var(--muted);
+    letter-spacing: 0.3px;
+    margin-bottom: 8px;
+  }
+
+  /* ── POSITIONING (hero line) ── */
+  .positioning {
+    font-family: var(--fd);
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.42;
+    color: var(--text);
+    margin-bottom: 36px;
+    max-width: 92%;
+    letter-spacing: -0.1px;
+  }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 26px; }
+  .section:last-child { margin-bottom: 0; }
+  .section-label {
+    font-family: var(--fb);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  /* ── SUMMARY ── */
   .summary {
-    font-size: 11px;
-    line-height: 1.55;
+    font-size: 11.5px;
+    line-height: 1.7;
     color: var(--subtle);
+    max-width: 95%;
   }
   .summary strong { color: var(--text); font-weight: 600; }
 
   /* ── EXPERIENCE ── */
-  .exp-block { margin-bottom: 8px; }
+  .exp-block { margin-bottom: 22px; }
   .exp-block:last-child { margin-bottom: 0; }
   .exp-header {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
     align-items: baseline;
-    margin-bottom: 1px;
+    margin-bottom: 2px;
   }
   .exp-company {
     font-family: var(--fd);
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 600;
     color: var(--text);
+    letter-spacing: -0.1px;
   }
-  .exp-location {
-    font-size: 11px;
+  .exp-meta {
+    font-size: 10.5px;
     color: var(--muted);
+    letter-spacing: 0.2px;
   }
   .role-row {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
     align-items: baseline;
-    margin-top: 3px;
-    margin-bottom: 3px;
+    margin-top: 8px;
+    margin-bottom: 4px;
   }
   .role-title {
-    font-size: 11px;
+    font-size: 11.5px;
     font-weight: 600;
     color: var(--text);
   }
-  .role-period {
-    font-size: 10px;
+  .role-title .promoted {
+    font-weight: 400;
+    font-style: italic;
     color: var(--muted);
-    flex-shrink: 0;
+    margin-left: 6px;
+    font-size: 10px;
+  }
+  .role-period {
+    font-size: 10.5px;
+    color: var(--muted);
+    letter-spacing: 0.2px;
   }
   .role-impact {
-    font-size: 10px;
+    font-size: 11px;
     color: var(--subtle);
-    font-style: italic;
-    margin-bottom: 2px;
+    margin-bottom: 6px;
+    line-height: 1.55;
   }
   .bullets {
     list-style: none;
     padding: 0;
   }
   .bullets li {
-    font-size: 10px;
-    line-height: 1.45;
+    font-size: 11px;
+    line-height: 1.65;
     color: var(--subtle);
-    padding-left: 11px;
+    padding-left: 16px;
     position: relative;
-    margin-bottom: 1px;
+    margin-bottom: 4px;
   }
   .bullets li::before {
-    content: "";
+    content: "—";
     position: absolute;
     left: 0;
-    top: 5px;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: var(--border);
+    top: 0;
+    color: var(--text);
+    font-weight: 400;
   }
   .bullets li strong { color: var(--text); font-weight: 600; }
 
-  /* ── METRICS INLINE ── */
-  .metrics-row {
-    display: flex;
-    gap: 6px;
-    margin-top: 4px;
-    flex-wrap: wrap;
-  }
-  .metric-badge {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 2px 7px;
-    border-radius: 3px;
-    font-size: 9px;
-  }
-  .metric-badge .val {
-    font-weight: 700;
-    font-size: 9.5px;
-  }
-  .metric-badge .lbl {
-    color: var(--muted);
-  }
-  .metric-badge.amber { background: #FEF3C7; }
-  .metric-badge.amber .val { color: #92400E; }
-  .metric-badge.green { background: #DCFCE7; }
-  .metric-badge.green .val { color: #166534; }
-  .metric-badge.blue { background: #DBEAFE; }
-  .metric-badge.blue .val { color: #1E40AF; }
-
-  /* ── SKILLS ── */
-  .skills-grid {
+  /* ── COLOPHON ROWS (Strengths, Tools) ── */
+  .colophon {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
+    grid-template-columns: 140px 1fr;
+    gap: 20px;
+    font-size: 10.5px;
+    line-height: 1.7;
+    margin-bottom: 6px;
   }
-  .skill-group h4 {
+  .colophon:last-child { margin-bottom: 0; }
+  .colophon-label {
     font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
+    font-weight: 600;
+    letter-spacing: 1.4px;
     text-transform: uppercase;
-    margin-bottom: 5px;
-    padding-bottom: 3px;
-    border-bottom: 2px solid;
+    color: var(--muted);
+    padding-top: 2px;
   }
-  .skill-group.craft h4 { color: var(--blue); border-color: var(--blue); }
-  .skill-group.research h4 { color: var(--green); border-color: var(--green); }
-  .skill-group.strategy h4 { color: var(--amber); border-color: var(--amber); }
-  .skill-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3px;
-  }
-  .skill-tag {
-    font-size: 9px;
-    color: var(--subtle);
-    background: #F5F5F3;
-    padding: 2px 7px;
-    border-radius: 3px;
+  .colophon-items {
+    color: var(--text);
   }
 
-  /* ── TOOLS ── */
-  .tools-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    margin-top: 2px;
+  /* ── BOTTOM (Education + Certifications) ── */
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
   }
-  .tool {
-    font-size: 9px;
-    padding: 2px 9px;
-    border-radius: 3px;
-    background: #F5F5F3;
-    color: var(--subtle);
-  }
-  .tool.primary { font-weight: 600; color: var(--text); background: #EDEDEB; }
-
-  /* ── EDUCATION ── */
+  .bottom-grid .section { margin-bottom: 0; }
   .edu-row {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
     align-items: baseline;
   }
   .edu-inst {
     font-family: var(--fd);
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--text);
   }
   .edu-degree {
-    font-size: 10px;
     color: var(--subtle);
-    margin-top: 2px;
+    margin-top: 3px;
+    font-size: 10.5px;
+    line-height: 1.55;
   }
   .edu-period {
-    font-size: 10px;
+    font-size: 10.5px;
     color: var(--muted);
+    letter-spacing: 0.2px;
   }
 
   /* ── CERTIFICATIONS ── */
   .cert-list { list-style: none; }
   .cert-list li {
-    font-size: 9.5px;
+    font-size: 10.5px;
     color: var(--subtle);
     padding: 2px 0;
-    display: flex;
-    gap: 7px;
-    align-items: baseline;
-  }
-  .cert-list li .check {
-    color: var(--green);
-    font-weight: 700;
-    font-size: 10px;
-    flex-shrink: 0;
+    line-height: 1.55;
   }
   .cert-org {
     color: var(--muted);
-    font-size: 9.5px;
-  }
-
-  /* ── TWO COL BOTTOM ── */
-  .bottom-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 12px;
   }
 
   /* ── FOOTER ── */
   .footer {
-    margin-top: 8px;
-    padding-top: 7px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
+    margin-top: 36px;
     font-size: 9.5px;
     color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    letter-spacing: 0.3px;
   }
-  .footer a { color: var(--text); text-decoration: none; font-weight: 500; }
+  .footer a { color: var(--muted); }
 
   /* ── SCREEN ONLY ── */
   @media screen {
@@ -534,25 +496,24 @@
 
   /* ── PRINT ── */
   @media print {
-    body { background: #fff; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
-    .page { width: 100%; padding: 14px 28px 10px; box-shadow: none; min-height: auto; }
+    body { background: #fff; padding: 0; -webkit-font-smoothing: auto; }
+    .page { width: 100%; padding: 38px 48px 32px; box-shadow: none; min-height: auto; background: #fff; }
     .save-bar, .dl-overlay { display: none !important; }
-    .header h1, .exp-company, .edu-inst { font-family: Georgia, 'Times New Roman', serif; }
-    .section { margin-bottom: 6px; }
-    .section-title { margin-bottom: 5px; padding-bottom: 2px; }
-    .exp-block { margin-bottom: 5px; }
-    .bullets li { margin-bottom: 0; line-height: 1.35; font-size: 9.5px; }
-    .role-impact { font-size: 9.5px; margin-bottom: 1px; }
-    .metrics-row { margin-top: 2px; }
-    .metric-badge { padding: 1px 5px; font-size: 8.5px; }
-    .summary { font-size: 10.5px; line-height: 1.45; }
-    .header { padding-bottom: 8px; margin-bottom: 8px; }
-    .skills-grid { gap: 8px; }
-    .skill-tag { font-size: 8.5px; padding: 1px 5px; }
-    .tools-row { gap: 3px; }
-    .tool { font-size: 8.5px; padding: 1px 7px; }
-    .bottom-grid { gap: 8px; }
-    .footer { margin-top: 5px; padding-top: 5px; }
+    .header { margin-bottom: 24px; }
+    .header h1 { font-size: 32px; }
+    .positioning { font-size: 16px; margin-bottom: 24px; }
+    .section { margin-bottom: 18px; }
+    .section-label { margin-bottom: 10px; }
+    .summary { font-size: 10.5px; line-height: 1.6; }
+    .exp-block { margin-bottom: 14px; }
+    .exp-company { font-size: 14px; }
+    .role-row { margin-top: 5px; margin-bottom: 3px; }
+    .role-impact { font-size: 10px; margin-bottom: 4px; }
+    .bullets li { font-size: 10px; line-height: 1.55; margin-bottom: 2px; padding-left: 14px; }
+    .colophon { font-size: 9.5px; margin-bottom: 4px; line-height: 1.65; }
+    .bottom-grid { gap: 40px; }
+    .edu-inst { font-size: 12.5px; }
+    .footer { margin-top: 22px; }
     @page { size: A4; margin: 0; }
   }
 </style>
@@ -597,26 +558,24 @@ document.addEventListener('keydown', function(e) {
   <div class="header">
     <div>
       <h1>Ashish <em>Khoshya</em></h1>
-      <div class="subtitle">Senior Product Designer &middot; 5+ Years &middot; IIT Guwahati</div>
+      <div class="role-line">SENIOR PRODUCT DESIGNER &middot; 5+ YEARS &middot; IIT GUWAHATI</div>
     </div>
-    <div class="contact-row">
-      <div class="contact-item">
-        <a href="mailto:ashish.khoshya1998@gmail.com">ashish.khoshya1998@gmail.com</a><br />
-        <a href="tel:+917988721132">+91 7988721132</a>
-      </div>
-      <div class="contact-item">
-        <a href="https://ashishkhoshya.com">ashishkhoshya.com</a> &middot; 11 case studies<br />
-        <a href="https://www.linkedin.com/in/ashish-khoshya-676b99183/">LinkedIn</a> &middot; Bengaluru, India
-      </div>
+    <div class="contact-block">
+      <a class="portfolio-url" href="https://ashishkhoshya.com">ashishkhoshya.com</a>
+      <div class="portfolio-meta">4 CASE STUDIES &middot; LIVE DECK SYSTEM</div>
+      <a href="mailto:ashish.khoshya1998@gmail.com">ashish.khoshya1998@gmail.com</a><br />
+      <a href="tel:+917988721132">+91 7988721132</a> &middot; Bengaluru<br />
+      <a href="https://www.linkedin.com/in/ashish-khoshya-676b99183/">LinkedIn</a>
     </div>
   </div>
 
+  <!-- POSITIONING -->
+  <p class="positioning">
+    Design systems &amp; enterprise UX specialist who turns ambiguous, regulated problems into shipped products &mdash; now operating with an AI-native workflow that compresses design-to-prod by 40%.
+  </p>
+
   <!-- SUMMARY -->
   <div class="section">
-    <div class="section-title">Professional Summary</div>
-    <p class="positioning">
-      Design systems &amp; enterprise UX specialist who turns ambiguous, regulated problems into shipped products &mdash; now operating with an AI-native workflow that compresses design-to-prod by 40%.
-    </p>
     <p class="summary">
       <strong>5+ years</strong> across fintech and AI. Engineered a token-based design system that cut dev implementation time by <strong>50%</strong>, simplified GST filing for <strong>1.4Cr+ businesses</strong> (60% faster end-to-end), and architected a <strong>7-vertical content ecosystem</strong> from zero in under 4 months. Ships production-ready work end-to-end with <strong>Figma, Claude Code, GitHub &amp; Vercel</strong>.
     </p>
@@ -624,13 +583,13 @@ document.addEventListener('keydown', function(e) {
 
   <!-- EXPERIENCE -->
   <div class="section">
-    <div class="section-title">Experience</div>
+    <div class="section-label">Experience</div>
 
     <!-- Zzazz.ai -->
     <div class="exp-block">
       <div class="exp-header">
         <span class="exp-company">Zzazz.ai</span>
-        <span class="exp-location">Bengaluru</span>
+        <span class="exp-meta">Bengaluru</span>
       </div>
       <div class="role-row">
         <span class="role-title">Designer &middot; UX Architect &middot; Product Architect</span>
@@ -642,23 +601,18 @@ document.addEventListener('keydown', function(e) {
         <li>Reframed Exchange as a <strong>query-led AI-native model</strong>, restructured Moments IA, and defined TimePay's <strong>3-path access model</strong> &mdash; collapsing 3 fragmented products into one navigable surface</li>
         <li>Pioneered an <strong>AI-first design workflow</strong> (Claude Code + Figma Make + Cursor) shipping production-ready prototypes in days, cutting design-to-dev cycle by <strong>40%</strong></li>
       </ul>
-      <div class="metrics-row">
-        <span class="metric-badge amber"><span class="val">7</span> <span class="lbl">Verticals architected</span></span>
-        <span class="metric-badge amber"><span class="val">50%</span> <span class="lbl">Higher CTR projected</span></span>
-        <span class="metric-badge amber"><span class="val">80–98%</span> <span class="lbl">Users reached (non-subscribers)</span></span>
-      </div>
     </div>
 
     <!-- Clear -->
     <div class="exp-block">
       <div class="exp-header">
         <span class="exp-company">Clear (ClearTax)</span>
-        <span class="exp-location">Bengaluru</span>
+        <span class="exp-meta">Bengaluru</span>
       </div>
 
       <!-- Senior PD -->
       <div class="role-row">
-        <span class="role-title">Senior Product Designer <span style="color: var(--green); font-weight: 400; font-size: 10px;">&uarr; Promoted</span></span>
+        <span class="role-title">Senior Product Designer<span class="promoted">&mdash; promoted</span></span>
         <span class="role-period">Oct 2023 &ndash; Jul 2025</span>
       </div>
       <div class="role-impact">Led the Accounts Payable suite design and shipped the Table-4 ITC reconciliation engine</div>
@@ -667,13 +621,9 @@ document.addEventListener('keydown', function(e) {
         <li>Owned the <strong>Table-4 ITC reconciliation</strong> automation end-to-end (matching GSTR-2B with purchase registers) &mdash; cut <strong>65% of support queries</strong> and was escalated to a roadmap-level initiative</li>
         <li>Drove a <strong>UX audit across 4 AP modules</strong>, partnering with 3 PMs and 8 engineers to align scope, success metrics, and rollout sequencing</li>
       </ul>
-      <div class="metrics-row">
-        <span class="metric-badge green"><span class="val">65%</span> <span class="lbl">Support queries reduced</span></span>
-        <span class="metric-badge green"><span class="val">AP Suite</span> <span class="lbl">Design quality improved</span></span>
-      </div>
 
       <!-- PD -->
-      <div class="role-row" style="margin-top: 5px;">
+      <div class="role-row">
         <span class="role-title">Product Designer</span>
         <span class="role-period">Jul 2021 &ndash; Sep 2023</span>
       </div>
@@ -683,94 +633,49 @@ document.addEventListener('keydown', function(e) {
         <li>Streamlined <strong>GSTR-3B filing</strong> for <strong>1.4Cr+ businesses</strong> &mdash; bulk upload, multi-GSTIN, and reconciliation engine accelerated end-to-end completion by <strong>60%</strong> and became Clear's flagship compliance flow</li>
         <li>Drove <strong>Max ITC</strong> from <strong>18% to 53% adoption</strong> via field research with 12+ tax professionals; shipped <strong>Ingestion Module</strong> (schema-based import, <strong>45% higher success rate</strong>)</li>
       </ul>
-      <div class="metrics-row">
-        <span class="metric-badge blue"><span class="val">700+&rarr;32</span> <span class="lbl">Button variants</span></span>
-        <span class="metric-badge blue"><span class="val">60%</span> <span class="lbl">Filing time cut</span></span>
-        <span class="metric-badge blue"><span class="val">53%</span> <span class="lbl">Adoption (from 18%)</span></span>
-        <span class="metric-badge blue"><span class="val">45%</span> <span class="lbl">Import success up</span></span>
-      </div>
     </div>
 
   </div>
 
-  <!-- SKILLS + TOOLS -->
+  <!-- COLOPHON: STRENGTHS + TOOLS -->
   <div class="section">
-    <div class="section-title">Core Strengths</div>
-    <div class="skills-grid">
-      <div class="skill-group craft">
-        <h4>Systems &amp; Craft</h4>
-        <div class="skill-tags">
-          <span class="skill-tag">Design Systems</span>
-          <span class="skill-tag">Enterprise UX</span>
-          <span class="skill-tag">Information Architecture</span>
-          <span class="skill-tag">0&rarr;1 Product</span>
-        </div>
-      </div>
-      <div class="skill-group research">
-        <h4>Research &amp; Ops</h4>
-        <div class="skill-tags">
-          <span class="skill-tag">Research Synthesis</span>
-          <span class="skill-tag">Usability Playbooks</span>
-          <span class="skill-tag">Design Ops</span>
-          <span class="skill-tag">Mentorship &amp; Crits</span>
-        </div>
-      </div>
-      <div class="skill-group strategy">
-        <h4>Strategy &amp; AI</h4>
-        <div class="skill-tags">
-          <span class="skill-tag">AI-Native Workflow</span>
-          <span class="skill-tag">Product Strategy</span>
-          <span class="skill-tag">Prototyping in Code</span>
-          <span class="skill-tag">Cross-functional Leadership</span>
-        </div>
-      </div>
+    <div class="section-label">Strengths &amp; Tools</div>
+    <div class="colophon">
+      <div class="colophon-label">Systems &amp; Craft</div>
+      <div class="colophon-items">Design Systems &middot; Enterprise UX &middot; Information Architecture &middot; 0&rarr;1 Product</div>
+    </div>
+    <div class="colophon">
+      <div class="colophon-label">Research &amp; Ops</div>
+      <div class="colophon-items">Research Synthesis &middot; Usability Playbooks &middot; Design Ops &middot; Mentorship &amp; Crits</div>
+    </div>
+    <div class="colophon">
+      <div class="colophon-label">Strategy &amp; AI</div>
+      <div class="colophon-items">AI-Native Workflow &middot; Product Strategy &middot; Prototyping in Code &middot; Cross-functional Leadership</div>
+    </div>
+    <div class="colophon">
+      <div class="colophon-label">Tools</div>
+      <div class="colophon-items">Figma &middot; Claude Code &middot; Cursor &middot; Figma Make &middot; FigJam &middot; Storybook &middot; Framer &middot; v0 &middot; Notion &middot; Linear</div>
     </div>
   </div>
 
-  <!-- TOOLS -->
-  <div class="section">
-    <div class="section-title">Tools</div>
-    <div class="tools-row">
-      <span class="tool primary">Figma</span>
-      <span class="tool primary">Claude Code</span>
-      <span class="tool primary">Cursor</span>
-      <span class="tool primary">Figma Make</span>
-      <span class="tool primary">FigJam</span>
-      <span class="tool primary">Storybook</span>
-      <span class="tool">Adobe Creative Suite</span>
-      <span class="tool">Framer</span>
-      <span class="tool">v0</span>
-      <span class="tool">Notion</span>
-      <span class="tool">Jira / Linear</span>
-    </div>
-  </div>
-
-  <!-- BOTTOM: EDUCATION + CERTIFICATIONS + INTERESTS -->
+  <!-- BOTTOM: EDUCATION + CERTIFICATIONS -->
   <div class="bottom-grid">
     <div class="section">
-      <div class="section-title">Education</div>
+      <div class="section-label">Education</div>
       <div class="edu-row">
         <div>
           <div class="edu-inst">IIT Guwahati</div>
-          <div class="edu-degree">Bachelor of Technology &middot; 2017 &ndash; 2021</div>
-          <div style="font-size: 9px; color: var(--muted); margin-top: 2px;">Relevant: HCI, Cognitive Psychology, Visual Communication</div>
+          <div class="edu-degree">Bachelor of Technology &middot; HCI, Cognitive Psychology, Visual Communication</div>
         </div>
+        <div class="edu-period">2017 &ndash; 2021</div>
       </div>
     </div>
     <div class="section">
-      <div class="section-title">Certifications</div>
+      <div class="section-label">Certifications</div>
       <ul class="cert-list">
-        <li><span class="check">&check;</span> UX: Ultimate Guide to Usability &amp; UX <span class="cert-org">&mdash; Udemy</span></li>
-        <li><span class="check">&check;</span> Visual Elements of UI Design <span class="cert-org">&mdash; Coursera</span></li>
-        <li><span class="check">&check;</span> IxDF Membership <span class="cert-org">&mdash; Interaction Design Foundation</span></li>
-      </ul>
-    </div>
-    <div class="section">
-      <div class="section-title">Interests</div>
-      <ul class="cert-list">
-        <li><span class="check">&check;</span> Volleyball &mdash; weekend sport</li>
-        <li><span class="check">&check;</span> Vibe coding &mdash; stitching frontend &amp; backend with AI tools</li>
-        <li><span class="check">&check;</span> Daily AI tool exploration &mdash; learning with the new world</li>
+        <li>UX: Ultimate Guide to Usability &amp; UX <span class="cert-org">&mdash; Udemy</span></li>
+        <li>Visual Elements of UI Design <span class="cert-org">&mdash; Coursera</span></li>
+        <li>IxDF Membership <span class="cert-org">&mdash; Interaction Design Foundation</span></li>
       </ul>
     </div>
   </div>
@@ -778,7 +683,7 @@ document.addEventListener('keydown', function(e) {
   <!-- FOOTER -->
   <div class="footer">
     <span>&copy; 2026 Ashish Khoshya</span>
-    <span>Portfolio: <a href="https://ashishkhoshya.com">ashishkhoshya.com</a></span>
+    <span><a href="https://ashishkhoshya.com">ashishkhoshya.com</a></span>
   </div>
 
 </div>
