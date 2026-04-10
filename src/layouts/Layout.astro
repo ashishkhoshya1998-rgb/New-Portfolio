@@ -45,16 +45,161 @@ const {
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-LQ1G8E3DFD');
 
-      // Track page views on Astro view transitions
-      document.addEventListener('astro:after-swap', function() {
-        gtag('config', 'G-LQ1G8E3DFD', { page_path: window.location.pathname });
-        // Re-apply theme after swap
-        var saved = localStorage.getItem('ak-theme');
-        var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-        document.documentElement.setAttribute('data-theme', theme);
+      // ── Page categorisation ────────────────────────────────
+      function akPageCategory(path) {
+        if (path === '/' || path === '/index.html') return 'home';
+        if (path.startsWith('/project/')) return 'project';
+        if (path.startsWith('/projects')) return 'projects_list';
+        if (path.startsWith('/deck/')) return 'presentation';
+        if (path.startsWith('/about')) return 'about';
+        if (path.startsWith('/resume')) return 'resume';
+        return 'other';
+      }
+      function akPageSlug(path) {
+        var m = path.match(/\/(project|deck)\/([^\/?#]+)/);
+        return m ? m[2] : '';
+      }
+
+      // Initial config + first page_view with category
+      gtag('config', 'G-LQ1G8E3DFD', {
+        page_path: window.location.pathname,
+        page_category: akPageCategory(window.location.pathname),
+        page_slug: akPageSlug(window.location.pathname),
       });
+
+      // ── Active time-on-page tracking ───────────────────────
+      // Counts only visible, foregrounded seconds. Fires milestone
+      // events at 15s, 30s, 60s, 120s, 300s, 600s and a final
+      // engagement_end event on navigation / tab close.
+      (function() {
+        var MILESTONES = [15, 30, 60, 120, 300, 600];
+        var state = null;
+
+        function start(path) {
+          state = {
+            path: path,
+            category: akPageCategory(path),
+            slug: akPageSlug(path),
+            activeMs: 0,
+            lastTick: document.visibilityState === 'visible' ? Date.now() : 0,
+            fired: {},
+            interval: null,
+          };
+          state.interval = setInterval(tick, 1000);
+        }
+
+        function tick() {
+          if (!state) return;
+          if (document.visibilityState === 'visible' && state.lastTick) {
+            var now = Date.now();
+            state.activeMs += now - state.lastTick;
+            state.lastTick = now;
+          }
+          var secs = Math.floor(state.activeMs / 1000);
+          for (var i = 0; i < MILESTONES.length; i++) {
+            var m = MILESTONES[i];
+            if (secs >= m && !state.fired[m]) {
+              state.fired[m] = true;
+              gtag('event', 'time_on_page', {
+                page_path: state.path,
+                page_category: state.category,
+                page_slug: state.slug,
+                seconds: m,
+                engagement_time_msec: m * 1000,
+              });
+            }
+          }
+        }
+
+        function flush(reason) {
+          if (!state) return;
+          tick();
+          var secs = Math.round(state.activeMs / 1000);
+          if (secs > 0) {
+            gtag('event', 'engagement_end', {
+              page_path: state.path,
+              page_category: state.category,
+              page_slug: state.slug,
+              seconds: secs,
+              reason: reason || 'unload',
+              engagement_time_msec: state.activeMs,
+            });
+          }
+          if (state.interval) clearInterval(state.interval);
+          state = null;
+        }
+
+        document.addEventListener('visibilitychange', function() {
+          if (!state) return;
+          if (document.visibilityState === 'hidden') {
+            tick();
+            state.lastTick = 0;
+          } else {
+            state.lastTick = Date.now();
+          }
+        });
+
+        window.addEventListener('pagehide', function() { flush('pagehide'); }, { capture: true });
+
+        // Astro view transitions
+        document.addEventListener('astro:before-preparation', function() { flush('navigation'); });
+        document.addEventListener('astro:after-swap', function() {
+          var path = window.location.pathname;
+          gtag('config', 'G-LQ1G8E3DFD', {
+            page_path: path,
+            page_category: akPageCategory(path),
+            page_slug: akPageSlug(path),
+          });
+          start(path);
+          // Re-apply theme after swap
+          var saved = localStorage.getItem('ak-theme');
+          var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+          document.documentElement.setAttribute('data-theme', theme);
+        });
+
+        // Kick off on initial load
+        start(window.location.pathname);
+      })();
+
+      // ── Click / download tracking ──────────────────────────
+      document.addEventListener('click', function(e) {
+        var a = e.target && e.target.closest && e.target.closest('a[href]');
+        if (!a) return;
+        var href = a.getAttribute('href') || '';
+        // PDF downloads (resume)
+        if (/\.pdf($|\?)/i.test(href)) {
+          var file = href.split('/').pop().split('?')[0];
+          var variant = /ats/i.test(file) ? 'ats' : (/designed/i.test(file) ? 'designed' : 'other');
+          gtag('event', 'file_download', {
+            file_name: file,
+            file_extension: 'pdf',
+            link_url: href,
+            resume_variant: variant,
+          });
+        }
+        // Resume page view (from CTA)
+        if (href === '/resume.html' || href.indexOf('/resume') === 0) {
+          gtag('event', 'resume_click', {
+            link_url: href,
+            source_path: window.location.pathname,
+          });
+        }
+        // Presentation deck click
+        if (href.indexOf('/deck/') === 0) {
+          gtag('event', 'presentation_click', {
+            deck_slug: href.replace('/deck/', '').replace(/\/$/, ''),
+            source_path: window.location.pathname,
+          });
+        }
+        // Project card click
+        if (href.indexOf('/project/') === 0) {
+          gtag('event', 'project_click', {
+            project_slug: href.replace('/project/', '').replace(/\/$/, ''),
+            source_path: window.location.pathname,
+          });
+        }
+      }, true);
     </script>
 
   </head>

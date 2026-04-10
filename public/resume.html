@@ -5,6 +5,89 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Ashish Khoshya — Resume</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LQ1G8E3DFD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-LQ1G8E3DFD', {
+    page_path: '/resume.html',
+    page_category: 'resume',
+  });
+
+  // Active time-on-page tracking with milestone events
+  (function() {
+    var MILESTONES = [15, 30, 60, 120, 300, 600];
+    var activeMs = 0;
+    var lastTick = document.visibilityState === 'visible' ? Date.now() : 0;
+    var fired = {};
+
+    function tick() {
+      if (document.visibilityState === 'visible' && lastTick) {
+        var now = Date.now();
+        activeMs += now - lastTick;
+        lastTick = now;
+      }
+      var secs = Math.floor(activeMs / 1000);
+      for (var i = 0; i < MILESTONES.length; i++) {
+        var m = MILESTONES[i];
+        if (secs >= m && !fired[m]) {
+          fired[m] = true;
+          gtag('event', 'time_on_page', {
+            page_path: '/resume.html',
+            page_category: 'resume',
+            seconds: m,
+            engagement_time_msec: m * 1000,
+          });
+        }
+      }
+    }
+    setInterval(tick, 1000);
+
+    document.addEventListener('visibilitychange', function() {
+      if (document.visibilityState === 'hidden') {
+        tick();
+        lastTick = 0;
+      } else {
+        lastTick = Date.now();
+      }
+    });
+
+    window.addEventListener('pagehide', function() {
+      tick();
+      var secs = Math.round(activeMs / 1000);
+      if (secs > 0) {
+        gtag('event', 'engagement_end', {
+          page_path: '/resume.html',
+          page_category: 'resume',
+          seconds: secs,
+          reason: 'pagehide',
+          engagement_time_msec: activeMs,
+        });
+      }
+    }, { capture: true });
+  })();
+
+  // PDF download tracking
+  document.addEventListener('click', function(e) {
+    var a = e.target && e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (/\.pdf($|\?)/i.test(href)) {
+      var file = href.split('/').pop().split('?')[0];
+      var variant = /ats/i.test(file) ? 'ats' : (/designed/i.test(file) ? 'designed' : 'other');
+      gtag('event', 'file_download', {
+        file_name: file,
+        file_extension: 'pdf',
+        link_url: href,
+        resume_variant: variant,
+        source_path: '/resume.html',
+      });
+    }
+  }, true);
+</script>
 <style>
   :root {
     --bg: #FAFAF8;
