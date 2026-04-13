@@ -217,7 +217,7 @@ export default function ProjectCarousel() {
 
         .gd-card:hover .gd-card__img {
           transform: scale(1.03);
-          border-radius: 50%;
+          border-radius: 32px;
         }
 
         /* Footer link */
