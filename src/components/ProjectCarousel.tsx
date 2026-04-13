@@ -140,15 +140,8 @@ export default function ProjectCarousel() {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 0;
-          border-radius: var(--radius-lg);
-          overflow: hidden;
-          background: var(--card-bg);
-          border: 1px solid var(--border);
-          transition: border-color 0.3s ease;
-        }
-
-        .gd-card:hover {
-          border-color: var(--text-muted);
+          overflow: visible;
+          background: transparent;
         }
 
         .gd-card__text {
@@ -206,8 +199,10 @@ export default function ProjectCarousel() {
         }
 
         .gd-card__img-link {
-          display: block;
-          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: visible;
           aspect-ratio: 4 / 3;
         }
 
@@ -216,11 +211,13 @@ export default function ProjectCarousel() {
           height: 100%;
           object-fit: cover;
           object-position: center;
-          transition: transform 0.5s var(--ease-out-expo);
+          border-radius: 8px;
+          transition: transform 0.5s var(--ease-out-expo), border-radius 0.5s var(--ease-out-expo);
         }
 
         .gd-card:hover .gd-card__img {
-          transform: scale(1.05);
+          transform: scale(1.03);
+          border-radius: 50%;
         }
 
         /* Footer link */
