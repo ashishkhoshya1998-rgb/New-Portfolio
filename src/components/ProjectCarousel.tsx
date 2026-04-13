@@ -47,7 +47,7 @@ export default function ProjectCarousel() {
                     {p.slug === 'memoir' && (
                       <svg className="gd-cta__lock" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                     )}
-                    Full Case Study
+                    Case Study
                   </a>
                   {(decks as Record<string, unknown>)[p.slug] && (
                     <a
@@ -174,7 +174,7 @@ export default function ProjectCarousel() {
 
         .gd-card__ctas {
           display: flex;
-          flex-wrap: wrap;
+          flex-wrap: nowrap;
           gap: 8px;
           margin-top: 24px;
         }
@@ -183,15 +183,16 @@ export default function ProjectCarousel() {
           display: inline-flex;
           align-items: center;
           gap: 5px;
-          padding: 6px 14px;
+          padding: 8px 18px;
           font-family: var(--font-body);
-          font-size: 12px;
+          font-size: 13px;
           font-weight: 600;
           letter-spacing: 0.3px;
           color: var(--text);
           border: 1px solid var(--border);
           border-radius: 6px;
           text-decoration: none;
+          white-space: nowrap;
           transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.15s ease;
           cursor: none;
         }
