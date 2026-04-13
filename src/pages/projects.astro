@@ -5,7 +5,6 @@ import FooterCTA from '../components/FooterCTA.astro';
 import { projects } from '../data/projects';
 import { decks } from '../data/decks';
 
-// Sort projects by year descending (newest first)
 const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
 ---
 
@@ -19,89 +18,48 @@ const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
       <div class="proj-page__header-meta">
         <span class="proj-page__header-count">{sorted.length} Case Studies</span>
         <span class="proj-page__header-sep">/</span>
-        <span class="proj-page__header-year">2021 — 2025</span>
+        <span class="proj-page__header-year">2021 — 2026</span>
       </div>
     </div>
 
-    <!-- Two-column layout -->
-    <div class="content-wrap proj-page__layout">
-      <!-- Left — Sticky metadata panel -->
-      <div class="proj-page__meta">
-        <div class="proj-page__meta-inner">
-          {sorted.map((p, i) => (
-            <div
-              class={`proj-page__meta-block ${i === 0 ? 'proj-page__meta-block--active' : ''}`}
-              data-meta-index={i}
-            >
-              <span class="proj-page__meta-counter" style={`color: ${p.accentColor}`}>
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <p class="proj-page__meta-title">{p.title}</p>
-              <p class="proj-page__meta-desc">{p.overview}</p>
-              <div class="proj-page__meta-details">
-                <span class="proj-page__meta-label">Role</span>
-                <span class="proj-page__meta-value">{p.role}</span>
-              </div>
-              <div class="proj-page__meta-details">
-                <span class="proj-page__meta-label">Year</span>
-                <span class="proj-page__meta-value">{p.year}</span>
-              </div>
-              <div class="proj-page__meta-details">
-                <span class="proj-page__meta-label">Category</span>
-                <span class="proj-page__meta-value">{p.category}</span>
-              </div>
-              <div class="proj-page__meta-ctas">
-                <a href={`/project/${p.slug}`} class="proj-page__meta-cta" style={`color: ${p.accentColor}`} data-cursor="View">
-                  Full Case Study <span aria-hidden="true">→</span>
+    <!-- 2-column grid (Google Design style) -->
+    <div class="content-wrap proj-page__grid">
+      {sorted.map((p, i) => (
+        <article class="gd-card" data-card-index={i}>
+          <div class="gd-card__text">
+            <h2 class="gd-card__title">{p.title}</h2>
+            <p class="gd-card__desc">{p.subtitle}</p>
+            <div class="gd-card__ctas">
+              <a
+                href={`/project/${p.slug}`}
+                class="gd-cta"
+                style={`--cta-accent: ${p.accentColor};`}
+              >
+                Full Case Study
+              </a>
+              {decks[p.slug] && (
+                <a
+                  href={`/deck/${p.slug}`}
+                  class="gd-cta"
+                  style={`--cta-accent: ${p.accentColor};`}
+                >
+                  Quick Read
                 </a>
-                {decks[p.slug] && (
-                  <a href={`/deck/${p.slug}`} class="proj-page__meta-cta proj-page__meta-cta--deck" data-cursor="Read">
-                    Quick Read <span aria-hidden="true">↗</span>
-                  </a>
-                )}
-              </div>
+              )}
             </div>
-          ))}
-        </div>
-      </div>
-
-      <!-- Right — Project cards -->
-      <div class="proj-page__cards">
-        {sorted.map((p, i) => (
-          <div
-            class="proj-page__card"
-            data-card-index={i}
-            data-cursor="View"
-            style={`border-color: ${p.accentColor}26; background: linear-gradient(135deg, var(--card-bg), ${p.accentColor}08);`}
-          >
+          </div>
+          <a href={`/project/${p.slug}`} class="gd-card__img-link" data-cursor="View">
             <img
               src={p.coverImage}
-              alt=""
-              aria-hidden="true"
-              class="proj-page__card-cover"
-              loading={i === 0 ? 'eager' : 'lazy'}
+              alt={p.title}
+              class="gd-card__img"
+              loading={i < 2 ? 'eager' : 'lazy'}
               data-slug={p.slug}
               data-cover={p.coverImage}
             />
-            <div class="proj-page__card-gradient" />
-            <div class="proj-page__card-inner">
-              <h2 class="proj-page__card-title">{p.title}</h2>
-              <span class="proj-page__card-meta">{p.category} · {p.year}</span>
-              <div class="proj-page__card-ctas">
-                <a href={`/project/${p.slug}`} class="proj-page__card-cta" style={`border-color: ${p.accentColor}60; color: var(--text);`}>
-                  Full Case Study
-                </a>
-                {decks[p.slug] && (
-                  <a href={`/deck/${p.slug}`} class="proj-page__card-cta proj-page__card-cta--deck" style={`border-color: ${p.accentColor}60; color: var(--text);`}>
-                    Quick Read
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                  </a>
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+          </a>
+        </article>
+      ))}
     </div>
 
     <div id="contact">
@@ -142,236 +100,117 @@ const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
     font-family: var(--font-body);
   }
 
-  .proj-page__header-sep {
-    opacity: 0.3;
-  }
+  .proj-page__header-sep { opacity: 0.3; }
+  .proj-page__header-count { font-weight: 500; }
+  .proj-page__header-year { font-variant-numeric: tabular-nums; }
 
-  .proj-page__header-count {
-    font-weight: 500;
-  }
-
-  .proj-page__header-year {
-    font-variant-numeric: tabular-nums;
-  }
-
-  /* Two-column layout */
-  .proj-page__layout {
+  /* ── Google Design Grid ── */
+  .proj-page__grid {
     display: grid;
-    grid-template-columns: 40% 1fr;
-    gap: 64px;
-    align-items: start;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 28px;
     padding-bottom: 96px;
   }
 
-  /* Metadata panel */
-  .proj-page__meta {
-    position: sticky;
-    top: 120px;
-  }
-
-  .proj-page__meta-inner {
-    position: relative;
-  }
-
-  .proj-page__meta-block {
-    display: none;
-    flex-direction: column;
-    gap: 16px;
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
-  }
-
-  .proj-page__meta-block--active {
-    display: flex;
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .proj-page__meta-counter {
-    font-family: var(--font-body);
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 2px;
-  }
-
-  .proj-page__meta-title {
-    font-family: var(--font-display);
-    font-size: 36px;
-    font-weight: 700;
-    color: var(--text);
-    line-height: 1.15;
-  }
-
-  .proj-page__meta-desc {
-    font-size: 15px;
-    color: var(--text-muted);
-    line-height: 1.7;
-    max-width: 380px;
-  }
-
-  .proj-page__meta-details {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-  }
-
-  .proj-page__meta-label {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--text-muted);
-    min-width: 80px;
-  }
-
-  .proj-page__meta-value {
-    font-size: 14px;
-    color: var(--text);
-  }
-
-  .proj-page__meta-ctas {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 8px;
-  }
-
-  .proj-page__meta-cta {
-    display: inline-block;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: opacity 0.2s;
-  }
-
-  .proj-page__meta-cta:hover {
-    opacity: 0.7;
-  }
-
-  .proj-page__meta-cta--deck {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-muted);
-  }
-
-  /* Cards */
-  .proj-page__cards {
-    display: flex;
-    flex-direction: column;
-    gap: 80px;
-  }
-
-  .proj-page__card {
-    position: relative;
-    aspect-ratio: 16 / 9;
-    border: 1px solid;
+  /* ── Card ── */
+  .gd-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
     border-radius: var(--radius-lg);
     overflow: hidden;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    transition: border-color 0.3s ease;
+  }
+
+  .gd-card:hover {
+    border-color: var(--text-muted);
+  }
+
+  /* Text side */
+  .gd-card__text {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    padding: 32px;
-    transition: transform 0.3s var(--ease-out-expo);
+    justify-content: space-between;
+    padding: 32px 28px;
+    min-height: 280px;
   }
 
-  .proj-page__card:hover {
-    transform: scale(1.01);
-    box-shadow: 0 12px 40px rgba(232,255,71,0.08);
-  }
-
-  .proj-page__card-cover {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center;
-    transition: transform 0.5s var(--ease-out-expo);
-    pointer-events: none;
-  }
-
-  .proj-page__card:hover .proj-page__card-cover {
-    transform: scale(1.05);
-  }
-
-  .proj-page__card-gradient {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, var(--gradient-overlay) 0%, var(--gradient-mid) 40%, var(--gradient-light) 70%, transparent 100%);
-    pointer-events: none;
-  }
-
-  .proj-page__card-inner {
-    position: relative;
-    z-index: 1;
-  }
-
-  .proj-page__card-meta {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text-muted);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-top: 6px;
-    display: block;
-  }
-
-  .proj-page__card-title {
+  .gd-card__title {
     font-family: var(--font-display);
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 700;
     color: var(--text);
-    text-shadow: 0 2px 12px var(--shadow-color);
+    line-height: 1.2;
+    margin-bottom: 12px;
   }
 
-  /* Card CTAs */
-  .proj-page__card-ctas {
+  .gd-card__desc {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  /* CTAs (pills) */
+  .gd-card__ctas {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
-    margin-top: 14px;
+    margin-top: 24px;
   }
 
-  .proj-page__card-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 18px;
+  .gd-cta {
+    display: inline-block;
+    padding: 8px 20px;
     font-family: var(--font-body);
     font-size: 12px;
     font-weight: 600;
-    letter-spacing: 0.5px;
-    border: 1px solid;
+    letter-spacing: 0.3px;
+    color: var(--text);
+    border: 1px solid var(--border);
     border-radius: 999px;
     text-decoration: none;
-    backdrop-filter: blur(12px);
-    background: rgba(0, 0, 0, 0.3);
-    transition: background 0.25s ease, transform 0.15s ease;
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.15s ease;
+    cursor: none;
   }
 
-  [data-theme="light"] .proj-page__card-cta {
-    background: rgba(255, 255, 255, 0.65);
-  }
-
-  .proj-page__card-cta:hover {
-    background: rgba(0, 0, 0, 0.5);
+  .gd-cta:hover {
+    background: var(--cta-accent, var(--accent));
+    border-color: var(--cta-accent, var(--accent));
+    color: #000;
     transform: translateY(-1px);
   }
 
-  [data-theme="light"] .proj-page__card-cta:hover {
-    background: rgba(255, 255, 255, 0.85);
+  /* Image side */
+  .gd-card__img-link {
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
   }
 
-  .proj-page__card-cta--deck {
-    font-weight: 500;
-    opacity: 0.85;
+  .gd-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.5s var(--ease-out-expo);
   }
 
-  .proj-page__card-cta--deck svg {
-    opacity: 0.7;
+  .gd-card:hover .gd-card__img {
+    transform: scale(1.05);
   }
 
-  /* Mobile */
+  /* ── Mobile ── */
+  @media (max-width: 1024px) {
+    .proj-page__grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+  }
+
   @media (max-width: 768px) {
     .proj-page {
       padding-top: 80px;
@@ -384,25 +223,22 @@ const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
       margin-bottom: 32px;
     }
 
-    .proj-page__layout {
-      display: flex;
-      flex-direction: column;
-      gap: 48px;
-      padding-bottom: 64px;
+    .gd-card {
+      grid-template-columns: 1fr;
     }
 
-    .proj-page__meta {
-      position: static;
-      display: none;
+    .gd-card__img-link {
+      order: -1;
+      aspect-ratio: 16 / 9;
     }
 
-    .proj-page__cards {
-      gap: 48px;
+    .gd-card__text {
+      min-height: auto;
+      padding: 24px 20px;
     }
 
-    .proj-page__card {
-      aspect-ratio: 3 / 2;
-      padding: 20px;
+    .gd-card__title {
+      font-size: 20px;
     }
   }
 </style>
@@ -412,74 +248,30 @@ const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
   gsap.registerPlugin(ScrollTrigger);
-  gsap.ticker.lagSmoothing(0);
-  if (document.hidden) {
-    const interval = setInterval(() => gsap.ticker.tick(), 16);
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden) clearInterval(interval);
-    }, { once: true });
-  }
 
   function initProjectsPage() {
-    // Capture image rect on CTA click for GSAP transition
-    document.querySelectorAll('.proj-page__card').forEach((card) => {
-      card.querySelectorAll('.proj-page__card-cta').forEach((cta) => {
-        cta.addEventListener('click', (e) => {
-          const img = card.querySelector('.proj-page__card-cover') as HTMLImageElement;
-          if (img && (cta as HTMLAnchorElement).href.includes('/project/')) {
-            e.preventDefault();
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const cards = document.querySelectorAll('.gd-card');
+
+    // Capture image rect on image click for transition
+    cards.forEach((card) => {
+      const imgLink = card.querySelector('.gd-card__img-link') as HTMLAnchorElement;
+      if (imgLink) {
+        imgLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          const img = card.querySelector('.gd-card__img') as HTMLImageElement;
+          if (img) {
             const rect = img.getBoundingClientRect();
             sessionStorage.setItem('ak-project-rect', JSON.stringify({
               top: rect.top, left: rect.left, width: rect.width, height: rect.height,
               slug: img.dataset.slug, coverImage: img.dataset.cover,
             }));
-            window.location.href = (cta as HTMLAnchorElement).href;
           }
+          window.location.href = imgLink.href;
         });
-      });
-    });
+      }
 
-    const cards = document.querySelectorAll('[data-card-index]');
-    const metaBlocks = document.querySelectorAll('[data-meta-index]');
-
-    if (!cards.length || !metaBlocks.length) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    let activeIndex = 0;
-
-    function setActiveMeta(index: number) {
-      if (index === activeIndex && metaBlocks[activeIndex]?.classList.contains('proj-page__meta-block--active')) return;
-      activeIndex = index;
-
-      metaBlocks.forEach((block, i) => {
-        if (i === index) {
-          (block as HTMLElement).style.display = 'flex';
-          requestAnimationFrame(() => {
-            block.classList.add('proj-page__meta-block--active');
-          });
-        } else {
-          block.classList.remove('proj-page__meta-block--active');
-          setTimeout(() => {
-            if (!block.classList.contains('proj-page__meta-block--active')) {
-              (block as HTMLElement).style.display = 'none';
-            }
-          }, 400);
-        }
-      });
-    }
-
-    // ScrollTrigger for each card
-    cards.forEach((card, i) => {
-      ScrollTrigger.create({
-        trigger: card,
-        start: 'top 60%',
-        end: 'bottom 40%',
-        onEnter: () => setActiveMeta(i),
-        onEnterBack: () => setActiveMeta(i),
-      });
-
-      // Entrance animation
+      // Card entrance animation
       if (prefersReducedMotion) {
         gsap.set(card, { opacity: 1, y: 0 });
       } else {
@@ -487,7 +279,7 @@ const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
           { opacity: 0, y: 40 },
           {
             opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
-            scrollTrigger: { trigger: card, start: 'top 80%', once: true },
+            scrollTrigger: { trigger: card, start: 'top 85%', once: true },
           }
         );
       }
@@ -502,22 +294,6 @@ const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
         gsap.fromTo(header,
           { opacity: 0, y: 30 },
           { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out', delay: 0.2 }
-        );
-      }
-    }
-
-    // Meta panel entrance
-    const meta = document.querySelector('.proj-page__meta');
-    if (meta) {
-      if (prefersReducedMotion) {
-        gsap.set(meta, { opacity: 1, x: 0 });
-      } else {
-        gsap.fromTo(meta,
-          { opacity: 0, x: -20 },
-          {
-            opacity: 1, x: 0, duration: 0.6, ease: 'power3.out',
-            scrollTrigger: { trigger: meta, start: 'top 80%', once: true },
-          }
         );
       }
     }

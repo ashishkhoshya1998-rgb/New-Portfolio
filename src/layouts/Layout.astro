@@ -262,7 +262,6 @@ const {
     <!-- Custom cursor logic -->
     <script is:inline>
     (function() {
-      // Skip on touch devices
       if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -271,44 +270,63 @@ const {
 
       var textEl = cursor.querySelector('.ak-cursor__text');
       var mx = -100, my = -100, cx = -100, cy = -100;
-      var isHover = false;
+      var state = 'default'; // 'default' | 'expand' | 'hidden'
       var currentLabel = '';
       var visible = false;
       var rafId = null;
+
+      var SCALE_DEFAULT = 0.12;  // ~5.8px dot
+      var SCALE_EXPAND = 1;      // full 48px
+      var currentScale = SCALE_DEFAULT;
 
       function lerp(a, b, n) { return a + (b - a) * n; }
 
       function render() {
         cx = lerp(cx, mx, 0.15);
         cy = lerp(cy, my, 0.15);
-        cursor.style.transform = 'translate(' + cx + 'px,' + cy + 'px) translate(-50%,-50%) scale(' + (isHover ? 1 : 0.18) + ')';
+        var targetScale = state === 'expand' ? SCALE_EXPAND : SCALE_DEFAULT;
+        currentScale = lerp(currentScale, targetScale, 0.18);
+        cursor.style.transform = 'translate(' + cx + 'px,' + cy + 'px) translate(-50%,-50%) scale(' + currentScale + ')';
         rafId = requestAnimationFrame(render);
       }
 
-      function getCursorLabel(el) {
-        if (!el) return '';
-        // Walk up to find data-cursor attribute
+      function walkUp(el, maxDepth) {
         var node = el;
-        for (var i = 0; i < 6; i++) {
+        for (var i = 0; i < maxDepth; i++) {
           if (!node) break;
-          var lbl = node.getAttribute && node.getAttribute('data-cursor');
+          if (node.nodeType === 1) return node;
+          node = node.parentElement;
+        }
+        return null;
+      }
+
+      function getState(el) {
+        if (!el) return 'default';
+        var node = el;
+        for (var i = 0; i < 8; i++) {
+          if (!node || !node.getAttribute) break;
+          // CTAs: hide cursor, let button highlight itself
+          if (node.classList && node.classList.contains('gd-cta')) return 'hidden';
+          // Cards with data-cursor: expand and show label
+          if (node.getAttribute('data-cursor')) return 'expand';
+          // Generic interactive
+          var tag = node.tagName;
+          if (tag === 'A' || tag === 'BUTTON') return 'expand';
+          node = node.parentElement;
+        }
+        return 'default';
+      }
+
+      function getLabel(el) {
+        if (!el) return '';
+        var node = el;
+        for (var i = 0; i < 8; i++) {
+          if (!node || !node.getAttribute) break;
+          var lbl = node.getAttribute('data-cursor');
           if (lbl) return lbl;
           node = node.parentElement;
         }
         return '';
-      }
-
-      function isInteractive(el) {
-        if (!el) return false;
-        var node = el;
-        for (var i = 0; i < 6; i++) {
-          if (!node) break;
-          var tag = node.tagName;
-          if (tag === 'A' || tag === 'BUTTON' || (node.getAttribute && node.getAttribute('data-cursor'))) return true;
-          if (node.classList && (node.classList.contains('proj-page__card') || node.classList.contains('pc__card'))) return true;
-          node = node.parentElement;
-        }
-        return false;
       }
 
       document.addEventListener('mousemove', function(e) {
@@ -321,17 +339,18 @@ const {
         }
 
         var target = document.elementFromPoint(e.clientX, e.clientY);
-        var shouldHover = isInteractive(target);
-        var label = getCursorLabel(target);
+        var newState = getState(target);
+        var label = getLabel(target);
 
-        if (shouldHover !== isHover) {
-          isHover = shouldHover;
-          cursor.classList.toggle('ak-cursor--hover', isHover);
+        if (newState !== state) {
+          state = newState;
+          cursor.classList.toggle('ak-cursor--hidden', state === 'hidden');
+          cursor.classList.toggle('ak-cursor--label', state === 'expand' && !!label);
         }
         if (label !== currentLabel) {
           currentLabel = label;
           textEl.textContent = label;
-          cursor.classList.toggle('ak-cursor--label', !!label);
+          cursor.classList.toggle('ak-cursor--label', state === 'expand' && !!label);
         }
       });
 
@@ -347,7 +366,6 @@ const {
         cursor.classList.remove('ak-cursor--press');
       });
 
-      // Re-init on view transitions
       document.addEventListener('astro:after-swap', function() {
         cursor = document.getElementById('ak-cursor');
         if (cursor) textEl = cursor.querySelector('.ak-cursor__text');

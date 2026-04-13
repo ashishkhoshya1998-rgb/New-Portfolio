@@ -1,35 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
 import { projects as rawProjects } from '../data/projects';
+import { decks } from '../data/decks';
 
 const projects = [...rawProjects].sort((a, b) => Number(b.year) - Number(a.year));
 
 export default function ProjectCarousel() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const sectionRef = useRef<HTMLElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  const active = projects[activeIndex];
-
-  // IntersectionObserver to track active card
-  useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-    cardRefs.current.forEach((card, i) => {
-      if (!card) return;
-      const obs = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActiveIndex(i);
-        },
-        { threshold: 0.5 }
-      );
-      obs.observe(card);
-      observers.push(obs);
-    });
-    return () => observers.forEach((o) => o.disconnect());
-  }, []);
-
   return (
     <>
-      <section className="pc" ref={sectionRef}>
+      <section className="pc">
         {/* Section header */}
         <div className="content-wrap pc__header">
           <h2 className="pc__header-title">Selected Work</h2>
@@ -40,44 +17,53 @@ export default function ProjectCarousel() {
           </div>
         </div>
 
-        {/* Three-zone layout */}
-        <div className="content-wrap pc__layout">
-          {/* Left — Thumbnails */}
-          <div className="pc__thumbs">
-            {projects.map((p, i) => (
-              <button
-                key={p.slug}
-                className={`pc__thumb ${i === activeIndex ? 'pc__thumb--active' : ''}`}
-                style={{
-                  borderColor: i === activeIndex ? p.accentColor : 'transparent',
-                  backgroundColor: `${p.accentColor}22`,
-                }}
-                onClick={() => {
-                  cardRefs.current[i]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }}
-                aria-label={`View ${p.title}`}
-              >
-                <span style={{ color: p.accentColor }}>{p.initial}</span>
-              </button>
-            ))}
-          </div>
-
-          {/* Center — Project cards */}
-          <div className="pc__cards">
-            {projects.map((p, i) => (
+        {/* 2-column grid */}
+        <div className="content-wrap pc__grid">
+          {projects.map((p, i) => (
+            <article key={p.slug} className="gd-card">
+              <div className="gd-card__text">
+                <div>
+                  <h3 className="gd-card__title">{p.title}</h3>
+                  <p className="gd-card__desc">{p.subtitle}</p>
+                </div>
+                <div className="gd-card__ctas">
+                  <a
+                    href={`/project/${p.slug}`}
+                    className="gd-cta"
+                    style={{ '--cta-accent': p.accentColor } as React.CSSProperties}
+                    onClick={(e) => {
+                      const img = (e.currentTarget.closest('.gd-card') as HTMLElement)?.querySelector('.gd-card__img') as HTMLImageElement;
+                      if (img) {
+                        e.preventDefault();
+                        const rect = img.getBoundingClientRect();
+                        sessionStorage.setItem('ak-project-rect', JSON.stringify({
+                          top: rect.top, left: rect.left, width: rect.width, height: rect.height,
+                          slug: p.slug, coverImage: p.coverImage,
+                        }));
+                        window.location.href = `/project/${p.slug}`;
+                      }
+                    }}
+                  >
+                    Full Case Study
+                  </a>
+                  {(decks as Record<string, unknown>)[p.slug] && (
+                    <a
+                      href={`/deck/${p.slug}`}
+                      className="gd-cta"
+                      style={{ '--cta-accent': p.accentColor } as React.CSSProperties}
+                    >
+                      Quick Read
+                    </a>
+                  )}
+                </div>
+              </div>
               <a
-                key={p.slug}
-                ref={(el) => { cardRefs.current[i] = el as HTMLDivElement; }}
-                className="pc__card"
-                data-cursor="View"
                 href={`/project/${p.slug}`}
-                style={{
-                  borderColor: `${p.accentColor}26`,
-                  background: `linear-gradient(135deg, var(--card-bg), ${p.accentColor}08)`,
-                }}
+                className="gd-card__img-link"
+                data-cursor="View"
                 onClick={(e) => {
                   e.preventDefault();
-                  const img = e.currentTarget.querySelector('.pc__card-cover') as HTMLImageElement;
+                  const img = (e.currentTarget as HTMLElement).querySelector('.gd-card__img') as HTMLImageElement;
                   if (img) {
                     const rect = img.getBoundingClientRect();
                     sessionStorage.setItem('ak-project-rect', JSON.stringify({
@@ -90,29 +76,18 @@ export default function ProjectCarousel() {
               >
                 <img
                   src={p.coverImage}
-                  alt=""
-                  aria-hidden="true"
-                  className="pc__card-cover"
-                  loading={i === 0 ? 'eager' : 'lazy'}
+                  alt={p.title}
+                  className="gd-card__img"
+                  loading={i < 2 ? 'eager' : 'lazy'}
                 />
-                <div className="pc__card-gradient" />
-                <div className="pc__card-inner">
-                  <h3 className="pc__card-title">{p.title}</h3>
-                  <span className="pc__card-meta">{p.category} · {p.year}</span>
-                </div>
               </a>
-            ))}
-          </div>
+            </article>
+          ))}
+        </div>
 
-          {/* Right — Sticky metadata */}
-          <div className="pc__meta">
-            <div className="pc__meta-inner">
-              <div className="pc__meta-year" key={`year-${active.year}`}>{active.year}</div>
-              <div className="pc__meta-role" key={`role-${active.slug}`}>{active.role}</div>
-              <p className="pc__meta-desc" key={`desc-${active.slug}`}>{active.overview}</p>
-              <a href="/projects" className="pc__meta-link">All projects <span aria-hidden="true">↗</span></a>
-            </div>
-          </div>
+        {/* View all link */}
+        <div className="content-wrap pc__footer">
+          <a href="/projects" className="pc__all-link">View all projects <span aria-hidden="true">↗</span></a>
         </div>
       </section>
 
@@ -149,187 +124,131 @@ export default function ProjectCarousel() {
           font-family: var(--font-body);
         }
 
-        .pc__header-sep {
-          opacity: 0.3;
-        }
+        .pc__header-sep { opacity: 0.3; }
+        .pc__header-count { font-weight: 500; }
+        .pc__header-year { font-variant-numeric: tabular-nums; }
 
-        .pc__header-count {
-          font-weight: 500;
-        }
-
-        .pc__header-year {
-          font-variant-numeric: tabular-nums;
-        }
-
-        /* Three-zone layout */
-        .pc__layout {
+        /* ── Grid ── */
+        .pc__grid {
           display: grid;
-          grid-template-columns: 80px 1fr 280px;
-          gap: 32px;
-          align-items: start;
+          grid-template-columns: 1fr 1fr;
+          gap: 32px 28px;
         }
 
-        /* Thumbnails */
-        .pc__thumbs {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-          position: sticky;
-          top: 120px;
-        }
-
-        .pc__thumb {
-          width: 60px;
-          height: 60px;
-          border: 2px solid transparent;
-          border-radius: var(--radius-md);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-family: var(--font-heading-condensed);
-          font-size: 24px;
-          opacity: 0.75;
-          transition: opacity 0.3s, border-color 0.3s;
-          cursor: pointer;
-        }
-
-        .pc__thumb:hover,
-        .pc__thumb:focus-visible {
-          opacity: 1;
-        }
-
-        .pc__thumb--active {
-          opacity: 1;
-        }
-
-        /* Cards */
-        .pc__cards {
-          display: flex;
-          flex-direction: column;
-          gap: 120px;
-          max-width: 100%;
-        }
-
-        .pc__card {
-          position: relative;
-          aspect-ratio: 16 / 9;
-          border: 1px solid;
+        /* ── Card (shared with projects page via same class names) ── */
+        .gd-card {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0;
           border-radius: var(--radius-lg);
           overflow: hidden;
+          background: var(--card-bg);
+          border: 1px solid var(--border);
+          transition: border-color 0.3s ease;
+        }
+
+        .gd-card:hover {
+          border-color: var(--text-muted);
+        }
+
+        .gd-card__text {
           display: flex;
           flex-direction: column;
-          justify-content: flex-end;
-          padding: 32px;
-          transition: transform 0.3s var(--ease-out-expo);
+          justify-content: space-between;
+          padding: 32px 28px;
+          min-height: 280px;
         }
 
-        .pc__card:hover {
-          transform: scale(1.01);
-          box-shadow: 0 12px 40px var(--shadow-light);
-        }
-
-        .pc__card-cover {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
-          object-position: center;
-          transition: transform 0.5s var(--ease-out-expo);
-          pointer-events: none;
-        }
-
-        .pc__card:hover .pc__card-cover {
-          transform: scale(1.05);
-        }
-
-        .pc__card-gradient {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(to top, var(--gradient-overlay) 0%, var(--gradient-mid) 40%, var(--gradient-light) 70%, transparent 100%);
-          pointer-events: none;
-        }
-
-        .pc__card-inner {
-          position: relative;
-          z-index: 1;
-        }
-
-        .pc__card-meta {
-          font-size: 12px;
-          font-weight: 500;
-          color: var(--text-muted);
-          letter-spacing: 1px;
-          text-transform: uppercase;
-          margin-top: 6px;
-          display: block;
-        }
-
-        .pc__card-title {
+        .gd-card__title {
           font-family: var(--font-display);
-          font-size: 28px;
+          font-size: 24px;
           font-weight: 700;
           color: var(--text);
-          text-shadow: 0 2px 12px var(--shadow-color);
+          line-height: 1.2;
+          margin-bottom: 12px;
         }
 
-        /* Metadata */
-        .pc__meta {
-          position: sticky;
-          top: 120px;
-        }
-
-        .pc__meta-inner {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-        }
-
-        .pc__meta-year {
-          font-family: var(--font-display);
-          font-size: 36px;
-          font-weight: 700;
-          color: var(--text);
-          animation: fadeSlide 0.4s var(--ease-out-expo);
-        }
-
-        .pc__meta-role {
-          font-size: 15px;
-          color: var(--text);
-          animation: fadeSlide 0.4s var(--ease-out-expo) 0.05s both;
-        }
-
-        .pc__meta-desc {
+        .gd-card__desc {
+          font-family: var(--font-body);
           font-size: 14px;
           color: var(--text-muted);
           line-height: 1.6;
-          animation: fadeSlide 0.4s var(--ease-out-expo) 0.1s both;
+          flex: 1;
         }
 
-        .pc__meta-link {
-          font-size: 14px;
+        .gd-card__ctas {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-top: 24px;
+        }
+
+        .gd-cta {
+          display: inline-block;
+          padding: 8px 20px;
+          font-family: var(--font-body);
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 0.3px;
+          color: var(--text);
+          border: 1px solid var(--border);
+          border-radius: 999px;
+          text-decoration: none;
+          transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.15s ease;
+          cursor: none;
+        }
+
+        .gd-cta:hover {
+          background: var(--cta-accent, var(--accent));
+          border-color: var(--cta-accent, var(--accent));
+          color: #000;
+          transform: translateY(-1px);
+        }
+
+        .gd-card__img-link {
+          display: block;
+          overflow: hidden;
+          aspect-ratio: 4 / 3;
+        }
+
+        .gd-card__img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          transition: transform 0.5s var(--ease-out-expo);
+        }
+
+        .gd-card:hover .gd-card__img {
+          transform: scale(1.05);
+        }
+
+        /* Footer link */
+        .pc__footer {
+          text-align: center;
+          margin-top: 48px;
+        }
+
+        .pc__all-link {
+          font-size: 15px;
           font-weight: 600;
           color: var(--accent);
           text-decoration: none;
           transition: color 0.2s;
         }
 
-        .pc__meta-link:hover {
+        .pc__all-link:hover {
           color: var(--accent-hover);
         }
 
-        @keyframes fadeSlide {
-          from {
-            opacity: 0;
-            transform: translateY(8px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
+        /* ── Mobile ── */
+        @media (max-width: 1024px) {
+          .pc__grid {
+            grid-template-columns: 1fr;
+            gap: 24px;
           }
         }
 
-        /* ── Mobile ── */
         @media (max-width: 768px) {
           .pc {
             padding: 64px 0 48px;
@@ -342,38 +261,23 @@ export default function ProjectCarousel() {
             margin-bottom: 32px;
           }
 
-          .pc__layout {
-            display: flex;
-            flex-direction: column;
-            gap: 48px;
+          .gd-card {
+            grid-template-columns: 1fr;
           }
 
-          .pc__thumbs,
-          .pc__meta {
-            display: none;
+          .gd-card__img-link {
+            order: -1;
+            aspect-ratio: 16 / 9;
           }
 
-          .pc__cards {
-            gap: 48px;
-            max-width: 100%;
+          .gd-card__text {
+            min-height: auto;
+            padding: 24px 20px;
           }
 
-          .pc__card {
-            aspect-ratio: 3 / 2;
-            cursor: pointer;
+          .gd-card__title {
+            font-size: 20px;
           }
-
-
-          .pc__card-inner {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-          }
-
-          .pc__card-title {
-            font-size: 22px;
-          }
-
         }
       `}</style>
     </>
