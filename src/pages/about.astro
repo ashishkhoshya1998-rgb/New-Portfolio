@@ -93,14 +93,6 @@ const services = [
   { num: '04', title: 'Build with AI', desc: 'End-to-end product development using AI-native tools — from ideation to shipped product. Fluent in AI-assisted design, prototyping, and full-stack execution.' },
 ];
 
-const skills = {
-  craft: ['Design Systems', 'Interaction Design', 'Visual Design', 'Information Architecture', 'Wireframing', 'Prototyping'],
-  research: ['User Research', 'Usability Testing', 'Field Studies', 'Journey Mapping', 'Stakeholder Interviews', 'Data-Driven Design'],
-  strategy: ['Product Architecture', 'Ecosystem Design', 'Project Management', 'Cross-functional Leadership', 'Communication & Collaboration'],
-  ai: ['AI-Native Product Development', 'Prompt Engineering', 'AI-Assisted Prototyping', 'AI Workflow Integration', 'Full-Stack AI Execution'],
-};
-
-const tools = ['Figma', 'FigJam', 'Sketch', 'Storybook', 'Adobe Creative Suite', 'Framer', 'Notion', 'Jira/Linear', 'Claude Code', 'Cursor', 'v0', 'Figma Make'];
 ---
 
 <Layout title="About — Ashish Khoshya" description="About Ashish Khoshya — Senior Product Designer with 5+ years in design systems, enterprise UX, and product architecture.">
@@ -234,40 +226,7 @@ const tools = ['Figma', 'FigJam', 'Sketch', 'Storybook', 'Adobe Creative Suite',
       </a>
     </section>
 
-    <!-- 6. Skills -->
-    <section class="about__skills content-wrap" data-about-section aria-labelledby="about-skills-heading">
-      <h2 id="about-skills-heading" class="sr-only">Skills</h2>
-      <div class="about__skills-labels" aria-hidden="true">
-        <span class="section-label-devanagari" lang="hi">(कौशल)</span>
-        <span class="section-label">Skills</span>
-      </div>
-      <div class="about__skills-grid">
-        <div class="about__skills-col">
-          <h3 class="about__skills-heading">Craft</h3>
-          {skills.craft.map((s) => <span class="about__skill-tag">{s}</span>)}
-        </div>
-        <div class="about__skills-col">
-          <h3 class="about__skills-heading">Research</h3>
-          {skills.research.map((s) => <span class="about__skill-tag">{s}</span>)}
-        </div>
-        <div class="about__skills-col">
-          <h3 class="about__skills-heading">Strategy</h3>
-          {skills.strategy.map((s) => <span class="about__skill-tag">{s}</span>)}
-        </div>
-        <div class="about__skills-col">
-          <h3 class="about__skills-heading">AI</h3>
-          {skills.ai.map((s) => <span class="about__skill-tag">{s}</span>)}
-        </div>
-      </div>
-      <div class="about__tools">
-        <h3 class="about__skills-heading">Tools</h3>
-        <div class="about__tools-row">
-          {tools.map((t) => <span class="about__skill-tag">{t}</span>)}
-        </div>
-      </div>
-    </section>
-
-    <!-- 7. Education & Certifications -->
+    <!-- 6. Education & Certifications -->
     <section class="about__education content-wrap" data-about-section aria-labelledby="about-education-heading">
       <h2 id="about-education-heading" class="sr-only">Education and Certifications</h2>
       <div class="about__edu-certs-grid">
@@ -668,65 +627,6 @@ const tools = ['Figma', 'FigJam', 'Sketch', 'Storybook', 'Adobe Creative Suite',
   }
 
   /* 6. Skills */
-  .about__skills {
-    padding-bottom: 80px;
-  }
-
-  .about__skills-labels {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-    margin-bottom: 32px;
-  }
-
-  .about__skills-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 32px;
-    margin-bottom: 32px;
-  }
-
-  .about__skills-col {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .about__skills-heading {
-    font-family: var(--font-body);
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--accent);
-    margin-bottom: 8px;
-  }
-
-  .about__skill-tag {
-    font-size: 14px;
-    color: var(--text-muted);
-    padding: 6px 12px;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-full);
-    display: inline-block;
-    margin: 0 6px 6px 0;
-    transition: border-color 0.2s;
-  }
-
-  .about__skill-tag:hover {
-    border-color: var(--accent);
-    color: var(--text);
-  }
-
-  .about__tools {
-    padding-top: 16px;
-  }
-
-  .about__tools-row {
-    display: flex;
-    flex-wrap: wrap;
-  }
 
   /* 7. Education & Certifications */
   .about__education {
@@ -1016,25 +916,6 @@ const tools = ['Figma', 'FigJam', 'Sketch', 'Storybook', 'Adobe Creative Suite',
     .about__metric-badge {
       font-size: 11px;
       padding: 2px 8px;
-    }
-
-    /* Skills */
-    .about__skills {
-      padding-bottom: 48px;
-    }
-
-    .about__skills-labels {
-      margin-bottom: 20px;
-    }
-
-    .about__skills-grid {
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-
-    .about__skill-tag {
-      font-size: 13px;
-      padding: 5px 10px;
     }
 
     /* Education & Certs */

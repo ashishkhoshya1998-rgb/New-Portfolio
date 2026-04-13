@@ -227,6 +227,7 @@ export default function ProjectCarousel() {
           object-fit: cover;
           object-position: center;
           border-radius: 8px;
+          border: 1px solid var(--border);
           transition: transform 0.5s var(--ease-out-expo), border-radius 0.5s var(--ease-out-expo);
         }
 
