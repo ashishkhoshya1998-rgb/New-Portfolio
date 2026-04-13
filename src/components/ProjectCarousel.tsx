@@ -29,9 +29,8 @@ export default function ProjectCarousel() {
                 <div className="gd-card__ctas">
                   <a
                     href={`/project/${p.slug}`}
-                    className="gd-cta-link"
+                    className="gd-cta"
                     style={{ '--cta-accent': p.accentColor } as React.CSSProperties}
-                    data-cursor="View"
                     onClick={(e) => {
                       const img = (e.currentTarget.closest('.gd-card') as HTMLElement)?.querySelector('.gd-card__img') as HTMLImageElement;
                       if (img) {
@@ -46,18 +45,17 @@ export default function ProjectCarousel() {
                     }}
                   >
                     {p.slug === 'memoir' && (
-                      <svg className="gd-cta-lock" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                      <svg className="gd-cta__lock" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                     )}
-                    Full Case Study <span aria-hidden="true">→</span>
+                    Full Case Study
                   </a>
                   {(decks as Record<string, unknown>)[p.slug] && (
                     <a
                       href={`/deck/${p.slug}`}
-                      className="gd-cta-link"
+                      className="gd-cta"
                       style={{ '--cta-accent': p.accentColor } as React.CSSProperties}
-                      data-cursor="Read"
                     >
-                      Quick Read <span aria-hidden="true">↗</span>
+                      Quick Read
                     </a>
                   )}
                 </div>
@@ -176,31 +174,42 @@ export default function ProjectCarousel() {
 
         .gd-card__ctas {
           display: flex;
-          flex-wrap: nowrap;
-          gap: 20px;
+          flex-wrap: wrap;
+          gap: 8px;
           margin-top: 24px;
         }
 
-        .gd-cta-link {
+        .gd-cta {
           display: inline-flex;
           align-items: center;
-          gap: 6px;
+          gap: 5px;
+          padding: 6px 14px;
           font-family: var(--font-body);
-          font-size: 13px;
+          font-size: 12px;
           font-weight: 600;
-          color: var(--cta-accent, var(--accent));
+          letter-spacing: 0.3px;
+          color: var(--text);
+          border: 1px solid var(--border);
+          border-radius: 6px;
           text-decoration: none;
-          transition: opacity 0.2s ease;
+          transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.15s ease;
           cursor: none;
         }
 
-        .gd-cta-link:hover {
-          opacity: 0.7;
+        .gd-cta:hover {
+          background: var(--cta-accent, var(--accent));
+          border-color: var(--cta-accent, var(--accent));
+          color: #000;
+          transform: translateY(-1px);
         }
 
-        .gd-cta-lock {
-          opacity: 0.6;
+        .gd-cta__lock {
+          opacity: 0.5;
           flex-shrink: 0;
+        }
+
+        .gd-cta:hover .gd-cta__lock {
+          opacity: 0.8;
         }
 
         .gd-card__img-link {
