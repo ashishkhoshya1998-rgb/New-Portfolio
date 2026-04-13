@@ -262,26 +262,33 @@ const {
     <!-- Custom cursor logic -->
     <script is:inline>
     (function() {
+      // Prevent duplicate initialization across view transitions
+      if (window.__akCursorInit) return;
+      window.__akCursorInit = true;
+
       if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-      var cursor = document.getElementById('ak-cursor');
-      if (!cursor) return;
-
-      var textEl = cursor.querySelector('.ak-cursor__text');
+      var cursor, textEl;
       var mx = -100, my = -100, cx = -100, cy = -100;
-      var state = 'default'; // 'default' | 'expand' | 'hidden'
+      var state = 'default';
       var currentLabel = '';
       var visible = false;
       var rafId = null;
 
-      var SCALE_DEFAULT = 0.28;  // ~13px dot
-      var SCALE_EXPAND = 1;      // full 48px
+      var SCALE_DEFAULT = 0.28;
+      var SCALE_EXPAND = 1;
       var currentScale = SCALE_DEFAULT;
+
+      function grab() {
+        cursor = document.getElementById('ak-cursor');
+        textEl = cursor ? cursor.querySelector('.ak-cursor__text') : null;
+      }
 
       function lerp(a, b, n) { return a + (b - a) * n; }
 
       function render() {
+        if (!cursor) { rafId = requestAnimationFrame(render); return; }
         cx = lerp(cx, mx, 0.15);
         cy = lerp(cy, my, 0.15);
         var targetScale = state === 'expand' ? SCALE_EXPAND : SCALE_DEFAULT;
@@ -290,26 +297,13 @@ const {
         rafId = requestAnimationFrame(render);
       }
 
-      function walkUp(el, maxDepth) {
-        var node = el;
-        for (var i = 0; i < maxDepth; i++) {
-          if (!node) break;
-          if (node.nodeType === 1) return node;
-          node = node.parentElement;
-        }
-        return null;
-      }
-
       function getState(el) {
         if (!el) return 'default';
         var node = el;
         for (var i = 0; i < 8; i++) {
           if (!node || !node.getAttribute) break;
-          // CTAs: hide cursor, let button highlight itself
           if (node.classList && node.classList.contains('gd-cta')) return 'hidden';
-          // Cards with data-cursor: expand and show label
           if (node.getAttribute('data-cursor')) return 'expand';
-          // Generic interactive
           var tag = node.tagName;
           if (tag === 'A' || tag === 'BUTTON') return 'expand';
           node = node.parentElement;
@@ -332,6 +326,10 @@ const {
       document.addEventListener('mousemove', function(e) {
         mx = e.clientX;
         my = e.clientY;
+
+        if (!cursor) grab();
+        if (!cursor) return;
+
         if (!visible) {
           visible = true;
           cursor.classList.add('ak-cursor--visible');
@@ -349,28 +347,38 @@ const {
         }
         if (label !== currentLabel) {
           currentLabel = label;
-          textEl.textContent = label;
+          if (textEl) textEl.textContent = label;
           cursor.classList.toggle('ak-cursor--label', state === 'expand' && !!label);
         }
       });
 
       document.addEventListener('mouseleave', function() {
         visible = false;
-        cursor.classList.remove('ak-cursor--visible');
+        if (cursor) cursor.classList.remove('ak-cursor--visible');
       });
 
       document.addEventListener('mousedown', function() {
-        cursor.classList.add('ak-cursor--press');
+        if (cursor) cursor.classList.add('ak-cursor--press');
       });
       document.addEventListener('mouseup', function() {
-        cursor.classList.remove('ak-cursor--press');
+        if (cursor) cursor.classList.remove('ak-cursor--press');
       });
 
+      // After view transition: re-grab DOM, reset visibility so next mousemove re-shows
       document.addEventListener('astro:after-swap', function() {
-        cursor = document.getElementById('ak-cursor');
-        if (cursor) textEl = cursor.querySelector('.ak-cursor__text');
+        grab();
+        visible = false;
+        state = 'default';
+        currentLabel = '';
+        // Immediately show if mouse is already on the page
+        if (cursor && mx > 0 && my > 0) {
+          cx = mx; cy = mx;
+          visible = true;
+          cursor.classList.add('ak-cursor--visible');
+        }
       });
 
+      grab();
       render();
     })();
     </script>
