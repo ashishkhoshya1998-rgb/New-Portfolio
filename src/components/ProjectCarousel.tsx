@@ -29,8 +29,9 @@ export default function ProjectCarousel() {
                 <div className="gd-card__ctas">
                   <a
                     href={`/project/${p.slug}`}
-                    className="gd-cta"
+                    className="gd-cta-link"
                     style={{ '--cta-accent': p.accentColor } as React.CSSProperties}
+                    data-cursor="View"
                     onClick={(e) => {
                       const img = (e.currentTarget.closest('.gd-card') as HTMLElement)?.querySelector('.gd-card__img') as HTMLImageElement;
                       if (img) {
@@ -44,15 +45,19 @@ export default function ProjectCarousel() {
                       }
                     }}
                   >
-                    Full Case Study
+                    {p.slug === 'memoir' && (
+                      <svg className="gd-cta-lock" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    )}
+                    Full Case Study <span aria-hidden="true">→</span>
                   </a>
                   {(decks as Record<string, unknown>)[p.slug] && (
                     <a
                       href={`/deck/${p.slug}`}
-                      className="gd-cta"
+                      className="gd-cta-link"
                       style={{ '--cta-accent': p.accentColor } as React.CSSProperties}
+                      data-cursor="Read"
                     >
-                      Quick Read
+                      Quick Read <span aria-hidden="true">↗</span>
                     </a>
                   )}
                 </div>
@@ -171,31 +176,31 @@ export default function ProjectCarousel() {
 
         .gd-card__ctas {
           display: flex;
-          flex-wrap: wrap;
-          gap: 10px;
+          flex-wrap: nowrap;
+          gap: 20px;
           margin-top: 24px;
         }
 
-        .gd-cta {
-          display: inline-block;
-          padding: 8px 20px;
+        .gd-cta-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
           font-family: var(--font-body);
-          font-size: 12px;
+          font-size: 13px;
           font-weight: 600;
-          letter-spacing: 0.3px;
-          color: var(--text);
-          border: 1px solid var(--border);
-          border-radius: 999px;
+          color: var(--cta-accent, var(--accent));
           text-decoration: none;
-          transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.15s ease;
+          transition: opacity 0.2s ease;
           cursor: none;
         }
 
-        .gd-cta:hover {
-          background: var(--cta-accent, var(--accent));
-          border-color: var(--cta-accent, var(--accent));
-          color: #000;
-          transform: translateY(-1px);
+        .gd-cta-link:hover {
+          opacity: 0.7;
+        }
+
+        .gd-cta-lock {
+          opacity: 0.6;
+          flex-shrink: 0;
         }
 
         .gd-card__img-link {

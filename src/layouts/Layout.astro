@@ -302,7 +302,7 @@ const {
         var node = el;
         for (var i = 0; i < 8; i++) {
           if (!node || !node.getAttribute) break;
-          if (node.classList && node.classList.contains('gd-cta')) return 'hidden';
+          if (node.classList && node.classList.contains('gd-cta-link')) return 'expand';
           if (node.getAttribute('data-cursor')) return 'expand';
           var tag = node.tagName;
           if (tag === 'A' || tag === 'BUTTON') return 'expand';
