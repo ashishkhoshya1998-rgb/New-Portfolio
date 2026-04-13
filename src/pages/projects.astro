@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import TopNav from '../components/TopNav';
 import FooterCTA from '../components/FooterCTA.astro';
 import { projects } from '../data/projects';
+import { decks } from '../data/decks';
 
 // Sort projects by year descending (newest first)
 const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
@@ -49,9 +50,16 @@ const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
                 <span class="proj-page__meta-label">Category</span>
                 <span class="proj-page__meta-value">{p.category}</span>
               </div>
-              <a href={`/project/${p.slug}`} class="proj-page__meta-cta" style={`color: ${p.accentColor}`}>
-                Explore Project <span aria-hidden="true">→</span>
-              </a>
+              <div class="proj-page__meta-ctas">
+                <a href={`/project/${p.slug}`} class="proj-page__meta-cta" style={`color: ${p.accentColor}`} data-cursor="View">
+                  Full Case Study <span aria-hidden="true">→</span>
+                </a>
+                {decks[p.slug] && (
+                  <a href={`/deck/${p.slug}`} class="proj-page__meta-cta proj-page__meta-cta--deck" data-cursor="Read">
+                    Quick Read <span aria-hidden="true">↗</span>
+                  </a>
+                )}
+              </div>
             </div>
           ))}
         </div>
@@ -60,10 +68,10 @@ const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
       <!-- Right — Project cards -->
       <div class="proj-page__cards">
         {sorted.map((p, i) => (
-          <a
-            href={`/project/${p.slug}`}
+          <div
             class="proj-page__card"
             data-card-index={i}
+            data-cursor="View"
             style={`border-color: ${p.accentColor}26; background: linear-gradient(135deg, var(--card-bg), ${p.accentColor}08);`}
           >
             <img
@@ -79,8 +87,19 @@ const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
             <div class="proj-page__card-inner">
               <h2 class="proj-page__card-title">{p.title}</h2>
               <span class="proj-page__card-meta">{p.category} · {p.year}</span>
+              <div class="proj-page__card-ctas">
+                <a href={`/project/${p.slug}`} class="proj-page__card-cta" style={`border-color: ${p.accentColor}60; color: var(--text);`}>
+                  Full Case Study
+                </a>
+                {decks[p.slug] && (
+                  <a href={`/deck/${p.slug}`} class="proj-page__card-cta proj-page__card-cta--deck" style={`border-color: ${p.accentColor}60; color: var(--text);`}>
+                    Quick Read
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  </a>
+                )}
+              </div>
             </div>
-          </a>
+          </div>
         ))}
       </div>
     </div>
@@ -211,17 +230,29 @@ const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
     color: var(--text);
   }
 
+  .proj-page__meta-ctas {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
   .proj-page__meta-cta {
     display: inline-block;
     font-size: 14px;
     font-weight: 600;
     text-decoration: none;
-    margin-top: 8px;
     transition: opacity 0.2s;
   }
 
   .proj-page__meta-cta:hover {
     opacity: 0.7;
+  }
+
+  .proj-page__meta-cta--deck {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
   }
 
   /* Cards */
@@ -241,7 +272,6 @@ const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
     flex-direction: column;
     justify-content: flex-end;
     padding: 32px;
-    text-decoration: none;
     transition: transform 0.3s var(--ease-out-expo);
   }
 
@@ -295,6 +325,52 @@ const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
     text-shadow: 0 2px 12px var(--shadow-color);
   }
 
+  /* Card CTAs */
+  .proj-page__card-ctas {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .proj-page__card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border: 1px solid;
+    border-radius: 999px;
+    text-decoration: none;
+    backdrop-filter: blur(12px);
+    background: rgba(0, 0, 0, 0.3);
+    transition: background 0.25s ease, transform 0.15s ease;
+  }
+
+  [data-theme="light"] .proj-page__card-cta {
+    background: rgba(255, 255, 255, 0.65);
+  }
+
+  .proj-page__card-cta:hover {
+    background: rgba(0, 0, 0, 0.5);
+    transform: translateY(-1px);
+  }
+
+  [data-theme="light"] .proj-page__card-cta:hover {
+    background: rgba(255, 255, 255, 0.85);
+  }
+
+  .proj-page__card-cta--deck {
+    font-weight: 500;
+    opacity: 0.85;
+  }
+
+  .proj-page__card-cta--deck svg {
+    opacity: 0.7;
+  }
+
   /* Mobile */
   @media (max-width: 768px) {
     .proj-page {
@@ -345,19 +421,21 @@ const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
   }
 
   function initProjectsPage() {
-    // Capture image rect on card click for GSAP transition
+    // Capture image rect on CTA click for GSAP transition
     document.querySelectorAll('.proj-page__card').forEach((card) => {
-      card.addEventListener('click', (e) => {
-        e.preventDefault();
-        const img = card.querySelector('.proj-page__card-cover') as HTMLImageElement;
-        if (img) {
-          const rect = img.getBoundingClientRect();
-          sessionStorage.setItem('ak-project-rect', JSON.stringify({
-            top: rect.top, left: rect.left, width: rect.width, height: rect.height,
-            slug: img.dataset.slug, coverImage: img.dataset.cover,
-          }));
-        }
-        window.location.href = (card as HTMLAnchorElement).href;
+      card.querySelectorAll('.proj-page__card-cta').forEach((cta) => {
+        cta.addEventListener('click', (e) => {
+          const img = card.querySelector('.proj-page__card-cover') as HTMLImageElement;
+          if (img && (cta as HTMLAnchorElement).href.includes('/project/')) {
+            e.preventDefault();
+            const rect = img.getBoundingClientRect();
+            sessionStorage.setItem('ak-project-rect', JSON.stringify({
+              top: rect.top, left: rect.left, width: rect.width, height: rect.height,
+              slug: img.dataset.slug, coverImage: img.dataset.cover,
+            }));
+            window.location.href = (cta as HTMLAnchorElement).href;
+          }
+        });
       });
     });
 

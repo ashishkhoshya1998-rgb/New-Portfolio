@@ -218,6 +218,11 @@ const {
 
     <slot />
 
+    <!-- Custom cursor (Google Design style) -->
+    <div id="ak-cursor" class="ak-cursor" aria-hidden="true">
+      <span class="ak-cursor__text"></span>
+    </div>
+
     <!-- Loading screen logic — vanilla JS, no framework -->
     <script is:inline>
       (function() {
@@ -252,6 +257,104 @@ const {
         var incomingLoader = e.newDocument.getElementById('ak-loader');
         if (incomingLoader) incomingLoader.remove();
       });
+    </script>
+
+    <!-- Custom cursor logic -->
+    <script is:inline>
+    (function() {
+      // Skip on touch devices
+      if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      var cursor = document.getElementById('ak-cursor');
+      if (!cursor) return;
+
+      var textEl = cursor.querySelector('.ak-cursor__text');
+      var mx = -100, my = -100, cx = -100, cy = -100;
+      var isHover = false;
+      var currentLabel = '';
+      var visible = false;
+      var rafId = null;
+
+      function lerp(a, b, n) { return a + (b - a) * n; }
+
+      function render() {
+        cx = lerp(cx, mx, 0.15);
+        cy = lerp(cy, my, 0.15);
+        cursor.style.transform = 'translate(' + cx + 'px,' + cy + 'px) translate(-50%,-50%) scale(' + (isHover ? 1 : 0.18) + ')';
+        rafId = requestAnimationFrame(render);
+      }
+
+      function getCursorLabel(el) {
+        if (!el) return '';
+        // Walk up to find data-cursor attribute
+        var node = el;
+        for (var i = 0; i < 6; i++) {
+          if (!node) break;
+          var lbl = node.getAttribute && node.getAttribute('data-cursor');
+          if (lbl) return lbl;
+          node = node.parentElement;
+        }
+        return '';
+      }
+
+      function isInteractive(el) {
+        if (!el) return false;
+        var node = el;
+        for (var i = 0; i < 6; i++) {
+          if (!node) break;
+          var tag = node.tagName;
+          if (tag === 'A' || tag === 'BUTTON' || (node.getAttribute && node.getAttribute('data-cursor'))) return true;
+          if (node.classList && (node.classList.contains('proj-page__card') || node.classList.contains('pc__card'))) return true;
+          node = node.parentElement;
+        }
+        return false;
+      }
+
+      document.addEventListener('mousemove', function(e) {
+        mx = e.clientX;
+        my = e.clientY;
+        if (!visible) {
+          visible = true;
+          cursor.classList.add('ak-cursor--visible');
+          if (!rafId) render();
+        }
+
+        var target = document.elementFromPoint(e.clientX, e.clientY);
+        var shouldHover = isInteractive(target);
+        var label = getCursorLabel(target);
+
+        if (shouldHover !== isHover) {
+          isHover = shouldHover;
+          cursor.classList.toggle('ak-cursor--hover', isHover);
+        }
+        if (label !== currentLabel) {
+          currentLabel = label;
+          textEl.textContent = label;
+          cursor.classList.toggle('ak-cursor--label', !!label);
+        }
+      });
+
+      document.addEventListener('mouseleave', function() {
+        visible = false;
+        cursor.classList.remove('ak-cursor--visible');
+      });
+
+      document.addEventListener('mousedown', function() {
+        cursor.classList.add('ak-cursor--press');
+      });
+      document.addEventListener('mouseup', function() {
+        cursor.classList.remove('ak-cursor--press');
+      });
+
+      // Re-init on view transitions
+      document.addEventListener('astro:after-swap', function() {
+        cursor = document.getElementById('ak-cursor');
+        if (cursor) textEl = cursor.querySelector('.ak-cursor__text');
+      });
+
+      render();
+    })();
     </script>
   </body>
 </html>

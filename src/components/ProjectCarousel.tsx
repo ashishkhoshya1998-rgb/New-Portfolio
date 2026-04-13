@@ -69,6 +69,7 @@ export default function ProjectCarousel() {
                 key={p.slug}
                 ref={(el) => { cardRefs.current[i] = el as HTMLDivElement; }}
                 className="pc__card"
+                data-cursor="View"
                 href={`/project/${p.slug}`}
                 style={{
                   borderColor: `${p.accentColor}26`,
