@@ -338,11 +338,15 @@ export default function ProjectCarousel() {
           font-weight: 600;
           color: var(--accent);
           text-decoration: none;
-          transition: color 0.2s;
+          padding: 8px 16px;
+          border-radius: 8px;
+          transition: color 0.2s, background 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+          cursor: none;
         }
 
         .pc__all-link:hover {
-          color: var(--accent-hover);
+          color: var(--accent);
+          background: var(--overlay-soft);
         }
 
         /* ── Mobile — keep as-is ── */

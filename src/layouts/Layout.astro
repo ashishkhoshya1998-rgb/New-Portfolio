@@ -478,4 +478,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     background: var(--accent);
     transition: width 1.5s var(--ease-out-expo);
   }
+
+  /* ── Global: themed hover highlight for all interactive elements ── */
+  /* Excludes elements with their own fluid highlight systems */
+  a:not(.topnav__link):not(.topnav__cta):not(.topnav__brand):not(.topnav__socials-dropdown-link):not(.gd-cta):not(.mobile-menu__link):not(.mobile-menu__cta):not(.mobile-menu__social):not(.skip-link):not(.footer__email),
+  button:not(.topnav__theme-toggle):not(.topnav__socials-btn):not(.topnav__hamburger):not(.mobile-menu__close) {
+    cursor: none;
+  }
 </style>

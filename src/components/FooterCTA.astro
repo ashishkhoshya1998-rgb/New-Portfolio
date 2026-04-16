@@ -15,15 +15,21 @@
   <!-- 2. Links -->
   <div class="content-wrap footer__links" data-footer-section>
     <div class="footer__links-grid">
-      <div class="footer__links-col">
+      <div class="footer__links-col" data-footer-fluid>
         <span class="footer__links-label">Socials</span>
-        <a href="https://www.linkedin.com/in/ashish-khoshya-676b99183/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in new tab)">LinkedIn</a>
-        <a href="https://www.behance.net/ashishkhos9d01" target="_blank" rel="noopener noreferrer" aria-label="Behance (opens in new tab)">Behance</a>
-        <a href="https://github.com/ashishkhoshya1998-rgb" target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in new tab)">GitHub</a>
+        <div class="footer__fluid-wrap">
+          <span class="footer__fluid-highlight"></span>
+          <a href="https://www.linkedin.com/in/ashish-khoshya-676b99183/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in new tab)">LinkedIn</a>
+          <a href="https://www.behance.net/ashishkhos9d01" target="_blank" rel="noopener noreferrer" aria-label="Behance (opens in new tab)">Behance</a>
+          <a href="https://github.com/ashishkhoshya1998-rgb" target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in new tab)">GitHub</a>
+        </div>
       </div>
-      <div class="footer__links-col">
+      <div class="footer__links-col" data-footer-fluid>
         <span class="footer__links-label">Contact</span>
-        <a href="mailto:ashish.khoshya1998@gmail.com" class="footer__email">ashish.khoshya1998@gmail.com</a>
+        <div class="footer__fluid-wrap">
+          <span class="footer__fluid-highlight"></span>
+          <a href="mailto:ashish.khoshya1998@gmail.com" class="footer__email">ashish.khoshya1998@gmail.com</a>
+        </div>
       </div>
     </div>
     <p class="footer__copyright">© 2026 Ashish Khoshya</p>
@@ -98,15 +104,43 @@
     margin-bottom: 4px;
   }
 
+  .footer__fluid-wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .footer__fluid-highlight {
+    position: absolute;
+    left: -10px;
+    top: 0;
+    height: 0;
+    width: calc(100% + 20px);
+    border-radius: 8px;
+    background: var(--overlay-soft);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+    transition: top 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.2s ease;
+  }
+
   .footer__links-col a {
+    position: relative;
+    z-index: 1;
     font-size: 14px;
     color: var(--text-muted);
     text-decoration: none;
     transition: color 0.2s;
-    padding: 6px 0;
+    padding: 6px 10px;
+    margin-left: -10px;
     display: inline-flex;
     align-items: center;
     min-height: 32px;
+    border-radius: 8px;
+    cursor: none;
   }
 
   .footer__email {
@@ -124,7 +158,7 @@
   @media (max-width: 768px) {
     .footer__links-col a {
       min-height: 44px;
-      padding: 10px 0;
+      padding: 10px 10px;
     }
   }
 
@@ -179,6 +213,28 @@
     }, { once: true });
   }
 
+  function initFooterFluid() {
+    document.querySelectorAll('.footer__fluid-wrap').forEach((wrap) => {
+      const highlight = wrap.querySelector('.footer__fluid-highlight') as HTMLElement;
+      if (!highlight) return;
+      const links = wrap.querySelectorAll('a');
+
+      links.forEach((link) => {
+        link.addEventListener('mouseenter', () => {
+          const wrapRect = wrap.getBoundingClientRect();
+          const linkRect = link.getBoundingClientRect();
+          highlight.style.top = (linkRect.top - wrapRect.top) + 'px';
+          highlight.style.height = linkRect.height + 'px';
+          highlight.style.opacity = '1';
+        });
+      });
+
+      wrap.addEventListener('mouseleave', () => {
+        highlight.style.opacity = '0';
+      });
+    });
+  }
+
   function initFooter() {
     const sections = document.querySelectorAll('[data-footer-section]');
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -198,5 +254,6 @@
   }
 
   initFooter();
-  document.addEventListener('astro:after-swap', initFooter);
+  initFooterFluid();
+  document.addEventListener('astro:after-swap', () => { initFooter(); initFooterFluid(); });
 </script>
