@@ -181,6 +181,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         start(window.location.pathname);
       })();
 
+      // ── Live OS theme detection ──────────────────────────
+      (function() {
+        var mq = window.matchMedia('(prefers-color-scheme: light)');
+        mq.addEventListener('change', function(e) {
+          // Only auto-switch if user hasn't manually set a preference
+          if (!localStorage.getItem('ak-theme')) {
+            document.documentElement.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+          }
+        });
+      })();
+
       // ── Click / download tracking ──────────────────────────
       document.addEventListener('click', function(e) {
         var a = e.target && e.target.closest && e.target.closest('a[href]');
