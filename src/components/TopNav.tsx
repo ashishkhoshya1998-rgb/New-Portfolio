@@ -217,6 +217,51 @@ export default function TopNav({ currentPath }: TopNavProps) {
     };
   }, []);
 
+  // Fluid highlight for standalone CTA buttons (Let's talk, etc.)
+  useEffect(() => {
+    const ctas = document.querySelectorAll<HTMLElement>('[data-fluid-cta]');
+    const handlers: Array<{ el: HTMLElement; enter: EventListener; leave: EventListener }> = [];
+
+    ctas.forEach((cta) => {
+      const highlight = cta.querySelector('.topnav__cta-highlight') as HTMLElement;
+      if (!highlight) return;
+
+      const enter = (e: Event) => {
+        const me = e as MouseEvent;
+        const rect = cta.getBoundingClientRect();
+        const cx = me.clientX - rect.left;
+        const cy = me.clientY - rect.top;
+        highlight.style.clipPath = `circle(0% at ${cx}px ${cy}px)`;
+        highlight.style.opacity = '1';
+        requestAnimationFrame(() => {
+          highlight.style.transition = 'clip-path 0.45s cubic-bezier(0.4, 0, 0.2, 1)';
+          highlight.style.clipPath = `circle(150% at ${cx}px ${cy}px)`;
+        });
+      };
+
+      const leave = (e: Event) => {
+        const me = e as MouseEvent;
+        const rect = cta.getBoundingClientRect();
+        const cx = me.clientX - rect.left;
+        const cy = me.clientY - rect.top;
+        highlight.style.transition = 'clip-path 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.15s ease 0.2s';
+        highlight.style.clipPath = `circle(0% at ${cx}px ${cy}px)`;
+        setTimeout(() => { highlight.style.opacity = '0'; }, 300);
+      };
+
+      cta.addEventListener('mouseenter', enter);
+      cta.addEventListener('mouseleave', leave);
+      handlers.push({ el: cta, enter, leave });
+    });
+
+    return () => {
+      handlers.forEach(({ el, enter, leave }) => {
+        el.removeEventListener('mouseenter', enter);
+        el.removeEventListener('mouseleave', leave);
+      });
+    };
+  }, []);
+
   const closeMenu = useCallback(() => {
     setMenuOpen(false);
     // Return focus to hamburger after close
@@ -302,8 +347,9 @@ export default function TopNav({ currentPath }: TopNavProps) {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
             )}
           </button>
-          <a href="https://www.linkedin.com/in/ashish-khoshya-676b99183/" target="_blank" rel="noopener noreferrer" className="topnav__cta" aria-label="Let's talk — opens LinkedIn in new tab">
-            Let's talk!
+          <a href="https://www.linkedin.com/in/ashish-khoshya-676b99183/" target="_blank" rel="noopener noreferrer" className="topnav__cta" aria-label="Let's talk — opens LinkedIn in new tab" data-fluid-cta>
+            <span className="topnav__cta-highlight"></span>
+            <span className="topnav__cta-label">Let's talk!</span>
           </a>
         </div>
 
@@ -568,6 +614,8 @@ export default function TopNav({ currentPath }: TopNavProps) {
 
         /* CTA */
         .topnav__cta {
+          position: relative;
+          overflow: hidden;
           font-size: 14px;
           font-weight: 500;
           padding: 8px 20px;
@@ -575,13 +623,29 @@ export default function TopNav({ currentPath }: TopNavProps) {
           color: var(--accent);
           border-radius: var(--radius-full);
           text-decoration: none;
-          transition: background 0.2s, color 0.2s;
+          transition: color 0.25s ease, border-color 0.25s ease;
           cursor: none;
         }
 
-        .topnav__cta:hover {
+        .topnav__cta-highlight {
+          position: absolute;
+          inset: 0;
+          border-radius: var(--radius-full);
           background: var(--accent);
+          opacity: 0;
+          pointer-events: none;
+          z-index: 0;
+          clip-path: circle(0% at 50% 50%);
+        }
+
+        .topnav__cta-label {
+          position: relative;
+          z-index: 1;
+        }
+
+        .topnav__cta:hover {
           color: var(--bg);
+          border-color: var(--accent);
         }
 
         /* Mobile controls — hidden on desktop */

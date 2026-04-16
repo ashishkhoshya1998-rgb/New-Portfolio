@@ -85,12 +85,11 @@ export default function ProjectCarousel() {
                     <span className="gd-card__meta-item">{p.year}</span>
                   </div>
                 </div>
-                <div className="gd-card__ctas" style={{ '--cta-accent': p.accentColor } as React.CSSProperties}>
+                <div className="gd-card__ctas">
                   <span className="gd-cta-highlight"></span>
                   <a
                     href={`/project/${p.slug}`}
                     className="gd-cta"
-                    style={{ '--cta-accent': p.accentColor } as React.CSSProperties}
                     onClick={(e) => {
                       const img = (e.currentTarget.closest('.gd-card') as HTMLElement)?.querySelector('.gd-card__img') as HTMLImageElement;
                       if (img) {
@@ -113,7 +112,6 @@ export default function ProjectCarousel() {
                     <a
                       href={`/deck/${p.slug}`}
                       className="gd-cta"
-                      style={{ '--cta-accent': p.accentColor } as React.CSSProperties}
                     >
                       Quick Read
                     </a>
@@ -273,8 +271,8 @@ export default function ProjectCarousel() {
           left: 0;
           height: 100%;
           width: 0;
-          border-radius: 8px;
-          background: var(--cta-accent, var(--accent));
+          border-radius: var(--radius-full);
+          background: var(--accent);
           opacity: 0;
           pointer-events: none;
           z-index: 0;
@@ -295,7 +293,7 @@ export default function ProjectCarousel() {
           color: var(--text);
           background: transparent;
           border: 1px solid var(--border);
-          border-radius: 8px;
+          border-radius: var(--radius-full);
           text-decoration: none;
           white-space: nowrap;
           transition: color 0.25s ease, border-color 0.25s ease;

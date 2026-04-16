@@ -39,12 +39,11 @@ const sorted = [...projects].sort((a, b) => a.order - b.order);
                 <span class="gd-card__meta-item">{p.year}</span>
               </div>
             </div>
-            <div class="gd-card__ctas" style={`--cta-accent: ${p.accentColor};`}>
+            <div class="gd-card__ctas">
               <span class="gd-cta-highlight"></span>
               <a
                 href={`/project/${p.slug}`}
                 class="gd-cta"
-                style={`--cta-accent: ${p.accentColor};`}
               >
                 {p.slug === 'memoir' && (
                   <svg class="gd-cta__lock" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -55,7 +54,6 @@ const sorted = [...projects].sort((a, b) => a.order - b.order);
                 <a
                   href={`/deck/${p.slug}`}
                   class="gd-cta"
-                  style={`--cta-accent: ${p.accentColor};`}
                 >
                   Quick Read
                 </a>
@@ -199,8 +197,8 @@ const sorted = [...projects].sort((a, b) => a.order - b.order);
     left: 0;
     height: 100%;
     width: 0;
-    border-radius: 8px;
-    background: var(--cta-accent, var(--accent));
+    border-radius: var(--radius-full);
+    background: var(--accent);
     opacity: 0;
     pointer-events: none;
     z-index: 0;
@@ -221,7 +219,7 @@ const sorted = [...projects].sort((a, b) => a.order - b.order);
     color: var(--text);
     background: transparent;
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: var(--radius-full);
     text-decoration: none;
     white-space: nowrap;
     transition: color 0.25s ease, border-color 0.25s ease;
