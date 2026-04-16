@@ -308,8 +308,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
       function render() {
         if (!cursor) { rafId = requestAnimationFrame(render); return; }
-        cx = lerp(cx, mx, 0.15);
-        cy = lerp(cy, my, 0.15);
+        cx = lerp(cx, mx, 0.45);
+        cy = lerp(cy, my, 0.45);
         var targetScale = state === 'expand' ? SCALE_EXPAND : SCALE_DEFAULT;
         currentScale = lerp(currentScale, targetScale, 0.18);
         cursor.style.transform = 'translate(' + cx + 'px,' + cy + 'px) translate(-50%,-50%) scale(' + currentScale + ')';

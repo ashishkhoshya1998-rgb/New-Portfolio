@@ -176,51 +176,53 @@ export default function TopNav({ currentPath }: TopNavProps) {
           </span>
         </a>
 
-        {/* Right: Nav links + Socials dropdown + CTA */}
-        <div className="topnav__right">
-          <div className="topnav__links">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className={`topnav__link ${isActive(link.href, currentPath) ? 'topnav__link--active' : ''}`}
-              >
-                {link.label}
-              </a>
-            ))}
-            <div className="topnav__socials-wrap">
-              <button
-                ref={socialsBtnRef}
-                className={`topnav__link topnav__socials-btn ${socialsOpen ? 'topnav__socials-btn--open' : ''}`}
-                onClick={() => setSocialsOpen(!socialsOpen)}
-                aria-expanded={socialsOpen}
-                aria-haspopup="true"
-              >
-                Socials
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="topnav__socials-chevron">
-                  <polyline points="2,3.5 5,6.5 8,3.5" />
-                </svg>
-              </button>
-              {socialsOpen && (
-                <div className="topnav__socials-dropdown" ref={socialsDropdownRef} role="menu">
-                  {socials.map((s) => (
-                    <a
-                      key={s.title}
-                      href={s.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="topnav__socials-dropdown-link"
-                      role="menuitem"
-                      aria-label={`${s.title} (opens in new tab)`}
-                    >
-                      <span aria-hidden="true">{s.icon}</span>
-                      <span>{s.title}</span>
-                    </a>
-                  ))}
-                </div>
-              )}
-            </div>
+        {/* Centre: Nav links + Socials dropdown */}
+        <div className="topnav__links">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className={`topnav__link ${isActive(link.href, currentPath) ? 'topnav__link--active' : ''}`}
+            >
+              {link.label}
+            </a>
+          ))}
+          <div className="topnav__socials-wrap">
+            <button
+              ref={socialsBtnRef}
+              className={`topnav__link topnav__socials-btn ${socialsOpen ? 'topnav__socials-btn--open' : ''}`}
+              onClick={() => setSocialsOpen(!socialsOpen)}
+              aria-expanded={socialsOpen}
+              aria-haspopup="true"
+            >
+              Socials
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="topnav__socials-chevron">
+                <polyline points="2,3.5 5,6.5 8,3.5" />
+              </svg>
+            </button>
+            {socialsOpen && (
+              <div className="topnav__socials-dropdown" ref={socialsDropdownRef} role="menu">
+                {socials.map((s) => (
+                  <a
+                    key={s.title}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="topnav__socials-dropdown-link"
+                    role="menuitem"
+                    aria-label={`${s.title} (opens in new tab)`}
+                  >
+                    <span aria-hidden="true">{s.icon}</span>
+                    <span>{s.title}</span>
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
+        </div>
+
+        {/* Right: Theme toggle + CTA */}
+        <div className="topnav__right">
           <button
             className="topnav__theme-toggle"
             onClick={toggleTheme}
@@ -318,9 +320,9 @@ export default function TopNav({ currentPath }: TopNavProps) {
           left: 0;
           right: 0;
           z-index: 100;
-          display: flex;
+          display: grid;
+          grid-template-columns: auto 1fr auto;
           align-items: center;
-          justify-content: space-between;
           padding: 20px 32px;
           background: transparent;
           transition: background 0.3s, backdrop-filter 0.3s;
@@ -443,17 +445,20 @@ export default function TopNav({ currentPath }: TopNavProps) {
           background: var(--overlay-soft);
         }
 
+        /* Centre section — nav links */
+        .topnav__links {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 24px;
+        }
+
         /* Right section */
         .topnav__right {
           display: flex;
           align-items: center;
-          gap: 24px;
-        }
-
-        .topnav__links {
-          display: flex;
-          align-items: center;
-          gap: 24px;
+          gap: 16px;
+          justify-content: flex-end;
         }
 
         .topnav__link {
@@ -635,8 +640,14 @@ export default function TopNav({ currentPath }: TopNavProps) {
         /* ── Responsive ── */
         @media (max-width: 768px) {
           .topnav {
+            display: flex;
+            justify-content: space-between;
             padding: 16px 20px;
             height: 60px;
+          }
+
+          .topnav__links {
+            display: none;
           }
 
           .topnav__right {
