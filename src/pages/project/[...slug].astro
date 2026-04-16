@@ -344,7 +344,7 @@ const hasDeck = !!decks[project.id];
   .cs__back-link {
     font-size: 13px;
     font-weight: 500;
-    color: var(--csAccent);
+    color: var(--accent);
     text-decoration: none;
     transition: opacity 0.2s;
     cursor: none;
@@ -432,7 +432,7 @@ const hasDeck = !!decks[project.id];
   }
 
   .cs__section-nav :global(.cs__section-nav-item--active .cs__section-nav-dot) {
-    background: var(--csAccent);
+    background: var(--accent);
     transform: scale(1.4);
     opacity: 1;
   }
@@ -454,7 +454,7 @@ const hasDeck = !!decks[project.id];
   }
 
   .cs__section-nav :global(.cs__section-nav-item--active .cs__section-nav-label) {
-    color: var(--csAccent);
+    color: var(--accent);
     font-weight: 600;
   }
 
@@ -535,16 +535,16 @@ const hasDeck = !!decks[project.id];
     justify-content: space-between;
     padding: 24px 28px;
     text-decoration: none;
-    border: 1px solid color-mix(in srgb, var(--csAccent, var(--accent)) 30%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
     border-radius: 12px;
-    background: color-mix(in srgb, var(--csAccent, var(--accent)) 5%, var(--bg));
+    background: color-mix(in srgb, var(--accent) 5%, var(--bg));
     transition: background 0.25s, border-color 0.25s;
     cursor: none;
   }
 
   .cs__deck-prompt-inner:hover {
-    background: color-mix(in srgb, var(--csAccent, var(--accent)) 10%, var(--bg));
-    border-color: color-mix(in srgb, var(--csAccent, var(--accent)) 50%, transparent);
+    background: color-mix(in srgb, var(--accent) 10%, var(--bg));
+    border-color: color-mix(in srgb, var(--accent) 50%, transparent);
   }
 
   .cs__deck-prompt-left {
@@ -554,7 +554,7 @@ const hasDeck = !!decks[project.id];
   }
 
   .cs__deck-prompt-left > svg {
-    color: var(--csAccent, var(--accent));
+    color: var(--accent);
     flex-shrink: 0;
   }
 
@@ -584,14 +584,14 @@ const hasDeck = !!decks[project.id];
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: color-mix(in srgb, var(--csAccent, var(--accent)) 15%, transparent);
-    color: var(--csAccent, var(--accent));
+    background: color-mix(in srgb, var(--accent) 15%, transparent);
+    color: var(--accent);
     flex-shrink: 0;
     transition: background 0.25s, transform 0.25s;
   }
 
   .cs__deck-prompt-inner:hover .cs__deck-prompt-arrow {
-    background: color-mix(in srgb, var(--csAccent, var(--accent)) 25%, transparent);
+    background: color-mix(in srgb, var(--accent) 25%, transparent);
     transform: translateX(4px);
   }
 
@@ -608,9 +608,9 @@ const hasDeck = !!decks[project.id];
   }
 
   .cs__deck-btn:hover {
-    background: var(--csAccent, #F5F0E8);
+    background: var(--accent);
     color: var(--btn-hover-text);
-    border-color: var(--csAccent, #F5F0E8);
+    border-color: var(--accent);
   }
 
   .cs__deck-btn svg {
@@ -641,7 +641,7 @@ const hasDeck = !!decks[project.id];
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: var(--csAccent);
+    color: var(--accent);
   }
 
   .cs__hero-meta-value {
@@ -728,8 +728,8 @@ const hasDeck = !!decks[project.id];
   /* blockquote */
   .cs__body :global(blockquote) {
     position: relative;
-    background: color-mix(in srgb, var(--csAccent) 5%, var(--card-bg));
-    border-left: 3px solid var(--csAccent);
+    background: color-mix(in srgb, var(--accent) 5%, var(--card-bg));
+    border-left: 3px solid var(--accent);
     border-radius: 0 var(--radius-md) var(--radius-md) 0;
     padding: 24px 28px;
     margin: 40px 0;
@@ -817,7 +817,7 @@ const hasDeck = !!decks[project.id];
   }
 
   .cs__body :global(thead) {
-    background: color-mix(in srgb, var(--csAccent) 8%, var(--bg));
+    background: color-mix(in srgb, var(--accent) 8%, var(--bg));
   }
 
   .cs__body :global(th) {
@@ -855,12 +855,12 @@ const hasDeck = !!decks[project.id];
   }
 
   .cs__body :global(td:last-child) {
-    color: var(--csAccent);
+    color: var(--accent);
     font-weight: 600;
   }
 
   .cs__body :global(tr:hover td) {
-    background: color-mix(in srgb, var(--csAccent) 3%, transparent);
+    background: color-mix(in srgb, var(--accent) 3%, transparent);
   }
 
   /* ── Next Project ── */
