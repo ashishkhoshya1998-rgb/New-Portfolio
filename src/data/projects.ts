@@ -48,7 +48,7 @@ export const projects: Project[] = [
     category: 'Product Architecture',
     timeline: '~6 Months (Jul 2025 – Present)',
     year: '2025',
-    role: 'Designer · UX/Product Architect',
+    role: 'Product Designer',
     initial: 'Z',
     accentColor: '#F59E0B',
     coverImage: '/images/projects/zzazz-cover.webp',

@@ -244,7 +244,7 @@ export const decks: Record<string, Deck> = {
           </div>
           <div class="divider"></div>
           <div class="info-grid">
-            <div><div class="info-label">Role</div><div class="info-value">Designer · UX Architect · Product Architect</div></div>
+            <div><div class="info-label">Role</div><div class="info-value">Product Designer</div></div>
             <div><div class="info-label">Year</div><div class="info-value">2025</div></div>
             <div><div class="info-label">Scope</div><div class="info-value">7 verticals · 3 form factors</div></div>
             <div><div class="info-label">Shift</div><div class="info-value">Product Designer → Ecosystem Architect</div></div>
