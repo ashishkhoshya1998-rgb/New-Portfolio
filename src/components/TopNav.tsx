@@ -154,6 +154,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
 
   // Fluid highlight for nav links — cursor "pours" into button
   useEffect(() => {
+    if (!window.matchMedia('(hover: hover)').matches) return;
     const container = navLinksRef.current;
     if (!container) return;
     const highlight = container.querySelector('.topnav__highlight') as HTMLElement;
@@ -219,6 +220,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
 
   // Fluid highlight for standalone CTA buttons (Let's talk, etc.)
   useEffect(() => {
+    if (!window.matchMedia('(hover: hover)').matches) return;
     const ctas = document.querySelectorAll<HTMLElement>('[data-fluid-cta]');
     const handlers: Array<{ el: HTMLElement; enter: EventListener; leave: EventListener }> = [];
 

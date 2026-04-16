@@ -21,6 +21,7 @@ export default function RightInfoPanel() {
   }, []);
 
   useEffect(() => {
+    if (!window.matchMedia('(hover: hover)').matches) return;
     const link = helpRef.current;
     if (!link) return;
     const hl = link.querySelector('.right-panel__help-highlight') as HTMLElement;

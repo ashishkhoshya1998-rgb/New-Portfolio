@@ -1626,6 +1626,7 @@ const hasDeck = !!decks[project.id];
   }
 
   function initFluidCS() {
+    if (!window.matchMedia('(hover: hover)').matches) return;
     document.querySelectorAll<HTMLElement>('[data-fluid-cs]').forEach((el) => {
       const hl = (el.querySelector('.cs__fluid-hl') || el.querySelector('.pw-gate__back-highlight') || el.querySelector('.pw-gate__btn-highlight')) as HTMLElement;
       if (!hl) return;

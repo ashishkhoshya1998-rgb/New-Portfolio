@@ -8,6 +8,7 @@ export default function ProjectCarousel() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    if (!window.matchMedia('(hover: hover)').matches) return;
     const section = sectionRef.current;
     if (!section) return;
 

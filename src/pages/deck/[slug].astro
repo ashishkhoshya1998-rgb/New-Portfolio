@@ -988,6 +988,7 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
 
   // Fluid highlight for deck nav buttons + dropdown items
   function initDeckFluid() {
+    if (!window.matchMedia('(hover: hover)').matches) return;
     // Nav arrows + current label
     document.querySelectorAll('[data-fluid-dk]').forEach(function(btn) {
       var highlight = btn.querySelector('.dk-nav-arrow__highlight') || btn.querySelector('.dk-nav-current__highlight') || btn.querySelector('.dk-back__highlight');

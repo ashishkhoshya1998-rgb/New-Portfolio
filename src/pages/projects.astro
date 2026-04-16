@@ -375,6 +375,7 @@ const sorted = [...projects].sort((a, b) => a.order - b.order);
     }
 
     // Fluid CTA highlight — cursor pours into button
+    if (!window.matchMedia('(hover: hover)').matches) return;
     document.querySelectorAll('.gd-card__ctas').forEach((container) => {
       const highlight = container.querySelector('.gd-cta-highlight') as HTMLElement;
       const ctas = container.querySelectorAll('.gd-cta');

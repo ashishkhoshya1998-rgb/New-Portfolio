@@ -211,6 +211,7 @@
   }
 
   function initFooterFluid() {
+    if (!window.matchMedia('(hover: hover)').matches) return;
     document.querySelectorAll('.footer__fluid-wrap').forEach((wrap) => {
       const highlight = wrap.querySelector('.footer__fluid-highlight') as HTMLElement;
       if (!highlight) return;

@@ -1013,6 +1013,7 @@ const services = [
   }
 
   function initFluidCTAs() {
+    if (!window.matchMedia('(hover: hover)').matches) return;
     document.querySelectorAll<HTMLElement>('[data-fluid-cta]').forEach((cta) => {
       const highlight = cta.querySelector('.about__cta-highlight') as HTMLElement;
       if (!highlight) return;
