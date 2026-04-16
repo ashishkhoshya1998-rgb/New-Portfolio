@@ -58,8 +58,9 @@ const hasDeck = !!decks[project.id];
     {parentProject && (
       <div class="cs__back-bar">
         <div class="content-wrap">
-          <a href={`/project/${parentProject.slug}`} class="cs__back-link">
-            <span aria-hidden="true">←</span> Back to {parentProject.title}
+          <a href={`/project/${parentProject.slug}`} class="cs__back-link" data-fluid-cs>
+            <span class="cs__fluid-hl"></span>
+            <span class="cs__back-link-label"><span aria-hidden="true">←</span> Back to {parentProject.title}</span>
           </a>
         </div>
       </div>
@@ -153,13 +154,14 @@ const hasDeck = !!decks[project.id];
         {nextProject && (
           <>
             <span class="cs__next-label">Next Project</span>
-            <a href={`/project/${nextProject.slug}`} class="cs__next-link">
-              {nextProject.title}
-              <span class="cs__next-arrow" aria-hidden="true">→</span>
+            <a href={`/project/${nextProject.slug}`} class="cs__next-link" data-fluid-cs>
+              <span class="cs__fluid-hl"></span>
+              <span class="cs__next-link-label">{nextProject.title}
+              <span class="cs__next-arrow" aria-hidden="true">→</span></span>
             </a>
           </>
         )}
-        <a href="/projects" class="cs__all-projects">View all projects <span aria-hidden="true">→</span></a>
+        <a href="/projects" class="cs__all-projects" data-fluid-cs><span class="cs__fluid-hl"></span><span class="cs__all-projects-label">View all projects <span aria-hidden="true">→</span></span></a>
       </div>
     </section>
 
@@ -342,6 +344,10 @@ const hasDeck = !!decks[project.id];
   }
 
   .cs__back-link {
+    position: relative;
+    overflow: hidden;
+    padding: 6px 12px;
+    border-radius: 8px;
     font-size: 13px;
     font-weight: 500;
     color: var(--accent);
@@ -352,6 +358,11 @@ const hasDeck = !!decks[project.id];
 
   .cs__back-link:hover {
     opacity: 0.7;
+  }
+
+  .cs__back-link-label {
+    position: relative;
+    z-index: 1;
   }
 
   /* ── Content layout with section nav ── */
@@ -886,6 +897,10 @@ const hasDeck = !!decks[project.id];
   }
 
   .cs__next-link {
+    position: relative;
+    overflow: hidden;
+    padding: 12px 20px;
+    border-radius: 8px;
     font-family: var(--font-display);
     font-size: clamp(32px, 5vw, 56px);
     font-weight: 700;
@@ -894,6 +909,11 @@ const hasDeck = !!decks[project.id];
     line-height: 1.2;
     transition: color 0.2s;
     cursor: none;
+  }
+
+  .cs__next-link-label {
+    position: relative;
+    z-index: 1;
   }
 
   .cs__next-link:hover {
@@ -911,6 +931,10 @@ const hasDeck = !!decks[project.id];
   }
 
   .cs__all-projects {
+    position: relative;
+    overflow: hidden;
+    padding: 8px 16px;
+    border-radius: 8px;
     font-size: 14px;
     font-weight: 500;
     color: var(--text-muted);
@@ -920,8 +944,23 @@ const hasDeck = !!decks[project.id];
     cursor: none;
   }
 
+  .cs__all-projects-label {
+    position: relative;
+    z-index: 1;
+  }
+
   .cs__all-projects:hover {
     color: var(--accent);
+  }
+
+  .cs__fluid-hl {
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    opacity: 0;
+    clip-path: circle(0% at 50% 50%);
+    pointer-events: none;
   }
 
   /* ── Mobile ── */
@@ -1577,7 +1616,7 @@ const hasDeck = !!decks[project.id];
 
   function initFluidCS() {
     document.querySelectorAll<HTMLElement>('[data-fluid-cs]').forEach((el) => {
-      const hl = (el.querySelector('.pw-gate__back-highlight') || el.querySelector('.pw-gate__btn-highlight')) as HTMLElement;
+      const hl = (el.querySelector('.cs__fluid-hl') || el.querySelector('.pw-gate__back-highlight') || el.querySelector('.pw-gate__btn-highlight')) as HTMLElement;
       if (!hl) return;
       el.addEventListener('mouseenter', (e: MouseEvent) => {
         const rect = el.getBoundingClientRect();
