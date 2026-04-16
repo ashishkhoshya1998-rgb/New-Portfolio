@@ -297,6 +297,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
       var SCALE_DEFAULT = 0.28;
       var SCALE_EXPAND = 1;
+      var SCALE_ABSORBED = 0;
       var currentScale = SCALE_DEFAULT;
 
       function grab() {
@@ -310,8 +311,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         if (!cursor) { rafId = requestAnimationFrame(render); return; }
         cx = lerp(cx, mx, 0.45);
         cy = lerp(cy, my, 0.45);
-        var targetScale = state === 'expand' ? SCALE_EXPAND : SCALE_DEFAULT;
-        currentScale = lerp(currentScale, targetScale, 0.18);
+        var targetScale = state === 'hidden' ? SCALE_ABSORBED :
+                          state === 'expand' ? SCALE_EXPAND : SCALE_DEFAULT;
+        // Faster lerp for absorb/release to feel snappy
+        var scaleLerp = state === 'hidden' ? 0.25 : (currentScale < 0.05 ? 0.3 : 0.18);
+        currentScale = lerp(currentScale, targetScale, scaleLerp);
+        // Clamp tiny values to 0
+        if (currentScale < 0.005) currentScale = 0;
         cursor.style.transform = 'translate(' + cx + 'px,' + cy + 'px) translate(-50%,-50%) scale(' + currentScale + ')';
         rafId = requestAnimationFrame(render);
       }

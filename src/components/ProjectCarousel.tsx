@@ -16,25 +16,39 @@ export default function ProjectCarousel() {
       const ctas = container.querySelectorAll('.gd-cta');
       if (!highlight || !ctas.length) return;
 
-      const enterHandlers: Array<() => void> = [];
       ctas.forEach((cta) => {
-        const handler = () => {
+        cta.addEventListener('mouseenter', (e: Event) => {
+          const me = e as MouseEvent;
           const el = cta as HTMLElement;
+          const elRect = el.getBoundingClientRect();
+          const cursorX = me.clientX - elRect.left + el.offsetLeft;
+          const cursorY = me.clientY - elRect.top;
+
           highlight.style.left = el.offsetLeft + 'px';
           highlight.style.width = el.offsetWidth + 'px';
+          highlight.style.clipPath = `circle(0% at ${cursorX - el.offsetLeft}px ${cursorY}px)`;
           highlight.style.opacity = '1';
+
+          requestAnimationFrame(() => {
+            highlight.style.transition = 'clip-path 0.45s cubic-bezier(0.4, 0, 0.2, 1), left 0.35s cubic-bezier(0.4, 0, 0.2, 1), width 0.35s cubic-bezier(0.4, 0, 0.2, 1)';
+            highlight.style.clipPath = `circle(150% at ${cursorX - el.offsetLeft}px ${cursorY}px)`;
+          });
+
           ctas.forEach((c) => c.classList.remove('gd-cta--active'));
           el.classList.add('gd-cta--active');
-        };
-        enterHandlers.push(handler);
-        cta.addEventListener('mouseenter', handler);
+        });
       });
 
-      const leaveHandler = () => {
-        highlight.style.opacity = '0';
+      container.addEventListener('mouseleave', (e: Event) => {
+        const me = e as MouseEvent;
+        const containerRect = (container as HTMLElement).getBoundingClientRect();
+        const cx = me.clientX - containerRect.left;
+        const cy = me.clientY - containerRect.top;
+        highlight.style.transition = 'clip-path 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.15s ease 0.2s';
+        highlight.style.clipPath = `circle(0% at ${cx}px ${cy}px)`;
+        setTimeout(() => { highlight.style.opacity = '0'; }, 300);
         ctas.forEach((c) => c.classList.remove('gd-cta--active'));
-      };
-      container.addEventListener('mouseleave', leaveHandler);
+      });
     });
   }, []);
 
@@ -264,9 +278,7 @@ export default function ProjectCarousel() {
           opacity: 0;
           pointer-events: none;
           z-index: 0;
-          transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-                      width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-                      opacity 0.2s ease;
+          clip-path: circle(0% at 50% 50%);
         }
 
         .gd-cta {

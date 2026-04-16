@@ -152,7 +152,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
     };
   }, [menuOpen]);
 
-  // Fluid highlight for nav links
+  // Fluid highlight for nav links — cursor "pours" into button
   useEffect(() => {
     const container = navLinksRef.current;
     if (!container) return;
@@ -160,30 +160,60 @@ export default function TopNav({ currentPath }: TopNavProps) {
     if (!highlight) return;
 
     const links = container.querySelectorAll<HTMLElement>('.topnav__link');
+    let currentEl: HTMLElement | null = null;
 
-    const onEnter = (e: Event) => {
+    const onEnter = (e: MouseEvent) => {
       const el = e.currentTarget as HTMLElement;
+      currentEl = el;
       const containerRect = container.getBoundingClientRect();
       const elRect = el.getBoundingClientRect();
+
+      // Position highlight behind the hovered link
       highlight.style.left = (elRect.left - containerRect.left) + 'px';
       highlight.style.width = elRect.width + 'px';
+
+      // Radial reveal from cursor entry point
+      const cursorX = e.clientX - elRect.left;
+      const cursorY = e.clientY - elRect.top;
+      highlight.style.clipPath = `circle(0% at ${cursorX}px ${cursorY}px)`;
       highlight.style.opacity = '1';
+
+      // Expand the circle to fill the button
+      requestAnimationFrame(() => {
+        highlight.style.transition = 'clip-path 0.45s cubic-bezier(0.4, 0, 0.2, 1), left 0.35s cubic-bezier(0.4, 0, 0.2, 1), width 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.15s ease';
+        highlight.style.clipPath = `circle(150% at ${cursorX}px ${cursorY}px)`;
+      });
     };
 
-    const onLeave = () => {
-      highlight.style.opacity = '0';
+    // When moving between links, slide the highlight fluidly
+    const onMove = (e: MouseEvent) => {
+      const el = e.currentTarget as HTMLElement;
+      if (el !== currentEl) return; // only update for current hovered link
+    };
+
+    const onLeave = (e: MouseEvent) => {
+      // Shrink back to cursor position when leaving
+      const containerRect = container.getBoundingClientRect();
+      const cursorX = e.clientX - containerRect.left - parseFloat(highlight.style.left || '0');
+      const cursorY = e.clientY - (parseFloat(highlight.style.top || '0'));
+      highlight.style.transition = 'clip-path 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease 0.15s';
+      highlight.style.clipPath = `circle(0% at ${cursorX}px ${e.clientY - containerRect.top}px)`;
+      setTimeout(() => { highlight.style.opacity = '0'; }, 300);
+      currentEl = null;
     };
 
     links.forEach((link) => {
-      link.addEventListener('mouseenter', onEnter);
+      link.addEventListener('mouseenter', onEnter as EventListener);
+      link.addEventListener('mousemove', onMove as EventListener);
     });
-    container.addEventListener('mouseleave', onLeave);
+    container.addEventListener('mouseleave', onLeave as EventListener);
 
     return () => {
       links.forEach((link) => {
-        link.removeEventListener('mouseenter', onEnter);
+        link.removeEventListener('mouseenter', onEnter as EventListener);
+        link.removeEventListener('mousemove', onMove as EventListener);
       });
-      container.removeEventListener('mouseleave', onLeave);
+      container.removeEventListener('mouseleave', onLeave as EventListener);
     };
   }, []);
 
@@ -502,9 +532,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
           opacity: 0;
           pointer-events: none;
           z-index: 0;
-          transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-                      width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-                      opacity 0.2s ease;
+          clip-path: circle(0% at 50% 50%);
         }
 
         /* Right section */

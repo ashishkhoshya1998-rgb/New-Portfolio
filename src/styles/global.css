@@ -139,7 +139,8 @@ ul, ol {
 }
 
 .ak-cursor--hidden {
-  opacity: 0 !important;
+  opacity: 1 !important;
+  /* Scale handled by JS — cursor shrinks to 0 as if absorbed into the button */
 }
 
 .ak-cursor--press {

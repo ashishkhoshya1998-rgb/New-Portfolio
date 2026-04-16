@@ -122,9 +122,7 @@
     opacity: 0;
     pointer-events: none;
     z-index: 0;
-    transition: top 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-                height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.2s ease;
+    clip-path: circle(0% at 50% 50%);
   }
 
   .footer__links-col a {
@@ -220,17 +218,33 @@
       const links = wrap.querySelectorAll('a');
 
       links.forEach((link) => {
-        link.addEventListener('mouseenter', () => {
+        link.addEventListener('mouseenter', (e: Event) => {
+          const me = e as MouseEvent;
           const wrapRect = wrap.getBoundingClientRect();
           const linkRect = link.getBoundingClientRect();
+          const cursorX = me.clientX - wrapRect.left;
+          const cursorY = me.clientY - wrapRect.top;
+
           highlight.style.top = (linkRect.top - wrapRect.top) + 'px';
           highlight.style.height = linkRect.height + 'px';
+          highlight.style.clipPath = `circle(0% at ${cursorX}px ${cursorY}px)`;
           highlight.style.opacity = '1';
+
+          requestAnimationFrame(() => {
+            highlight.style.transition = 'clip-path 0.45s cubic-bezier(0.4, 0, 0.2, 1), top 0.35s cubic-bezier(0.4, 0, 0.2, 1), height 0.35s cubic-bezier(0.4, 0, 0.2, 1)';
+            highlight.style.clipPath = `circle(150% at ${cursorX}px ${cursorY}px)`;
+          });
         });
       });
 
-      wrap.addEventListener('mouseleave', () => {
-        highlight.style.opacity = '0';
+      wrap.addEventListener('mouseleave', (e: Event) => {
+        const me = e as MouseEvent;
+        const wrapRect = wrap.getBoundingClientRect();
+        const cx = me.clientX - wrapRect.left;
+        const cy = me.clientY - wrapRect.top;
+        highlight.style.transition = 'clip-path 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.15s ease 0.2s';
+        highlight.style.clipPath = `circle(0% at ${cx}px ${cy}px)`;
+        setTimeout(() => { highlight.style.opacity = '0'; }, 300);
       });
     });
   }
