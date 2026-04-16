@@ -325,6 +325,7 @@ export default function ProjectCarousel() {
           border: 1px solid var(--border);
           aspect-ratio: 3 / 2;
           transition: border-radius 0.5s var(--ease-out-expo);
+          cursor: none;
         }
 
         .gd-card__img {

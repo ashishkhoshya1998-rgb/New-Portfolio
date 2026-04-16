@@ -78,6 +78,7 @@ export default function RightInfoPanel() {
           color: var(--text);
           text-decoration: none;
           transition: color 0.2s;
+          cursor: none;
         }
 
         .right-panel__help:hover {

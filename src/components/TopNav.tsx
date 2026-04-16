@@ -406,6 +406,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
           display: flex;
           align-items: center;
           text-decoration: none;
+          cursor: none;
         }
 
         .topnav__logo {
@@ -440,7 +441,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
           gap: 4px;
           background: none;
           border: none;
-          cursor: pointer;
+          cursor: none;
           font-family: inherit;
           padding: 0;
         }
@@ -483,6 +484,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
           text-decoration: none;
           border-radius: 8px;
           transition: background 0.15s, color 0.15s;
+          cursor: none;
         }
 
         .topnav__socials-dropdown-link:hover {
@@ -501,7 +503,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
           background: none;
           border: 1px solid var(--border);
           color: var(--text-muted);
-          cursor: pointer;
+          cursor: none;
           transition: color 0.2s, border-color 0.2s, background 0.2s;
           flex-shrink: 0;
         }
@@ -600,7 +602,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
           justify-content: center;
           background: none;
           border: none;
-          cursor: pointer;
+          cursor: none;
         }
 
         .topnav__hamburger span {
@@ -641,7 +643,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
           color: var(--text);
           background: none;
           border: none;
-          cursor: pointer;
+          cursor: none;
           padding: 8px;
           min-width: 44px;
           min-height: 44px;
@@ -666,6 +668,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
           transform: translateX(40px);
           opacity: 0;
           transition: transform 0.5s var(--ease-out-expo), opacity 0.5s var(--ease-out-expo), color 0.2s;
+          cursor: none;
         }
 
         .mobile-menu--open .mobile-menu__link {
@@ -701,6 +704,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
           align-items: center;
           gap: 8px;
           font-size: 14px;
+          cursor: none;
         }
 
         .mobile-menu__social:hover {
@@ -718,6 +722,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
           border-radius: var(--radius-full);
           text-decoration: none;
           transition: background 0.2s, color 0.2s;
+          cursor: none;
         }
 
         .mobile-menu__cta:hover {
