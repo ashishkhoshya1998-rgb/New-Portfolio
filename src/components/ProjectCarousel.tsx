@@ -350,7 +350,7 @@ export default function ProjectCarousel() {
         .gd-card__img-link {
           display: block;
           overflow: hidden;
-          border-radius: 8px;
+          border-radius: 24px;
           border: 1px solid var(--border);
           aspect-ratio: 3 / 2;
           transition: border-radius 0.5s var(--ease-out-expo);
@@ -367,7 +367,7 @@ export default function ProjectCarousel() {
         }
 
         .gd-card:hover .gd-card__img-link {
-          border-radius: 32px;
+          border-radius: 36px;
         }
 
         .gd-card:hover .gd-card__img {

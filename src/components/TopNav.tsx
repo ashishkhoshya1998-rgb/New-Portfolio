@@ -688,12 +688,10 @@ export default function TopNav({ currentPath }: TopNavProps) {
           position: fixed;
           inset: 0;
           z-index: 200;
-          background: var(--nav-bg);
-          backdrop-filter: blur(30px);
-          -webkit-backdrop-filter: blur(30px);
+          background: var(--bg);
           display: flex;
           flex-direction: column;
-          justify-content: center;
+          justify-content: space-between;
           padding: 80px 32px 48px;
           opacity: 0;
           visibility: hidden;
@@ -719,24 +717,31 @@ export default function TopNav({ currentPath }: TopNavProps) {
           display: flex;
           align-items: center;
           justify-content: center;
+          border-radius: 50%;
+          transition: background 0.2s;
+        }
+
+        .mobile-menu__close:hover {
+          background: var(--overlay-soft);
         }
 
         .mobile-menu__nav {
           display: flex;
           flex-direction: column;
-          gap: 8px;
-          margin-bottom: 48px;
+          gap: 4px;
         }
 
         .mobile-menu__link {
           font-family: var(--font-display);
-          font-size: 36px;
-          font-weight: 700;
+          font-size: 32px;
+          font-weight: 600;
           color: var(--text-muted);
           text-decoration: none;
+          padding: 12px 16px;
+          border-radius: 12px;
           transform: translateX(40px);
           opacity: 0;
-          transition: transform 0.5s var(--ease-out-expo), opacity 0.5s var(--ease-out-expo), color 0.2s;
+          transition: transform 0.5s var(--ease-out-expo), opacity 0.5s var(--ease-out-expo), color 0.2s, background 0.2s;
           cursor: none;
         }
 
@@ -747,10 +752,11 @@ export default function TopNav({ currentPath }: TopNavProps) {
 
         .mobile-menu__link:hover {
           color: var(--accent);
+          background: var(--overlay-soft);
         }
 
         .mobile-menu__link--active {
-          color: var(--text);
+          color: var(--accent);
         }
 
         .mobile-menu__footer {
@@ -761,31 +767,43 @@ export default function TopNav({ currentPath }: TopNavProps) {
 
         .mobile-menu__socials {
           display: flex;
-          align-items: center;
-          gap: 20px;
+          flex-direction: column;
+          gap: 2px;
         }
 
         .mobile-menu__social {
           color: var(--text-muted);
           text-decoration: none;
-          transition: color 0.2s;
+          transition: color 0.2s, background 0.2s;
           display: flex;
           align-items: center;
-          gap: 8px;
-          font-size: 14px;
+          gap: 12px;
+          font-size: 15px;
+          font-weight: 500;
+          padding: 12px 16px;
+          border-radius: 12px;
           cursor: none;
+        }
+
+        .mobile-menu__social span:first-child {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 20px;
+          flex-shrink: 0;
         }
 
         .mobile-menu__social:hover {
           color: var(--accent);
+          background: var(--overlay-soft);
         }
 
         .mobile-menu__cta {
           display: inline-block;
           align-self: flex-start;
           font-size: 16px;
-          font-weight: 500;
-          padding: 12px 28px;
+          font-weight: 600;
+          padding: 14px 32px;
           border: 1px solid var(--accent);
           color: var(--accent);
           border-radius: var(--radius-full);

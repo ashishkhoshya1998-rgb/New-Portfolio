@@ -147,19 +147,19 @@ export default function Hero() {
         .hero__headline {
           margin: 0;
           font-weight: 700;
-          line-height: 0.9;
+          line-height: 1.05;
         }
 
         .hero__line1,
         .hero__line2 {
           display: block;
           font-family: var(--font-heading-condensed);
-          font-size: clamp(80px, 15vw, 200px);
+          font-size: clamp(64px, 12vw, 160px);
           font-weight: 700;
           text-transform: uppercase;
           color: var(--text);
-          letter-spacing: -2px;
-          line-height: 0.9;
+          letter-spacing: 2px;
+          line-height: 1.05;
           opacity: 0;
         }
 
@@ -235,8 +235,8 @@ export default function Hero() {
 
           .hero__line1,
           .hero__line2 {
-            font-size: clamp(48px, 12vw, 80px);
-            letter-spacing: -1px;
+            font-size: clamp(38px, 10vw, 64px);
+            letter-spacing: 1px;
           }
 
           .hero__scroll {
