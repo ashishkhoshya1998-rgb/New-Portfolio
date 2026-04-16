@@ -128,7 +128,7 @@ export default function RightInfoPanel() {
           position: absolute;
           inset: 0;
           border-radius: 8px;
-          background: color-mix(in srgb, var(--accent) 12%, transparent);
+          background: var(--overlay-soft);
           opacity: 0;
           clip-path: circle(0% at 50% 50%);
           pointer-events: none;

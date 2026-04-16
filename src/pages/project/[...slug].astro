@@ -323,7 +323,7 @@ const hasDeck = !!decks[project.id];
   }
 
   .pw-gate__back:hover {
-    color: var(--text);
+    color: var(--accent);
   }
 
   /* ── Back bar ── */
@@ -399,7 +399,7 @@ const hasDeck = !!decks[project.id];
     height: 0;
     width: calc(100% + 16px);
     border-radius: 8px;
-    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    background: var(--overlay-soft);
     opacity: 0;
     pointer-events: none;
     z-index: 0;
@@ -949,7 +949,7 @@ const hasDeck = !!decks[project.id];
     position: absolute;
     inset: 0;
     border-radius: 8px;
-    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    background: var(--overlay-soft);
     opacity: 0;
     clip-path: circle(0% at 50% 50%);
     pointer-events: none;

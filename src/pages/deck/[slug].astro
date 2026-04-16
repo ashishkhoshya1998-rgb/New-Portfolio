@@ -130,7 +130,7 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     z-index: 1;
   }
 
-  .dk-back:hover { color: var(--text); }
+  .dk-back:hover { color: var(--accent); }
 
   /* ─── Floating Bottom Nav ─── */
   .dk-float-nav {
@@ -228,7 +228,7 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     position: absolute;
     inset: 0;
     border-radius: var(--radius-full);
-    background: color-mix(in srgb, var(--accent) 15%, transparent);
+    background: var(--overlay-soft);
     opacity: 0;
     pointer-events: none;
     z-index: 0;
@@ -304,7 +304,7 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     position: absolute;
     inset: 0;
     border-radius: var(--radius-sm);
-    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    background: var(--overlay-soft);
     opacity: 0;
     pointer-events: none;
     z-index: 0;
@@ -317,7 +317,7 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
   }
 
   .dk-dropdown-item:hover {
-    color: var(--text);
+    color: var(--accent);
   }
 
   .dk-dropdown-item.active {

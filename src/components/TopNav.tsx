@@ -609,11 +609,11 @@ export default function TopNav({ currentPath }: TopNavProps) {
         }
 
         .topnav__link:hover {
-          color: var(--text);
+          color: var(--accent);
         }
 
         .topnav__link--active {
-          color: var(--text);
+          color: var(--accent);
           font-weight: 700;
         }
 
