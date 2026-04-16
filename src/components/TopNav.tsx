@@ -42,6 +42,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const socialsDropdownRef = useRef<HTMLDivElement>(null);
+  const navLinksRef = useRef<HTMLDivElement>(null);
   const [logoText, setLogoText] = useState('AK');
   const [logoFade, setLogoFade] = useState(true);
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
@@ -151,6 +152,41 @@ export default function TopNav({ currentPath }: TopNavProps) {
     };
   }, [menuOpen]);
 
+  // Fluid highlight for nav links
+  useEffect(() => {
+    const container = navLinksRef.current;
+    if (!container) return;
+    const highlight = container.querySelector('.topnav__highlight') as HTMLElement;
+    if (!highlight) return;
+
+    const links = container.querySelectorAll<HTMLElement>('.topnav__link');
+
+    const onEnter = (e: Event) => {
+      const el = e.currentTarget as HTMLElement;
+      const containerRect = container.getBoundingClientRect();
+      const elRect = el.getBoundingClientRect();
+      highlight.style.left = (elRect.left - containerRect.left) + 'px';
+      highlight.style.width = elRect.width + 'px';
+      highlight.style.opacity = '1';
+    };
+
+    const onLeave = () => {
+      highlight.style.opacity = '0';
+    };
+
+    links.forEach((link) => {
+      link.addEventListener('mouseenter', onEnter);
+    });
+    container.addEventListener('mouseleave', onLeave);
+
+    return () => {
+      links.forEach((link) => {
+        link.removeEventListener('mouseenter', onEnter);
+      });
+      container.removeEventListener('mouseleave', onLeave);
+    };
+  }, []);
+
   const closeMenu = useCallback(() => {
     setMenuOpen(false);
     // Return focus to hamburger after close
@@ -177,7 +213,8 @@ export default function TopNav({ currentPath }: TopNavProps) {
         </a>
 
         {/* Centre: Nav links + Socials dropdown */}
-        <div className="topnav__links">
+        <div className="topnav__links" ref={navLinksRef}>
+          <span className="topnav__highlight"></span>
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -447,10 +484,27 @@ export default function TopNav({ currentPath }: TopNavProps) {
 
         /* Centre section — nav links */
         .topnav__links {
+          position: relative;
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 24px;
+          gap: 4px;
+        }
+
+        .topnav__highlight {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 0;
+          border-radius: 8px;
+          background: var(--overlay-soft);
+          opacity: 0;
+          pointer-events: none;
+          z-index: 0;
+          transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                      width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                      opacity 0.2s ease;
         }
 
         /* Right section */
@@ -462,14 +516,19 @@ export default function TopNav({ currentPath }: TopNavProps) {
         }
 
         .topnav__link {
+          position: relative;
+          z-index: 1;
           font-size: 14px;
           color: var(--text-muted);
           text-decoration: none;
+          padding: 6px 14px;
+          border-radius: 8px;
           transition: color 0.2s;
+          cursor: none;
         }
 
         .topnav__link:hover {
-          color: var(--accent);
+          color: var(--text);
         }
 
         .topnav__link--active {
@@ -487,6 +546,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
           border-radius: var(--radius-full);
           text-decoration: none;
           transition: background 0.2s, color 0.2s;
+          cursor: none;
         }
 
         .topnav__cta:hover {

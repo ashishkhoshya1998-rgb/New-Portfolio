@@ -321,10 +321,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         var node = el;
         for (var i = 0; i < 8; i++) {
           if (!node || !node.getAttribute) break;
-          if (node.classList && node.classList.contains('gd-cta')) return 'hidden';
-          if (node.getAttribute('data-cursor')) return 'expand';
+          if (node.getAttribute && node.getAttribute('data-cursor') === 'expand') return 'expand';
           var tag = node.tagName;
-          if (tag === 'A' || tag === 'BUTTON') return 'expand';
+          if (tag === 'A' || tag === 'BUTTON') return 'hidden';
           node = node.parentElement;
         }
         return 'default';
