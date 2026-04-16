@@ -137,7 +137,10 @@ const hasDeck = !!decks[project.id];
     <div class="cs__content-layout">
       <nav class="cs__section-nav" aria-label="Case study sections" id="cs-section-nav">
         <span class="cs__section-nav-title">Summary</span>
-        <!-- Populated by JS from h2 headings -->
+        <div class="cs__section-nav-items">
+          <span class="cs__section-nav-highlight"></span>
+          <!-- Populated by JS from h2 headings -->
+        </div>
       </nav>
       <article class="content-wrap cs__body">
         <Content />
@@ -335,13 +338,40 @@ const hasDeck = !!decks[project.id];
     opacity: 0.5;
   }
 
+  .cs__section-nav :global(.cs__section-nav-items) {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .cs__section-nav :global(.cs__section-nav-highlight) {
+    position: absolute;
+    left: -8px;
+    top: 0;
+    height: 0;
+    width: calc(100% + 16px);
+    border-radius: 8px;
+    background: var(--overlay-soft);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+    transition: top 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.2s ease;
+  }
+
   .cs__section-nav :global(.cs__section-nav-item) {
+    position: relative;
+    z-index: 1;
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 8px 0;
+    padding: 8px 8px;
+    margin-left: -8px;
+    border-radius: 8px;
     text-decoration: none;
-    cursor: pointer;
+    cursor: none;
     transition: opacity 0.2s;
   }
 
@@ -1088,10 +1118,24 @@ const hasDeck = !!decks[project.id];
     const headings = document.querySelectorAll('.cs__body h2');
     if (!headings.length) return;
 
-    // Keep the title, clear the rest
+    // Keep the title and items wrapper, clear items
     const title = nav.querySelector('.cs__section-nav-title');
-    nav.innerHTML = '';
-    if (title) nav.appendChild(title);
+    let itemsWrap = nav.querySelector('.cs__section-nav-items') as HTMLElement;
+    if (!itemsWrap) {
+      nav.innerHTML = '';
+      if (title) nav.appendChild(title);
+      itemsWrap = document.createElement('div');
+      itemsWrap.className = 'cs__section-nav-items';
+      const hl = document.createElement('span');
+      hl.className = 'cs__section-nav-highlight';
+      itemsWrap.appendChild(hl);
+      nav.appendChild(itemsWrap);
+    } else {
+      // Clear existing items but keep highlight
+      const hl = itemsWrap.querySelector('.cs__section-nav-highlight');
+      itemsWrap.innerHTML = '';
+      if (hl) itemsWrap.appendChild(hl);
+    }
 
     headings.forEach((h2, i) => {
       if (!h2.id) h2.id = `section-${i}`;
@@ -1107,8 +1151,26 @@ const hasDeck = !!decks[project.id];
         e.preventDefault();
         h2.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
-      nav.appendChild(item);
+      itemsWrap.appendChild(item);
     });
+
+    // Fluid highlight for section nav
+    const highlight = itemsWrap.querySelector('.cs__section-nav-highlight') as HTMLElement;
+    if (highlight) {
+      const navLinks = itemsWrap.querySelectorAll('.cs__section-nav-item');
+      navLinks.forEach((link) => {
+        link.addEventListener('mouseenter', () => {
+          const wrapRect = itemsWrap.getBoundingClientRect();
+          const linkRect = link.getBoundingClientRect();
+          highlight.style.top = (linkRect.top - wrapRect.top) + 'px';
+          highlight.style.height = linkRect.height + 'px';
+          highlight.style.opacity = '1';
+        });
+      });
+      itemsWrap.addEventListener('mouseleave', () => {
+        highlight.style.opacity = '0';
+      });
+    }
 
     const navItems = nav.querySelectorAll('.cs__section-nav-item');
 
