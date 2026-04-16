@@ -301,7 +301,7 @@ export default function ProjectCarousel() {
         }
 
         .gd-cta--active {
-          color: #000;
+          color: var(--btn-hover-text);
           border-color: transparent;
         }
 

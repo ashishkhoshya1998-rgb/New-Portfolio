@@ -533,6 +533,11 @@ export default function TopNav({ currentPath }: TopNavProps) {
           cursor: none;
         }
 
+        .topnav__socials-dropdown-link span {
+          display: flex;
+          align-items: center;
+        }
+
         .topnav__socials-dropdown-link:hover {
           background: var(--overlay-soft);
           color: var(--accent);
@@ -644,7 +649,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
         }
 
         .topnav__cta:hover {
-          color: var(--bg);
+          color: var(--btn-hover-text);
           border-color: var(--accent);
         }
 
@@ -791,7 +796,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
 
         .mobile-menu__cta:hover {
           background: var(--accent);
-          color: var(--bg);
+          color: var(--btn-hover-text);
         }
 
         /* ── Responsive ── */
