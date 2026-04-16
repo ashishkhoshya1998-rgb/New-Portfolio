@@ -13,11 +13,13 @@ export interface Project {
   accentColor: string;
   initial: string;
   coverImage: string;
+  order: number;
 }
 
 export const projects: Project[] = [
   {
     slug: 'memoir',
+    order: 3,
     title: 'Memoir',
     subtitle: 'Designing an Emotion-Led D2C Jewellery Experience',
     category: 'Consumer · D2C · Mobile-First',
@@ -40,6 +42,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'zzazz-ai',
+    order: 4,
     title: 'Zzazz.ai',
     subtitle: 'Architecting a New Content Economy',
     category: 'Product Architecture',
@@ -62,6 +65,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'gstr-3b',
+    order: 1,
     title: 'GSTR-3B Filing Redesign',
     subtitle: 'Simplifying GST Filing at Scale',
     category: 'B2B · Enterprise UX',
@@ -84,6 +88,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'mint-v8',
+    order: 2,
     title: 'Mint V8 Design System',
     subtitle: 'Token-Based System with PCS Logic',
     category: 'Design System',

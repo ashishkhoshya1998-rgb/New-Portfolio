@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { projects as rawProjects } from '../data/projects';
 import { decks } from '../data/decks';
 
-const projects = [...rawProjects].sort((a, b) => Number(b.year) - Number(a.year));
+const projects = [...rawProjects].sort((a, b) => a.order - b.order);
 
 export default function ProjectCarousel() {
   const sectionRef = useRef<HTMLElement>(null);

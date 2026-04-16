@@ -5,7 +5,7 @@ import FooterCTA from '../components/FooterCTA.astro';
 import { projects } from '../data/projects';
 import { decks } from '../data/decks';
 
-const sorted = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
+const sorted = [...projects].sort((a, b) => a.order - b.order);
 ---
 
 <Layout title="Projects — Ashish Khoshya" description="Selected projects by Ashish Khoshya — design systems, enterprise UX, and product architecture.">
