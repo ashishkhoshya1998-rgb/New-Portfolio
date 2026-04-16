@@ -532,12 +532,27 @@
 <body>
 
 <div class="save-bar">
-  <a class="btn-back" href="/about">
+  <a class="btn-back" href="javascript:void(0)" id="resume-back-btn">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
       <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
     </svg>
-    Back to About
+    Back
   </a>
+  <script>
+    document.getElementById('resume-back-btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      if (window.history.length > 1 && document.referrer) {
+        try {
+          var ref = new URL(document.referrer);
+          if (ref.origin === location.origin) {
+            window.history.back();
+            return;
+          }
+        } catch(err) {}
+      }
+      window.location.href = '/about';
+    });
+  </script>
   <button class="btn-download" id="downloadBtn" onclick="downloadResume()">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>

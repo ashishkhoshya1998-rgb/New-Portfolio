@@ -1,12 +1,46 @@
+import { useEffect, useRef } from 'react';
 import { projects as rawProjects } from '../data/projects';
 import { decks } from '../data/decks';
 
 const projects = [...rawProjects].sort((a, b) => Number(b.year) - Number(a.year));
 
 export default function ProjectCarousel() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    section.querySelectorAll('.gd-card__ctas').forEach((container) => {
+      const highlight = container.querySelector('.gd-cta-highlight') as HTMLElement;
+      const ctas = container.querySelectorAll('.gd-cta');
+      if (!highlight || !ctas.length) return;
+
+      const enterHandlers: Array<() => void> = [];
+      ctas.forEach((cta) => {
+        const handler = () => {
+          const el = cta as HTMLElement;
+          highlight.style.left = el.offsetLeft + 'px';
+          highlight.style.width = el.offsetWidth + 'px';
+          highlight.style.opacity = '1';
+          ctas.forEach((c) => c.classList.remove('gd-cta--active'));
+          el.classList.add('gd-cta--active');
+        };
+        enterHandlers.push(handler);
+        cta.addEventListener('mouseenter', handler);
+      });
+
+      const leaveHandler = () => {
+        highlight.style.opacity = '0';
+        ctas.forEach((c) => c.classList.remove('gd-cta--active'));
+      };
+      container.addEventListener('mouseleave', leaveHandler);
+    });
+  }, []);
+
   return (
     <>
-      <section className="pc">
+      <section className="pc" ref={sectionRef}>
         {/* Section header */}
         <div className="content-wrap pc__header">
           <h2 className="pc__header-title">Selected Work</h2>
@@ -17,16 +51,25 @@ export default function ProjectCarousel() {
           </div>
         </div>
 
-        {/* 2-column grid */}
+        {/* Full-width project list */}
         <div className="content-wrap pc__grid">
           {projects.map((p, i) => (
             <article key={p.slug} className="gd-card">
               <div className="gd-card__text">
                 <div>
                   <h3 className="gd-card__title">{p.title}</h3>
-                  <p className="gd-card__desc">{p.subtitle}</p>
+                  <p className="gd-card__subtitle">{p.subtitle}</p>
+                  <p className="gd-card__overview">{p.overview}</p>
+                  <div className="gd-card__meta">
+                    <span className="gd-card__meta-item">{p.category}</span>
+                    <span className="gd-card__meta-sep">·</span>
+                    <span className="gd-card__meta-item">{p.role}</span>
+                    <span className="gd-card__meta-sep">·</span>
+                    <span className="gd-card__meta-item">{p.year}</span>
+                  </div>
                 </div>
-                <div className="gd-card__ctas">
+                <div className="gd-card__ctas" style={{ '--cta-accent': p.accentColor } as React.CSSProperties}>
+                  <span className="gd-cta-highlight"></span>
                   <a
                     href={`/project/${p.slug}`}
                     className="gd-cta"
@@ -131,94 +174,145 @@ export default function ProjectCarousel() {
         .pc__header-count { font-weight: 500; }
         .pc__header-year { font-variant-numeric: tabular-nums; }
 
-        /* ── Grid ── */
+        /* ── Full-width list ── */
         .pc__grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 32px 28px;
+          display: flex;
+          flex-direction: column;
+          gap: 48px;
         }
 
-        /* ── Card (shared with projects page via same class names) ── */
+        /* ── Card: text left, image right ── */
         .gd-card {
           display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 0;
+          grid-template-columns: 1fr 1.2fr;
+          gap: 40px;
+          align-items: center;
           overflow: visible;
           background: transparent;
         }
 
+        /* Text side */
         .gd-card__text {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          padding: 32px 28px;
           min-height: 280px;
         }
 
         .gd-card__title {
           font-family: var(--font-display);
-          font-size: 24px;
+          font-size: 28px;
           font-weight: 700;
           color: var(--text);
           line-height: 1.2;
-          margin-bottom: 12px;
+          margin-bottom: 8px;
         }
 
-        .gd-card__desc {
+        .gd-card__subtitle {
+          font-family: var(--font-body);
+          font-size: 15px;
+          color: var(--text-muted);
+          line-height: 1.5;
+          margin-bottom: 16px;
+        }
+
+        .gd-card__overview {
           font-family: var(--font-body);
           font-size: 14px;
           color: var(--text-muted);
-          line-height: 1.6;
-          flex: 1;
+          line-height: 1.7;
+          margin-bottom: 16px;
         }
 
+        .gd-card__meta {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-family: var(--font-body);
+          font-size: 12px;
+          color: var(--text-muted);
+          letter-spacing: 0.3px;
+        }
+
+        .gd-card__meta-sep {
+          opacity: 0.3;
+        }
+
+        /* CTAs */
         .gd-card__ctas {
+          position: relative;
           display: flex;
           flex-wrap: nowrap;
-          gap: 8px;
+          gap: 0;
           margin-top: 24px;
+          border: 1px solid var(--border);
+          border-radius: 8px;
+          overflow: hidden;
+          width: fit-content;
+        }
+
+        .gd-cta-highlight {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 0;
+          border-radius: 6px;
+          background: var(--cta-accent, var(--accent));
+          opacity: 0;
+          pointer-events: none;
+          z-index: 0;
+          transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                      width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                      opacity 0.2s ease;
         }
 
         .gd-cta {
+          position: relative;
+          z-index: 1;
           display: inline-flex;
           align-items: center;
           gap: 5px;
-          padding: 8px 18px;
+          padding: 12px 24px;
           font-family: var(--font-body);
           font-size: 13px;
           font-weight: 600;
           letter-spacing: 0.3px;
           color: var(--text);
-          border: 1px solid var(--border);
-          border-radius: 6px;
+          background: transparent;
+          border: none;
           text-decoration: none;
           white-space: nowrap;
-          transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.15s ease;
+          transition: color 0.25s ease;
           cursor: none;
         }
 
-        .gd-cta:hover {
-          background: var(--cta-accent, var(--accent));
-          border-color: var(--cta-accent, var(--accent));
+        .gd-cta + .gd-cta {
+          border-left: 1px solid var(--border);
+        }
+
+        .gd-cta--active {
           color: #000;
-          transform: translateY(-1px);
         }
 
         .gd-cta__lock {
           opacity: 0.5;
           flex-shrink: 0;
+          transition: opacity 0.25s ease;
         }
 
-        .gd-cta:hover .gd-cta__lock {
+        .gd-cta--active .gd-cta__lock {
           opacity: 0.8;
         }
 
+        /* Image side */
         .gd-card__img-link {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          overflow: visible;
-          aspect-ratio: 4 / 3;
+          display: block;
+          overflow: hidden;
+          border-radius: 8px;
+          border: 1px solid var(--border);
+          aspect-ratio: 3 / 2;
+          transition: border-radius 0.5s var(--ease-out-expo);
         }
 
         .gd-card__img {
@@ -226,14 +320,16 @@ export default function ProjectCarousel() {
           height: 100%;
           object-fit: cover;
           object-position: center;
-          border-radius: 8px;
-          border: 1px solid var(--border);
-          transition: transform 0.5s var(--ease-out-expo), border-radius 0.5s var(--ease-out-expo);
+          display: block;
+          transition: transform 0.5s var(--ease-out-expo);
+        }
+
+        .gd-card:hover .gd-card__img-link {
+          border-radius: 32px;
         }
 
         .gd-card:hover .gd-card__img {
           transform: scale(1.03);
-          border-radius: 32px;
         }
 
         /* Footer link */
@@ -254,14 +350,7 @@ export default function ProjectCarousel() {
           color: var(--accent-hover);
         }
 
-        /* ── Mobile ── */
-        @media (max-width: 1024px) {
-          .pc__grid {
-            grid-template-columns: 1fr;
-            gap: 24px;
-          }
-        }
-
+        /* ── Mobile — keep as-is ── */
         @media (max-width: 768px) {
           .pc {
             padding: 64px 0 48px;
@@ -274,8 +363,13 @@ export default function ProjectCarousel() {
             margin-bottom: 32px;
           }
 
+          .pc__grid {
+            gap: 40px;
+          }
+
           .gd-card {
             grid-template-columns: 1fr;
+            gap: 0;
           }
 
           .gd-card__img-link {
@@ -285,11 +379,19 @@ export default function ProjectCarousel() {
 
           .gd-card__text {
             min-height: auto;
-            padding: 24px 20px;
+            padding: 20px 0 0;
           }
 
           .gd-card__title {
-            font-size: 20px;
+            font-size: 22px;
+          }
+
+          .gd-card__overview {
+            display: none;
+          }
+
+          .gd-card__meta {
+            display: none;
           }
         }
       `}</style>
