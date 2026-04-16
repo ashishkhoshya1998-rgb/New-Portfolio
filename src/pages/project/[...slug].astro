@@ -49,7 +49,7 @@ const hasDeck = !!decks[project.id];
           <button type="submit" class="pw-gate__btn" data-fluid-cs><span class="pw-gate__btn-highlight"></span><span class="pw-gate__btn-label">Unlock</span></button>
         </form>
         <p class="pw-gate__error" id="pw-error" role="alert" aria-live="polite">Incorrect password. Try again.</p>
-        <a href="/projects" class="pw-gate__back" data-fluid-cs><span class="pw-gate__back-highlight"></span><span aria-hidden="true">←</span> Back to Projects</a>
+        <a href="/projects" class="pw-gate__back" data-fluid-cs><span class="pw-gate__back-highlight"></span><span class="pw-gate__back-label"><span aria-hidden="true">←</span> Back to Projects</span></a>
       </div>
     </div>
   )}
@@ -320,9 +320,12 @@ const hasDeck = !!decks[project.id];
     clip-path: circle(0% at 50% 50%);
   }
 
-  .pw-gate__back span {
+  .pw-gate__back-label {
     position: relative;
     z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
   }
 
   .pw-gate__back:hover {
