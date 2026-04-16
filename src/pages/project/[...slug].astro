@@ -49,7 +49,7 @@ const hasDeck = !!decks[project.id];
           <button type="submit" class="pw-gate__btn">Unlock</button>
         </form>
         <p class="pw-gate__error" id="pw-error" role="alert" aria-live="polite">Incorrect password. Try again.</p>
-        <a href="/projects" class="pw-gate__back"><span aria-hidden="true">←</span> Back to Projects</a>
+        <a href="/projects" class="pw-gate__back" data-fluid-cs><span class="pw-gate__back-highlight"></span><span aria-hidden="true">←</span> Back to Projects</a>
       </div>
     </div>
   )}
@@ -277,17 +277,39 @@ const hasDeck = !!decks[project.id];
   }
 
   .pw-gate__back {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
     font-size: 13px;
     color: var(--text-muted);
     text-decoration: none;
-    opacity: 0.5;
-    transition: opacity 0.2s;
+    padding: 6px 14px;
+    border-radius: 8px;
+    transition: color 0.2s;
     margin-top: 8px;
     cursor: none;
   }
 
+  .pw-gate__back-highlight {
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    background: var(--overlay-soft);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+    clip-path: circle(0% at 50% 50%);
+  }
+
+  .pw-gate__back span {
+    position: relative;
+    z-index: 1;
+  }
+
   .pw-gate__back:hover {
-    opacity: 1;
+    color: var(--text);
   }
 
   /* ── Back bar ── */
@@ -1533,7 +1555,34 @@ const hasDeck = !!decks[project.id];
     }
   }
 
+  function initFluidCS() {
+    document.querySelectorAll<HTMLElement>('[data-fluid-cs]').forEach((el) => {
+      const hl = el.querySelector('.pw-gate__back-highlight') as HTMLElement;
+      if (!hl) return;
+      el.addEventListener('mouseenter', (e: MouseEvent) => {
+        const rect = el.getBoundingClientRect();
+        const cx = e.clientX - rect.left;
+        const cy = e.clientY - rect.top;
+        hl.style.clipPath = `circle(0% at ${cx}px ${cy}px)`;
+        hl.style.opacity = '1';
+        requestAnimationFrame(() => {
+          hl.style.transition = 'clip-path 0.45s cubic-bezier(0.4, 0, 0.2, 1)';
+          hl.style.clipPath = `circle(150% at ${cx}px ${cy}px)`;
+        });
+      });
+      el.addEventListener('mouseleave', (e: MouseEvent) => {
+        const rect = el.getBoundingClientRect();
+        const cx = e.clientX - rect.left;
+        const cy = e.clientY - rect.top;
+        hl.style.transition = 'clip-path 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.15s ease 0.2s';
+        hl.style.clipPath = `circle(0% at ${cx}px ${cy}px)`;
+        setTimeout(() => { hl.style.opacity = '0'; }, 300);
+      });
+    });
+  }
+
   initCaseStudy();
   initDeckBtn();
-  document.addEventListener('astro:after-swap', () => { initCaseStudy(); initDeckBtn(); });
+  initFluidCS();
+  document.addEventListener('astro:after-swap', () => { initCaseStudy(); initDeckBtn(); initFluidCS(); });
 </script>
