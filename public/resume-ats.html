@@ -9,8 +9,8 @@
 
   body {
     font-family: 'Times New Roman', Georgia, serif;
-    font-size: 10.5pt;
-    line-height: 1.4;
+    font-size: 11pt;
+    line-height: 1.45;
     color: #000;
     background: #fff;
     -webkit-print-color-adjust: exact;
@@ -19,26 +19,25 @@
 
   .page {
     width: 210mm;
-    max-height: 297mm;
     margin: 0 auto;
-    padding: 16pt 36pt 12pt 36pt;
+    padding: 36pt 48pt 36pt 48pt;
   }
 
   a { color: #000; text-decoration: none; }
 
   /* ── HEADER ── */
-  .header { text-align: center; margin-bottom: 8pt; }
+  .header { text-align: center; margin-bottom: 14pt; }
 
   .header h1 {
-    font-size: 18pt;
+    font-size: 22pt;
     font-weight: 700;
     letter-spacing: 0.5pt;
-    margin-bottom: 1pt;
+    margin-bottom: 4pt;
   }
 
   .header .tagline {
-    font-size: 10.5pt;
-    margin-bottom: 3pt;
+    font-size: 11pt;
+    margin-bottom: 6pt;
   }
 
   .header .contact {
@@ -47,40 +46,34 @@
   }
 
   .header .contact a { color: #333; }
-  .header .contact .sep { margin: 0 3pt; }
+  .header .contact .sep { margin: 0 4pt; }
 
   /* ── SECTION ── */
-  .section { margin-bottom: 5pt; }
+  .section { margin-bottom: 14pt; }
 
   .section-title {
-    font-size: 10.5pt;
+    font-size: 11.5pt;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1pt;
-    border-bottom: 0.75pt solid #000;
-    padding-bottom: 1pt;
-    margin-bottom: 4pt;
-  }
-
-  /* ── SUMMARY ── */
-  .summary-text {
-    font-size: 10pt;
-    line-height: 1.4;
+    border-bottom: 1pt solid #000;
+    padding-bottom: 2pt;
+    margin-bottom: 8pt;
   }
 
   /* ── EXPERIENCE ── */
-  .role-block { margin-bottom: 4pt; }
+  .role-block { margin-bottom: 10pt; }
   .role-block:last-child { margin-bottom: 0; }
 
   .role-header {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 0;
+    margin-bottom: 1pt;
   }
 
   .role-title {
-    font-size: 10.5pt;
+    font-size: 11pt;
     font-weight: 700;
   }
 
@@ -91,26 +84,33 @@
   }
 
   .role-company {
-    font-size: 10pt;
+    font-size: 10.5pt;
     font-style: italic;
-    margin-bottom: 1pt;
+    margin-bottom: 4pt;
   }
 
   ul {
-    margin-left: 14pt;
-    margin-top: 1pt;
+    margin-left: 16pt;
+    margin-top: 2pt;
   }
 
   li {
-    font-size: 10pt;
-    line-height: 1.35;
-    margin-bottom: 0.5pt;
+    font-size: 10.5pt;
+    line-height: 1.45;
+    margin-bottom: 2pt;
   }
 
   /* ── SKILLS ── */
-  .skills-text {
-    font-size: 10pt;
-    line-height: 1.4;
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 80pt 1fr;
+    gap: 3pt 8pt;
+    font-size: 10.5pt;
+  }
+
+  .skills-label {
+    font-weight: 700;
+    font-size: 10.5pt;
   }
 
   /* ── EDUCATION ── */
@@ -121,7 +121,7 @@
   }
 
   .edu-title {
-    font-size: 10.5pt;
+    font-size: 11pt;
     font-weight: 700;
   }
 
@@ -130,24 +130,24 @@
   }
 
   .edu-detail {
-    font-size: 10pt;
+    font-size: 10.5pt;
     font-style: italic;
   }
 
   /* ── CERTIFICATIONS ── */
   .cert-list {
     list-style: disc;
-    margin-left: 14pt;
+    margin-left: 16pt;
   }
 
   .cert-list li {
-    font-size: 10pt;
-    margin-bottom: 0;
+    font-size: 10.5pt;
+    margin-bottom: 1pt;
   }
 
   @media print {
     body { margin: 0; }
-    .page { padding: 0; width: 100%; min-height: auto; max-height: none; }
+    .page { padding: 0; width: 100%; }
   }
 </style>
 </head>
@@ -174,7 +174,7 @@
   <!-- Professional Summary -->
   <div class="section">
     <div class="section-title">Professional Summary</div>
-    <p class="summary-text">Senior Product Designer with 5+ years building scalable design systems and enterprise products. Engineered a token-based design system cutting developer build time by 50%, simplified GST filing reducing completion time by 60%, and architected a 7-vertical content ecosystem from scratch in under 4 months.</p>
+    <p style="font-size: 10.5pt;">Senior Product Designer with 5+ years of experience building scalable design systems and enterprise products. Engineered a token-based design system that cut developer build time by 50%, simplified GST filing workflows to reduce completion time by 60%, and identified a go-to-market gap to architect a 7-vertical content ecosystem from scratch in under 4 months. Delivers production-ready products end-to-end using Figma, Claude Code, and Cursor.</p>
   </div>
 
   <!-- Experience -->
@@ -189,10 +189,10 @@
       </div>
       <div class="role-company">Zzazz.ai, Bengaluru</div>
       <ul>
-        <li>Architected 7 interconnected content verticals from scratch with Founder and AI team, projecting 50% higher CTR across 80–98% of non-subscriber users.</li>
-        <li>Redesigned Exchange into a query-led AI-native interaction model; structured IA for Moments and TimePay verticals.</li>
-        <li>Delivered design assets via AI-first workflow (Claude Code + Figma Make), reducing design-to-dev cycle by 40%.</li>
-        <li>Conducted competitive analysis across 5 platforms; synthesized into a strategy deck securing stakeholder alignment in 2 weeks.</li>
+        <li>Architected 7 interconnected content verticals from scratch in collaboration with Founder, Product Lead, and AI team, projecting 50% higher CTR across 80-98% of non-subscriber users.</li>
+        <li>Redesigned Exchange into a query-led AI-native interaction model and structured the information architecture and wireframes for Moments and TimePay verticals.</li>
+        <li>Delivered all design assets using an AI-first workflow with Claude Code and Figma Make, reducing the design-to-development cycle by 40%.</li>
+        <li>Conducted competitive analysis across 5 content platforms and synthesized findings into a product strategy deck that secured stakeholder alignment within 2 weeks.</li>
       </ul>
     </div>
 
@@ -204,9 +204,9 @@
       </div>
       <div class="role-company">Clear (ClearTax), Bengaluru</div>
       <ul>
-        <li>Built automation engine for Table-4 ITC reconciliation, matching GSTR-2B with purchase registers; reduced support queries by 65%.</li>
-        <li>Led UX audit across 4 AP modules; standardized usability testing across 3 pods, improving design consistency by 30%.</li>
-        <li>Mentored 2 junior designers through design critiques and pattern library reviews, accelerating ramp-up by 35%.</li>
+        <li>Built an automation engine for Table-4 ITC reconciliation, matching GSTR-2B with purchase registers and reducing support queries by 65%; escalated to a strategic initiative.</li>
+        <li>Led UX audit across 4 Accounts Payable modules and standardized usability testing methods across 3 product pods, improving design consistency by 30%.</li>
+        <li>Mentored 2 junior designers through structured design critiques and pattern library reviews, accelerating ramp-up time by 35%.</li>
       </ul>
     </div>
 
@@ -218,19 +218,42 @@
       </div>
       <div class="role-company">Clear (ClearTax), Bengaluru</div>
       <ul>
-        <li>Spearheaded Mint V8 design system with token-based architecture and PCS Logic, compressing 700+ button variants to 32; cut dev time by 50%.</li>
-        <li>Optimized GSTR-3B filing for 1.4Cr+ businesses with bulk upload, multi-GSTIN support, and reconciliation engine; accelerated completion by 60%.</li>
-        <li>Championed Max ITC adoption via field research with 12+ tax professionals, boosting usage 18% to 53%; launched Ingestion Module improving imports by 45%.</li>
-        <li>Established Storybook documentation workflow enabling 4 engineering teams to self-serve UI components, reducing handoff queries by 40%.</li>
+        <li>Spearheaded Mint V8 design system using token-based architecture and PCS Logic, compressing 700+ button variants to 32 and cutting development implementation time by 50%.</li>
+        <li>Optimized GSTR-3B filing workflow for 1.4Cr+ businesses by introducing bulk upload, support for multiple GSTINs, and a reconciliation engine, accelerating completion by 60%.</li>
+        <li>Championed Max ITC adoption through field research with 12+ tax professionals, boosting usage from 18% to 53%, and launched an Ingestion Module that improved import success by 45%.</li>
+        <li>Established a component documentation workflow in Storybook, enabling 4 engineering teams to self-serve UI components and reducing design-to-engineering transition queries by 40%.</li>
       </ul>
     </div>
 
+    <!-- Visit Health -->
+    <div class="role-block">
+      <div class="role-header">
+        <span class="role-title">UI/UX Design Intern</span>
+        <span class="role-period">May 2019 – Jul 2019</span>
+      </div>
+      <div class="role-company">Visit Health, Bengaluru</div>
+      <ul>
+        <li>Revamped the marketing website and optimized Android app onboarding flow, increasing sign-up completion by 20% and partnering with founders on a brand identity refresh.</li>
+      </ul>
+    </div>
   </div>
 
   <!-- Skills -->
   <div class="section">
     <div class="section-title">Skills</div>
-    <p class="skills-text"><strong>Design:</strong> Design Systems, Interaction Design, UI/UX, Information Architecture, Prototyping, Visual Design, Accessibility (WCAG) | <strong>Research:</strong> User Research, Usability Testing, A/B Testing, Journey Mapping, Heuristic Evaluation | <strong>Strategy:</strong> Product Strategy, Design Thinking, Stakeholder Management, Agile/Scrum | <strong>Tools:</strong> Figma, FigJam, Storybook, Adobe CC, Framer, Miro, Notion, Jira, Linear, Claude Code, Cursor, Vercel</p>
+    <div class="skills-grid">
+      <span class="skills-label">Design:</span>
+      <span>Design Systems, Interaction Design, UI/UX Design, Information Architecture, Prototyping, Visual Design, Responsive Design, Accessibility (WCAG)</span>
+
+      <span class="skills-label">Research:</span>
+      <span>User Research, Usability Testing, A/B Testing, Journey Mapping, Data Analysis, Heuristic Evaluation</span>
+
+      <span class="skills-label">Strategy:</span>
+      <span>Product Strategy, Design Thinking, Stakeholder Management, Agile/Scrum, Sprint Planning</span>
+
+      <span class="skills-label">Tools:</span>
+      <span>Figma, FigJam, Storybook, Adobe Creative Suite, Framer, Miro, Notion, Jira, Linear, Claude Code, Antigravity, Vercel</span>
+    </div>
   </div>
 
   <!-- Education -->
