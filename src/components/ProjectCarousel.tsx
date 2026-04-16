@@ -243,11 +243,8 @@ export default function ProjectCarousel() {
           position: relative;
           display: flex;
           flex-wrap: nowrap;
-          gap: 0;
+          gap: 10px;
           margin-top: 24px;
-          border: 1px solid var(--border);
-          border-radius: 8px;
-          overflow: hidden;
           width: fit-content;
         }
 
@@ -257,7 +254,7 @@ export default function ProjectCarousel() {
           left: 0;
           height: 100%;
           width: 0;
-          border-radius: 6px;
+          border-radius: 8px;
           background: var(--cta-accent, var(--accent));
           opacity: 0;
           pointer-events: none;
@@ -280,19 +277,17 @@ export default function ProjectCarousel() {
           letter-spacing: 0.3px;
           color: var(--text);
           background: transparent;
-          border: none;
+          border: 1px solid var(--border);
+          border-radius: 8px;
           text-decoration: none;
           white-space: nowrap;
-          transition: color 0.25s ease;
+          transition: color 0.25s ease, border-color 0.25s ease;
           cursor: none;
-        }
-
-        .gd-cta + .gd-cta {
-          border-left: 1px solid var(--border);
         }
 
         .gd-cta--active {
           color: #000;
+          border-color: transparent;
         }
 
         .gd-cta__lock {
