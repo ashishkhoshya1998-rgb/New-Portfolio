@@ -396,7 +396,7 @@ const hasDeck = !!decks[project.id];
     height: 0;
     width: calc(100% + 16px);
     border-radius: 8px;
-    background: var(--overlay-soft);
+    background: color-mix(in srgb, var(--csAccent) 12%, transparent);
     opacity: 0;
     pointer-events: none;
     z-index: 0;
@@ -897,7 +897,7 @@ const hasDeck = !!decks[project.id];
   }
 
   .cs__next-link:hover {
-    color: var(--accent);
+    color: var(--csAccent);
   }
 
   .cs__next-link:hover .cs__next-arrow {
@@ -921,7 +921,7 @@ const hasDeck = !!decks[project.id];
   }
 
   .cs__all-projects:hover {
-    color: var(--accent);
+    color: var(--csAccent);
   }
 
   /* ── Mobile ── */

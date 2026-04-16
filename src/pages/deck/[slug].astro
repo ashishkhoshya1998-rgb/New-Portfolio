@@ -183,7 +183,7 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    background: var(--accent);
+    background: var(--dk-accent);
     opacity: 0;
     pointer-events: none;
     z-index: 0;
@@ -234,7 +234,7 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     position: absolute;
     inset: 0;
     border-radius: var(--radius-full);
-    background: var(--overlay-soft);
+    background: color-mix(in srgb, var(--dk-accent) 15%, transparent);
     opacity: 0;
     pointer-events: none;
     z-index: 0;
@@ -247,7 +247,7 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     z-index: 1;
   }
 
-  .dk-nav-current:hover { color: var(--text); }
+  .dk-nav-current:hover { color: var(--dk-accent); }
 
   .dk-nav-current svg {
     opacity: 0.5;
@@ -310,7 +310,7 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     position: absolute;
     inset: 0;
     border-radius: var(--radius-sm);
-    background: var(--overlay-soft);
+    background: color-mix(in srgb, var(--dk-accent) 12%, transparent);
     opacity: 0;
     pointer-events: none;
     z-index: 0;
