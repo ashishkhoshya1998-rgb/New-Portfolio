@@ -26,11 +26,13 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
 
     <!-- Floating bottom nav -->
     <div class="dk-float-nav">
-      <button class="dk-nav-arrow" id="prev-btn" disabled>
+      <button class="dk-nav-arrow" id="prev-btn" disabled data-fluid-dk>
+        <span class="dk-nav-arrow__highlight"></span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
       </button>
       <div class="dk-nav-selector">
-        <button class="dk-nav-current" id="nav-current">
+        <button class="dk-nav-current" id="nav-current" data-fluid-dk>
+          <span class="dk-nav-current__highlight"></span>
           <span id="current-label">{slides[0].label}</span>
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
         </button>
@@ -46,7 +48,8 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
           ))}
         </div>
       </div>
-      <button class="dk-nav-arrow" id="next-btn">
+      <button class="dk-nav-arrow" id="next-btn" data-fluid-dk>
+        <span class="dk-nav-arrow__highlight"></span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
       </button>
     </div>
@@ -132,6 +135,8 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
   }
 
   .dk-nav-arrow {
+    position: relative;
+    overflow: hidden;
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -142,13 +147,28 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.15s, background 0.15s;
+    transition: color 0.25s ease;
     flex-shrink: 0;
   }
 
+  .dk-nav-arrow svg {
+    position: relative;
+    z-index: 1;
+  }
+
+  .dk-nav-arrow__highlight {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--dk-accent);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+    clip-path: circle(0% at 50% 50%);
+  }
+
   .dk-nav-arrow:hover {
-    color: var(--dk-accent);
-    background: var(--overlay-hover);
+    color: var(--btn-hover-text);
   }
 
   .dk-nav-arrow:disabled {
@@ -165,6 +185,8 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
   }
 
   .dk-nav-current {
+    position: relative;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -178,14 +200,31 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     font-family: var(--font-body);
     cursor: none;
     white-space: nowrap;
-    transition: color 0.15s;
+    transition: color 0.25s ease;
     width: 100%;
-    overflow: hidden;
     text-overflow: ellipsis;
     letter-spacing: 0.2px;
+    border-radius: var(--radius-full);
   }
 
-  .dk-nav-current:hover { color: var(--dk-accent); }
+  .dk-nav-current__highlight {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-full);
+    background: var(--dk-accent);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+    clip-path: circle(0% at 50% 50%);
+  }
+
+  .dk-nav-current #current-label,
+  .dk-nav-current svg {
+    position: relative;
+    z-index: 1;
+  }
+
+  .dk-nav-current:hover { color: var(--btn-hover-text); }
 
   .dk-nav-current svg {
     opacity: 0.5;
@@ -914,6 +953,37 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     });
   }
 
+  // Fluid highlight for deck nav buttons
+  function initDeckFluid() {
+    document.querySelectorAll('[data-fluid-dk]').forEach(function(btn) {
+      var highlight = btn.querySelector('.dk-nav-arrow__highlight') || btn.querySelector('.dk-nav-current__highlight');
+      if (!highlight) return;
+
+      btn.addEventListener('mouseenter', function(e) {
+        if (btn.disabled) return;
+        var rect = btn.getBoundingClientRect();
+        var cx = e.clientX - rect.left;
+        var cy = e.clientY - rect.top;
+        highlight.style.clipPath = 'circle(0% at ' + cx + 'px ' + cy + 'px)';
+        highlight.style.opacity = '1';
+        requestAnimationFrame(function() {
+          highlight.style.transition = 'clip-path 0.45s cubic-bezier(0.4, 0, 0.2, 1)';
+          highlight.style.clipPath = 'circle(150% at ' + cx + 'px ' + cy + 'px)';
+        });
+      });
+
+      btn.addEventListener('mouseleave', function(e) {
+        var rect = btn.getBoundingClientRect();
+        var cx = e.clientX - rect.left;
+        var cy = e.clientY - rect.top;
+        highlight.style.transition = 'clip-path 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.15s ease 0.2s';
+        highlight.style.clipPath = 'circle(0% at ' + cx + 'px ' + cy + 'px)';
+        setTimeout(function() { highlight.style.opacity = '0'; }, 300);
+      });
+    });
+  }
+
   initDeck();
-  document.addEventListener('astro:after-swap', initDeck);
+  initDeckFluid();
+  document.addEventListener('astro:after-swap', function() { initDeck(); initDeckFluid(); });
 </script>
