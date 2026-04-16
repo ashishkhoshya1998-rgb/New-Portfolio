@@ -462,6 +462,15 @@ export default function ProjectCarousel() {
           .gd-card__meta {
             display: none;
           }
+
+          .gd-cta {
+            background: color-mix(in srgb, var(--accent) 8%, transparent);
+          }
+
+          .pc__all-link:active {
+            background: var(--overlay-soft);
+            color: var(--accent);
+          }
         }
       `}</style>
     </>

@@ -837,6 +837,20 @@ export default function TopNav({ currentPath }: TopNavProps) {
           .topnav__mobile-right {
             display: flex;
           }
+
+          .mobile-menu__cta {
+            background: color-mix(in srgb, var(--accent) 8%, transparent);
+          }
+
+          .mobile-menu__link:active {
+            background: var(--overlay-soft);
+            color: var(--accent);
+          }
+
+          .mobile-menu__social:active {
+            background: var(--overlay-soft);
+            color: var(--accent);
+          }
         }
       `}</style>
     </>
