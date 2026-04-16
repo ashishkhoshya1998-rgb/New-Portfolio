@@ -22,8 +22,15 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <!-- Theme: prevent flash by setting before render -->
     <script is:inline>
       (function() {
-        var saved = localStorage.getItem('ak-theme');
-        var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        try {
+          var saved = localStorage.getItem('ak-theme');
+        } catch(e) { var saved = null; }
+        var theme = 'dark';
+        if (saved) {
+          theme = saved;
+        } else if (window.matchMedia) {
+          theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
         document.documentElement.setAttribute('data-theme', theme);
       })();
     </script>
@@ -172,8 +179,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           });
           start(path);
           // Re-apply theme after swap
-          var saved = localStorage.getItem('ak-theme');
-          var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+          try { var saved = localStorage.getItem('ak-theme'); } catch(e) { var saved = null; }
+          var theme = saved || (window.matchMedia ? (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark') : 'dark');
           document.documentElement.setAttribute('data-theme', theme);
         });
 
@@ -182,14 +189,20 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       })();
 
       // ── Live OS theme detection ──────────────────────────
+      // When the OS theme changes, always follow it and clear any manual override
       (function() {
+        if (!window.matchMedia) return;
         var mq = window.matchMedia('(prefers-color-scheme: light)');
-        mq.addEventListener('change', function(e) {
-          // Only auto-switch if user hasn't manually set a preference
-          if (!localStorage.getItem('ak-theme')) {
-            document.documentElement.setAttribute('data-theme', e.matches ? 'light' : 'dark');
-          }
-        });
+        function onThemeChange(e) {
+          var newTheme = e.matches ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', newTheme);
+          try { localStorage.removeItem('ak-theme'); } catch(err) {}
+        }
+        if (mq.addEventListener) {
+          mq.addEventListener('change', onThemeChange);
+        } else if (mq.addListener) {
+          mq.addListener(onThemeChange);
+        }
       })();
 
       // ── Click / download tracking ──────────────────────────

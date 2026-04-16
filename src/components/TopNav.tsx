@@ -56,7 +56,7 @@ export default function TopNav({ currentPath }: TopNavProps) {
     const next = theme === 'dark' ? 'light' : 'dark';
     setTheme(next);
     document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('ak-theme', next);
+    try { localStorage.setItem('ak-theme', next); } catch(e) {}
   }, [theme]);
 
   // On case study pages, always show blur bg
