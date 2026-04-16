@@ -11,6 +11,34 @@ export default function ProjectCarousel() {
     const section = sectionRef.current;
     if (!section) return;
 
+    /* ── Fluid highlight for "View all projects" link ── */
+    const allLink = section.querySelector('.pc__all-link') as HTMLElement;
+    if (allLink) {
+      const hl = allLink.querySelector('.pc__all-link-highlight') as HTMLElement;
+      if (hl) {
+        allLink.addEventListener('mouseenter', (e: MouseEvent) => {
+          const rect = allLink.getBoundingClientRect();
+          const cx = e.clientX - rect.left;
+          const cy = e.clientY - rect.top;
+          hl.style.transition = 'none';
+          hl.style.clipPath = `circle(0% at ${cx}px ${cy}px)`;
+          hl.style.opacity = '1';
+          requestAnimationFrame(() => {
+            hl.style.transition = 'clip-path 0.45s cubic-bezier(0.4,0,0.2,1)';
+            hl.style.clipPath = `circle(150% at ${cx}px ${cy}px)`;
+          });
+        });
+        allLink.addEventListener('mouseleave', (e: MouseEvent) => {
+          const rect = allLink.getBoundingClientRect();
+          const cx = e.clientX - rect.left;
+          const cy = e.clientY - rect.top;
+          hl.style.transition = 'clip-path 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.15s ease 0.2s';
+          hl.style.clipPath = `circle(0% at ${cx}px ${cy}px)`;
+          setTimeout(() => { hl.style.opacity = '0'; }, 300);
+        });
+      }
+    }
+
     section.querySelectorAll('.gd-card__ctas').forEach((container) => {
       const highlight = container.querySelector('.gd-cta-highlight') as HTMLElement;
       const ctas = container.querySelectorAll('.gd-cta');
@@ -64,7 +92,10 @@ export default function ProjectCarousel() {
               <span className="pc__header-sep">/</span>
               <span className="pc__header-year">2021 — 2026</span>
             </div>
-            <a href="/projects" className="pc__all-link">View all projects <span aria-hidden="true">↗</span></a>
+            <a href="/projects" className="pc__all-link">
+              <span className="pc__all-link-highlight"></span>
+              <span className="pc__all-link-label">View all projects <span aria-hidden="true">↗</span></span>
+            </a>
           </div>
         </div>
 
@@ -344,20 +375,38 @@ export default function ProjectCarousel() {
         }
 
         .pc__all-link {
+          position: relative;
+          overflow: hidden;
+          display: inline-flex;
+          align-items: center;
           font-size: 13px;
           font-weight: 600;
           color: var(--accent);
           text-decoration: none;
           padding: 8px 16px;
           border-radius: 8px;
-          transition: color 0.2s, background 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: color 0.2s;
           cursor: none;
           white-space: nowrap;
         }
 
+        .pc__all-link-highlight {
+          position: absolute;
+          inset: 0;
+          border-radius: 8px;
+          background: color-mix(in srgb, var(--accent) 12%, transparent);
+          opacity: 0;
+          clip-path: circle(0% at 50% 50%);
+          pointer-events: none;
+        }
+
+        .pc__all-link-label {
+          position: relative;
+          z-index: 1;
+        }
+
         .pc__all-link:hover {
           color: var(--accent);
-          background: var(--overlay-soft);
         }
 
         /* ── Mobile — keep as-is ── */

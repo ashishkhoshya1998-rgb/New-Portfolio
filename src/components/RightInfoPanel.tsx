@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function RightInfoPanel() {
   const [opacity, setOpacity] = useState(1);
+  const helpRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -19,6 +20,41 @@ export default function RightInfoPanel() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    const link = helpRef.current;
+    if (!link) return;
+    const hl = link.querySelector('.right-panel__help-highlight') as HTMLElement;
+    if (!hl) return;
+
+    const onEnter = (e: MouseEvent) => {
+      const rect = link.getBoundingClientRect();
+      const cx = e.clientX - rect.left;
+      const cy = e.clientY - rect.top;
+      hl.style.transition = 'none';
+      hl.style.clipPath = `circle(0% at ${cx}px ${cy}px)`;
+      hl.style.opacity = '1';
+      requestAnimationFrame(() => {
+        hl.style.transition = 'clip-path 0.45s cubic-bezier(0.4,0,0.2,1)';
+        hl.style.clipPath = `circle(150% at ${cx}px ${cy}px)`;
+      });
+    };
+    const onLeave = (e: MouseEvent) => {
+      const rect = link.getBoundingClientRect();
+      const cx = e.clientX - rect.left;
+      const cy = e.clientY - rect.top;
+      hl.style.transition = 'clip-path 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.15s ease 0.2s';
+      hl.style.clipPath = `circle(0% at ${cx}px ${cy}px)`;
+      setTimeout(() => { hl.style.opacity = '0'; }, 300);
+    };
+
+    link.addEventListener('mouseenter', onEnter);
+    link.addEventListener('mouseleave', onLeave);
+    return () => {
+      link.removeEventListener('mouseenter', onEnter);
+      link.removeEventListener('mouseleave', onLeave);
+    };
+  }, []);
+
   return (
     <>
       <aside className="right-panel" style={{ opacity, pointerEvents: opacity < 0.1 ? 'none' : 'auto' }}>
@@ -29,8 +65,9 @@ export default function RightInfoPanel() {
             <span>Research &amp; Strategy</span>
             <span>Build with AI</span>
           </div>
-          <a href="https://www.linkedin.com/in/ashish-khoshya-676b99183/" target="_blank" rel="noopener noreferrer" className="right-panel__help" aria-label="How can I help? Opens LinkedIn in new tab">
-            How can I help? <span aria-hidden="true">↗</span>
+          <a ref={helpRef} href="https://www.linkedin.com/in/ashish-khoshya-676b99183/" target="_blank" rel="noopener noreferrer" className="right-panel__help" aria-label="How can I help? Opens LinkedIn in new tab">
+            <span className="right-panel__help-highlight"></span>
+            <span className="right-panel__help-label">How can I help? <span aria-hidden="true">↗</span></span>
           </a>
         </div>
         <div className="right-panel__bottom">
@@ -73,6 +110,12 @@ export default function RightInfoPanel() {
         }
 
         .right-panel__help {
+          position: relative;
+          overflow: hidden;
+          display: inline-flex;
+          align-items: center;
+          padding: 6px 12px;
+          border-radius: 8px;
           font-size: 14px;
           font-weight: 600;
           color: var(--text);
@@ -81,8 +124,22 @@ export default function RightInfoPanel() {
           cursor: none;
         }
 
+        .right-panel__help-highlight {
+          position: absolute;
+          inset: 0;
+          border-radius: 8px;
+          background: color-mix(in srgb, var(--accent) 12%, transparent);
+          opacity: 0;
+          clip-path: circle(0% at 50% 50%);
+          pointer-events: none;
+        }
+
+        .right-panel__help-label {
+          position: relative;
+          z-index: 1;
+        }
+
         .right-panel__help:hover {
-          text-decoration: underline;
           color: var(--accent);
         }
 
