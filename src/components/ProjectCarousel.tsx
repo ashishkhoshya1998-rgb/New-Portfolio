@@ -44,10 +44,13 @@ export default function ProjectCarousel() {
         {/* Section header */}
         <div className="content-wrap pc__header">
           <h2 className="pc__header-title">Selected Work</h2>
-          <div className="pc__header-meta">
-            <span className="pc__header-count">{projects.length} Case Studies</span>
-            <span className="pc__header-sep">/</span>
-            <span className="pc__header-year">2021 — 2026</span>
+          <div className="pc__header-right">
+            <div className="pc__header-meta">
+              <span className="pc__header-count">{projects.length} Case Studies</span>
+              <span className="pc__header-sep">/</span>
+              <span className="pc__header-year">2021 — 2026</span>
+            </div>
+            <a href="/projects" className="pc__all-link">View all projects <span aria-hidden="true">↗</span></a>
           </div>
         </div>
 
@@ -131,10 +134,6 @@ export default function ProjectCarousel() {
           ))}
         </div>
 
-        {/* View all link */}
-        <div className="content-wrap pc__footer">
-          <a href="/projects" className="pc__all-link">View all projects <span aria-hidden="true">↗</span></a>
-        </div>
       </section>
 
       <style>{`
@@ -159,6 +158,12 @@ export default function ProjectCarousel() {
           font-weight: 600;
           color: var(--text);
           line-height: 1.1;
+        }
+
+        .pc__header-right {
+          display: flex;
+          align-items: center;
+          gap: 24px;
         }
 
         .pc__header-meta {
@@ -327,14 +332,8 @@ export default function ProjectCarousel() {
           transform: scale(1.03);
         }
 
-        /* Footer link */
-        .pc__footer {
-          text-align: center;
-          margin-top: 48px;
-        }
-
         .pc__all-link {
-          font-size: 15px;
+          font-size: 13px;
           font-weight: 600;
           color: var(--accent);
           text-decoration: none;
@@ -342,6 +341,7 @@ export default function ProjectCarousel() {
           border-radius: 8px;
           transition: color 0.2s, background 0.35s cubic-bezier(0.4, 0, 0.2, 1);
           cursor: none;
+          white-space: nowrap;
         }
 
         .pc__all-link:hover {
@@ -360,6 +360,16 @@ export default function ProjectCarousel() {
             align-items: flex-start;
             gap: 8px;
             margin-bottom: 32px;
+          }
+
+          .pc__header-right {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+          }
+
+          .pc__all-link {
+            margin-left: -8px;
           }
 
           .pc__grid {
