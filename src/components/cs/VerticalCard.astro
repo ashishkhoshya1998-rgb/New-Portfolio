@@ -55,7 +55,7 @@ const { number, title, description, href } = Astro.props;
     font-weight: 700;
     color: var(--accent);
     letter-spacing: 1px;
-    background: rgba(var(--accent-rgb, 245, 158, 11), 0.12);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
     padding: 2px 8px;
     border-radius: 4px;
     flex-shrink: 0;

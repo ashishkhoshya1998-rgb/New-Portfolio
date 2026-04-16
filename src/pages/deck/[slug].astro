@@ -14,7 +14,7 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
 ---
 
 <Layout title={`${title} — Presentation`}>
-  <div class="deck-page" style={`--dk-accent-raw:${accentColor};--dk-accent-bg:${accentBg};--dk-accent-text:${accentText};`}>
+  <div class="deck-page">
     <!-- Top bar: back link + counter -->
     <div class="dk-top-bar">
       <a href="/projects" class="dk-back" id="dk-back-btn" data-fluid-dk>
@@ -72,16 +72,10 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
 
   /* ─── Deck Layout ─── */
   .deck-page {
-    --dk-accent: var(--dk-accent-raw);
     max-width: 720px;
     margin: 0 auto;
     min-height: 100vh;
     padding-bottom: 100px;
-  }
-
-  /* Darken deck accent for light-mode contrast */
-  [data-theme='light'] .deck-page {
-    --dk-accent: color-mix(in srgb, var(--dk-accent-raw), black 40%);
   }
 
   /* ─── Top Bar ─── */

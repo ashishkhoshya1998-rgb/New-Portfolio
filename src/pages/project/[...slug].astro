@@ -54,7 +54,7 @@ const hasDeck = !!decks[project.id];
     </div>
   )}
 
-  <main id="main-content" class="cs" style={`--csAccentRaw:${accentColor};`}>
+  <main id="main-content" class="cs">
     {parentProject && (
       <div class="cs__back-bar">
         <div class="content-wrap">
@@ -172,14 +172,6 @@ const hasDeck = !!decks[project.id];
 </Layout>
 
 <style>
-  /* Derive themed accent — darkened in light mode for contrast */
-  .cs {
-    --csAccent: var(--csAccentRaw);
-  }
-  :global([data-theme='light']) .cs {
-    --csAccent: color-mix(in srgb, var(--csAccentRaw), black 40%);
-  }
-
   /* ── Password gate ── */
   .pw-gate {
     position: fixed;
