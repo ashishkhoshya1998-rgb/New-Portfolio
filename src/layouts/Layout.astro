@@ -23,7 +23,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <script is:inline>
       (function() {
         try {
-          var saved = localStorage.getItem('ak-theme');
+          var saved = sessionStorage.getItem('ak-theme');
         } catch(e) { var saved = null; }
         var theme = 'dark';
         if (saved) {
@@ -179,7 +179,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           });
           start(path);
           // Re-apply theme after swap
-          try { var saved = localStorage.getItem('ak-theme'); } catch(e) { var saved = null; }
+          try { var saved = sessionStorage.getItem('ak-theme'); } catch(e) { var saved = null; }
           var theme = saved || (window.matchMedia ? (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark') : 'dark');
           document.documentElement.setAttribute('data-theme', theme);
         });
@@ -196,7 +196,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         function onThemeChange(e) {
           var newTheme = e.matches ? 'light' : 'dark';
           document.documentElement.setAttribute('data-theme', newTheme);
-          try { localStorage.removeItem('ak-theme'); } catch(err) {}
+          try { sessionStorage.removeItem('ak-theme'); } catch(err) {}
         }
         if (mq.addEventListener) {
           mq.addEventListener('change', onThemeChange);
