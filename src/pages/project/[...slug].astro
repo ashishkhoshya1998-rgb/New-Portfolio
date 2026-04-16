@@ -46,7 +46,7 @@ const hasDeck = !!decks[project.id];
             aria-describedby="pw-error"
             aria-invalid="false"
           />
-          <button type="submit" class="pw-gate__btn">Unlock</button>
+          <button type="submit" class="pw-gate__btn" data-fluid-cs><span class="pw-gate__btn-highlight"></span><span class="pw-gate__btn-label">Unlock</span></button>
         </form>
         <p class="pw-gate__error" id="pw-error" role="alert" aria-live="polite">Incorrect password. Try again.</p>
         <a href="/projects" class="pw-gate__back" data-fluid-cs><span class="pw-gate__back-highlight"></span><span aria-hidden="true">←</span> Back to Projects</a>
@@ -242,25 +242,42 @@ const hasDeck = !!decks[project.id];
   }
 
   .pw-gate__input:focus {
-    border-color: var(--csAccent);
+    border-color: var(--accent);
   }
 
   .pw-gate__btn {
+    position: relative;
+    overflow: hidden;
     padding: 12px 24px;
     border-radius: var(--radius-full);
-    border: 1px solid var(--csAccent);
+    border: 1px solid var(--accent);
     background: transparent;
-    color: var(--csAccent);
+    color: var(--accent);
     font-size: 14px;
     font-weight: 600;
     font-family: inherit;
     cursor: none;
-    transition: background 0.2s, color 0.2s;
+    transition: color 0.25s ease, border-color 0.25s ease;
     white-space: nowrap;
   }
 
+  .pw-gate__btn-highlight {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-full);
+    background: var(--accent);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+    clip-path: circle(0% at 50% 50%);
+  }
+
+  .pw-gate__btn-label {
+    position: relative;
+    z-index: 1;
+  }
+
   .pw-gate__btn:hover {
-    background: var(--csAccent);
     color: var(--btn-hover-text);
   }
 
@@ -1557,7 +1574,7 @@ const hasDeck = !!decks[project.id];
 
   function initFluidCS() {
     document.querySelectorAll<HTMLElement>('[data-fluid-cs]').forEach((el) => {
-      const hl = el.querySelector('.pw-gate__back-highlight') as HTMLElement;
+      const hl = (el.querySelector('.pw-gate__back-highlight') || el.querySelector('.pw-gate__btn-highlight')) as HTMLElement;
       if (!hl) return;
       el.addEventListener('mouseenter', (e: MouseEvent) => {
         const rect = el.getBoundingClientRect();
