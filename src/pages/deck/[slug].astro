@@ -36,12 +36,13 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
           <span id="current-label">{slides[0].label}</span>
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
         </button>
-        <div class="dk-nav-dropdown" id="nav-dropdown">
+        <div class="dk-nav-dropdown dk-dropdown-fluid" id="nav-dropdown">
           {slides.map((s, i) => (
             <button
               class={`dk-dropdown-item ${i === 0 ? 'active' : ''}`}
               data-pill-index={i}
             >
+              <span class="dk-dropdown-highlight"></span>
               <span class="dk-dropdown-num">{String(i + 1).padStart(2, '0')}</span>
               {s.label}
             </button>
@@ -160,7 +161,7 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    background: var(--dk-accent);
+    background: var(--overlay-soft);
     opacity: 0;
     pointer-events: none;
     z-index: 0;
@@ -168,7 +169,7 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
   }
 
   .dk-nav-arrow:hover {
-    color: var(--btn-hover-text);
+    color: var(--dk-accent);
   }
 
   .dk-nav-arrow:disabled {
@@ -211,7 +212,7 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     position: absolute;
     inset: 0;
     border-radius: var(--radius-full);
-    background: var(--dk-accent);
+    background: var(--overlay-soft);
     opacity: 0;
     pointer-events: none;
     z-index: 0;
@@ -224,7 +225,7 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     z-index: 1;
   }
 
-  .dk-nav-current:hover { color: var(--btn-hover-text); }
+  .dk-nav-current:hover { color: var(--dk-accent); }
 
   .dk-nav-current svg {
     opacity: 0.5;
@@ -265,6 +266,7 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
   }
 
   .dk-dropdown-item {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -278,12 +280,27 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     cursor: none;
     border-radius: var(--radius-sm);
     text-align: left;
-    transition: background 0.1s, color 0.1s;
+    transition: color 0.15s;
     white-space: nowrap;
   }
 
-  .dk-dropdown-item:hover {
+  .dk-dropdown-highlight {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-sm);
     background: var(--overlay-soft);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+    clip-path: circle(0% at 50% 50%);
+  }
+
+  .dk-dropdown-item .dk-dropdown-num {
+    position: relative;
+    z-index: 1;
+  }
+
+  .dk-dropdown-item:hover {
     color: var(--text);
   }
 
@@ -953,8 +970,9 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
     });
   }
 
-  // Fluid highlight for deck nav buttons
+  // Fluid highlight for deck nav buttons + dropdown items
   function initDeckFluid() {
+    // Nav arrows + current label
     document.querySelectorAll('[data-fluid-dk]').forEach(function(btn) {
       var highlight = btn.querySelector('.dk-nav-arrow__highlight') || btn.querySelector('.dk-nav-current__highlight');
       if (!highlight) return;
@@ -979,6 +997,36 @@ const { slug, title, accentColor, accentBg, accentText, slides } = deck;
         highlight.style.transition = 'clip-path 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.15s ease 0.2s';
         highlight.style.clipPath = 'circle(0% at ' + cx + 'px ' + cy + 'px)';
         setTimeout(function() { highlight.style.opacity = '0'; }, 300);
+      });
+    });
+
+    // Dropdown items — same fluid highlight as header nav
+    document.querySelectorAll('.dk-dropdown-fluid').forEach(function(wrap) {
+      var items = wrap.querySelectorAll('.dk-dropdown-item');
+      items.forEach(function(item) {
+        var hl = item.querySelector('.dk-dropdown-highlight');
+        if (!hl) return;
+
+        item.addEventListener('mouseenter', function(e) {
+          var rect = item.getBoundingClientRect();
+          var cx = e.clientX - rect.left;
+          var cy = e.clientY - rect.top;
+          hl.style.clipPath = 'circle(0% at ' + cx + 'px ' + cy + 'px)';
+          hl.style.opacity = '1';
+          requestAnimationFrame(function() {
+            hl.style.transition = 'clip-path 0.45s cubic-bezier(0.4, 0, 0.2, 1)';
+            hl.style.clipPath = 'circle(150% at ' + cx + 'px ' + cy + 'px)';
+          });
+        });
+
+        item.addEventListener('mouseleave', function(e) {
+          var rect = item.getBoundingClientRect();
+          var cx = e.clientX - rect.left;
+          var cy = e.clientY - rect.top;
+          hl.style.transition = 'clip-path 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.15s ease 0.2s';
+          hl.style.clipPath = 'circle(0% at ' + cx + 'px ' + cy + 'px)';
+          setTimeout(function() { hl.style.opacity = '0'; }, 300);
+        });
       });
     });
   }
