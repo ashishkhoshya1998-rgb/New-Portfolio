@@ -15,6 +15,7 @@ nextProject:
 import MetricGrid from '../../components/cs/MetricGrid.astro';
 import MetricTable from '../../components/cs/MetricTable.astro';
 import FiveSecondVersion from '../../components/cs/FiveSecondVersion.astro';
+import PhaseDivider from '../../components/cs/PhaseDivider.astro';
 import ProcessStep from '../../components/cs/ProcessStep.astro';
 
 <FiveSecondVersion>
@@ -30,24 +31,21 @@ India's GST filing was broken — 1.4Cr+ businesses filing one GSTIN at a time, 
 
 </FiveSecondVersion>
 
-## Overview
+<PhaseDivider label="Phase 1" title="Pre-Launch · Research, Design & Development" />
 
-India's GST regime requires over 1.4 crore businesses to file GSTR-3B returns monthly. The GSTN portal and Clear GST 1.0 limited users to one GSTIN at a time — creating massive inefficiencies. I redesigned the end-to-end experience, reducing filing time from 1 hour to under 8 minutes per GSTIN and tripling adoption.
+## Understanding the Problem Space
 
-I led end-to-end UX: conducted 50+ user interviews, defined IA, designed all screens, and drove post-launch iteration. Uncovered the critical "adoption ≠ proficiency" flaw through field shadowing that changed our entire post-launch strategy.
+### Market Context
 
-<MetricGrid metrics={[
-  { value: "87%", label: "Time Cut" },
-  { value: "53%", label: "Adoption Up" },
-  { value: "94%", label: "Accuracy" },
-  { value: "73%", label: "Escalation Down" }
-]} />
+India's Goods and Services Tax (GST) regime requires over **1.4 crore businesses** to file GSTR-3B returns monthly or quarterly. These returns report sales, input tax credit (ITC) claims, tax liabilities, and refunds. The GSTN portal — the government's official platform — had several critical limitations:
 
-## What We Were Up Against
+- **Single-GSTIN Filing** — Businesses with multiple units (GSTINs) had to submit returns one at a time, which was time-consuming.
+- **Manual Processes** — Users had to enter data manually from Excel sheets, increasing error and compliance risk.
+- **Complex Reconciliation** — Comparing purchase registers (PR) with GSTR-2B (auto-generated from vendor filings) was complicated and prone to mistakes.
 
-> "My team of 6 spends 5 full days every month filing for 120 GSTINs. We make mistakes because the process creates mistakes." — CFO, Manufacturing Firm
+### Problem Statement
 
-Five core challenges drove our design mandate:
+The GSTN portal and Clear GST 1.0 limited users to filing returns for only one GSTIN at a time, creating inefficiencies for businesses managing multiple GSTINs. Users struggled with data accuracy, reconciliation, and tax computation, making the process prone to errors and unnecessarily complex. Five core challenges:
 
 <ProcessStep number="01" title="High Cognitive Load">
   Manual tracking and verification of data across GSTINs increased mental burden exponentially with scale.
@@ -69,7 +67,13 @@ Five core challenges drove our design mandate:
   Users were forced to rely on Excel for filtering, pivot tables, and bulk actions the platform should have provided.
 </ProcessStep>
 
-## Research — 50+ Interviews · 500+ Tickets · 3 Usability Tests
+### User Research
+
+To validate pain points, we conducted:
+
+- **50+ Interviews** with MSMEs, large enterprises, and tax consultants
+- **Usability Testing** on the existing GSTN portal and Clear GST 1.0 to observe friction points
+- **Analysis of 500+ Customer Support Tickets** to identify recurring issues
 
 <MetricGrid metrics={[
   { value: "50+", label: "User Interviews" },
@@ -78,175 +82,301 @@ Five core challenges drove our design mandate:
   { value: "78%", label: "Cited Multi-Filing Pain" }
 ]} />
 
-### Key Findings
+### Key Findings from Research
 
-**Multi-GSTIN Burden** — Businesses spent 40–50 hours monthly on 3B filing, one GSTIN at a time. An FMCG enterprise's finance team dedicated 5 full days/month to file for 120 GSTINs. 78% of enterprises with 10+ GSTINs cited multi-filing as their #1 pain point.
+| Issue | Problem | Example | Data |
+|---|---|---|---|
+| **Multi-GSTIN Filing Burden** | Businesses spent 40–50 hours monthly on 3B filing for multiple GSTINs | An FMCG enterprise's finance team dedicated 5 days/month for 120 GSTINs | 78% of enterprises with 10+ GSTINs cited multi-filing as their top pain point |
+| **Excel Dependency** | Users needed Excel for reconciliation, filtering, and bulk actions | A tax consultant managing 30 clients relied on Excel pivot tables for data sorting | 82% of users copied data from Excel to the portal — increasing error rates by 25% |
+| **Reconciliation Anxiety** | Users struggled with mismatched ITC claims due to incorrect vendor filings | An MSME owner feared ITC blockages due to vendor errors in GSTR-1 | 65% of support tickets were related to ITC mismatches in Clear GST 1.0 |
+| **Confusion Around Table-4** | Users lacked clarity on ITC claims, ineligible amounts, and reversals | A CA rechecked Table-4 entries 3–4 times before submitting | 89% reverted to Excel, leading to mismatches and CSM escalations |
 
-**Excel Dependency** — Users needed Excel for reconciliation, filtering, and bulk actions. A tax consultant managing 30 clients relied entirely on pivot tables for data sorting. 82% of users copied data from Excel to the portal — increasing error rates by 25%.
+## Design Process
 
-**Reconciliation Anxiety** — Users struggled with mismatched ITC claims due to incorrect vendor filings. An MSME owner feared ITC blockages from vendor errors in GSTR-1. 65% of support tickets were ITC mismatches in Clear GST 1.0.
+### Design Goals
 
-**Table-4 Confusion** — Users lacked clarity on ITC claims, ineligible amounts, and reversals. A CA rechecked Table-4 entries 3–4 times before submitting every month. 89% reverted to Excel, leading to mismatches and CSM escalations.
-
-## Design Goals — Five Core Mandates
+Based on the findings, I defined five core design goals:
 
 <ProcessStep number="01" title="Enable Bulk Filing for Multiple GSTINs">
-  Design centralised screens to manage all GSTINs in one place with batch actions — eliminating repetitive work for enterprises.
+  **Why:** Reduce time spent on repetitive tasks for enterprises.<br/>
+  **Approach:** Design centralised screens to manage all GSTINs in one place with batch actions.
 </ProcessStep>
 
 <ProcessStep number="02" title="Automate Reconciliation Between PR and GSTR-2B">
-  Build a pre-filing reconciliation engine with smart suggestions to take ITC actions — minimising manual effort and errors.
+  **Why:** Minimise manual effort and errors in ITC claims.<br/>
+  **Approach:** Build a pre-filing reconciliation engine with smart suggestions to take ITC actions.
 </ProcessStep>
 
 <ProcessStep number="03" title="Data Source Flexibility">
-  Let users choose datasets (e.g., PR, GSTR-2B) to auto-populate tables, with table-wise mapping and smart defaults.
+  **Why:** Let users choose datasets (PR, GSTR-2B) to auto-populate tables.<br/>
+  **Approach:** Create a data source selection screen with table-wise mapping and recommendations.
 </ProcessStep>
 
 <ProcessStep number="04" title="Replicate Excel-Like Flexibility In-Platform">
-  Introduce filtering, sorting, grouping, and bulk actions natively — eliminating back-and-forth between Excel and the portal.
+  **Why:** Eliminate back-and-forth between Excel and the portal.<br/>
+  **Approach:** Introduce filtering, sorting, and bulk actions in tables.
 </ProcessStep>
 
 <ProcessStep number="05" title="Generate Table-4 Directly from 2B vs PR Recon">
-  Auto-populate Table-4 based on reconciliation outcomes — simplifying ITC computation and building user confidence.
+  **Why:** Simplify ITC computations and build user confidence.<br/>
+  **Approach:** Auto-populate Table-4 based on reconciliation outcomes.
 </ProcessStep>
 
-## Information Architecture — 6-Step Filing Workflow
+### Designing the Solution
 
-I designed the IA with a clear focus on the objective of each page — balancing compliance requirements with user efficiency:
+#### A. Data Source Selection Interface
 
-1. **GST Landing Page** — GSTR-3B Filing entry; access to other filings (GSTR-1, 6, 8, 9, 9C, ITC-04)
-2. **Pre-Preparation: Data Source Setup** — Select Business Unit (PAN or GSTINs), select return period, activate GSTN connection, confirm & review data sources
-3. **Data Preparation (Step 1/4)** — GSTIN activation to download latest GSTN data, import latest PR & SR data, check data availability, run 2B vs PR reconciliation for ITC (Table-4)
-4. **Review Tax Calculation & Offset (Step 2/4)** — Review detailed tax calculation, summary of liabilities, government vs Clear GST calculator, apply Rule 86B, create challans
-5. **Upload to GSTN (Step 3/4)** — Upload data, post credit to ledger, multi-challan creation for 100+ GSTINs
-6. **Filing & Status Review (Step 4/4)** — Review upload status & tax payable, select filing method (EVC/DSC), unified status dashboard across GSTINs
+**Purpose:** Assign datasets to populate each GSTR-3B table (e.g., PR for Table-4).
 
-## Design Solutions — What I Built
-
-### A. Data Source Selection Interface
-
-Table-specific mapping with dropdown menus (e.g., "Table-4: GSTR-2B + PR"), smart auto-suggested defaults for SMEs, and a preview mode to validate auto-filled values before proceeding.
+- **Table-Specific Mapping** — Dropdown menus for each table (e.g., "Table-4: GSTR-2B + PR")
+- **Smart Defaults** — Auto-suggest optimal sources (e.g., GSTR-2B for SMEs)
+- **Preview Mode** — Validate auto-filled values before proceeding
 
 ![Wireframe: Data Source Selection — table-wise mapping with smart defaults](/cs/gstr-wireframe-a.webp)
 
-### B. Multi-GSTIN Filing Dashboard
+#### B. Multi-GSTIN Filing
 
-Centralised status overview tracking pending filings, tax liabilities, and ITC statuses. Batch filing for 10+ GSTINs in one click. Enterprises activated 20+ GSTINs in under 10 minutes.
+**Purpose:** Centralise filing for businesses managing multiple units.
 
-> "I need to see which GSTINs are due at a glance." — Sunita, CFO — Manufacturing Firm
+- **Batch Filing** — Select and submit returns for 10+ GSTINs in one click
+- **Status Overview** — Track pending filings, tax liabilities, and ITC statuses
+- **Drill-Down** — Access granular details (e.g., invoice-level data) per GSTIN
+
+> "I need to see which GSTINs are due at a glance." — CFO, Manufacturing Firm
+
+**Trade-off:** Simplified visual hierarchy over complex data density.
 
 ![Wireframe: Multi-GSTIN Dashboard — batch filing for 10+ GSTINs in one click](/cs/gstr-wireframe-b.webp)
 
-### C. Pre-Filing Reconciliation Engine
+#### C. Pre-Filing Reconciliation Engine
 
-Split-view comparison of GSTR-2B vs Purchase Register with mismatches highlighted. Bulk approve/reject for 100+ invoices in one click. Vendor grouping and partial invoice matching added post-launch.
+**Purpose:** Resolve discrepancies between GSTR-2B and PR for accurate Table-4.
+
+- **Split-View Comparison** — Side-by-side display of GSTR-2B vs. PR with mismatches highlighted
+- **Bulk Actions** — Approve/reject claims in bulk (e.g., "Accept All Matched Invoices")
+- **Impact Preview** — Live updates to Table-4 as users reconcile
+
+**Iteration:** Added vendor grouping and partial invoice matching post-launch.
 
 ![Wireframe: Reconciliation Engine — GSTR-2B vs PR split-view with bulk actions](/cs/gstr-wireframe-c.webp)
 
-![Data preparation — import, validate, and reconcile in one flow](/cs/gstr-data-prep.gif)
+#### D. Table-4 Generation from Recon Actions
 
-### D. Table-4 Live Preview
+**Purpose:** Auto-populate Table-4 based on reconciliation decisions.
 
-Users didn't trust auto-generated values and couldn't see how reconciliation decisions affected their ITC computations. I designed a **live side panel** that shows cause-and-effect in real time — each reconciliation action immediately updates Table-4, turning a black box into a transparent, trustworthy system.
+- **Real-Time Updates** — Show how ITC actions (claims, reversals) impact Table-4
+- **Audit Trail** — Track changes with timestamps and user notes (e.g., "₹50,000 ITC claimed")
+- **Inline Explanations** — Hover tooltips clarify how values are derived
 
-> We considered three options: tooltip per cell, a side panel with live preview, or a post-fill summary. The live side panel won because it shows impact as decisions are made — building trust through transparency.
+> "I need to know why my ITC is blocked." — MSME Owner
 
 ![Wireframe: Table-4 auto-populated from reconciliation decisions — real-time audit trail](/cs/gstr-wireframe-d.webp)
 
+### Information Architecture
+
+I designed the Information Architecture with a clear focus on the objectives of each page. The entire workflow is divided into six key steps:
+
+1. **GST Landing Page** — GSTR-3B Filing entry; access to other filings (GSTR-1, 6, 8, 9, 9C, ITC-04)
+2. **Pre-Preparation (Data Source Setup)** — Select business unit (PAN or GSTINs), return period, activate GSTN connection, confirm & review data sources
+3. **Data Preparation (Step 1/4)** — GSTIN activation, PR & SR import, 2B vs PR reconciliation for ITC (Table-4)
+4. **Review Tax Calculation & Offset (Step 2/4)** — Detailed tax calculation, summary of liabilities, government vs Clear GST calculator, Rule 86B, create challans
+5. **Upload to GSTN (Step 3/4)** — Upload data, post credit to ledger
+6. **Filing & Status Review (Step 4/4)** — Select filing method (EVC/DSC), unified status dashboard
+
+The IA was structured to balance compliance requirements with user efficiency. Each step addresses specific pain points while embedding design principles.
+
+#### 1. Pre-Preparation Page (Data Source Setup)
+
+**Purpose:** Configure data sources and activate GSTINs upfront.
+
+- **Data Source Mapping** — Assign datasets (PR, GSTR-2B, Excel) to auto-populate tables
+- **Smart Defaults** — Platform auto-suggested optimal sources (e.g., GSTR-2B for SMEs)
+- **Bulk GSTIN Activation** — One-click connection to GSTN for all GSTINs under a PAN
+
+**Design Rationale:**
+- **Error Prevention** — Mandatory confirmation of data sources
+- **Bulk Efficiency** — Enterprises activated 20+ GSTINs in under 10 minutes
+
+#### 2. Data Preparation (Step 1/4)
+
+**Purpose:** Import, validate, and reconcile data.
+
+- **PR/Excel Import** — Drag-and-drop for purchase/sales registers
+- **2B vs PR Reconciliation** — Side-by-side view with discrepancies flagged (e.g., "Invoice missing in GSTR-2B")
+- **Bulk Actions** — Accept/reject ITC claims for 100+ invoices in one click
+
+**Design Rationale:**
+- **Excel-Like Flexibility** — Filter, sort data in-platform
+- **Proactive Alerts** — Colour-coded warnings for mismatching data
+
+![Data preparation — import, validate, and reconcile in one flow](/cs/gstr-data-prep.gif)
+
+#### 3. Review Tax Calculation & Offset (Step 2/4)
+
+**Purpose:** Finalise tax liability and credits.
+
+- **Tax Calculator Toggle** — Compare government vs. Clear GST logic
+- **Rule 86B Compliance** — Auto-flag cases where ITC exceeds 99% of liability
+
+**Design Rationale:**
+- **Transparency** — Side-by-side tax logic comparison built trust
+- **Enterprise Scalability** — Saved 5+ hours for businesses with 100+ GSTINs
+
 ![Tax calculation review — government vs Clear GST logic, live liability comparison](/cs/gstr-tax-calc.gif)
 
-### E. Upload & Filing Flow
+#### 4. Upload to GSTN (Step 3/4)
 
-Streamlined the final two steps — GSTN upload with automated OTP capture and a unified filing status dashboard covering all GSTINs in one view. Filing time dropped from 30 min to under 2 min per batch.
+**Purpose:** Submit data securely to the government portal.
+
+- **OTP Activation Status** — Track authentication status for each GSTIN and enable quick login for streamlined uploading
+- **Real-Time Sync** — Updated ledger balances post-upload
+- **Multi-Challan Creation** — Generate challans for 100+ GSTINs simultaneously
+
+**Design Rationale:**
+- **Reduced Friction** — Users saved 10+ minutes per GSTIN
+- **Audit Trail** — Logged timestamps for compliance tracking
 
 ![Upload to GSTN — OTP authentication and real-time ledger sync](/cs/gstr-upload.gif)
 
+#### 5. Filing & Status Review (Step 4/4)
+
+**Purpose:** Final submission and compliance tracking.
+
+- **EVC/DSC Integration** — Pre-saved digital signatures for enterprises
+- **Unified Status Dashboard** — Track filings across GSTINs in real-time
+
+**Design Rationale:**
+- **End-to-End Visibility** — Reduced follow-up queries by 40%
+- **One-Click Filing** — Repeat users completed filings in under 30 seconds
+
 ![Filing and status dashboard — one-click filing, EVC/DSC integration](/cs/gstr-filing.gif)
 
-## Accessibility — Designing for India's Diverse MSMEs
+<PhaseDivider label="Phase 2" title="Post-Launch · Analysis & Iterations" />
 
-- **Keyboard-Navigable Filing** — Every step keyboard-accessible — critical for CAs processing dozens of returns daily without leaving the keyboard
-- **High-Contrast Tax Tables** — WCAG AA for complex numerical data — ensuring readability for users in variable lighting conditions across India
-- **Screen-Reader Forms** — Proper labels, fieldsets, and ARIA attributes for the multi-step filing flow
-- **Multi-Cue Error States** — Color + icon + text — never color alone. Ensures error clarity for users with colour vision deficiencies
+## The 90-90-90 Drive
 
-## Post-Launch — The 90-90-90 Drive
+Post-GST 2.0 launch, we initiated a **customer adoption drive** led by Customer Success Managers (CSMs) and Product Managers (PMs). CSMs were incentivised to ensure users:
 
-Post-launch, we initiated a customer adoption drive where CSMs were incentivised to ensure users adopted critical features and filed GSTR-3B independently. Monthly retros revealed a critical flaw:
+- **Adopted critical features** (e.g., data source selection, 2B vs PR reconciliation)
+- **Filed GSTR-3B independently** without relying on CSMs
 
-> "Adoption ≠ Proficiency. CSMs were doing tasks for users to hit targets. Users were filing but not mastering the platform."
+### Retrospective Insights
 
-We shifted from CSM-led metrics to direct user shadowing — asking open-ended questions like "How would you solve this without the platform?"
+Monthly retros with CSMs revealed a critical flaw:
 
-<MetricGrid metrics={[
-  { value: "47%", label: "Drop-off at Data Source" },
-  { value: "89%", label: "Recon→Table-4 Abandon" },
-  { value: "82%", label: "Still Used Excel" },
-  { value: "65%", label: "ITC Mismatch Tickets" }
-]} />
+- **CSM Over-Reliance** — To meet targets, CSMs often performed tasks *for users* (configuring data sources, reconciling ITC, generating Table-4 for GSTR-3B).
+- **Surface-Level Adoption** — Metrics looked positive, but users lacked *true understanding* of workflows.
 
-**Data Source Page as a Barrier** — Users saw the standalone data source setup as a gatekeeper step, not a workflow enabler. "Why can I not adjust sources directly in the GSTR-3B form?" — MSME Owner. 47% dropped off or called CSMs to bypass this step.
+> **Key Realisation:** *"Adoption ≠ Proficiency. Users were filing but not mastering the platform."*
 
-**Table-4 Opaqueness** — "I download the recon to Excel, create pivot tables, and cross-check. Your platform logic is a black box." — Tax Consultant. Users needed to see how each reconciliation action impacted Table-4. 89% reverted to Excel — mismatches and CSM escalations followed.
+## Pivot to User-Centric Research
 
-**Excel Dependency Persisted** — Lack of native filtering, grouping, and bulk actions forced users to download data even after launch.
+To uncover real issues, we shifted focus from CSM-led handholding to **direct user engagement**.
 
-## Iterations — How I Fixed It
+### 1. Usability Testing with Real Users
 
-<ProcessStep number="01" title="Data Source: Contextual Integration">
-  Moved data source configuration inside the GSTR-3B form itself. Users could now adjust sources while reviewing Table-4 — eliminating the standalone "gatekeeper" step. Drop-off: 47% → near-zero.
+**Method:** Shadowed users during GSTR-3B filing, asking open-ended questions:
+
+- *"Where do you expect to find this detail?"*
+- *"How would you solve this issue without the platform?"*
+
+**Key Findings:**
+
+**Data Source Page Confusion** — Users saw the standalone data source setup as a "gatekeeper" step, not a workflow enabler.
+
+> *"Why can't I adjust sources directly in the GSTR-3B form?"* — MSME Owner
+
+**Result:** 47% dropped off or called CSMs to bypass this step.
+
+**Table-4 Reconciliation Friction** — Users struggled to map 2B vs PR reconciliation results to Table-4.
+
+> *"I download the recon to Excel, create pivot tables, and cross-check. Your platform's logic is a black box."* — Tax Consultant
+
+**Result:** 89% reverted to Excel, leading to mismatches and CSM escalations.
+
+### 2. Funnel Analysis
+
+**Tools:** Custom SQL Queries
+
+**Key Drop-off Points Identified:**
+
+- **Data Source Setup:** 47% abandonment due to unclear purpose
+- **Reconciliation to Table-4:** 89% drop-off as users switched to Excel
+
+### 3. Support Ticket Trends
+
+**Top Issues:**
+
+- *"How do I remove the data source page?"*
+- *"Why does my Table-4 not match my Excel sheet?"*
+
+**CSM Blind Spots:** CSMs themselves lacked clarity on Table-4 population logic, causing inconsistent guidance.
+
+## Critical Issues Identified
+
+<ProcessStep number="01" title="Data Source Page as a Barrier">
+  Users wanted **contextual configuration** (adjust sources within the GSTR-3B form, not a separate step).<br/>
+  *"Let me tweak sources while reviewing Table-4!"* — Enterprise User
 </ProcessStep>
+
+<ProcessStep number="02" title="Table-4 Opaqueness">
+  Users needed **transparency** into how reconciliation actions (claiming ITC) impacted Table-4.<br/>
+  *"If I reject an invoice, show me how it affects my final ITC!"* — SME Accountant
+</ProcessStep>
+
+<ProcessStep number="03" title="Excel Dependency">
+  Lack of **Excel-like flexibility** (filtering, bulk actions) in-platform forced users to download data.
+</ProcessStep>
+
+## Iterative Solutions
+
+### 1. Data Source Page Redesign
+
+**Contextual Integration:** Moved source configuration **inside the GSTR-3B form** — eliminating the standalone "gatekeeper" step. Drop-off fell from 47% to near-zero.
 
 ![Iteration: Data source controls moved inline — from blocker to enabler](/cs/gstr-datasrc-redesign.gif)
 
-<ProcessStep number="02" title="Transparent Table-4 Workflow">
-  Introduced real-time Table-4 impact previews in the reconciliation table. Each row shows live impact on ITC — turning a black box into a transparent flow users could trust.
-</ProcessStep>
+### 2. Transparent Table-4 Workflow
+
+**Live Impact Previews:** Introduced separate Table-4 generation to increase its visibility. The reconciliation table now displays real-time impact of each row on Table-4, increasing user confidence in data flow.
 
 ![Iteration: Table-4 live preview — every reconciliation action updates ITC in real time](/cs/gstr-table4.gif)
 
-<ProcessStep number="03" title="Excel-Free In-Platform Grouping">
-  Introduced grouping and subgrouping capabilities to enable efficient bulk actions — replacing the need for Excel pivot tables natively.
-</ProcessStep>
+### 3. Excel-Free Features
+
+**Intuitive data grouping that eliminates the need for pivot tables:** Introduced grouping and subgrouping capabilities to enable efficient and accurate bulk actions.
 
 ![Iteration: Native grouping eliminates Excel dependency](/cs/gstr-excel-free.gif)
 
-<ProcessStep number="04" title="Multi-GSTIN Auto OTP Capture">
-  Streamlined the upload process with automated OTP capture for multiple GSTINs (with user consent). Filing time: 30 min → 2 min per GSTIN batch.
-</ProcessStep>
+### 4. Multi-GSTIN Auto Activation
 
-Post-iteration feedback:
+**Instant GSTIN Activation with Auto-OTP Capture:** Streamlined the filing process with automated OTP capture for multiple GSTINs (with user consent), significantly reducing processing time.
 
-> "Finally, I can adjust sources right where I need them!" — Deepak, MSME Owner
+## Results & Impact
 
-> "The live previews made Table-4 feel less like a mystery." — Meera, Tax Consultant
+| Metric | Clear GST 1.0 | 2.0 Launch | 2.0 Post-Launch | Impact |
+|---|---|---|---|---|
+| **GST Adoption** | 12% | 45% | 51% | Significant increase in adoption |
+| **Money Gained** | ₹60cr | ₹100cr | ₹108cr | Revenue growth (for whole Clear GST) |
+| **GSTR-3B Filing Adoption** | 18% | 42% | 53% | Increase in filing adoption |
+| **CSM Tickets per Customer/Month** | 2.7 | 2.4 | 1.8 | Reduced customer support interaction |
+| **Speed per GSTIN** | 1 hour | < 10 min | < 8 min | 87% reduction in filing time per GSTIN |
+| **Avg No. of GSTINs per Customer** | 4–5 | 12–15 | 12–15 | Increased capacity for businesses |
+| **Reconciliation Accuracy** | 80% | 80–92% | 94% | Improved accuracy in reconciliation |
+| **Automation** | 10% | 30% | 60% | Enhanced automation |
+| **Table-4 Automation** | Manual | 20% automated | 33% automated | Increased automation in reconciliation |
+| **CSM Escalations** | 92/week | 80/week | 25/week | Reduced need for escalations |
 
-## Impact — Results Across Three Phases
+**User Feedback:**
 
-<MetricGrid metrics={[
-  { value: "87%", label: "Filing Time Down" },
-  { value: "53%", label: "3B Adoption" },
-  { value: "94%", label: "Recon Accuracy" },
-  { value: "73%", label: "Escalations Down" }
-]} />
+> *"Finally, I can adjust sources right where I need them!"* — MSME Owner
 
-| Metric | Clear GST 1.0 | 2.0 Launch | 2.0 Post-Launch |
-|---|---|---|---|
-| GST Adoption | 12% | 45% | 51% |
-| Revenue | ₹60cr | ₹100cr | ₹108cr |
-| GSTR-3B Adoption | 18% | 42% | 53% |
-| CSM Tickets/Customer/Mo | 2.7 | 2.4 | 1.8 |
-| Speed per GSTIN | 1 hour | under 10 min | under 8 min |
-| Avg GSTINs/Customer | 4–5 | 12–15 | 12–15 |
-| Reconciliation Accuracy | 80% | 80–92% | 94% |
-| Automation | 10% | 30% | 60% |
-| Table-4 Automation | Manual | 20% | 33% |
-| CSM Escalations/Week | 92 | 80 | 25 |
+> *"The live previews made Table-4 feel less like a mystery."* — Tax Consultant
 
-## Reflection
+## Key Learnings
 
-**Adoption ≠ Proficiency.** Incentivising usage without ensuring understanding backfires. Field shadowing revealed what dashboards couldn't — users were filing but not mastering.
+**1. Adoption ≠ Proficiency.** Incentivising usage without ensuring understanding backfires.
 
-**Context > Isolation.** Integrating data source configuration inline was a small structural change with massive UX impact. The context of the task matters more than the feature itself.
+**2. Context > Isolation.** Integrate critical steps (like data sources) into natural workflows.
 
-**Transparency Builds Trust.** Users need to see how their actions impact outcomes. Live Table-4 previews transformed anxiety into confidence — and drove adoption where mandates couldn't.
+**3. Transparency Builds Trust.** Users need to *see* how actions impact outcomes.
