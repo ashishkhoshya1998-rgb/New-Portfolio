@@ -13,23 +13,23 @@ nextProject:
 ---
 
 import MetricGrid from '../../components/cs/MetricGrid.astro';
+import MetricTable from '../../components/cs/MetricTable.astro';
+import FiveSecondVersion from '../../components/cs/FiveSecondVersion.astro';
 import ProcessStep from '../../components/cs/ProcessStep.astro';
 import ImageRow from '../../components/cs/ImageRow.astro';
 
-<div style="border: 1px solid rgba(201, 169, 110, 0.2); border-radius: 16px; padding: 32px; margin-bottom: 48px; background: rgba(201, 169, 110, 0.04);">
-
-### The 5-Second Version
+<FiveSecondVersion>
 
 India's ₹40,000Cr online jewellery market treats gifting as an afterthought — every competitor navigates by product category, ignoring the anxious gifter and the guilt-laden self-purchaser. I led the end-to-end UX design for Memoir: conducted a **competitive audit of 8 D2C brands**, ran **8 in-depth user interviews** across gifters and self-purchasers, mapped **dual journey architectures**, and designed a mobile-first e-commerce experience built around emotional resolution — not product grids. The result: an occasion-first navigation system, a 3-step guided gift flow, and a dual-copy architecture that addresses two fundamentally different purchase psychologies.
 
-<MetricGrid metrics={[
+<MetricTable metrics={[
   { value: "8", label: "User Interviews" },
   { value: "2", label: "Journey Maps" },
   { value: "85%", label: "Mobile Traffic Target" },
   { value: "~2 Mo", label: "Research → Ship" }
 ]} />
 
-</div>
+</FiveSecondVersion>
 
 ## Overview
 

@@ -1,0 +1,63 @@
+---
+// Opinionated callout for the top of each case study — "The 5-Second Version".
+// Wraps an intro paragraph + metrics so every case study reads the same way.
+// Uses the universal --accent token so styling is consistent across projects.
+---
+
+<aside class="five-sec" aria-labelledby="five-sec-heading">
+  <h3 id="five-sec-heading" class="five-sec__heading">The 5-Second Version</h3>
+  <div class="five-sec__body">
+    <slot />
+  </div>
+</aside>
+
+<style>
+  .five-sec {
+    position: relative;
+    margin: 0 0 48px;
+    padding: 32px;
+    border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+    border-radius: 16px;
+    background: color-mix(in srgb, var(--accent) 4%, transparent);
+  }
+
+  .five-sec__heading {
+    margin: 0 0 12px;
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.2px;
+  }
+
+  .five-sec__body :global(p) {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-subtle);
+  }
+
+  .five-sec__body :global(p + p) {
+    margin-top: 12px;
+  }
+
+  .five-sec__body :global(strong) {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  @media (max-width: 640px) {
+    .five-sec {
+      padding: 24px 20px;
+      margin: 0 0 32px;
+    }
+
+    .five-sec__heading {
+      font-size: 20px;
+    }
+
+    .five-sec__body :global(p) {
+      font-size: 14px;
+    }
+  }
+</style>

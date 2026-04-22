@@ -13,22 +13,22 @@ nextProject:
 ---
 
 import MetricGrid from '../../components/cs/MetricGrid.astro';
+import MetricTable from '../../components/cs/MetricTable.astro';
+import FiveSecondVersion from '../../components/cs/FiveSecondVersion.astro';
 import ProcessStep from '../../components/cs/ProcessStep.astro';
 
-<div style="border: 1px solid rgba(34, 197, 94, 0.2); border-radius: 16px; padding: 32px; margin-bottom: 48px; background: rgba(34, 197, 94, 0.04);">
-
-### The 5-Second Version
+<FiveSecondVersion>
 
 India's GST filing was broken — 1.4Cr+ businesses filing one GSTIN at a time, spending hours on manual reconciliation. I redesigned the end-to-end experience at ClearTax: conducted **50+ field interviews**, designed a **multi-GSTIN batch filing system**, built a **pre-filing reconciliation engine**, and eliminated Excel dependency with native in-platform tools. Post-launch, I uncovered that **adoption ≠ proficiency** through field shadowing and iterated the entire workflow.
 
-<MetricGrid metrics={[
+<MetricTable metrics={[
   { value: "1hr → 8min", label: "Filing Time per GSTIN" },
   { value: "18% → 53%", label: "GSTR-3B Adoption" },
   { value: "₹60cr → ₹108cr", label: "Revenue Growth" },
   { value: "92 → 25", label: "Weekly Escalations" }
 ]} />
 
-</div>
+</FiveSecondVersion>
 
 ## Overview
 

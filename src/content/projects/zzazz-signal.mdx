@@ -13,7 +13,22 @@ parentProject:
 ---
 
 import MetricGrid from '../../components/cs/MetricGrid.astro';
+import MetricTable from '../../components/cs/MetricTable.astro';
+import FiveSecondVersion from '../../components/cs/FiveSecondVersion.astro';
 import ProcessStep from '../../components/cs/ProcessStep.astro';
+
+<FiveSecondVersion>
+
+Signal Pill existed as a basic pricing widget on partner publisher sites — useful, but passive. It displayed a number without creating any pathway into the ecosystem, and for most users it would be the only ZZAZZ surface they'd ever touch. I reframed its role from price tag to strategic entry point: designed it as the **first touchpoint in the graduation path** (Widget → Plugin → Terminal), layered in **market context and comparative pricing signals** alongside the LPM price, built an **access pathway bridging into the full ecosystem**, and held **publisher-friendly, non-intrusive principles** so it enhances the reading experience instead of disrupting it.
+
+<MetricTable metrics={[
+  { value: "Passive → Gateway", label: "Role Reframed" },
+  { value: "3", label: "Things Communicated" },
+  { value: "Widget", label: "Form Factor in Graduation Path" },
+  { value: "Publisher Sites", label: "Distribution Surface" }
+]} />
+
+</FiveSecondVersion>
 
 ## Overview
 

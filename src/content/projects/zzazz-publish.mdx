@@ -13,8 +13,23 @@ parentProject:
 ---
 
 import MetricGrid from '../../components/cs/MetricGrid.astro';
+import MetricTable from '../../components/cs/MetricTable.astro';
+import FiveSecondVersion from '../../components/cs/FiveSecondVersion.astro';
 import ProcessStep from '../../components/cs/ProcessStep.astro';
 import ImageRow from '../../components/cs/ImageRow.astro';
+
+<FiveSecondVersion>
+
+Publish existed as a basic metrics surface, but lacked the depth publishers actually needed to make pricing and content decisions. Direct research revealed publishers would adopt the LPM as an **internal decision tool first** — before ever showing prices to readers. I designed the workspace from the ground up: built **pricing intelligence with cross-publisher comparisons**, shipped **three custom dashboard configs** (Editorial Planning, Revenue Attribution, Competitive Benchmarking), designed **revenue attribution across TimePay's three access paths**, and integrated Exchange and Signal Pill so publishers see their content in the broader market context.
+
+<MetricTable metrics={[
+  { value: "Complete", label: "Design Scope" },
+  { value: "3", label: "Dashboard Configs" },
+  { value: "Internal-First", label: "Adoption Path Validated" },
+  { value: "4", label: "Research Insights Driving IA" }
+]} />
+
+</FiveSecondVersion>
 
 ## Overview
 

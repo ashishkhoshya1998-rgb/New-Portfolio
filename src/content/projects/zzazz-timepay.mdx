@@ -13,8 +13,23 @@ parentProject:
 ---
 
 import MetricGrid from '../../components/cs/MetricGrid.astro';
+import MetricTable from '../../components/cs/MetricTable.astro';
+import FiveSecondVersion from '../../components/cs/FiveSecondVersion.astro';
 import ProcessStep from '../../components/cs/ProcessStep.astro';
 import ImageRow from '../../components/cs/ImageRow.astro';
+
+<FiveSecondVersion>
+
+TimePay existed only as a concept when I joined — but the research was clear: users don't resist paying, they resist committing to an uncertain outcome. Price works as a quality signal until payment enters, then the same price becomes fear and friction. I turned the concept into the linchpin of the ecosystem: designed **three access paths** (cash, TPC credits, sponsored attention) matched to behavioural states, architected the **TPC earn-store-redeem credit loop**, shipped a **mobile-first native bottom sheet** at the point of impulse, and reframed the product from "buy content" to access that matches how people actually decide to spend.
+
+<MetricTable metrics={[
+  { value: "1.9% → 80–98%", label: "Users Reached" },
+  { value: "3", label: "Access Paths" },
+  { value: "Concept → System", label: "Scope of Redesign" },
+  { value: "50%", label: "Higher CTR Projected" }
+]} />
+
+</FiveSecondVersion>
 
 ## Overview
 

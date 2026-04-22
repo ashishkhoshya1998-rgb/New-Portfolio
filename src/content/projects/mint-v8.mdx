@@ -13,7 +13,22 @@ nextProject:
 ---
 
 import MetricGrid from '../../components/cs/MetricGrid.astro';
+import MetricTable from '../../components/cs/MetricTable.astro';
+import FiveSecondVersion from '../../components/cs/FiveSecondVersion.astro';
 import ProcessStep from '../../components/cs/ProcessStep.astro';
+
+<FiveSecondVersion>
+
+Clear's design was fragmenting at scale — 700+ button variants with zero docs, engineers hardcoding CSS because they didn't trust Figma, and impossible theming across Finance Cloud and Supply Chain Cloud. I led Mint V8 from scratch: built a **token-first foundation** (typography, spacing, colour, elevation), invented **PCS Logic** (Prefix-Content-Suffix) that collapsed 760 button variants to 32, ran **weekly workshops and a Figma playground** instead of mandates, and shipped **two themes with zero component duplication**. Adoption hit 100% in 6 weeks — because the team chose it.
+
+<MetricTable metrics={[
+  { value: "760 → 32", label: "Button Variants" },
+  { value: "624 → 25", label: "Badge Variants" },
+  { value: "6 weeks", label: "Time to 100% Adoption" },
+  { value: "70%", label: "Dev Effort Saved" }
+]} />
+
+</FiveSecondVersion>
 
 ## Overview
 

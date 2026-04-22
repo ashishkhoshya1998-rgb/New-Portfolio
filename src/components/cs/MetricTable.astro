@@ -1,0 +1,196 @@
+---
+interface Props {
+  metrics: { value: string; label: string }[];
+}
+
+const { metrics } = Astro.props;
+
+// Parse "X → Y" (or "X -> Y") so we can style before/after distinctly.
+function parseValue(value: string) {
+  const match = value.match(/^(.+?)\s*(?:→|->)\s*(.+)$/);
+  if (match) {
+    return { kind: 'transform' as const, before: match[1].trim(), after: match[2].trim() };
+  }
+  return { kind: 'single' as const, value };
+}
+
+const rows = metrics.map((m) => ({ label: m.label, ...parseValue(m.value) }));
+---
+
+<table class="metric-table" data-cs-section>
+  <caption class="metric-table__caption">Key metrics</caption>
+  <tbody>
+    {rows.map((r) => (
+      <tr class="metric-table__row">
+        <td role="rowheader" class="metric-table__label">{r.label}</td>
+        <td class="metric-table__value">
+          {r.kind === 'transform' ? (
+            <span class="metric-table__transform">
+              <span class="metric-table__before">
+                <span class="metric-table__sr">Before: </span>{r.before}
+              </span>
+              <span class="metric-table__arrow" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </span>
+              <span class="metric-table__after">
+                <span class="metric-table__sr">After: </span>{r.after}
+              </span>
+            </span>
+          ) : (
+            <span class="metric-table__single">{r.value}</span>
+          )}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+<style>
+  /* Compound selectors beat .cs__body :global(td) specificity */
+  table.metric-table {
+    width: 100%;
+    min-width: 0;
+    margin: 24px 0 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-family: var(--font-body);
+  }
+
+  .metric-table__caption {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  table.metric-table .metric-table__row {
+    border-top: 1px solid var(--border);
+  }
+
+  table.metric-table .metric-table__row:last-child {
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Label cell — overrides global th/td styles */
+  table.metric-table .metric-table__label {
+    text-align: left;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: normal;
+    text-transform: none;
+    color: var(--text);
+    padding: 16px 16px 16px 0;
+    width: 55%;
+    vertical-align: middle;
+    border-bottom: none;
+    white-space: normal;
+  }
+
+  /* Value cell */
+  table.metric-table .metric-table__value {
+    text-align: right;
+    padding: 16px 0;
+    vertical-align: middle;
+    font-family: var(--font-display);
+    line-height: 1;
+    border-bottom: none;
+    color: inherit;
+    white-space: nowrap;
+    font-weight: 400;
+  }
+
+  /* Transformation: before → after */
+  .metric-table__transform {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    white-space: nowrap;
+  }
+
+  .metric-table__before {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  .metric-table__arrow {
+    display: inline-flex;
+    align-items: center;
+    color: var(--accent);
+    opacity: 0.6;
+    transform: translateY(1px);
+    flex-shrink: 0;
+  }
+
+  .metric-table__arrow svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .metric-table__after {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.3px;
+  }
+
+  /* Single hero value */
+  .metric-table__single {
+    display: inline-block;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.3px;
+  }
+
+  /* Screen-reader only helper */
+  .metric-table__sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 640px) {
+    table.metric-table .metric-table__label {
+      font-size: 13px;
+      padding: 14px 12px 14px 0;
+      width: auto;
+    }
+
+    table.metric-table .metric-table__value {
+      padding: 14px 0;
+    }
+
+    .metric-table__transform {
+      gap: 6px;
+    }
+
+    .metric-table__before {
+      font-size: 13px;
+    }
+
+    .metric-table__arrow svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    .metric-table__after,
+    .metric-table__single {
+      font-size: 18px;
+    }
+  }
+</style>

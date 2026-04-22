@@ -13,7 +13,22 @@ parentProject:
 ---
 
 import MetricGrid from '../../components/cs/MetricGrid.astro';
+import MetricTable from '../../components/cs/MetricTable.astro';
+import FiveSecondVersion from '../../components/cs/FiveSecondVersion.astro';
 import ProcessStep from '../../components/cs/ProcessStep.astro';
+
+<FiveSecondVersion>
+
+While designing TimePay's three access paths, I realised the "sponsored" path had no engine behind it — and cookie-based ad targeting was dying anyway. I defined a new vertical from scratch around a different premise: if the LPM already understands content deeply enough to price it, it knows enough to match brand to intent without tracking users. I **analysed the cookie-decline landscape across 12+ platforms**, defined the **content-intent matching model** (content understanding → user intent → brand match → sponsored access), architected **brand-facing workflows and integration with LPM and TimePay**, and wrote the **future scope for MVP-to-automated brand-content intelligence**.
+
+<MetricTable metrics={[
+  { value: "0 → 1", label: "Built from Scratch" },
+  { value: "12+", label: "Platforms Analysed" },
+  { value: "Content-Intent", label: "Targeting Model" },
+  { value: "3rd Path", label: "Unlocked in TimePay" }
+]} />
+
+</FiveSecondVersion>
 
 ## Overview
 

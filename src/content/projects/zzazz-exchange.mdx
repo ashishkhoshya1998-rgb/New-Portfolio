@@ -13,8 +13,23 @@ parentProject:
 ---
 
 import MetricGrid from '../../components/cs/MetricGrid.astro';
+import MetricTable from '../../components/cs/MetricTable.astro';
+import FiveSecondVersion from '../../components/cs/FiveSecondVersion.astro';
 import ProcessStep from '../../components/cs/ProcessStep.astro';
 import ImageRow from '../../components/cs/ImageRow.astro';
+
+<FiveSecondVersion>
+
+Exchange existed as a table-heavy marketplace that looked like a financial terminal — but users were researchers, writers, and editors, not traders. The UI forced them to translate intent into filter operations, and pricing appeared before relevance, turning the product thesis against itself. I rethought the interaction model entirely: **moved from table-led to query-led**, **evaluated module vs pure-chat vs hybrid** and chose hybrid to preserve structured depth, **repositioned tables and graphs as artifacts** surfaced on demand, and **sequenced price as context after relevance** so it reads as signal, not gate.
+
+<MetricTable metrics={[
+  { value: "Table → Query", label: "Interaction Model" },
+  { value: "3", label: "Interaction Modes" },
+  { value: "50%", label: "Higher CTR Projected" },
+  { value: "2 min → 1 sentence", label: "Intent to Result" }
+]} />
+
+</FiveSecondVersion>
 
 ## Overview
 

@@ -1530,8 +1530,9 @@ const hasDeck = !!decks[project.id];
     initSectionNav();
     initLightbox();
 
-    // Wrap tables for horizontal scroll on mobile
+    // Wrap tables for horizontal scroll on mobile (skip tables that manage their own layout)
     document.querySelectorAll('.cs__body table').forEach((table) => {
+      if (table.classList.contains('metric-table')) return;
       if (!table.parentElement?.classList.contains('table-wrap')) {
         const wrap = document.createElement('div');
         wrap.className = 'table-wrap';
