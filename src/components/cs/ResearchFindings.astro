@@ -59,8 +59,8 @@ function splitStat(data: string) {
 <style>
   .findings-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: 1fr;
+    gap: 16px;
     margin: 24px 0;
     padding: 0;
   }
@@ -117,9 +117,9 @@ function splitStat(data: string) {
 
   /* Body rows (Problem, Example) */
   .finding-card__body {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
     flex: 1;
   }
 
@@ -185,11 +185,11 @@ function splitStat(data: string) {
     flex: 1;
   }
 
-  /* Tablet */
-  @media (max-width: 900px) {
-    .findings-grid {
+  /* Tablet: stack body into single column */
+  @media (max-width: 768px) {
+    .finding-card__body {
       grid-template-columns: 1fr;
-      gap: 16px;
+      gap: 14px;
     }
   }
 
