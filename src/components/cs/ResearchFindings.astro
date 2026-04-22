@@ -1,0 +1,220 @@
+---
+interface Finding {
+  issue: string;
+  problem: string;
+  example: string;
+  data: string;
+}
+
+interface Props {
+  findings: Finding[];
+}
+
+const { findings } = Astro.props;
+
+// Pull the leading stat off the data string so we can render it large.
+// Matches things like "78%", "5 days", "₹108cr", "89%", "2.7×"
+function splitStat(data: string) {
+  const match = data.match(/^(₹?[\d.,]+[%+×x]?(?:\s*(?:days?|hrs?|hours?|mins?|minutes?|cr|lakh|k|m|b))?)\s*(.*)/i);
+  if (match && match[1]) {
+    return { stat: match[1].trim(), rest: match[2].trim() };
+  }
+  return { stat: null, rest: data };
+}
+---
+
+<div class="findings-grid" data-cs-section>
+  {findings.map((f) => {
+    const { stat, rest } = splitStat(f.data);
+    return (
+      <article class="finding-card">
+        <header class="finding-card__header">
+          <span class="finding-card__tag" aria-hidden="true">Finding</span>
+          <h4 class="finding-card__issue">{f.issue}</h4>
+        </header>
+
+        <div class="finding-card__body">
+          <div class="finding-card__row">
+            <span class="finding-card__label">Problem</span>
+            <p class="finding-card__text">{f.problem}</p>
+          </div>
+
+          <div class="finding-card__row">
+            <span class="finding-card__label">Example</span>
+            <p class="finding-card__example">{f.example}</p>
+          </div>
+        </div>
+
+        <footer class="finding-card__stat">
+          {stat && (
+            <span class="finding-card__stat-value">{stat}</span>
+          )}
+          <span class="finding-card__stat-context">{stat ? rest : f.data}</span>
+        </footer>
+      </article>
+    );
+  })}
+</div>
+
+<style>
+  .findings-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin: 24px 0;
+    padding: 0;
+  }
+
+  .finding-card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .finding-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: var(--accent);
+    opacity: 0.5;
+  }
+
+  /* Header */
+  .finding-card__header {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .finding-card__tag {
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.8;
+  }
+
+  .finding-card__issue {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+    letter-spacing: -0.2px;
+  }
+
+  /* Body rows (Problem, Example) */
+  .finding-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+  }
+
+  .finding-card__row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .finding-card__label {
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .finding-card__text {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-subtle);
+  }
+
+  .finding-card__example {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-subtle);
+    font-style: italic;
+    padding-left: 12px;
+    border-left: 2px solid var(--border);
+  }
+
+  /* Stat footer */
+  .finding-card__stat {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .finding-card__stat-value {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .finding-card__stat-context {
+    font-family: var(--font-body);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-muted);
+    flex: 1;
+  }
+
+  /* Tablet */
+  @media (max-width: 900px) {
+    .findings-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    .finding-card {
+      padding: 20px;
+      gap: 16px;
+    }
+
+    .finding-card__issue {
+      font-size: 16px;
+    }
+
+    .finding-card__text,
+    .finding-card__example {
+      font-size: 13px;
+    }
+
+    .finding-card__stat-value {
+      font-size: 24px;
+    }
+
+    .finding-card__stat-context {
+      font-size: 12px;
+    }
+  }
+</style>

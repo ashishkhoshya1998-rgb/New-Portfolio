@@ -17,6 +17,7 @@ import MetricTable from '../../components/cs/MetricTable.astro';
 import FiveSecondVersion from '../../components/cs/FiveSecondVersion.astro';
 import PhaseDivider from '../../components/cs/PhaseDivider.astro';
 import ProcessStep from '../../components/cs/ProcessStep.astro';
+import ResearchFindings from '../../components/cs/ResearchFindings.astro';
 
 <FiveSecondVersion>
 
@@ -84,12 +85,32 @@ To validate pain points, we conducted:
 
 ### Key Findings from Research
 
-| Issue | Problem | Example | Data |
-|---|---|---|---|
-| **Multi-GSTIN Filing Burden** | Businesses spent 40–50 hours monthly on 3B filing for multiple GSTINs | An FMCG enterprise's finance team dedicated 5 days/month for 120 GSTINs | 78% of enterprises with 10+ GSTINs cited multi-filing as their top pain point |
-| **Excel Dependency** | Users needed Excel for reconciliation, filtering, and bulk actions | A tax consultant managing 30 clients relied on Excel pivot tables for data sorting | 82% of users copied data from Excel to the portal — increasing error rates by 25% |
-| **Reconciliation Anxiety** | Users struggled with mismatched ITC claims due to incorrect vendor filings | An MSME owner feared ITC blockages due to vendor errors in GSTR-1 | 65% of support tickets were related to ITC mismatches in Clear GST 1.0 |
-| **Confusion Around Table-4** | Users lacked clarity on ITC claims, ineligible amounts, and reversals | A CA rechecked Table-4 entries 3–4 times before submitting | 89% reverted to Excel, leading to mismatches and CSM escalations |
+<ResearchFindings findings={[
+  {
+    issue: "Multi-GSTIN Filing Burden",
+    problem: "Businesses spent 40–50 hours monthly on 3B filing for multiple GSTINs.",
+    example: "An FMCG enterprise's finance team dedicated 5 days/month to file for 120 GSTINs.",
+    data: "78% of enterprises with 10+ GSTINs cited multi-filing as their top pain point."
+  },
+  {
+    issue: "Excel Dependency",
+    problem: "Users needed Excel for reconciliation, filtering, and bulk actions.",
+    example: "A tax consultant managing 30 clients relied on Excel pivot tables for data sorting.",
+    data: "82% of users copied data from Excel to the portal — error rates increased by 25%."
+  },
+  {
+    issue: "Reconciliation Anxiety",
+    problem: "Users struggled with mismatched ITC claims due to incorrect vendor filings.",
+    example: "An MSME owner feared ITC blockages due to vendor errors in GSTR-1.",
+    data: "65% of support tickets were related to ITC mismatches in Clear GST 1.0."
+  },
+  {
+    issue: "Confusion Around Table-4",
+    problem: "Users lacked clarity on ITC claims, ineligible amounts, and reversals.",
+    example: "A CA rechecked Table-4 entries 3–4 times before submitting each month.",
+    data: "89% reverted to Excel, leading to mismatches and CSM escalations."
+  }
+]} />
 
 ## Design Process
 
