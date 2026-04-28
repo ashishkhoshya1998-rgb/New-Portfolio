@@ -47,22 +47,11 @@ export const decks: Record<string, Deck> = {
         `,
       },
       {
-        label: 'Context',
-        content: `
-          <div class="slide-label">Phase 1 · Pre-Launch — Market context</div>
-          <div class="slide-title">1.4 crore businesses. One GSTIN at a time.</div>
-          <div class="slide-subtitle">India's GST regime requires over 1.4 crore businesses to file GSTR-3B returns monthly or quarterly — reporting sales, input tax credit, liabilities, and refunds. But the GSTN portal had critical limitations that compounded at scale.</div>
-          <div class="step-row"><div class="step-num">→</div><div class="step-content"><div class="step-title">Single-GSTIN filing</div><div class="step-desc">Businesses with multiple units had to file returns one at a time. An enterprise with 120 GSTINs repeated the workflow 120 times.</div></div></div>
-          <div class="step-row"><div class="step-num">→</div><div class="step-content"><div class="step-title">Manual processes</div><div class="step-desc">Users entered data manually from Excel sheets — increasing error and compliance risk.</div></div></div>
-          <div class="step-row"><div class="step-num">→</div><div class="step-content"><div class="step-title">Complex reconciliation</div><div class="step-desc">Comparing purchase registers with GSTR-2B (auto-generated from vendor filings) was cumbersome and error-prone.</div></div></div>
-        `,
-      },
-      {
         label: 'Problem',
         content: `
-          <div class="slide-label">Problem statement</div>
+          <div class="slide-label">Problem definition</div>
           <div class="slide-title">5 core failure points</div>
-          <div class="slide-subtitle">The GSTN portal and Clear GST 1.0 forced inefficiencies that cost enterprises days of manual work every month.</div>
+          <div class="slide-subtitle">The GSTN portal and Clear GST 1.0 limited users to filing one GSTIN at a time — an enterprise with 120 GSTINs repeated the same painful workflow 120 times.</div>
           <div class="step-row"><div class="step-num">1</div><div class="step-content"><div class="step-title">High cognitive load</div><div class="step-desc">Manual tracking across GSTINs multiplied mental burden — users had no single view of filing status or liability.</div></div></div>
           <div class="step-row"><div class="step-num">2</div><div class="step-content"><div class="step-title">Forced Excel dependency</div><div class="step-desc">82% of users copied data from Excel to the portal — the platform lacked filtering, pivoting, and bulk actions natively.</div></div></div>
           <div class="step-row"><div class="step-num">3</div><div class="step-content"><div class="step-title">Reconciliation anxiety</div><div class="step-desc">Matching GSTR-2B with purchase registers was opaque. 65% of support tickets were ITC mismatch complaints.</div></div></div>
@@ -77,7 +66,7 @@ export const decks: Record<string, Deck> = {
       {
         label: 'Research',
         content: `
-          <div class="slide-label">User research</div>
+          <div class="slide-label">Research</div>
           <div class="slide-title">50+ interviews · 500+ tickets · 3 usability tests</div>
           <div class="metric-grid metric-grid-3">
             <div class="metric-card" style="text-align:center"><div class="metric-num">50+</div><div class="metric-label">User interviews</div></div>
@@ -103,23 +92,10 @@ export const decks: Record<string, Deck> = {
         `,
       },
       {
-        label: 'Goals',
-        content: `
-          <div class="slide-label">Design process — goals</div>
-          <div class="slide-title">5 design goals from research</div>
-          <div class="slide-subtitle">Each goal maps to a specific research finding — pain point in, design principle out.</div>
-          <div class="step-row"><div class="step-num">01</div><div class="step-content"><div class="step-title">Enable bulk filing for multiple GSTINs</div><div class="step-desc">Centralise screens so all GSTINs can be managed in one place with batch actions — killing repetitive work for enterprises.</div></div></div>
-          <div class="step-row"><div class="step-num">02</div><div class="step-content"><div class="step-title">Automate reconciliation between PR and GSTR-2B</div><div class="step-desc">Build a pre-filing reconciliation engine with smart suggestions for ITC actions — minimising manual effort and errors.</div></div></div>
-          <div class="step-row"><div class="step-num">03</div><div class="step-content"><div class="step-title">Give users data source flexibility</div><div class="step-desc">Let users choose datasets (PR, GSTR-2B) to auto-populate tables — with table-wise mapping and smart defaults.</div></div></div>
-          <div class="step-row"><div class="step-num">04</div><div class="step-content"><div class="step-title">Replicate Excel-like flexibility in-platform</div><div class="step-desc">Introduce filtering, sorting, grouping, and bulk actions natively — eliminating back-and-forth between Excel and the portal.</div></div></div>
-          <div class="step-row"><div class="step-num">05</div><div class="step-content"><div class="step-title">Auto-generate Table-4 from recon actions</div><div class="step-desc">Populate Table-4 based on reconciliation outcomes — simplifying ITC computation and building user confidence.</div></div></div>
-        `,
-      },
-      {
         label: 'Data Source',
         content: `
-          <div class="slide-label">Solution A · Data source</div>
-          <div class="slide-title">Data Source Selection Interface</div>
+          <div class="slide-label">Design solution</div>
+          <div class="slide-title">Data Source Selection</div>
           <div class="slide-subtitle">Table-specific mapping with dropdown menus, smart auto-suggested defaults for SMEs, and a preview mode to validate auto-filled values before proceeding.</div>
           <div class="screen"><img src="/cs/gstr-wireframe-a.webp" alt="Data source selection wireframe" /></div>
         `,
@@ -127,7 +103,7 @@ export const decks: Record<string, Deck> = {
       {
         label: 'Dashboard',
         content: `
-          <div class="slide-label">Solution B · Multi-GSTIN filing</div>
+          <div class="slide-label">Design solution</div>
           <div class="slide-title">Multi-GSTIN Filing Dashboard</div>
           <div class="slide-subtitle">Centralised status overview tracking pending filings, tax liabilities, and ITC statuses. Batch filing for 10+ GSTINs in one click — enterprises activated 20+ GSTINs in under 10 minutes.</div>
           <div class="screen"><img src="/cs/gstr-wireframe-b.webp" alt="Multi-GSTIN dashboard wireframe" /></div>
@@ -140,7 +116,7 @@ export const decks: Record<string, Deck> = {
       {
         label: 'Reconciliation',
         content: `
-          <div class="slide-label">Solution C · Pre-filing reconciliation</div>
+          <div class="slide-label">Design solution</div>
           <div class="slide-title">Pre-Filing Reconciliation Engine</div>
           <div class="slide-subtitle">Split-view comparison of GSTR-2B vs Purchase Register with mismatches highlighted. Bulk approve/reject for 100+ invoices in one click.</div>
           <div class="screen"><img src="/cs/gstr-wireframe-c.webp" alt="Reconciliation engine wireframe" /></div>
@@ -150,7 +126,7 @@ export const decks: Record<string, Deck> = {
       {
         label: 'Table-4',
         content: `
-          <div class="slide-label">Solution D · Table-4 generation</div>
+          <div class="slide-label">Design solution</div>
           <div class="slide-title">Table-4 Live Preview</div>
           <div class="slide-subtitle">Users didn't trust auto-generated values. I designed a live side panel that shows cause-and-effect in real time — each reconciliation action immediately updates Table-4, turning a black box into a transparent system.</div>
           <div class="screen"><img src="/cs/gstr-wireframe-d.webp" alt="Table-4 live preview wireframe" /></div>
@@ -162,87 +138,43 @@ export const decks: Record<string, Deck> = {
         `,
       },
       {
-        label: 'Filing Flow',
+        label: 'Upload',
         content: `
-          <div class="slide-label">Information architecture</div>
-          <div class="slide-title">6-step filing workflow</div>
-          <div class="slide-subtitle">The IA was structured to balance compliance with user efficiency — each step addresses a specific pain point while embedding design principles.</div>
-          <div class="step-row"><div class="step-num">1</div><div class="step-content"><div class="step-title">GST Landing Page</div><div class="step-desc">GSTR-3B entry point; access to other filings (GSTR-1, 6, 8, 9, 9C, ITC-04).</div></div></div>
-          <div class="step-row"><div class="step-num">2</div><div class="step-content"><div class="step-title">Pre-Preparation — Data source setup</div><div class="step-desc">Business unit, return period, bulk GSTN activation, data source confirmation.</div></div></div>
-          <div class="step-row"><div class="step-num">3</div><div class="step-content"><div class="step-title">Data Preparation (1/4)</div><div class="step-desc">GSTN data download, PR/SR import, 2B vs PR reconciliation for ITC Table-4.</div></div></div>
-          <div class="step-row"><div class="step-num">4</div><div class="step-content"><div class="step-title">Tax Calculation & Offset (2/4)</div><div class="step-desc">Review liabilities, government vs Clear GST calculator, Rule 86B, create challans.</div></div></div>
-          <div class="step-row"><div class="step-num">5</div><div class="step-content"><div class="step-title">Upload to GSTN (3/4)</div><div class="step-desc">Auto-OTP capture, real-time ledger sync, multi-challan creation for 100+ GSTINs.</div></div></div>
-          <div class="step-row"><div class="step-num">6</div><div class="step-content"><div class="step-title">Filing & Status Review (4/4)</div><div class="step-desc">EVC/DSC integration, unified status dashboard — repeat users file in &lt;30 seconds.</div></div></div>
-          <div class="screen"><img src="/cs/gstr-upload.gif" alt="Upload to GSTN — auto-OTP" /></div>
+          <div class="slide-label">Design solution</div>
+          <div class="slide-title">Upload & Filing Flow</div>
+          <div class="slide-subtitle">Streamlined GSTN upload with automated OTP capture and a unified filing status dashboard covering all GSTINs. Filing time dropped from 30 min to under 2 min per batch.</div>
+          <div class="screen"><img src="/cs/gstr-upload.gif" alt="Upload to GSTN" /></div>
           <div class="screen"><img src="/cs/gstr-filing.gif" alt="Filing and status dashboard" /></div>
-        `,
-      },
-      {
-        label: 'Post-Launch',
-        content: `
-          <div class="slide-label">Phase 2 · Post-launch — 90-90-90 Drive</div>
-          <div class="slide-title">Adoption ≠ Proficiency</div>
-          <div class="slide-subtitle">Post-launch, we ran a 90-90-90 adoption drive led by CSMs. Metrics looked positive. Monthly retros revealed a critical flaw.</div>
-          <div class="insight-row">
-            <div class="insight-icon">⚠️</div>
-            <div class="insight-body"><div class="kf-head">CSM over-reliance</div><div class="kf-body">To hit targets, CSMs performed tasks <em>for users</em> — configuring data sources, reconciling ITC, generating Table-4. Users never learned the workflows.</div></div>
-          </div>
-          <div class="insight-row">
-            <div class="insight-icon">📊</div>
-            <div class="insight-body"><div class="kf-head">Surface-level adoption</div><div class="kf-body">Users were filing but not mastering the platform. Churn risk was hiding inside a green dashboard.</div></div>
-          </div>
-          <div class="quote-block">
-            <div class="quote-text">"Adoption ≠ Proficiency. Users were filing but not mastering the platform."</div>
-            <div class="quote-attr">Key realisation from monthly retros</div>
-          </div>
-          <div class="kf-card">
-            <div class="kf-head">The pivot</div>
-            <div class="kf-body">Shifted from CSM-led metrics to direct user shadowing. Asked open-ended questions like <em>"How would you solve this without the platform?"</em> — and ran funnel analysis via SQL to find real drop-off points.</div>
-          </div>
-        `,
-      },
-      {
-        label: 'Issues',
-        content: `
-          <div class="slide-label">Critical issues identified</div>
-          <div class="slide-title">What shadowing revealed</div>
-          <div class="slide-subtitle">Three issues — invisible in CSM reports, visible the moment we watched real users file.</div>
-          <div class="step-row"><div class="step-num">01</div><div class="step-content"><div class="step-title">Data source page was a barrier</div><div class="step-desc">Users saw the standalone data source setup as a "gatekeeper," not a workflow enabler. <em>"Why can't I adjust sources directly in the GSTR-3B form?"</em> — 47% dropped off or called CSMs to bypass it.</div></div></div>
-          <div class="step-row"><div class="step-num">02</div><div class="step-content"><div class="step-title">Table-4 was opaque</div><div class="step-desc">Users couldn't see how reconciliation actions impacted Table-4. <em>"I download the recon to Excel, create pivot tables, and cross-check. Your platform's logic is a black box."</em> — 89% reverted to Excel.</div></div></div>
-          <div class="step-row"><div class="step-num">03</div><div class="step-content"><div class="step-title">Excel dependency persisted</div><div class="step-desc">Lack of native filtering, grouping, and bulk actions forced downloads even after launch — defeating the in-platform goal.</div></div></div>
         `,
       },
       {
         label: 'Iterations',
         content: `
-          <div class="slide-label">Iterative solutions</div>
-          <div class="slide-title">4 fixes — rebuilt from shadowing insights</div>
+          <div class="slide-label">Post-launch iteration</div>
+          <div class="slide-title">What field shadowing revealed</div>
+          <div class="slide-subtitle">Post-launch, the 90-90-90 adoption drive revealed a critical flaw: adoption ≠ proficiency. CSMs were doing tasks for users to hit targets. I shifted to direct user shadowing.</div>
           <div class="kf-card">
             <div class="kf-head">Iteration 1 — Data source moved inline</div>
-            <div class="kf-body">Eliminated the standalone "gatekeeper" step. Source configuration now lives inside the GSTR-3B form — users adjust while reviewing Table-4. Drop-off: 47% → near zero.</div>
+            <div class="kf-body">Moved the standalone configuration step inside the form itself. Drop-off: 47% → near zero.</div>
           </div>
           <div class="screen"><img src="/cs/gstr-datasrc-redesign.gif" alt="Data source moved inline" /></div>
           <div class="kf-card">
-            <div class="kf-head">Iteration 2 — Transparent Table-4 workflow</div>
-            <div class="kf-body">Real-time ITC impact previews — every reconciliation row updates the final Table-4 value live. Black box became glass box.</div>
-          </div>
-          <div class="screen"><img src="/cs/gstr-table4.gif" alt="Table-4 live preview iteration" /></div>
-          <div class="kf-card">
-            <div class="kf-head">Iteration 3 — Excel-free grouping</div>
-            <div class="kf-body">Native grouping and subgrouping replaced Excel pivot tables entirely — efficient, accurate bulk actions in-platform.</div>
+            <div class="kf-head">Iteration 2 — Excel-free grouping</div>
+            <div class="kf-body">Native grouping and subgrouping replaced the need for Excel pivot tables entirely.</div>
           </div>
           <div class="screen"><img src="/cs/gstr-excel-free.gif" alt="Native grouping replacing Excel" /></div>
           <div class="kf-card">
-            <div class="kf-head">Iteration 4 — Multi-GSTIN auto-OTP</div>
-            <div class="kf-body">Instant GSTIN activation with automated OTP capture (with consent) — filing time dropped from 30 min to under 2 min per batch.</div>
+            <div class="kf-head">Iteration 3 — Transparent Table-4</div>
+            <div class="kf-body">Real-time ITC impact previews — every row action updates the final number live.</div>
           </div>
+          <div class="screen"><img src="/cs/gstr-table4.gif" alt="Table-4 live preview iteration" /></div>
         `,
       },
       {
         label: 'Impact',
         content: `
-          <div class="slide-label">Results & impact</div>
-          <div class="slide-title">Across three phases</div>
+          <div class="slide-label">Impact</div>
+          <div class="slide-title">Results across three phases</div>
           <div class="metric-grid">
             <div class="metric-card"><div class="metric-num">87%</div><div class="metric-label">Filing time cut (1hr → 8min)</div></div>
             <div class="metric-card"><div class="metric-num">53%</div><div class="metric-label">3B adoption (from 18%)</div></div>
@@ -265,7 +197,7 @@ export const decks: Record<string, Deck> = {
       {
         label: 'Reflection',
         content: `
-          <div class="slide-label">Key learnings</div>
+          <div class="slide-label">Reflections</div>
           <div class="slide-title">What I'd carry forward</div>
           <div class="reflection-card">
             <div class="refl-num">01</div>
