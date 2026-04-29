@@ -1,0 +1,312 @@
+---
+interface Props {
+  company: string;
+  headline: string;
+  accent: string;
+  problem: string;
+  role: string;
+  year: string;
+  duration: string;
+  team: string[];
+  deliverables: string[];
+  coverImage: string;
+  coverAlt: string;
+}
+
+const {
+  company, headline, accent, problem,
+  role, year, duration, team, deliverables,
+  coverImage, coverAlt
+} = Astro.props;
+
+const accentIndex = headline.indexOf(accent);
+const headlineBefore = accentIndex >= 0 ? headline.slice(0, accentIndex) : headline;
+const headlineAccent = accentIndex >= 0 ? accent : "";
+const headlineAfter = accentIndex >= 0 ? headline.slice(accentIndex + accent.length) : "";
+---
+
+<header class="hero-v2">
+  <div class="hero-v2__inner">
+    {/* Top strip — company on the left, "Case Study · year" on the right */}
+    <div class="hero-v2__topstrip">
+      <span class="hero-v2__eyebrow">{company}</span>
+      <span class="hero-v2__topstrip-meta">Case Study · {year}</span>
+    </div>
+
+    {/* Headline block — centered editorial */}
+    <div class="hero-v2__headline-wrap">
+      <h1 class="hero-v2__headline">
+        {headlineBefore}<span class="hero-v2__accent">{headlineAccent}</span>{headlineAfter}
+      </h1>
+      <p class="hero-v2__problem">{problem}</p>
+    </div>
+
+    {/* Hero visual — full-width browser frame */}
+    <div class="hero-v2__visual" aria-hidden="false">
+      <div class="browser-frame">
+        <div class="browser-frame__chrome">
+          <span class="browser-frame__dot"></span>
+          <span class="browser-frame__dot"></span>
+          <span class="browser-frame__dot"></span>
+          <span class="browser-frame__addr"></span>
+        </div>
+        <div class="browser-frame__screen">
+          <img src={coverImage} alt={coverAlt} loading="eager" />
+        </div>
+      </div>
+    </div>
+
+    {/* Bottom meta strip — horizontal columns */}
+    <div class="hero-v2__meta">
+      <div class="hero-v2__meta-block">
+        <span class="hero-v2__meta-label">Role</span>
+        <span class="hero-v2__meta-value">{role}</span>
+      </div>
+      <div class="hero-v2__meta-block">
+        <span class="hero-v2__meta-label">Duration</span>
+        <span class="hero-v2__meta-value">{duration}</span>
+      </div>
+      <div class="hero-v2__meta-block">
+        <span class="hero-v2__meta-label">Team</span>
+        <span class="hero-v2__meta-value">{team.join(' · ')}</span>
+      </div>
+      <div class="hero-v2__meta-block hero-v2__meta-block--deliverables">
+        <span class="hero-v2__meta-label">Deliverables</span>
+        <span class="hero-v2__meta-value">{deliverables.join(' · ')}</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .hero-v2 {
+    /* Break out of any parent .content-wrap constraint */
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    /* Clear the 80px fixed topnav with breathing room before the topstrip */
+    padding: clamp(6.5rem, 8vw, 7.5rem) 0 0;
+  }
+  .hero-v2__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 clamp(1.5rem, 5vw, 4rem);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  /* ── Top strip ── */
+  .hero-v2__topstrip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-v2__eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .hero-v2__topstrip-meta {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  /* ── Headline block ── */
+  .hero-v2__headline-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.75rem;
+    padding: clamp(1rem, 3vw, 2rem) 0 0.5rem;
+  }
+  .hero-v2__headline {
+    font-family: var(--font-body);
+    font-size: clamp(2.25rem, 5.5vw, 4.75rem);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text);
+    max-width: 16ch;
+  }
+  .hero-v2__accent {
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .hero-v2__problem {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 1.4vw, 1.1875rem);
+    line-height: 1.65;
+    color: var(--text-subtle);
+    max-width: 56ch;
+    margin: 0;
+  }
+
+  /* ── Hero visual — full-width browser frame ── */
+  .hero-v2__visual {
+    position: relative;
+    margin-top: clamp(1rem, 2.5vw, 2rem);
+  }
+  .browser-frame {
+    border-radius: clamp(8px, 1.4vw, 14px);
+    overflow: hidden;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.04) inset,
+      0 12px 28px rgba(0, 0, 0, 0.12),
+      0 4px 10px rgba(0, 0, 0, 0.08);
+    background: #fff;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  :global([data-theme='dark']) .browser-frame {
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.06) inset,
+      0 16px 36px rgba(255, 255, 255, 0.04),
+      0 4px 12px rgba(255, 255, 255, 0.03);
+  }
+  /* Subtle accent glow behind the frame */
+  .browser-frame::before {
+    content: "";
+    position: absolute;
+    inset: -40px;
+    background: radial-gradient(60% 60% at 50% 0%,
+      color-mix(in srgb, var(--accent) 18%, transparent),
+      transparent 70%);
+    z-index: -1;
+    pointer-events: none;
+    border-radius: 50%;
+    filter: blur(40px);
+  }
+  .browser-frame__chrome {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 0.875rem;
+    background: #f3f3f3;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+  .browser-frame__dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 999px;
+  }
+  .browser-frame__dot:nth-child(1) { background: #ff5f57; }
+  .browser-frame__dot:nth-child(2) { background: #febc2e; }
+  .browser-frame__dot:nth-child(3) { background: #28c840; }
+  .browser-frame__addr {
+    flex: 1;
+    height: 22px;
+    border-radius: 6px;
+    background: #e6e6e6;
+    margin-left: 0.5rem;
+  }
+  .browser-frame__screen {
+    aspect-ratio: 1366 / 768;
+    overflow: hidden;
+    display: block;
+    line-height: 0;
+  }
+  .hero-v2 .browser-frame__screen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  /* ── Bottom meta strip ── */
+  .hero-v2__meta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 2.2fr);
+    gap: clamp(1.5rem, 3vw, 3rem);
+    padding-top: clamp(1.25rem, 2.5vw, 1.75rem);
+    margin-top: clamp(1rem, 2vw, 1.5rem);
+    border-top: 1px solid var(--border);
+  }
+  .hero-v2__meta-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+  .hero-v2__meta-label {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+  .hero-v2__meta-value {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--text);
+  }
+
+  /* Tablet */
+  @media (max-width: 900px) {
+    .hero-v2__meta {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem 2rem;
+    }
+    .hero-v2__meta-block--deliverables {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    .hero-v2 {
+      /* Mobile topnav is ~60px; tight top padding so the case-study header
+         doesn't float in empty space below the navbar */
+      padding-top: 1.75rem;
+    }
+    .hero-v2__inner {
+      gap: 2rem;
+    }
+    .hero-v2__topstrip {
+      gap: 0.75rem;
+      padding-bottom: 1rem;
+    }
+    .hero-v2__topstrip-meta {
+      letter-spacing: 0.08em;
+    }
+    .hero-v2__headline-wrap {
+      gap: 1.25rem;
+      padding-top: 0.5rem;
+    }
+    .hero-v2__headline {
+      font-size: clamp(2rem, 9vw, 3.25rem);
+      max-width: 100%;
+    }
+    .hero-v2__problem {
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+    .hero-v2__meta {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem 1.5rem;
+    }
+    .hero-v2__meta-block--deliverables {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

@@ -1,0 +1,282 @@
+---
+interface Props {
+  /** Original Figma share URL (proto or design). The component rewrites it to embed.figma.com. */
+  url: string;
+  /** Optional caption shown below the embed. */
+  caption?: string;
+  /** Aspect ratio as W/H, e.g. "16/10". Default 16/10 (suits desktop prototypes). */
+  aspectRatio?: string;
+  /** Accessible title for the iframe. */
+  title?: string;
+  /**
+   * Optional poster image (e.g. /cs/proto-poster.png). When provided, the iframe
+   * is replaced by a static screenshot with a "Load prototype" overlay.
+   * The iframe only loads when the user clicks — so the page stays fast and
+   * never flashes a blank Figma loading state.
+   */
+  poster?: string;
+}
+
+const {
+  url,
+  caption,
+  aspectRatio = "16 / 10",
+  title = "Figma prototype",
+  poster,
+} = Astro.props;
+
+// Rewrite figma.com URL to embed.figma.com, set embed-host, force a fit-to-width
+// scaling mode, and hide Figma's chrome (file-name bar etc.) for a clean embed.
+const embedUrl = (() => {
+  try {
+    const u = new URL(url);
+    u.hostname = "embed.figma.com";
+    u.searchParams.set("embed-host", "share");
+    u.searchParams.set("scaling", "scale-down-width");
+    u.searchParams.set("content-scaling", "fixed");
+    u.searchParams.set("hide-ui", "1");
+    u.searchParams.set("hotspot-hints", "0");
+    return u.toString();
+  } catch {
+    return url;
+  }
+})();
+---
+
+<figure class="figma-embed" data-cs-section>
+  <div class="figma-embed__frame" style={`aspect-ratio: ${aspectRatio};`}>
+    {poster ? (
+      <button
+        type="button"
+        class="figma-embed__poster"
+        data-figma-embed-url={embedUrl}
+        data-figma-embed-title={title}
+        aria-label={`Load prototype: ${title}`}
+      >
+        <img src={poster} alt="" class="figma-embed__poster-img" loading="lazy" />
+        <span class="figma-embed__overlay" aria-hidden="true">
+          <span class="figma-embed__play">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3" fill="currentColor" />
+            </svg>
+          </span>
+          <span class="figma-embed__cta">View full flow</span>
+        </span>
+      </button>
+    ) : (
+      <iframe
+        src={embedUrl}
+        title={title}
+        loading="lazy"
+        allowfullscreen
+        class="figma-embed__iframe"
+      ></iframe>
+    )}
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="figma-embed__fallback"
+    >
+      <span class="figma-embed__fallback-label">Open prototype in Figma →</span>
+      <span class="figma-embed__fallback-hint">Best viewed on desktop</span>
+    </a>
+  </div>
+  {caption && <figcaption class="figma-embed__caption">{caption}</figcaption>}
+</figure>
+
+<script>
+  // Click-to-load: when a poster is clicked, swap it out for a live iframe.
+  // Idempotent — safe to run multiple times (Astro view transitions, etc.).
+  function initFigmaPosters(root: Document | HTMLElement = document) {
+    root.querySelectorAll<HTMLButtonElement>(".figma-embed__poster:not([data-init])").forEach((btn) => {
+      btn.dataset.init = "1";
+      btn.addEventListener("click", () => {
+        const url = btn.dataset.figmaEmbedUrl;
+        const title = btn.dataset.figmaEmbedTitle ?? "Figma prototype";
+        if (!url) return;
+        const iframe = document.createElement("iframe");
+        iframe.src = url;
+        iframe.title = title;
+        iframe.loading = "eager";
+        iframe.setAttribute("allowfullscreen", "");
+        iframe.className = "figma-embed__iframe";
+        // Inline the layout styles so they apply even though the dynamically-
+        // created iframe lacks Astro's scoped data-attribute.
+        iframe.style.cssText =
+          "position:absolute;inset:0;width:100%;height:100%;border:0;display:block;";
+        btn.replaceWith(iframe);
+      });
+    });
+  }
+  initFigmaPosters();
+  document.addEventListener("astro:page-load", () => initFigmaPosters());
+</script>
+
+<style>
+  .figma-embed {
+    margin: 56px 0;
+  }
+  .figma-embed__frame {
+    position: relative;
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--card-bg);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.04) inset,
+      0 12px 28px rgba(0, 0, 0, 0.12),
+      0 4px 10px rgba(0, 0, 0, 0.08);
+  }
+  :global([data-theme='dark']) .figma-embed__frame {
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.06) inset,
+      0 16px 36px rgba(255, 255, 255, 0.04),
+      0 4px 12px rgba(255, 255, 255, 0.03);
+  }
+  .figma-embed__iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  /* ── Poster (click-to-load facade) ───────────────────────────── */
+  .figma-embed__poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    display: block;
+    overflow: hidden;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .figma-embed__poster-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    background: var(--card-bg);
+  }
+  /* Persistent pill CTA — sits 8px above the bottom edge of the image */
+  .figma-embed__overlay {
+    position: absolute;
+    left: 50%;
+    bottom: 8px;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px 7px 10px;
+    background: var(--accent);
+    color: #0b0b0c;
+    border-radius: 999px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+    pointer-events: none; /* let the parent button receive the click */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .figma-embed__play {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.15);
+    color: #0b0b0c;
+  }
+  .figma-embed__play svg {
+    width: 12px;
+    height: 12px;
+    margin-left: 1px;
+  }
+  .figma-embed__cta {
+    font-family: var(--font-body);
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .figma-embed__poster:hover .figma-embed__overlay,
+  .figma-embed__poster:focus-visible .figma-embed__overlay {
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.34);
+  }
+  .figma-embed__poster:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* Mobile fallback: hide the iframe, show a link card instead */
+  .figma-embed__fallback {
+    display: none;
+  }
+  .figma-embed__caption {
+    font-family: var(--font-body);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-muted);
+    margin: 14px 0 0;
+    text-align: center;
+    letter-spacing: 0.01em;
+  }
+
+  @media (max-width: 768px) {
+    .figma-embed {
+      margin: 36px 0;
+    }
+    .figma-embed__iframe,
+    .figma-embed__poster {
+      display: none;
+    }
+    .figma-embed__fallback {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 24px;
+      text-align: center;
+      text-decoration: none;
+      color: var(--text);
+      background:
+        radial-gradient(80% 80% at 50% 0%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 65%),
+        var(--card-bg);
+      transition: border-color 0.2s ease;
+    }
+    .figma-embed__fallback-label {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .figma-embed__fallback-hint {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .figma-embed__poster-img,
+    .figma-embed__play,
+    .figma-embed__overlay {
+      transition: none;
+    }
+  }
+</style>

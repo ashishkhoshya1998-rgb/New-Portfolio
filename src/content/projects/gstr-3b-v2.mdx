@@ -1,0 +1,221 @@
+---
+title: "GSTR-3B Filing Redesign"
+subtitle: "Simplifying GST compliance at scale"
+description: "Cut filing time from 1 hour to 8 minutes for 1.4Cr+ businesses, tripled adoption, and uncovered the gap between adoption and proficiency."
+role: "Lead UX Designer"
+services: ["Enterprise UX", "User Research", "Interaction Design"]
+year: "2022"
+accentColor: "#22C55E"
+urlSlug: "gstr-3b"
+customHero: true
+nextProject:
+  title: "Mint V8 Design System"
+  slug: "mint-v8"
+---
+
+import HeroDesktop from '../../components/cs/HeroDesktop.astro';
+import ActivityTags from '../../components/cs/ActivityTags.astro';
+import MetricGrid from '../../components/cs/MetricGrid.astro';
+import MetricTable from '../../components/cs/MetricTable.astro';
+import PhaseDivider from '../../components/cs/PhaseDivider.astro';
+import PainClusters from '../../components/cs/PainClusters.astro';
+import FigmaEmbed from '../../components/cs/FigmaEmbed.astro';
+import FunnelChart from '../../components/cs/FunnelChart.astro';
+
+<HeroDesktop
+  company="Clear (ClearTax)"
+  headline="Cutting GSTR-3B filing time by 87%"
+  accent="by 87%"
+  problem="India's GST regime requires 1.4 crore businesses to file GSTR-3B returns every month. Finance teams at scale were losing five days a month to a process built for single filings. I led the redesign — and discovered, three months post-launch, that our success metrics were lying to us."
+  role="Product Designer"
+  year="2022 – 2024"
+  duration="20 months"
+  team={["1 Product Designer", "1 Product Manager", "3 Engineers", "2 Customer Success Managers"]}
+  deliverables={[
+    "User research",
+    "Information architecture",
+    "Wireframes & prototypes",
+    "Usability testing",
+    "Design system contributions",
+    "Post-launch iteration"
+  ]}
+  coverImage="/cs/gstr-v2-hero.jpg"
+  coverAlt="Multi-GSTIN filing dashboard — Clear GST 2.0 case study cover"
+/>
+
+<PhaseDivider label="Phase 1" title="Pre-Launch · Research, Design & Build" />
+
+## The platform was anti-scale
+
+Clear's GST product worked beautifully for a single business filing a single return. The problem was that real customers had dozens. The government portal and Clear's existing flow both forced finance teams to file one GSTIN at a time — turning a monthly compliance task into a five-day ordeal for any company with more than ten branches.
+
+> *"My team of six spends five full days every month filing for 120 GSTINs. We make mistakes because the process creates mistakes."*
+> — Sunita, CFO · Manufacturing Firm
+
+![Clear GST's existing flow forced finance teams to file one GSTIN at a time, no matter how many entities they managed](/cs/gstr-v2-01-single-gstin-filing.png)
+
+<ActivityTags items={["50+ user interviews", "500+ support tickets", "3 usability tests", "Field shadowing"]} />
+
+## Three patterns kept showing up across 50 interviews
+
+We ran 50+ user interviews across MSMEs, enterprises, and tax consultants, analysed 500+ support tickets, and ran usability tests on the existing platform. The pain didn't fragment — it concentrated around scale, trust, and tooling.
+
+> *"I download the recon to Excel, create pivot tables, and cross-check. Your platform's logic is a black box."*
+> — Meera, Tax Consultant · 30+ clients
+
+<PainClusters
+  clusters={[
+    {
+      label: "Scale",
+      stat: "78%",
+      gap: "Of enterprises with 10+ GSTINs cited multi-filing as their #1 pain point. The platform was built for one entity at a time — there was no concept of a batch."
+    },
+    {
+      label: "Trust",
+      stat: "65%",
+      gap: "Of all support tickets were ITC reconciliation mismatches. The matching logic was opaque — users couldn't see why a row failed, only that it had."
+    },
+    {
+      label: "Tooling",
+      stat: "82%",
+      gap: "Of users were copying data from Excel into the portal. Filtering, grouping, and bulk actions didn't exist in product, so finance teams escaped to spreadsheets."
+    }
+  ]}
+/>
+
+<ActivityTags items={["Affinity mapping", "Pain-point synthesis", "Persona definition", "Opportunity sizing"]} />
+
+## We rebuilt the platform around batches, not single returns
+
+The redesign hinged on three structural shifts: bring scale to the dashboard, move reconciliation out of Excel and into the product, and let data sources be configured once and reused across all GSTINs. The IA was anchored around six steps from landing through filing, but the visible craft sat in two screens — the multi-GSTIN dashboard and the reconciliation engine.
+
+The dashboard collapsed what used to be a 5-day, GSTIN-by-GSTIN workflow into a single view. Status across every GSTIN, batch actions, drill-down to invoice level when needed.
+
+<FigmaEmbed
+  url="https://www.figma.com/proto/NDJRVkDh2AOYABXNlBqAjl/%E2%9C%85GSTR-3B-Final?node-id=14571-159788&viewport=630%2C318%2C0.11&t=AcRWX15BrwcVJW4u-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=14571%3A159788&page-id=14571%3A159709"
+  title="Multi-GSTIN filing dashboard prototype"
+  caption="Multi-GSTIN dashboard prototype — batch filing of 5 GSTINs in one view."
+  poster="/cs/gstr-v2-poster-dashboard.jpg"
+/>
+
+<ActivityTags items={["Information architecture", "Wireframes", "Prototypes", "Cross-functional reviews"]} />
+
+## Reconciliation moved out of Excel and into the product
+
+ITC reconciliation generated most of the support load — 65% of all tickets. Users were rebuilding pivot tables in Excel because the platform couldn't compare GSTR-2B against their Purchase Register at scale. We built a split-view recon engine with vendor grouping, partial-invoice matching, and bulk approve/reject for 100+ invoices at a time.
+
+<FigmaEmbed
+  url="https://www.figma.com/proto/NDJRVkDh2AOYABXNlBqAjl/%E2%9C%85GSTR-3B-Final?node-id=14620-213455&viewport=614%2C518%2C1&t=juC53LtApsg462kF-1&scaling=min-zoom&content-scaling=fixed&page-id=14620%3A208445&starting-point-node-id=14620%3A213455"
+  title="Reconciliation engine prototype"
+  caption="Reconciliation engine prototype — GSTR-2B vs Purchase Register split-view with vendor grouping and bulk actions."
+  poster="/cs/gstr-v2-poster-recon.jpg"
+/>
+
+<ActivityTags items={["Interaction design", "Edge-case mapping", "Engineering pairing", "Usability testing"]} />
+
+## We launched. The numbers came back fast.
+
+Clear GST 2.0 shipped in early 2023. Adoption jumped from 18% to 42%. Filing time dropped from over an hour to under ten minutes. Revenue moved from ₹60Cr to ₹100Cr. The team celebrated.
+
+I wasn't comfortable.
+
+<MetricTable metrics={[
+  { value: "18% → 42%", label: "GSTR-3B Adoption · launch month" },
+  { value: "1hr → <10min", label: "Filing Time per GSTIN" },
+  { value: "₹60Cr → ₹100Cr", label: "Revenue · Clear GST" },
+  { value: "2.7 → 2.4", label: "CSM Tickets / Customer / Month" }
+]} />
+
+<ActivityTags items={["Launch coordination", "Adoption tracking", "CSM enablement", "Monthly retros"]} />
+
+<PhaseDivider label="Phase 2" title="Post-Launch · The Twist & The Fix" />
+
+## Adoption ≠ Proficiency
+
+Three months in, I went back into the field. Not surveys, not analytics — actual shadowing. I watched customers file. I asked one question: *"How would you solve this without the platform?"*
+
+The answers broke the launch narrative open. CSMs, under pressure to hit adoption targets, were doing tasks *for* users to mark them as "active." People were filing — but they weren't getting better at the platform. They were getting handheld through the same blockers every month, and reverting to Excel the moment the CSM left the call. The dashboards weren't lying. They just weren't measuring the right thing.
+
+<FunnelChart
+  caption="Three-month post-launch funnel — adoption looked healthy on dashboards, but only 11% finished in-platform; 89% reverted to Excel mid-flow."
+  stages={[
+    { label: "Started filing",                value: 100 },
+    { label: "Completed Data Source step",    value: 53 },
+    { label: "Completed Table 4 in-platform", value: 11, note: "the drop — where the platform stopped being trusted" },
+    { label: "Opened Excel mid-flow",         value: 89, variant: "alert", note: "where users actually went" }
+  ]}
+/>
+
+The platform was being used. It wasn't being trusted.
+
+<ActivityTags items={["User shadowing", "Funnel analysis", "Open-ended interviews", "Stakeholder reframing"]} />
+
+## The first fix was contextual, not feature-driven
+
+The standalone Data Source setup page felt like a gatekeeper, not a workflow enabler. We embedded the controls directly into the GSTR-3B form, adjustable while reviewing Table-4. Same controls, different context. Drop-off went from 47% to near-zero.
+
+<FigmaEmbed
+  url="https://www.figma.com/proto/NDJRVkDh2AOYABXNlBqAjl/%E2%9C%85GSTR-3B-Final?node-id=14620-247909&viewport=1406%2C487%2C0.17&t=uba73mn46eqaA4gJ-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=14620%3A248333&page-id=14620%3A242574"
+  title="Inline data-source controls prototype"
+  caption="Data-source controls moved inline — from a blocking modal step into a contextual switch within the dashboard."
+  poster="/cs/gstr-v2-poster-datasource.jpg"
+/>
+
+> *"Finally, I can adjust sources right where I need them."*
+> — Deepak, MSME Owner
+
+<ActivityTags items={["Iterative design", "Inline pattern design", "A/B validation", "Adoption metrics"]} />
+
+## The black box became glass
+
+Reconciliation decisions used to feel like inputs into a void. Users couldn't see how a single accept or reject changed their ITC computation, so they didn't trust the auto-fills and rebuilt everything in Excel. We added a live Table-4 preview that updated in real time as users worked through the recon — every decision, immediately visible in the cell it affected.
+
+<FigmaEmbed
+  url="https://www.figma.com/proto/NDJRVkDh2AOYABXNlBqAjl/%E2%9C%85GSTR-3B-Final?node-id=14647-211218&viewport=761%2C254%2C0.35&t=RPvfKTUTDQvYOIOR-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=14647%3A211218&page-id=14620%3A258600"
+  title="Table-4 live preview prototype"
+  caption="Table 4 live preview — every reconciliation action updates ITC in real time, so users see why a number moved before they accept it."
+  poster="/cs/gstr-v2-poster-table4.jpg"
+/>
+
+> *"The live previews made Table-4 feel less like a mystery."*
+> — Meera, Tax Consultant
+
+<ActivityTags items={["Live state design", "Edge-case mapping", "Engineering pairing", "Trust-pattern research"]} />
+
+## Excel finally became optional
+
+We added native filtering, grouping, sub-grouping, and bulk actions on the recon table. The pivot table workflow finally lived inside the product. Filing time per GSTIN batch dropped from 30 minutes to 2 minutes, and the Excel revert rate fell off the funnel entirely.
+
+<FigmaEmbed
+  url="https://www.figma.com/proto/NDJRVkDh2AOYABXNlBqAjl/%E2%9C%85GSTR-3B-Final?node-id=14663-209708&viewport=216%2C-109%2C0.31&t=nhbnnrBCbzvy8LZa-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=14663%3A209708&page-id=14647%3A329277"
+  title="Native grouping and bulk actions prototype"
+  caption="Native grouping and bulk actions inside the platform — the work users used to do in Excel pivot tables, finally redundant."
+  poster="/cs/gstr-v2-poster-grouping.jpg"
+/>
+
+<ActivityTags items={["Table interaction design", "Bulk-action patterns", "Engineering pairing", "Power-user testing"]} />
+
+## Results & Impact
+
+Three phases. The third one is the one that counts.
+
+<MetricGrid metrics={[
+  { value: "87%", label: "Filing Time Reduced" },
+  { value: "53%", label: "GSTR-3B Adoption" },
+  { value: "94%", label: "Reconciliation Accuracy" },
+  { value: "73%", label: "Escalations Reduced" }
+]} />
+
+| Metric | Clear GST 1.0 | 2.0 Launch | 2.0 Post-Iteration |
+|---|---|---|---|
+| GSTR-3B adoption | 18% | 42% | **53%** |
+| Filing time per GSTIN | 1 hour | < 10 min | **< 8 min** |
+| GSTINs per customer | 4–5 | 12–15 | **12–15** |
+| Reconciliation accuracy | 80% | 80–92% | **94%** |
+| CSM escalations / week | 92 | 80 | **25** |
+
+The launch column looks good. The post-iteration column is what made the product real.
+
+## Key Learning
+
+**Adoption ≠ Proficiency.** Senior designers don't get hired for shipping v1. They get hired for what they do after v1 ships and the dashboards lie to them. The metrics that mattered weren't visible until I stopped trusting the metrics. Field shadowing — three months after launch — caught what every dashboard, every CSM call, and every retro had missed. That moment is the case study. Everything else is execution around it.

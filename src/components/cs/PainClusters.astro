@@ -1,0 +1,156 @@
+---
+interface Cluster {
+  label: string;
+  stat: string;
+  gap: string;
+}
+interface Props {
+  clusters: Cluster[];
+  caption?: string;
+}
+
+const { clusters, caption } = Astro.props;
+---
+
+<div class="pain-clusters" data-cs-section>
+  <div class="pain-clusters__grid">
+    {clusters.map((c) => (
+      <div class="pain-clusters__card">
+        <span class="pain-clusters__label">{c.label}</span>
+        <span class="pain-clusters__stat">{c.stat}</span>
+        <p class="pain-clusters__gap">{c.gap}</p>
+      </div>
+    ))}
+  </div>
+  {caption && <p class="pain-clusters__caption">{caption}</p>}
+</div>
+
+<style>
+  .pain-clusters {
+    margin: 48px 0;
+    padding: 40px 0 8px;
+    border-top: 1px solid var(--border);
+  }
+  .pain-clusters__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .pain-clusters__card {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 26px 22px 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition:
+      transform 0.25s ease,
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+  /* Thin accent stripe along the top edge */
+  .pain-clusters__card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      var(--accent),
+      color-mix(in srgb, var(--accent) 30%, transparent)
+    );
+  }
+  /* Soft accent glow that fades in on hover */
+  .pain-clusters__card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      80% 80% at 50% 0%,
+      color-mix(in srgb, var(--accent) 8%, transparent),
+      transparent 65%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+    pointer-events: none;
+  }
+  .pain-clusters__card:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--accent) 32%, var(--border));
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.18);
+  }
+  .pain-clusters__card:hover::after {
+    opacity: 1;
+  }
+
+  .pain-clusters__label {
+    display: inline-flex;
+    align-self: flex-start;
+    font-family: var(--font-body);
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--text-muted);
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--text) 6%, transparent);
+  }
+
+  .pain-clusters__stat {
+    font-family: var(--font-body);
+    font-size: 44px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    color: var(--accent);
+    font-feature-settings: "tnum" 1;
+    margin-top: 2px;
+  }
+
+  .pain-clusters .pain-clusters__gap {
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-subtle);
+    margin: 4px 0 0;
+  }
+
+  .pain-clusters__caption {
+    font-family: var(--font-body);
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-muted);
+    margin: 24px 0 0;
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+
+  @media (max-width: 768px) {
+    .pain-clusters {
+      margin: 32px 0;
+      padding: 28px 0 4px;
+    }
+    .pain-clusters__grid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .pain-clusters__card {
+      padding: 22px 20px 20px;
+      border-radius: 12px;
+    }
+    .pain-clusters__stat {
+      font-size: 36px;
+    }
+    .pain-clusters .pain-clusters__gap {
+      font-size: 13.5px;
+    }
+  }
+</style>

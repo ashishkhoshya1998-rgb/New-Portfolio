@@ -99,12 +99,13 @@ const rows = metrics.map((m) => ({ label: m.label, ...parseValue(m.value) }));
     text-align: right;
     padding: 16px 0;
     vertical-align: middle;
-    font-family: var(--font-display);
+    font-family: var(--font-body);
     line-height: 1;
     border-bottom: none;
     color: inherit;
     white-space: nowrap;
     font-weight: 400;
+    font-feature-settings: "tnum" 1;
   }
 
   /* Transformation: before → after */

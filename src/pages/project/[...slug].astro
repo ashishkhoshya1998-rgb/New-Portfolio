@@ -7,18 +7,22 @@ import { getCollection, render } from 'astro:content';
 import { decks } from '../../data/decks';
 
 export async function getStaticPaths() {
-  const projects = await getCollection('projects');
+  // Filter out drafts so versioned-out case studies don't generate routes.
+  const projects = await getCollection('projects', ({ data }) => !data.draft);
   return projects.map((project) => ({
-    params: { slug: project.id },
+    // Honor the optional `urlSlug` override so a new version can claim an old URL.
+    params: { slug: project.data.urlSlug ?? project.id },
     props: { project },
   }));
 }
 
 const { project } = Astro.props;
 const { Content } = await render(project);
-const { title, subtitle, description, role, services, year, accentColor, coverImage, nextProject, parentProject } = project.data;
+const { title, subtitle, description, role, services, year, accentColor, coverImage, nextProject, parentProject, customHero } = project.data;
 const isLocked = Astro.url.pathname.includes('memoir');
 const hasDeck = !!decks[project.id];
+// Skip the layout's default hero when the MDX renders its own (frontmatter flag).
+const useCustomHero = !!customHero;
 ---
 
 <Layout title={`${title} — Ashish Khoshya`} description={description}>
@@ -66,56 +70,58 @@ const hasDeck = !!decks[project.id];
       </div>
     )}
 
-    <!-- Hero — full viewport with morphing cover image -->
-    <section class="cs__hero" data-cs-hero>
-      {coverImage && (
-        <>
-          {typeof coverImage === 'string' ? (
-            <img
-              src={coverImage}
-              alt=""
-              class="cs__hero-cover"
-              aria-hidden="true"
-            />
-          ) : (
-            <Image
-              src={coverImage}
-              alt=""
-              class="cs__hero-cover"
-              aria-hidden="true"
-              format="avif"
-              quality={80}
-              widths={[640, 960, 1280, 1920]}
-              sizes="100vw"
-            />
-          )}
-          <div class="cs__hero-cover-gradient" />
-        </>
-      )}
-      <div class="cs__hero-overlay">
-        <div class="cs__hero-left">
-          <h1 class="cs__hero-title">{title}</h1>
-          <p class="cs__hero-subtitle">{subtitle}</p>
+    {!useCustomHero && (
+      <!-- Hero — full viewport with morphing cover image -->
+      <section class="cs__hero" data-cs-hero>
+        {coverImage && (
+          <>
+            {typeof coverImage === 'string' ? (
+              <img
+                src={coverImage}
+                alt=""
+                class="cs__hero-cover"
+                aria-hidden="true"
+              />
+            ) : (
+              <Image
+                src={coverImage}
+                alt=""
+                class="cs__hero-cover"
+                aria-hidden="true"
+                format="avif"
+                quality={80}
+                widths={[640, 960, 1280, 1920]}
+                sizes="100vw"
+              />
+            )}
+            <div class="cs__hero-cover-gradient" />
+          </>
+        )}
+        <div class="cs__hero-overlay">
+          <div class="cs__hero-left">
+            <h1 class="cs__hero-title">{title}</h1>
+            <p class="cs__hero-subtitle">{subtitle}</p>
+          </div>
+          <div class="cs__hero-right">
+            <div class="cs__hero-meta-item">
+              <span class="cs__hero-meta-label">Role</span>
+              <span class="cs__hero-meta-value">{role}</span>
+            </div>
+            <div class="cs__hero-meta-divider" />
+            <div class="cs__hero-meta-item">
+              <span class="cs__hero-meta-label">Services</span>
+              <span class="cs__hero-meta-value">{services.join(' · ')}</span>
+            </div>
+            <div class="cs__hero-meta-divider" />
+            <div class="cs__hero-meta-item">
+              <span class="cs__hero-meta-label">Year</span>
+              <span class="cs__hero-meta-value">{year}</span>
+            </div>
+          </div>
         </div>
-        <div class="cs__hero-right">
-          <div class="cs__hero-meta-item">
-            <span class="cs__hero-meta-label">Role</span>
-            <span class="cs__hero-meta-value">{role}</span>
-          </div>
-          <div class="cs__hero-meta-divider" />
-          <div class="cs__hero-meta-item">
-            <span class="cs__hero-meta-label">Services</span>
-            <span class="cs__hero-meta-value">{services.join(' · ')}</span>
-          </div>
-          <div class="cs__hero-meta-divider" />
-          <div class="cs__hero-meta-item">
-            <span class="cs__hero-meta-label">Year</span>
-            <span class="cs__hero-meta-value">{year}</span>
-          </div>
-        </div>
-      </div>
-      <div class="cs__hero-scroll-hint">Scroll down</div>
-    </section>
+        <div class="cs__hero-scroll-hint">Scroll down</div>
+      </section>
+    )}
 
     {hasDeck && (
       <div class="cs__deck-prompt content-wrap">
@@ -136,14 +142,16 @@ const hasDeck = !!decks[project.id];
 
     <!-- MDX Body with section nav + share sidebar -->
     <div class="cs__content-layout">
-      <nav class="cs__section-nav" aria-label="Case study sections" id="cs-section-nav">
-        <span class="cs__section-nav-title">Summary</span>
-        <div class="cs__section-nav-items">
-          <span class="cs__section-nav-highlight"></span>
-          <!-- Populated by JS from h2 headings -->
-        </div>
-      </nav>
-      <article class="content-wrap cs__body">
+      {!useCustomHero && (
+        <nav class="cs__section-nav" aria-label="Case study sections" id="cs-section-nav">
+          <span class="cs__section-nav-title">Summary</span>
+          <div class="cs__section-nav-items">
+            <span class="cs__section-nav-highlight"></span>
+            <!-- Populated by JS from h2 headings -->
+          </div>
+        </nav>
+      )}
+      <article class={`content-wrap cs__body${useCustomHero ? ' cs__body--editorial' : ''}`}>
         <Content />
       </article>
     </div>
@@ -696,11 +704,12 @@ const hasDeck = !!decks[project.id];
 
   /* h2 */
   .cs__body :global(h2) {
-    font-family: var(--font-display);
-    font-size: 36px;
-    font-weight: 700;
+    font-family: var(--font-body);
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.4px;
     color: var(--text);
-    line-height: 1.2;
+    line-height: 1.25;
     margin-top: 64px;
     margin-bottom: 24px;
   }
@@ -711,9 +720,10 @@ const hasDeck = !!decks[project.id];
 
   /* h3 */
   .cs__body :global(h3) {
-    font-family: var(--font-display);
-    font-size: 24px;
-    font-weight: 700;
+    font-family: var(--font-body);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
     color: var(--text);
     margin-top: 48px;
     margin-bottom: 16px;
@@ -747,8 +757,8 @@ const hasDeck = !!decks[project.id];
     margin-bottom: 0;
   }
 
-  /* img — full-bleed breakout (skip ImageRow images) */
-  .cs__body :global(img:not(.image-row__img)) {
+  /* img — full-bleed breakout for body images (skip ImageRow + figma-embed posters) */
+  .cs__body :global(p img:not(.image-row__img)) {
     width: calc(100% + 200px);
     max-width: none;
     margin-left: -100px;
@@ -786,6 +796,158 @@ const hasDeck = !!decks[project.id];
     font-weight: 600;
   }
 
+  /* ─────────────────────────────────────
+     Editorial body overrides — only for case studies
+     using <HeroDesktop> + the editorial layout.
+     Tighter reading measure, stronger hierarchy,
+     inline stat emphasis, more breathing room
+     between narrative beats.
+     ───────────────────────────────────── */
+  .cs__body--editorial {
+    /* Single shared measure for body / headings / quotes / media / components */
+    --editorial-measure: 720px;
+    max-width: 1280px;
+    padding-top: 0;
+    padding-bottom: 100px;
+  }
+
+  .cs__body--editorial :global(p),
+  .cs__body--editorial :global(ul),
+  .cs__body--editorial :global(ol) {
+    max-width: var(--editorial-measure);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cs__body--editorial :global(p) {
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--text-subtle);
+    margin-bottom: 1.25rem;
+  }
+
+  .cs__body--editorial :global(h2) {
+    max-width: var(--editorial-measure);
+    margin-left: auto;
+    margin-right: auto;
+    font-size: clamp(26px, 3vw, 36px);
+    margin-top: 88px;
+    margin-bottom: 28px;
+  }
+
+  .cs__body--editorial :global(h3) {
+    max-width: var(--editorial-measure);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    margin-bottom: 14px;
+  }
+
+  /* Lead paragraph — first <p> after each <h2> reads larger */
+  .cs__body--editorial :global(h2 + p) {
+    font-size: 19px;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+
+  /* Inline stat emphasis — <strong> in editorial context lights up in accent */
+  .cs__body--editorial :global(p strong),
+  .cs__body--editorial :global(li strong) {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* Pull quotes get more breathing room and a centered measure */
+  .cs__body--editorial :global(blockquote) {
+    max-width: var(--editorial-measure);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 48px;
+    margin-bottom: 48px;
+    padding: 28px 32px;
+  }
+
+  .cs__body--editorial :global(blockquote p) {
+    font-size: 19px;
+    line-height: 1.6;
+  }
+
+  /* Body images (markdown-wrapped in <p>) — span the editorial measure.
+     Scoped to `p img` so the hero image inside .browser-frame is unaffected. */
+  .cs__body--editorial :global(p img:not(.image-row__img)) {
+    max-width: var(--editorial-measure);
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 56px;
+    margin-bottom: 56px;
+  }
+
+  /* Section components — span the editorial measure */
+  .cs__body--editorial :global(.phase-divider),
+  .cs__body--editorial :global(.metric-grid),
+  .cs__body--editorial :global(.metric-table),
+  .cs__body--editorial :global(.activity-tags),
+  .cs__body--editorial :global(.pain-clusters),
+  .cs__body--editorial :global(.funnel-chart) {
+    max-width: var(--editorial-measure);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Figma prototypes get the hero frame width — interactive content needs the room */
+  .cs__body--editorial :global(.figma-embed) {
+    max-width: 1072px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cs__body--editorial :global(.phase-divider) {
+    max-width: 100%;
+    margin-top: 96px;
+    margin-bottom: 64px;
+  }
+
+  /* Comparison table — match the editorial measure for consistent left-right alignment */
+  .cs__body--editorial :global(.table-wrap) {
+    max-width: var(--editorial-measure);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (max-width: 768px) {
+    .cs__body--editorial {
+      padding-bottom: 64px;
+    }
+    .cs__body--editorial :global(h2) {
+      margin-top: 56px;
+      margin-bottom: 20px;
+    }
+    .cs__body--editorial :global(h2 + p) {
+      font-size: 16px;
+    }
+    .cs__body--editorial :global(p) {
+      font-size: 15px;
+    }
+    .cs__body--editorial :global(blockquote) {
+      margin-top: 32px;
+      margin-bottom: 32px;
+      padding: 20px 22px;
+    }
+    .cs__body--editorial :global(blockquote p) {
+      font-size: 16px;
+    }
+    .cs__body--editorial :global(img:not(.image-row__img)) {
+      margin-top: 32px;
+      margin-bottom: 32px;
+    }
+    .cs__body--editorial :global(.phase-divider) {
+      margin-top: 64px;
+      margin-bottom: 40px;
+    }
+  }
+
   /* ul/ol */
   .cs__body :global(ul),
   .cs__body :global(ol) {
@@ -805,7 +967,7 @@ const hasDeck = !!decks[project.id];
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    margin: 40px 0;
+    margin: 40px auto;
     border-radius: var(--radius-lg);
     border: 1px solid var(--border);
     background: var(--card-bg);
@@ -831,12 +993,14 @@ const hasDeck = !!decks[project.id];
     letter-spacing: 1.5px;
     color: var(--text);
     padding: 14px 16px;
-    text-align: left;
+    text-align: right;
     border-bottom: 1px solid var(--border);
+    font-feature-settings: "tnum" 1;
   }
 
   .cs__body :global(th:first-child) {
     color: var(--text-muted);
+    text-align: left;
   }
 
   .cs__body :global(td) {
@@ -845,6 +1009,9 @@ const hasDeck = !!decks[project.id];
     padding: 12px 16px;
     border-bottom: 1px solid var(--border);
     white-space: nowrap;
+    text-align: right;
+    font-feature-settings: "tnum" 1;
+    font-variant-numeric: tabular-nums;
   }
 
   .cs__body :global(tr:last-child td) {
@@ -855,6 +1022,7 @@ const hasDeck = !!decks[project.id];
     font-weight: 500;
     color: var(--text-subtle);
     white-space: normal;
+    text-align: left;
   }
 
   .cs__body :global(td:last-child) {
@@ -1017,9 +1185,9 @@ const hasDeck = !!decks[project.id];
     }
 
     .cs__body :global(img.cs-portrait) {
-      width: 160px;
-      max-width: 60%;
-      border-radius: 12px;
+      width: 100%;
+      max-width: 100%;
+      border-radius: 8px;
     }
 
     .cs__body :global(.table-wrap) {
@@ -1468,6 +1636,8 @@ const hasDeck = !!decks[project.id];
     });
 
     mediaElements.forEach((el) => {
+      // Skip Figma embed posters — they have their own click-to-load handler
+      if (el.closest('.figma-embed')) return;
       el.addEventListener('click', (e) => {
         e.stopPropagation();
 
