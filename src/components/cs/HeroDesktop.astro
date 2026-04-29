@@ -1,4 +1,8 @@
 ---
+interface Metric {
+  value: string;
+  label: string;
+}
 interface Props {
   company: string;
   headline: string;
@@ -11,12 +15,14 @@ interface Props {
   deliverables: string[];
   coverImage: string;
   coverAlt: string;
+  /** Optional impact strip — small metric pills shown between problem and visual. */
+  metrics?: Metric[];
 }
 
 const {
   company, headline, accent, problem,
   role, year, duration, team, deliverables,
-  coverImage, coverAlt
+  coverImage, coverAlt, metrics
 } = Astro.props;
 
 const accentIndex = headline.indexOf(accent);
@@ -40,6 +46,18 @@ const headlineAfter = accentIndex >= 0 ? headline.slice(accentIndex + accent.len
       </h1>
       <p class="hero-v2__problem">{problem}</p>
     </div>
+
+    {/* Optional impact strip — small metric callouts between problem and visual */}
+    {metrics && metrics.length > 0 && (
+      <ul class="hero-v2__metrics" aria-label="Project impact">
+        {metrics.map((m) => (
+          <li class="hero-v2__metric">
+            <span class="hero-v2__metric-value">{m.value}</span>
+            <span class="hero-v2__metric-label">{m.label}</span>
+          </li>
+        ))}
+      </ul>
+    )}
 
     {/* Hero visual — full-width browser frame */}
     <div class="hero-v2__visual" aria-hidden="false">
@@ -157,6 +175,44 @@ const headlineAfter = accentIndex >= 0 ? headline.slice(accentIndex + accent.len
     margin: 0;
   }
 
+  /* ── Impact strip — optional metrics row above the visual ── */
+  .hero-v2 .hero-v2__metrics {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 1072px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: clamp(0.75rem, 1.5vw, 1.5rem);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: clamp(1.25rem, 2.2vw, 1.75rem) 0;
+  }
+  .hero-v2__metric {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0 clamp(0.5rem, 1vw, 0.75rem);
+  }
+  .hero-v2__metric-value {
+    font-family: var(--font-body);
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+    font-feature-settings: "tnum" 1;
+  }
+  .hero-v2__metric-label {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
   /* ── Hero visual — full-width browser frame ── */
   .hero-v2__visual {
     position: relative;
@@ -216,16 +272,14 @@ const headlineAfter = accentIndex >= 0 ? headline.slice(accentIndex + accent.len
     margin-left: 0.5rem;
   }
   .browser-frame__screen {
-    aspect-ratio: 1366 / 768;
+    /* Frame height hugs the image's natural height — no fixed aspect, no crop */
     overflow: hidden;
     display: block;
     line-height: 0;
   }
   .hero-v2 .browser-frame__screen img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
+    height: auto;
     display: block;
     margin: 0;
     border-radius: 0;
@@ -300,6 +354,14 @@ const headlineAfter = accentIndex >= 0 ? headline.slice(accentIndex + accent.len
     .hero-v2__problem {
       font-size: 0.9375rem;
       line-height: 1.6;
+    }
+    .hero-v2 .hero-v2__metrics {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem 1.25rem;
+      padding: 1rem 0;
+    }
+    .hero-v2__metric-value {
+      font-size: 1.5rem;
     }
     .hero-v2__meta {
       grid-template-columns: 1fr 1fr;

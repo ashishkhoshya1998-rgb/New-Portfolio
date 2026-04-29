@@ -1,0 +1,258 @@
+---
+interface Mechanism {
+  label: string;
+  outcome: string;
+}
+interface Props {
+  mechanisms: [Mechanism, Mechanism, Mechanism, Mechanism];
+  centerStat?: string;
+  centerLabel?: string;
+  caption?: string;
+}
+
+const {
+  mechanisms,
+  centerStat = "100%",
+  centerLabel = "adoption in 6 weeks",
+  caption,
+} = Astro.props;
+---
+
+<figure class="flywheel" data-cs-section>
+  <div class="flywheel__stage">
+    <div class="flywheel__node flywheel__node--n">
+      <span class="flywheel__num">01</span>
+      <span class="flywheel__label">{mechanisms[0].label}</span>
+      <span class="flywheel__outcome">{mechanisms[0].outcome}</span>
+    </div>
+    <div class="flywheel__node flywheel__node--e">
+      <span class="flywheel__num">02</span>
+      <span class="flywheel__label">{mechanisms[1].label}</span>
+      <span class="flywheel__outcome">{mechanisms[1].outcome}</span>
+    </div>
+    <div class="flywheel__node flywheel__node--s">
+      <span class="flywheel__num">03</span>
+      <span class="flywheel__label">{mechanisms[2].label}</span>
+      <span class="flywheel__outcome">{mechanisms[2].outcome}</span>
+    </div>
+    <div class="flywheel__node flywheel__node--w">
+      <span class="flywheel__num">04</span>
+      <span class="flywheel__label">{mechanisms[3].label}</span>
+      <span class="flywheel__outcome">{mechanisms[3].outcome}</span>
+    </div>
+
+    <svg class="flywheel__svg" viewBox="0 0 480 480" aria-hidden="true">
+      <defs>
+        <marker id="fly-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0,0 L10,5 L0,10 z" fill="currentColor" />
+        </marker>
+      </defs>
+      <g class="flywheel__arrows" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round">
+        <path d="M 290,90 A 160,160 0 0 1 390,200" marker-end="url(#fly-arrow)" />
+        <path d="M 390,290 A 160,160 0 0 1 290,390" marker-end="url(#fly-arrow)" />
+        <path d="M 200,390 A 160,160 0 0 1 90,290" marker-end="url(#fly-arrow)" />
+        <path d="M 90,200 A 160,160 0 0 1 200,90" marker-end="url(#fly-arrow)" />
+      </g>
+    </svg>
+
+    <div class="flywheel__center">
+      <span class="flywheel__center-stat">{centerStat}</span>
+      <span class="flywheel__center-label">{centerLabel}</span>
+    </div>
+  </div>
+
+  {caption && <figcaption class="flywheel__caption">{caption}</figcaption>}
+</figure>
+
+<style>
+  .flywheel {
+    margin: 56px auto;
+    padding: 0;
+  }
+  .flywheel__stage {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+  }
+
+  .flywheel__svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    color: color-mix(in srgb, var(--accent) 60%, var(--text-muted));
+    pointer-events: none;
+  }
+
+  /* ── Center disk ──────────────────────────────────────────── */
+  .flywheel__center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 28%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 50% 35%,
+      color-mix(in srgb, var(--accent) 22%, var(--card-bg)),
+      var(--card-bg) 70%
+    );
+    border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+    box-shadow:
+      0 0 0 6px color-mix(in srgb, var(--accent) 6%, transparent),
+      0 12px 40px color-mix(in srgb, var(--accent) 12%, var(--shadow-heavy));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6px;
+    z-index: 2;
+  }
+  .flywheel__center-stat {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 4.5vw, 34px);
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.05;
+  }
+  .flywheel__center-label {
+    font-family: var(--font-body);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 6px;
+    line-height: 1.3;
+  }
+
+  /* ── Nodes (cards) ────────────────────────────────────────── */
+  .flywheel__node {
+    position: absolute;
+    width: 30%;
+    min-height: 120px;
+    padding: 16px 18px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    box-shadow: 0 4px 16px var(--shadow-soft);
+    z-index: 3;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .flywheel__node::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      var(--accent),
+      color-mix(in srgb, var(--accent) 25%, transparent)
+    );
+    border-radius: 14px 14px 0 0;
+  }
+  .flywheel__node:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+    box-shadow: 0 8px 26px color-mix(in srgb, var(--accent) 15%, var(--shadow-heavy));
+  }
+
+  .flywheel__node--n {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .flywheel__node--e {
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+  }
+  .flywheel__node--s {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .flywheel__node--w {
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+
+  .flywheel__node--n:hover {
+    transform: translate(-50%, -2px);
+  }
+  .flywheel__node--s:hover {
+    transform: translate(-50%, -2px);
+  }
+  .flywheel__node--e:hover {
+    transform: translate(0, calc(-50% - 2px));
+  }
+  .flywheel__node--w:hover {
+    transform: translate(0, calc(-50% - 2px));
+  }
+
+  .flywheel__num {
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+  }
+  .flywheel__label {
+    font-family: var(--font-display);
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .flywheel__outcome {
+    font-family: var(--font-body);
+    font-size: 12.5px;
+    font-style: italic;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+
+  .flywheel__caption {
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    font-style: italic;
+    color: var(--text-muted);
+    line-height: 1.55;
+    text-align: center;
+    margin: 24px auto 0;
+    max-width: 600px;
+  }
+
+  /* ── Tablet ───────────────────────────────────────────────── */
+  @media (max-width: 720px) {
+    .flywheel__stage {
+      aspect-ratio: auto;
+      max-width: 100%;
+    }
+    .flywheel__svg,
+    .flywheel__center {
+      display: none;
+    }
+    .flywheel__node {
+      position: static;
+      width: 100%;
+      transform: none !important;
+      min-height: 0;
+    }
+    .flywheel__stage {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+  }
+</style>

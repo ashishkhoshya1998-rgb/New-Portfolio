@@ -873,10 +873,10 @@ const useCustomHero = !!customHero;
     line-height: 1.6;
   }
 
-  /* Body images (markdown-wrapped in <p>) — span the editorial measure.
+  /* Body images (markdown-wrapped in <p>) — share the hero frame width with video / GIF / Figma.
      Scoped to `p img` so the hero image inside .browser-frame is unaffected. */
   .cs__body--editorial :global(p img:not(.image-row__img)) {
-    max-width: var(--editorial-measure);
+    max-width: 1072px;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -890,17 +890,45 @@ const useCustomHero = !!customHero;
   .cs__body--editorial :global(.metric-table),
   .cs__body--editorial :global(.activity-tags),
   .cs__body--editorial :global(.pain-clusters),
-  .cs__body--editorial :global(.funnel-chart) {
+  .cs__body--editorial :global(.funnel-chart),
+  .cs__body--editorial :global(.dup-components) {
     max-width: var(--editorial-measure);
     margin-left: auto;
     margin-right: auto;
   }
 
-  /* Figma prototypes get the hero frame width — interactive content needs the room */
-  .cs__body--editorial :global(.figma-embed) {
+  /* Figma prototypes, video, and GIFs share the hero frame width — motion / interactive media all align */
+  .cs__body--editorial :global(.figma-embed),
+  .cs__body--editorial :global(video),
+  .cs__body--editorial :global(p img[src$=".gif"]) {
     max-width: 1072px;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  /* Widen the wrapping <p> when it hosts an image, so the image isn't capped by the editorial measure */
+  .cs__body--editorial :global(p:has(> img:not(.image-row__img))) {
+    max-width: 1072px;
+  }
+
+  /* Reset the base full-bleed video override inside editorial */
+  .cs__body--editorial :global(video) {
+    margin-top: 56px;
+    margin-bottom: 56px;
+  }
+
+  /* Media captions — sit directly under an image / GIF / video, narrower than the media for readability */
+  .cs__body--editorial :global(.media-caption) {
+    max-width: var(--editorial-measure);
+    margin: -40px auto 56px;
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--text-muted);
+    text-align: center;
+    letter-spacing: 0.01em;
   }
 
   .cs__body--editorial :global(.phase-divider) {
