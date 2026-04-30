@@ -51,6 +51,8 @@ const embedUrl = (() => {
         class="figma-embed__poster"
         data-figma-embed-url={embedUrl}
         data-figma-embed-title={title}
+        data-cursor="expand"
+        data-cursor-label="View full flow"
         aria-label={`Load prototype: ${title}`}
       >
         <img src={poster} alt="" class="figma-embed__poster-img" loading="lazy" />
@@ -209,10 +211,19 @@ const embedUrl = (() => {
     text-transform: uppercase;
     line-height: 1;
   }
-  .figma-embed__poster:hover .figma-embed__overlay,
   .figma-embed__poster:focus-visible .figma-embed__overlay {
     transform: translateX(-50%) translateY(-2px);
     box-shadow: 0 10px 22px rgba(0, 0, 0, 0.34);
+  }
+  /* On pointer hover, the custom cursor takes over the "View full flow" affordance */
+  @media (hover: hover) {
+    .figma-embed__poster:hover .figma-embed__overlay {
+      opacity: 0;
+      transform: translateX(-50%) translateY(4px);
+    }
+    .figma-embed__overlay {
+      transition: transform 0.25s ease, box-shadow 0.2s ease, opacity 0.25s ease;
+    }
   }
   .figma-embed__poster:focus-visible {
     outline: 2px solid var(--accent);

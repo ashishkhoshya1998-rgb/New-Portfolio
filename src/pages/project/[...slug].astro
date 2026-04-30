@@ -918,6 +918,22 @@ const useCustomHero = !!customHero;
     margin-bottom: 56px;
   }
 
+  /* Elevation — shared with FigmaEmbed so all body media (img / GIF / video / Figma) read as the same surface */
+  .cs__body--editorial :global(p img:not(.image-row__img)),
+  .cs__body--editorial :global(video) {
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.04) inset,
+      0 12px 28px rgba(0, 0, 0, 0.12),
+      0 4px 10px rgba(0, 0, 0, 0.08);
+  }
+  :global([data-theme='dark']) .cs__body--editorial :global(p img:not(.image-row__img)),
+  :global([data-theme='dark']) .cs__body--editorial :global(video) {
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.06) inset,
+      0 16px 36px rgba(255, 255, 255, 0.04),
+      0 4px 12px rgba(255, 255, 255, 0.03);
+  }
+
   /* Media captions — sit directly under an image / GIF / video, narrower than the media for readability */
   .cs__body--editorial :global(.media-caption) {
     max-width: var(--editorial-measure);
@@ -981,6 +997,15 @@ const useCustomHero = !!customHero;
   .cs__body :global(ol) {
     padding-left: 24px;
     margin-bottom: 24px;
+  }
+
+  .cs__body--editorial :global(ol) {
+    list-style: decimal outside;
+    padding-left: 28px;
+  }
+  .cs__body--editorial :global(ol li::marker) {
+    color: var(--accent);
+    font-weight: 600;
   }
 
   .cs__body :global(li) {

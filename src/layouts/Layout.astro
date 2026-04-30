@@ -451,8 +451,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         var node = el;
         for (var i = 0; i < 8; i++) {
           if (!node || !node.getAttribute) break;
+          var override = node.getAttribute('data-cursor-label');
+          if (override !== null) return override;
           var lbl = node.getAttribute('data-cursor');
-          if (lbl) return lbl;
+          if (lbl && lbl !== 'expand') return lbl;
           node = node.parentElement;
         }
         return '';

@@ -4,24 +4,36 @@ interface Props {
   title: string;
   description: string;
   href: string;
+  cta?: string;
+  /** When true, renders as a non-interactive card with "Coming soon" instead of a link. */
+  disabled?: boolean;
 }
 
-const { number, title, description, href } = Astro.props;
+const { number, title, description, href, cta = "Read case study", disabled = false } = Astro.props;
+const Tag = disabled ? 'div' : 'a';
+const ctaLabel = disabled ? 'Coming soon' : cta;
 ---
 
-<a href={href} class="vcard" data-cs-section>
+<Tag
+  href={disabled ? undefined : href}
+  class:list={["vcard", { "vcard--disabled": disabled }]}
+  aria-disabled={disabled ? "true" : undefined}
+  data-cs-section
+>
   <div class="vcard__top">
     <span class="vcard__num">{number}</span>
     <span class="vcard__title">{title}</span>
   </div>
   <span class="vcard__desc">{description}</span>
   <span class="vcard__cta">
-    Read case study
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
+    {ctaLabel}
+    {!disabled && (
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    )}
   </span>
-</a>
+</Tag>
 
 <style>
   .vcard {
@@ -38,10 +50,22 @@ const { number, title, description, href } = Astro.props;
     margin-bottom: 12px;
   }
 
-  .vcard:hover {
+  .vcard:not(.vcard--disabled):hover {
     background: var(--overlay-soft);
     border-color: var(--accent);
     transform: translateY(-2px);
+  }
+
+  .vcard--disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+  .vcard--disabled .vcard__cta {
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    opacity: 0.85;
   }
 
   .vcard__top {
