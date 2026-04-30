@@ -25,14 +25,22 @@ const {
   poster,
 } = Astro.props;
 
-// Rewrite figma.com URL to embed.figma.com, set embed-host, force a fit-to-width
-// scaling mode, and hide Figma's chrome (file-name bar etc.) for a clean embed.
+// Figma Make URLs (figma.com/make/...) cannot be iframed — Figma blocks the
+// embed with X-Frame-Options, so the iframe shows "refused to connect".
+// Detect them and treat as open-in-new-tab links instead.
+const isMake = /\/make\//.test(url);
+
+// Rewrite figma.com URL to embed.figma.com, set embed-host, fit the entire
+// prototype inside the iframe (contain — never clips), and hide Figma's chrome
+// (file-name bar etc.) for a clean embed. Only applies to /proto/ and /file/
+// URLs; Make URLs are handled separately above.
 const embedUrl = (() => {
+  if (isMake) return url;
   try {
     const u = new URL(url);
     u.hostname = "embed.figma.com";
     u.searchParams.set("embed-host", "share");
-    u.searchParams.set("scaling", "scale-down-width");
+    u.searchParams.set("scaling", "contain");
     u.searchParams.set("content-scaling", "fixed");
     u.searchParams.set("hide-ui", "1");
     u.searchParams.set("hotspot-hints", "0");
@@ -46,25 +54,59 @@ const embedUrl = (() => {
 <figure class="figma-embed" data-cs-section>
   <div class="figma-embed__frame" style={`aspect-ratio: ${aspectRatio};`}>
     {poster ? (
-      <button
-        type="button"
-        class="figma-embed__poster"
-        data-figma-embed-url={embedUrl}
-        data-figma-embed-title={title}
-        data-cursor="expand"
-        data-cursor-label="View full flow"
-        aria-label={`Load prototype: ${title}`}
-      >
-        <img src={poster} alt="" class="figma-embed__poster-img" loading="lazy" />
-        <span class="figma-embed__overlay" aria-hidden="true">
-          <span class="figma-embed__play">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="5 3 19 12 5 21 5 3" fill="currentColor" />
-            </svg>
+      isMake ? (
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="figma-embed__poster"
+          data-cursor="expand"
+          data-cursor-label="Open prototype"
+          aria-label={`Open prototype in Figma: ${title}`}
+        >
+          <img src={poster} alt="" class="figma-embed__poster-img" loading="lazy" />
+          <span class="figma-embed__overlay" aria-hidden="true">
+            <span class="figma-embed__play">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 3h7v7" />
+                <path d="M10 14L21 3" />
+                <path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5" />
+              </svg>
+            </span>
+            <span class="figma-embed__cta">Open in Figma</span>
           </span>
-          <span class="figma-embed__cta">View full flow</span>
-        </span>
-      </button>
+        </a>
+      ) : (
+        <button
+          type="button"
+          class="figma-embed__poster"
+          data-figma-embed-url={embedUrl}
+          data-figma-embed-title={title}
+          data-cursor="expand"
+          data-cursor-label="View full flow"
+          aria-label={`Load prototype: ${title}`}
+        >
+          <img src={poster} alt="" class="figma-embed__poster-img" loading="lazy" />
+          <span class="figma-embed__overlay" aria-hidden="true">
+            <span class="figma-embed__play">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3" fill="currentColor" />
+              </svg>
+            </span>
+            <span class="figma-embed__cta">View full flow</span>
+          </span>
+        </button>
+      )
+    ) : isMake ? (
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="figma-embed__make-link"
+      >
+        <span class="figma-embed__fallback-label">Open Figma Make prototype →</span>
+        <span class="figma-embed__fallback-hint">Make prototypes can't be embedded</span>
+      </a>
     ) : (
       <iframe
         src={embedUrl}
@@ -228,6 +270,25 @@ const embedUrl = (() => {
   .figma-embed__poster:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
+  }
+
+  /* Make-URL fallback (no poster): always-visible link card. Make prototypes
+     can't be iframed, so this stands in for the embed on every viewport. */
+  .figma-embed__make-link {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 24px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--text);
+    background:
+      radial-gradient(80% 80% at 50% 0%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 65%),
+      var(--card-bg);
   }
 
   /* Mobile fallback: hide the iframe, show a link card instead */
